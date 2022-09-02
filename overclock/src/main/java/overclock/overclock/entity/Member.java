@@ -4,8 +4,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import overclock.overclock.model.MemberRole;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,11 @@ public class Member extends BaseEntity{
     @Column(unique = true)
     private String phone;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MemberRole role;
+
     @Embedded
     private Address address;
 
@@ -40,12 +47,13 @@ public class Member extends BaseEntity{
 
     @Builder
     public Member(String email, String name, String password, String nickname,
-                  String phone, Address address) {
+                  String phone, Address address, MemberRole role) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.nickname = nickname;
         this.phone = phone;
         this.address = address;
+        this.role = role;
     }
 }

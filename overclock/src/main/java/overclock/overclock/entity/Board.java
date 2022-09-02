@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @ToString
 @Getter
+//아무런 값도 갖지 않는 의미 없는 객체의 생성 방지
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board extends BaseEntity{
 
