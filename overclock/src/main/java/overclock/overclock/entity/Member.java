@@ -1,9 +1,6 @@
 package overclock.overclock.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import overclock.overclock.model.MemberRole;
 
 import javax.persistence.*;
@@ -13,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity{
 
@@ -34,9 +32,7 @@ public class Member extends BaseEntity{
     @Column(unique = true)
     private String phone;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private MemberRole role;
 
     @Embedded

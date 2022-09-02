@@ -7,7 +7,7 @@ import overclock.overclock.entity.Member;
 import java.util.List;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, String> {
 
     Member findByEmail(String email);
 
