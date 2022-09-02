@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class Category extends BaseEntity{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private Long id;
 

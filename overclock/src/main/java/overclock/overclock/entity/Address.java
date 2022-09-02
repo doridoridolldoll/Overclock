@@ -12,6 +12,7 @@ public class Address extends BaseEntity{
     private String street; // 도로명
     private String zipcode; // 우편번호
 
+    // Embeddable 어노테이션 사용하면 protected
     protected Address() {
 
     }

@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 public class Delivery extends BaseEntity{
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "delivery_id")
     private Long id;
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)

@@ -26,7 +26,7 @@ public class Post extends BaseEntity{ //게시물
     private Member member;
 
     @Column(nullable = false)
-    private String title;//제목
+    private String title; //제목
 
     private int viewCount; //조회수
 
