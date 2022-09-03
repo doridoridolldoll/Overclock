@@ -19,18 +19,16 @@ public class MemberService {
     /**
      * 회원가입
      */
-    @Transactional //변경
+    @Transactional
     public Long join(Member member) {
 
         memberRepository.save(member);
         return member.getId();
     }
 
-
     /**
      * 전체 회원 조회
      */
-
     public List<Member> findMember() {
         return memberRepository.findAll();
     }

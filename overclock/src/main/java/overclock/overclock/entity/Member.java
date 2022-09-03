@@ -31,24 +31,25 @@ public class Member extends BaseEntity{
 
     private String phone;
 
-//    @Enumerated(EnumType.STRING)
-//    private MemberRole role;
+    @Enumerated(EnumType.STRING)
+    private MemberRole role;
 
-//    @Embedded
-//    private Address address;
+    @Embedded
+    private Address address;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Order> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    @Builder.Default
+    private List<Order> order = new ArrayList<>();
 
     @Builder
     public Member(String email, String name, String password, String nickname,
-                  String phone) {
+                  String phone, MemberRole role, Address address) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.nickname = nickname;
         this.phone = phone;
-//        this.address = address;
-//        this.role = role;
+        this.address = address;
+        this.role = role;
     }
 }
