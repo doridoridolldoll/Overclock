@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 @Getter
-public class Address extends BaseEntity{
+public class Address{
 
     private String city; // 도시
     private String street; // 도로명

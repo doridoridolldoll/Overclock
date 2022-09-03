@@ -1,6 +1,8 @@
 package overclock.overclock.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "order_item")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends BaseEntity{
 
     @Id
@@ -45,7 +48,7 @@ public class OrderItem extends BaseEntity{
     public void cancel() {
         getItem().addStock(count);
     }
-    
+
     // 주문상품 전체 가격조회
     public int getTotalPrice() {
         return getOrderPrice() * getCount();

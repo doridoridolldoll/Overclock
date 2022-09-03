@@ -1,6 +1,8 @@
 package overclock.overclock.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import overclock.overclock.model.OrderStatus;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @Table(name = "orders")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity{
 
     @Id
@@ -37,10 +40,10 @@ public class Order extends BaseEntity{
     private OrderStatus status; // 주문상태 [ORDER, CANCEL]
 
     //==연관관계 메서드==//
-    public void setMember(Member member) {
-        this.member = member;
-        member.getOrders().add(this);
-    }
+//    public void setMember(Member member) {
+//        this.member = member;
+//        member.getOrders().add(this);
+//    }
 
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
