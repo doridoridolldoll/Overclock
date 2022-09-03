@@ -26,10 +26,10 @@ public class Comment extends BaseEntity{
 
     private String content; //내용
 
-    public Comment(Long id, Posts posts, Member member, String content) {
+    public Comment(Long id, Member member, String content) {
         this.id = id;
-        this.posts = posts;
-        this.member = member;
+//        this.posts = posts;
+//        this.member = member;
         this.content = content;
     }
 }

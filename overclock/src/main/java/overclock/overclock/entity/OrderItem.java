@@ -48,7 +48,7 @@ public class OrderItem extends BaseEntity{
     public void cancel() {
         getItem().addStock(count);
     }
-    
+
     // 주문상품 전체 가격조회
     public int getTotalPrice() {
         return getOrderPrice() * getCount();
