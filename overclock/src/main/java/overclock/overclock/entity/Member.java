@@ -4,7 +4,6 @@ import lombok.*;
 import overclock.overclock.model.MemberRole;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@ToString
+@Builder
 public class Member extends BaseEntity{
 
     @Id

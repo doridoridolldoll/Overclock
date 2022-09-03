@@ -1,21 +1,17 @@
 package overclock.overclock.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post extends BaseEntity{ //게시물
+public class Posts extends BaseEntity{ //게시물
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
-    private String id;
+    @Column(name = "posts_id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id", nullable = false)
@@ -34,7 +30,7 @@ public class Post extends BaseEntity{ //게시물
     private Address address; //주소
 
     @Builder
-    public Post(Board board, Member member, String title,
+    public Posts(Board board, Member member, String title,
                 int viewCount, Address address) {
         this.board = board;
         this.member = member;
