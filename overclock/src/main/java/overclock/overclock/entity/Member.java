@@ -37,12 +37,17 @@ public class Member extends BaseEntity{
     @Embedded
     private Address address;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Order> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    @Builder.Default
+    private List<Order> order = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    @Builder.Default
+    private List<Posts> posts = new ArrayList<>();
 
     @Builder
     public Member(String email, String name, String password, String nickname,
-                  String phone) {
+                  String phone, MemberRole role, Address address) {
         this.email = email;
         this.name = name;
         this.password = password;

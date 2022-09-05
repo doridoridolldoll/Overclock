@@ -25,7 +25,8 @@ public class MemberTests {
 
   @Test
   public void insertMembers(){
-    IntStream.rangeClosed(1, 100).forEach(i -> {
+    IntStream.rangeClosed(300, 400).forEach(i -> {
+      Address address = new Address("as", "as", "as");
 
 
       Member member = Member.builder()
@@ -33,8 +34,10 @@ public class MemberTests {
               .nickname("cat"+i)
               .password("1")
               .name("USER"+i)
-              .phone("010")
+              .phone("010"+i)
+              .address(address)
               .role(MemberRole.USER)
+              .phone("010")
               .address(Address.builder()
                       .city("busan")
                       .street("street")
