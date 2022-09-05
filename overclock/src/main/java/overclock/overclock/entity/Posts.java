@@ -1,6 +1,7 @@
 package overclock.overclock.entity;
 
 import lombok.*;
+import overclock.overclock.model.BoardType;
 
 import javax.persistence.*;
 
@@ -14,9 +15,8 @@ public class Posts extends BaseEntity{ //게시물
     @Column(name = "post_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
-    private Board board;
+    @Enumerated
+    private BoardType boardType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -35,12 +35,12 @@ public class Posts extends BaseEntity{ //게시물
 
     @Builder
     public Posts(Member member, String title, String writer,
-                int viewCount, Board board) {
-        this.board = board;
+                int viewCount, BoardType boardType) {
         this.member = member;
         this.title = title;
         this.viewCount = viewCount;
 //        this.address = address;
         this.writer = writer;
+        this.boardType = boardType;
     }
 }
