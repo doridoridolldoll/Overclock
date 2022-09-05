@@ -35,7 +35,7 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "delivery_id")
     private Delivery delivery; // 배송정보
 
-    private LocalDateTime orderDate; // 주문시간
+    private LocalDateTime orderDate; // 주문날짜
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태 [ORDER, CANCEL]
