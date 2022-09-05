@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Posts extends BaseEntity{ //게시물
 
     @Id
