@@ -3,8 +3,11 @@ package overclock.overclock.entity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.repository.PostsRepository;
+
+import java.util.Arrays;
 
 @SpringBootTest
 public class PostsTests {
@@ -20,9 +23,19 @@ public class PostsTests {
                 .member(member)
                 .viewCount(1)
                 .boardType(BoardType.MARKET)
-//                .writer(String.valueOf(member))
+                .address(Address.builder().city("as").street("as").zipcode("as").build())
                 .build();
         postsRepository.save(posts);
+    }
+
+    @Test
+//    @Transactional
+    public void testReadWithMember(){
+        Object result = postsRepository.getPostsWithMember(1L);
+        System.out.println(result);
+        Object[] arr = (Object[]) result;
+        System.out.println("-----------------------");
+        System.out.println(Arrays.toString(arr));
     }
 
 }
