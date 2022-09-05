@@ -19,6 +19,7 @@ public class BoardTest {
     public void insertBoard(){
         IntStream.rangeClosed(1,100).forEach(i -> {
             Board board = Board.builder()
+                    .name("중고거래게시판ㅁㄴㅇ")
                     .boardType(BoardType.MARKET)
                     .build();
             boardRepository.save(board);
