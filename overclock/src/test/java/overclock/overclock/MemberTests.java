@@ -8,6 +8,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 //import overclock.overclock.entity.Address;
+import overclock.overclock.entity.Address;
 import overclock.overclock.entity.Member;
 import overclock.overclock.model.MemberRole;
 import overclock.overclock.repository.MemberRepository;
@@ -24,15 +25,16 @@ public class MemberTests {
 
   @Test
   public void insertMembers(){
-//    Member member = new Member();
     IntStream.rangeClosed(1, 100).forEach(i -> {
-
+      Address address = new Address("as", "as", "as");
       Member member = Member.builder()
               .email("user"+i+"@aaa.com")
               .nickname("cat"+i)
               .password("1")
               .name("USER"+i)
               .phone("010"+i)
+              .address(address)
+              .role(MemberRole.USER)
               .build();
     repository.save(member);
     });

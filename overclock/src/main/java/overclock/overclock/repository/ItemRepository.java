@@ -9,5 +9,4 @@ import overclock.overclock.entity.Item;
 @EnableJpaRepositories
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    Item fineOne(Long id);
 }

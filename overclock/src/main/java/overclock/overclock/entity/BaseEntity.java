@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -18,10 +19,10 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity{
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, insertable = true)
     private LocalDateTime regDate;
 
-    @LastModifiedBy
-    @Column(insertable = true)
+    @LastModifiedDate
+    @Column
     private LocalDateTime modDate;
 }
