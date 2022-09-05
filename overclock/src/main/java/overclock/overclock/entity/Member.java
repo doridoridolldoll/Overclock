@@ -31,11 +31,11 @@ public class Member extends BaseEntity{
 
     private String phone;
 
-//    @Enumerated(EnumType.STRING)
-//    private MemberRole role;
+    @Enumerated(EnumType.STRING)
+    private MemberRole role;
 
-//    @Embedded
-//    private Address address;
+    @Embedded
+    private Address address;
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Order> orders = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Member extends BaseEntity{
         this.password = password;
         this.nickname = nickname;
         this.phone = phone;
-//        this.address = address;
-//        this.role = role;
+        this.address = address;
+        this.role = role;
     }
 }

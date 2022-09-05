@@ -1,11 +1,13 @@
 package overclock.overclock.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
 @Getter
+@Builder
 public class Address{
 
     private String city; // 도시
