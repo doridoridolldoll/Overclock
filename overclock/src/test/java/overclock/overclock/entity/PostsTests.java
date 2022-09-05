@@ -3,7 +3,7 @@ package overclock.overclock.entity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import overclock.overclock.model.Address;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.repository.PostsRepository;
 

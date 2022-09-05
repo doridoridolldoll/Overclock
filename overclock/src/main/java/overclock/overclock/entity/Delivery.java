@@ -2,6 +2,7 @@ package overclock.overclock.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import overclock.overclock.model.Address;
 import overclock.overclock.model.DeliveryStatus;
 
 import javax.persistence.*;

@@ -1,6 +1,7 @@
 package overclock.overclock.entity;
 
 import lombok.*;
+import overclock.overclock.model.Address;
 import overclock.overclock.model.BoardType;
 
 import javax.persistence.*;

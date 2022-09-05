@@ -1,4 +1,4 @@
-package overclock.overclock.entity;
+package overclock.overclock.model;
 
 import lombok.AccessLevel;
 import lombok.Builder;

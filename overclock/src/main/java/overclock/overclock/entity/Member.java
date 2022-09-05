@@ -1,11 +1,10 @@
 package overclock.overclock.entity;
 
 import lombok.*;
+import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
