@@ -21,14 +21,11 @@ public class Board extends BaseEntity{
     @Column(name = "board_id")
     private Long id;
 
-    @Column(name = "board_name", nullable = false)
-    private String name;
-
     @Enumerated(EnumType.STRING)
     private BoardType boardType;
 
-    public Board(String name, BoardType boardType) {
-        this.name = name;
+    public Board(BoardType boardType) {
         this.boardType = boardType;
+
     }
 }

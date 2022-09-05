@@ -41,6 +41,10 @@ public class Member extends BaseEntity{
     @Builder.Default
     private List<Order> order = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    @Builder.Default
+    private List<Posts> posts = new ArrayList<>();
+
     @Builder
     public Member(String email, String name, String password, String nickname,
                   String phone, MemberRole role, Address address) {
