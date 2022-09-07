@@ -13,6 +13,7 @@ import javax.persistence.*;
 @ToString(exclude = "member")
 @Builder
 @AllArgsConstructor
+
 public class Posts extends BaseEntity{ //게시물
 
     @Id
@@ -27,7 +28,6 @@ public class Posts extends BaseEntity{ //게시물
 
     @Column(nullable = false)
     private String title; //제목
-
 
     private String content;
 
