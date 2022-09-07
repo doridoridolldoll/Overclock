@@ -8,16 +8,16 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
-@ToString
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(exclude = "member")
+@Builder
+@AllArgsConstructor
+
 public class Posts extends BaseEntity{ //게시물
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
     private Long id;
 
     @Enumerated

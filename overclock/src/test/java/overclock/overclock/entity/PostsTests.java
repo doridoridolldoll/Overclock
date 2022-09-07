@@ -33,7 +33,7 @@ public class PostsTests {
                     .title("title")
                     .member(member)
                     .viewCount(1)
-                    .content("as")
+                    .content("content"+i)
                     .boardType(BoardType.MARKET)
                     .address(Address.builder().city("as").street("as").zipcode("as").build())
                     .build();
@@ -56,7 +56,6 @@ public class PostsTests {
     @Transactional
     public void testGetPostsWithComment() {
         List<Object[]> result = postsRepository.getPostsWithComment(1L);
-
         for (Object[] arr : result) {
             System.out.println(Arrays.toString(arr));
         }
@@ -85,6 +84,13 @@ public class PostsTests {
             System.out.println(Arrays.toString(arr));
         });
     }
+
+//    @Test
+//    public void testRead(){
+//        Object result = postsRepository.getPostsById(100L);
+//        Object[] arr = (Object[])result;
+//        System.out.println(Arrays.toString(arr));
+//    }
 
 
 }

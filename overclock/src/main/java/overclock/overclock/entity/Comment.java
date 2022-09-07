@@ -1,15 +1,20 @@
 package overclock.overclock.entity;
 
 import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment extends BaseEntity{
 
     @Id
@@ -27,7 +32,7 @@ public class Comment extends BaseEntity{
 
     private String content; //내용
 
-    public Comment(Long id, Member member, String content, Posts posts) {
+    public Comment(Long id, Posts posts, Member member, String content) {
         this.id = id;
         this.posts = posts;
         this.member = member;
