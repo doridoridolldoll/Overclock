@@ -1,9 +1,6 @@
 package overclock.overclock.model;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 
@@ -12,6 +9,7 @@ import javax.persistence.Embeddable;
 // Embeddable 어노테이션 사용하면 protected
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
+@ToString
 public class Address{
 
     private String city; // 도시

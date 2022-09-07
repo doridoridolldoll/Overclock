@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.repository.PostsRepository;
@@ -31,6 +32,7 @@ public class PostsTests {
                     .title("title")
                     .member(member)
                     .viewCount(1)
+                    .content("content"+i)
                     .boardType(BoardType.MARKET)
                     .address(Address.builder().city("as").street("as").zipcode("as").build())
                     .build();
@@ -51,7 +53,7 @@ public class PostsTests {
 
     @Test
     public void testWithMemberPage(){
-        Pageable pageable = PageRequest.of(0,10, Sort.by("post_id").descending());
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").descending());
 
         Page<Object[]> result = postsRepository.getPostsWithMemberPage(pageable);
 
@@ -60,6 +62,13 @@ public class PostsTests {
             System.out.println(Arrays.toString(arr));
         });
     }
+
+//    @Test
+//    public void testRead(){
+//        Object result = postsRepository.getPostsById(100L);
+//        Object[] arr = (Object[])result;
+//        System.out.println(Arrays.toString(arr));
+//    }
 
 
 }

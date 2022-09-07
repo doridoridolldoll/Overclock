@@ -253,7 +253,7 @@ kbd,
 samp {
   font-family: var(--bs-font-monospace);
   font-size: 1em;
-  direction: ltr /* rtl:ibnore */;
+  direction: ltr /* rtl:ignore */;
   unicode-bidi: bidi-override;
 }
 
@@ -4894,7 +4894,6 @@ textarea.form-control-lg {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
-  background: black;
 }
 .badge:empty {
   display: none;
@@ -5860,7 +5859,7 @@ textarea.form-control-lg {
 .popover {
   position: absolute;
   top: 0;
-  left: 0 /* rtl:ibnore */;
+  left: 0 /* rtl:ignore */;
   z-index: 1070;
   display: block;
   max-width: 276px;
@@ -6028,7 +6027,7 @@ textarea.form-control-lg {
   display: block;
 }
 
-/* rtl:begin:ibnore */
+/* rtl:begin:ignore */
 .carousel-item-next:not(.carousel-item-start),
 .active.carousel-item-end {
   transform: translateX(100%);
@@ -6039,7 +6038,7 @@ textarea.form-control-lg {
   transform: translateX(-100%);
 }
 
-/* rtl:end:ibnore */
+/* rtl:end:ignore */
 .carousel-fade .carousel-item {
   opacity: 0;
   transition-property: opacity;
@@ -6196,13 +6195,13 @@ textarea.form-control-lg {
 
 @-webkit-keyframes spinner-border {
   to {
-    transform: rotate(360deg) /* rtl:ibnore */;
+    transform: rotate(360deg) /* rtl:ignore */;
   }
 }
 
 @keyframes spinner-border {
   to {
-    transform: rotate(360deg) /* rtl:ibnore */;
+    transform: rotate(360deg) /* rtl:ignore */;
   }
 }
 .spinner-border {

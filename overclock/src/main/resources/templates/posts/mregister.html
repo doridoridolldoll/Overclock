@@ -3,8 +3,8 @@
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
-        <h1 class="mt-4">posts Register Page</h1>
-        <form th:action="@{/posts/register}" th:method="post">
+        <h1 class="mt-4">중고거래 글쓰기 Page</h1>
+        <form th:action="@{/posts/mregister}" th:method="post">
             <div class="form-group">
                 <label> title</label>
                 <input type="text" class="form-control" name="title" placeholder="Enter Title">
