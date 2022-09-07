@@ -63,12 +63,12 @@ public class PostsTests {
         });
     }
 
-//    @Test
-//    public void testRead(){
-//        Object result = postsRepository.getPostsById(100L);
-//        Object[] arr = (Object[])result;
-//        System.out.println(Arrays.toString(arr));
-//    }
+    @Test
+    public void testRead(){
+        Object result = postsRepository.getPostsById(100L);
+        Object[] arr = (Object[])result;
+        System.out.println(Arrays.toString(arr));
+    }
 
 
 }

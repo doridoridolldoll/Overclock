@@ -49,4 +49,12 @@ public class PostsServiceImpl implements PostsService {
 
         return new PageResultDTO<>(result, fn);
     }
+
+    @Override
+    public PostsDTO get(Long id) {
+        Object result = repository.getPostsById(id);
+        Object[] arr = (Object[])result;
+        log.info(arr);
+        return entityToDTO((Posts)arr[0],(Member)arr[1]);
+    }
 }

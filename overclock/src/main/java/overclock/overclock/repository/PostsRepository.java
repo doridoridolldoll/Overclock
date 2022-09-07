@@ -28,10 +28,10 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
 //    @Query("select p, m from Posts p left join p.member m where p.id =:id")
 //    Page<Object[]> getPostsWithMemberPage(Pageable pageable);
 
-//    @Query("SELECT p , m, count(c) " +
-//            " FROM Posts p LEFT JOIN p.member m " +
-//            " LEFT OUTER JOIN Comment c ON c.posts = p " +
-//            " WHERE p.id = :id")
-//    Object getPostsById(@Param("id") Long id);
+    @Query("SELECT p , m, count(c) " +
+            " FROM Posts p LEFT JOIN p.member m " +
+            " LEFT OUTER JOIN Comment c ON c.posts = p " +
+            " WHERE p.id = :id")
+    Object getPostsById(@Param("id") Long id);
 
 }

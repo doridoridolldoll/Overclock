@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4">Board Read Page</h1>
+        <div class="form-control" style="margin-bottom: 10px;">
+            <label>Id</label>
+            <input type="text" name="id" class="form-control" th:value="${dto.id}" readonly>
+        </div>
+
+        <div class="form-control" style="margin-bottom: 10px;">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" th:value="${dto.title}" readonly>
+        </div>
+
+        <div class="form-control" style="margin-bottom: 10px;">
+            <label>Content</label>
+            <textarea name="content" class="form-control" rows="5" readonly>
+                [[${dto.content}]]
+            </textarea>
+        </div>
+
+        <div class="form-control" style="margin-bottom: 10px;">
+            <label>작성자</label>
+            <input type="text" name="member" readonly class="form-control"
+                   th:value="${dto.writerNickname}">
+        </div>
+        <div class="form-control" style="margin-bottom: 10px;">
+            <label>RegDate</label>
+            <input type="text" readonly class="form-control"
+                   th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}">
+        </div>
+        <div class="form-control" style="margin-bottom: 10px;">
+            <label>ModDate</label>
+            <input type="text" readonly class="form-control"
+                   th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd HH:mm:ss')}">
+        </div>
+    </th:block>
+</th:block>

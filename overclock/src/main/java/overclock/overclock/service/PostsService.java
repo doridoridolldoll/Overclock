@@ -14,6 +14,8 @@ public interface PostsService {
 
     PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO); //목록처리
 
+    PostsDTO get(Long id); //조회처리
+
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()
                 .id(dto.getMemberId())

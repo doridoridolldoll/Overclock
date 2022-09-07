@@ -33,4 +33,11 @@ public class PostsServiceTests {
             System.out.println(postsDTO);
         }
     }
+
+    @Test
+    public void testGet(){
+        Long id = 1L;
+        PostsDTO postsDTO = postsService.get(id);
+        System.out.println(postsDTO);
+    }
 }
