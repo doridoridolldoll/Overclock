@@ -14,6 +14,7 @@ import overclock.overclock.model.BoardType;
 import overclock.overclock.repository.PostsRepository;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -52,10 +53,31 @@ public class PostsTests {
     }
 
     @Test
-    public void testWithMemberPage(){
+    @Transactional
+    public void testGetPostsWithComment() {
+        List<Object[]> result = postsRepository.getPostsWithComment(1L);
+        for (Object[] arr : result) {
+            System.out.println(Arrays.toString(arr));
+        }
+    }
+
+//    @Test
+//    @Transactional
+//    public void testWithMemberPage(){
+//        Pageable pageable = PageRequest.of(0,10, Sort.by("post_id").descending());
+//
+//        Page<Object[]> result = postsRepository.getPostsWithMemberPage(pageable);
+//
+//        result.get().forEach(row -> {
+//            Object[] arr = (Object[]) row;
+//            System.out.println(Arrays.toString(arr));
+//        });
+//    }
+    @Test
+    public void getPostsWithComment(){
         Pageable pageable = PageRequest.of(0,10, Sort.by("id").descending());
 
-        Page<Object[]> result = postsRepository.getPostsWithMemberPage(pageable);
+        Page<Object[]> result = postsRepository.getPostsWithCommentCount(pageable);
 
         result.get().forEach(row -> {
             Object[] arr = (Object[]) row;
