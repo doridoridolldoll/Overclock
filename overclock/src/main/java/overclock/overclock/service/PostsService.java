@@ -1,5 +1,6 @@
 package overclock.overclock.service;
 
+import org.springframework.stereotype.Service;
 import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;

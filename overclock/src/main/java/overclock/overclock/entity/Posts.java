@@ -29,7 +29,6 @@ public class Posts extends BaseEntity{ //게시물
     @Column(nullable = false)
     private String title; //제목
 
-
     private String content;
 
     private int viewCount; //조회수
