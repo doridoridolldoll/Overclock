@@ -20,6 +20,7 @@ public class PostsServiceImpl implements PostsService {
         log.info(dto);
         Posts posts = dtoToEntity(dto);
         repository.save(posts);
+        posts.setBoardType(BoardType.SALE);
         return posts.getId();
     }
 }

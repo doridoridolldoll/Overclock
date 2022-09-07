@@ -12,6 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @ToString
+@Setter
 public class Posts extends BaseEntity{ //게시물
 
     @Id
