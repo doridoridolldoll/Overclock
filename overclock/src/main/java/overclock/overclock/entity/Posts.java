@@ -3,6 +3,7 @@ package overclock.overclock.entity;
 import lombok.*;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.BoardType;
+import overclock.overclock.model.PartsType;
 
 import javax.persistence.*;
 
@@ -33,8 +34,13 @@ public class Posts extends BaseEntity{ //게시물
 
     private int viewCount; //조회수
 
+    @Enumerated
+    private PartsType partsType;
+
     @Embedded
     private Address address; //주소
+
+
 
     @Builder
     public Posts(Member member, String title, String content,
