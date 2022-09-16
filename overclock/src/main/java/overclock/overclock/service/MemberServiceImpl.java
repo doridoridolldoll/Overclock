@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> findMember() {
-        return null;
+        return memberRepository.findAll();
     }
 
     public Member saveMember(Member member) {

@@ -14,6 +14,8 @@ public interface ItemService {
 
     Long register(ItemDTO itemDTO);
 
+    List<Item> findItem();
+
 //    PageResultDTO<MovieDTO, Object[]> getList(PageRequestDTO requestDTO); // 목록 처리
 //
 //    MovieDTO getMovie(Long mno);

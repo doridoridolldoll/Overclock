@@ -40,4 +40,8 @@ public class ItemServiceImpl implements ItemService {
 
         return item.getId();
     }
+
+    public List<Item> findItem() {
+        return itemRepository.findAll();
+    }
 }

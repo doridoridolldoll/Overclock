@@ -1,14 +1,16 @@
 package overclock.overclock.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 //import javax.validation.constraints.Max;
 //import javax.validation.constraints.Min;
 //import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Data
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderDTO {
 
 //    @NotNull(message = "상품 아이디는 필수 입력 값입니다.")

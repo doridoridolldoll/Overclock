@@ -16,7 +16,7 @@ public interface PostsService {
 
     PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto);
 
-//    PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO); //목록처리
+    PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO); //목록처리
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()

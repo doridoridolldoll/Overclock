@@ -1,10 +1,9 @@
 package overclock.overclock.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import overclock.overclock.model.Address;
 import overclock.overclock.model.DeliveryStatus;
+import overclock.overclock.model.MemberRole;
 import overclock.overclock.model.OrderStatus;
 
 import javax.persistence.*;
@@ -16,7 +15,7 @@ import java.util.List;
 @Table(name = "orders")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Order extends BaseEntity{
 
     @Id
@@ -31,72 +30,25 @@ public class Order extends BaseEntity{
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id")
-    private Delivery delivery; // 배송정보
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "delivery_id")
+//    private Delivery delivery; // 배송정보
 
     private LocalDateTime orderDate; // 주문날짜
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태 [ORDER, CANCEL]
 
-    //==연관관계 메서드==//
-//    public void setMember(Member member) {
-//        this.member = member;
-//        member.getOrders().add(this);
-//    }
-
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setOrder(this);
+    @Builder
+    public Order(Long id, Member member, Delivery delivery, List<OrderItem> orderItem,
+                 OrderStatus orderStatus, LocalDateTime orderDate) {
+        this.id = id;
+        this.member = member;
+//        this.delivery = delivery;
+        this.orderItems = orderItem;
+//        this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
     }
 
-    public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-        delivery.setOrder(this);
-    }
-
-    //==생성 메서드==//
-    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
-        Order order = new Order();
-        order.setMember(member);
-        order.setDelivery(delivery);
-        for (OrderItem orderItem : orderItems) {
-            order.addOrderItem(orderItem);
-        }
-
-        order.setStatus(OrderStatus.ORDER);
-        order.setOrderDate(LocalDateTime.now());
-        return order;
-    }
-
-    //==비즈니스 로직==//
-
-    /**
-     * 주문 취소
-     */
-    public void cancel() {
-        if (delivery.getStatus() == DeliveryStatus.COMP) {
-            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다");
-        }
-
-        this.setStatus(OrderStatus.CANCEL);
-        for (OrderItem orderItem : orderItems) {
-            orderItem.cancel();
-        }
-    }
-
-    //== 조회 로직==//
-
-    /**
-     * 전체 주문 가격 조회
-     */
-    public int getTotalPrice() {
-        int totalPrice = 0;
-        for (OrderItem orderItem : orderItems) {
-            totalPrice += orderItem.getTotalPrice();
-        }
-        return totalPrice;
-    }
 
 }
