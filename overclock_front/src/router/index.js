@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import Parts from "@/components/Parts.vue"
 import Peri from "@/components/Peripherals.vue"
-import Used from "@/components/Used.vue"
+import Used from "@/components/Posts/Used.vue"
 import Main from "@/components/Main.vue"
 import Login from "@/components/Login.vue"
 import Join from "@/components/Join.vue"
