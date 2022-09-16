@@ -19,7 +19,7 @@ import overclock.overclock.service.PostsService;
 @Log4j2
 @RequiredArgsConstructor
 public class PostsController {
-//    private final PostsService postsService;
+    private final PostsService postsService;
     private final ItemService itemService;
 
 
@@ -30,21 +30,19 @@ public class PostsController {
     }
 
     @PostMapping("/mregister")
-    public String register(ItemDTO itemDTO, RedirectAttributes redirectAttributes){
+    public String register(ItemDTO itemDTO, PostsDTO dto, RedirectAttributes redirectAttributes){
         log.info("itemDTO : " + itemDTO);
 
         Long ino = itemService.register(itemDTO);
         redirectAttributes.addFlashAttribute("msg", ino);
 
+        Long id = postsService.mregister(dto);
+        redirectAttributes.addFlashAttribute("msg2", id);
+
+
         return "redirect:/posts/list";
     }
 
-//    @PostMapping("/mregister")
-//    public String register(ItemDTO itemDTO, RedirectAttributes redirectAttributes) {
-//        Long id = itemService.register(itemDTO);
-//        redirectAttributes.addFlashAttribute("msg", id);
-//        return "redirect:/posts/list";
-//    }
 
     //부품게시판 컨트롤러
 //    @GetMapping("/pregister")
@@ -63,9 +61,9 @@ public class PostsController {
 //        return "redirect:/posts/pregister";
 //    }
 
-//    @GetMapping("/list")
-//    public void list(PageRequestDTO pageRequestDTO, Model model){
-//        log.info("list.... {} ", pageRequestDTO);
-//        model.addAttribute("result", postsService.getList(pageRequestDTO));
-//    }
+    @GetMapping("/list")
+    public void list(PageRequestDTO pageRequestDTO, Model model){
+        log.info("list.... {} ", pageRequestDTO);
+        model.addAttribute("result", postsService.getList(pageRequestDTO));
+    }
 }

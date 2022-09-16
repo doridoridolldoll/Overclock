@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import overclock.overclock.dto.JoinFormDTO;
@@ -33,6 +34,7 @@ public class MemberController {
         return "members/memberList";
     }
 
+
     //회원가입 페이지
     @GetMapping("/members/new")
     public void join() {
@@ -50,4 +52,5 @@ public class MemberController {
 
         return "redirect:/members/memberList";
     }
+
 }
