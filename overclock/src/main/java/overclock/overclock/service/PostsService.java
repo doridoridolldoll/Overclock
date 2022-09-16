@@ -9,6 +9,8 @@ import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
+import java.util.List;
+
 public interface PostsService {
     Long mregister(PostsDTO dto); //중고거래 게시판 글쓰기
 
@@ -16,7 +18,11 @@ public interface PostsService {
 
     PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto);
 
+<<<<<<< HEAD
     PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO); //목록처리
+=======
+    List<PostsDTO> getList();
+>>>>>>> 3cd61ee90a54c77c2e6beb56ed42378c13310e62
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()
@@ -26,6 +32,7 @@ public interface PostsService {
                 .id(dto.getId())
                 .title(dto.getTitle())
                 .content(dto.getContent())
+                .viewCount(dto.getViewCount())
                 .member(member)
                 .build();
         return posts;
@@ -38,6 +45,7 @@ public interface PostsService {
                 .content(posts.getContent())
                 .regDate(posts.getRegDate())
                 .modDate(posts.getModDate())
+                .viewCount(posts.getViewCount())
                 .memberId(posts.getMember().getId())
                 .build();
         return postsDTO;

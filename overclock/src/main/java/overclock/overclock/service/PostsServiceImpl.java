@@ -42,7 +42,9 @@ import overclock.overclock.entity.Posts;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.repository.PostsRepository;
 
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +72,7 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
+<<<<<<< HEAD
     public PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
         log.info(pageRequestDTO);
 
@@ -77,12 +80,23 @@ public class PostsServiceImpl implements PostsService {
         Page<Object[]> result = repository.getPostsWithMemberPage(pageRequestDTO.getPageable(Sort.by("id").descending()));
 
         return new PageResultDTO<>(result, fn);
+=======
+    public List<PostsDTO> getList() {
+        List<Posts> result = repository.findAll();
+        log.info("result : {}", result);
+        return result.stream().map(new Function<Posts,PostsDTO>() {
+            @Override
+            public PostsDTO apply(Posts t) {
+                return entityToDTO(t);
+            }
+        }).collect(Collectors.toList());
+>>>>>>> 3cd61ee90a54c77c2e6beb56ed42378c13310e62
     }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {
         log.info("PageRequestDTO: " + dto);
-        Pageable pageable = dto.getPageable(Sort.by("email"));
+        Pageable pageable = dto.getPageable(Sort.by("id"));
         Page<Posts> result = repository.getPageList(pageable);
         Function<Posts, PostsDTO> fn = new Function<Posts,PostsDTO>() {
             @Override

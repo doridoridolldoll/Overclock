@@ -36,6 +36,7 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
 //            " WHERE p.id = :id")
 //    Object getPostsById(@Param("id") Long id);
 
+    @EntityGraph(attributePaths = { "member" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query(
             value = "select c from Posts c ",
             countQuery = "select count(c) from Posts c"

@@ -41,6 +41,14 @@ public class ApiController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/getlist", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PostsDTO>> getList() {
+        List<PostsDTO> result = postsService.getList();
+        log.info(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/get-page-list", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> getPagingList(@RequestBody PageRequestDTO dto) {

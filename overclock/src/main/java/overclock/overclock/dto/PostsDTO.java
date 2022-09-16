@@ -14,6 +14,7 @@ public class PostsDTO {
     private String title;
     private String content;
     private Long memberId;
+    private int viewCount;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 
