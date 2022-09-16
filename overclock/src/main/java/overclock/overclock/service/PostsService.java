@@ -14,7 +14,9 @@ public interface PostsService {
 
     Long pregister(PostsDTO dto); //부품 게시판 글쓰기
 
-    PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO); //목록처리
+    PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto);
+
+//    PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO); //목록처리
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()
@@ -29,14 +31,14 @@ public interface PostsService {
         return posts;
     }
 
-    default PostsDTO entityToDTO(Posts posts, Member member) {
+    default PostsDTO entityToDTO(Posts posts) {
         PostsDTO postsDTO = PostsDTO.builder()
                 .id(posts.getId())
                 .title(posts.getTitle())
                 .content(posts.getContent())
                 .regDate(posts.getRegDate())
                 .modDate(posts.getModDate())
-                .memberId(member.getId())
+                .memberId(posts.getMember().getId())
                 .build();
         return postsDTO;
     }

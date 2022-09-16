@@ -18,6 +18,7 @@ public interface MemberService {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
         MemberRole memberRole = MemberRole.USER;
         Member member = Member.builder()
+                .id(dto.getId())
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .phone(dto.getPhone())
@@ -31,6 +32,7 @@ public interface MemberService {
 
     default MemberDTO EntityToDTO(Member member) {
         MemberDTO memberDTO = MemberDTO.builder()
+                .id(member.getId())
                 .email(member.getEmail())
                 .name(member.getName())
                 .phone(member.getPhone())

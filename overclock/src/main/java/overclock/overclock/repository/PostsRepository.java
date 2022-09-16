@@ -2,6 +2,7 @@ package overclock.overclock.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -35,4 +36,9 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
 //            " WHERE p.id = :id")
 //    Object getPostsById(@Param("id") Long id);
 
+    @Query(
+            value = "select c from Posts c ",
+            countQuery = "select count(c) from Posts c"
+    )
+    Page<Posts> getPageList(Pageable pageable);
 }

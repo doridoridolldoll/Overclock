@@ -31,6 +31,7 @@ package overclock.overclock.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import overclock.overclock.dto.PageRequestDTO;
@@ -68,14 +69,29 @@ public class PostsServiceImpl implements PostsService {
         return posts.getId();
     }
 
+//    @Override
+//    public PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
+//        log.info(pageRequestDTO);
+//
+//        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts)en[0],(Posts) en[1]));
+//        Page<Object[]> result = repository.getPostsWithMemberPage(pageRequestDTO.getPageable(Sort.by("id").descending()));
+//
+//        return new PageResultDTO<>(result, fn);
+//    }
+
     @Override
-    public PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
-        log.info(pageRequestDTO);
-
-        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts)en[0],(Member) en[1]));
-        Page<Object[]> result = repository.getPostsWithMemberPage(pageRequestDTO.getPageable(Sort.by("id").descending()));
-
+    public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {
+        log.info("PageRequestDTO: " + dto);
+        Pageable pageable = dto.getPageable(Sort.by("email"));
+        Page<Posts> result = repository.getPageList(pageable);
+        Function<Posts, PostsDTO> fn = new Function<Posts,PostsDTO>() {
+            @Override
+            public PostsDTO apply(Posts t) {
+                return entityToDTO(t);
+            }
+        };
         return new PageResultDTO<>(result, fn);
     }
 }
+
 
