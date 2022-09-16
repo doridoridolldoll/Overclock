@@ -1,56 +1,53 @@
 package overclock.overclock.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import overclock.overclock.dto.PostsDTO;
+import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.entity.Member;
-import overclock.overclock.entity.Posts;
-import overclock.overclock.repository.MemberRepository;
+import overclock.overclock.model.Address;
+import overclock.overclock.model.MemberRole;
 
 import java.util.List;
 
-@Service
-@Transactional(readOnly = true)
-@RequiredArgsConstructor
-public class MemberService {
+public interface MemberService {
 
-    private final MemberRepository memberRepository;
+    List<Member> findMember();
+    Long join(MemberDTO memberDTO);
 
-    /**
-     * 회원가입
-     */
-//    public Member saveMember(Member member) {
-//        validateDuplicateMember(member);
-//        return memberRepository.save(member);
-//    }
+    Member saveMember(Member member);
 
-    @Transactional //변경
-    public Long join(Member member) {
-
-        validateDuplicateMember(member); // 중복 회원 검증
-        memberRepository.save(member);
-        return member.getId();
+    default Member dtoToEntity(MemberDTO dto) {
+        Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
+        MemberRole memberRole = MemberRole.USER;
+        Member member = Member.builder()
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .phone(dto.getPhone())
+                .nickname(dto.getNickname())
+                .password(dto.getPassword())
+                .address(address)
+                .role(memberRole)
+                .build();
+        return member;
     }
 
-    /**
-     * 중복 회원 검증
-     */
-    private void validateDuplicateMember(Member member) {
+    default MemberDTO EntityToDTO(Member member) {
+        MemberDTO memberDTO = MemberDTO.builder()
+                .email(member.getEmail())
+                .name(member.getName())
+                .phone(member.getPhone())
+                .password(member.getPassword())
+                .build();
 
-        List<Member> findMembers = memberRepository.findByName(member.getName());
-        if (!findMembers.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        }
+                return memberDTO;
     }
 
-    /**
-     * 전체 회원 조회
-     */
-    public List<Member> findMember() {
-        return memberRepository.findAll();
-    }
+
+
+
+
+
+
+
+
 
 
 
