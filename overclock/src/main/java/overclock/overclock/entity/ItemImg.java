@@ -1,35 +1,34 @@
 package overclock.overclock.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 
 @Entity
+@Embeddable
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ItemImg extends BaseEntity{
+//@ToString(exclude = "item")
+public class ItemImg {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_img_id")
     private Long id;
 
-    //이미지 원본 이름
-    @Column(name = "item_img_name")
-    private String oriImgName;
+    @Column
+    private String imgName;
 
-    //이미지 경로
-    private String imgUrl;
+    @Column
+    private String uuid;
+
+    @Column
+    private String path;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
     private Item item;
 
-    public ItemImg(String oriImgName, String imgUrl, Item item) {
-        this.oriImgName = oriImgName;
-        this.imgUrl = imgUrl;
-        this.item = item;
-    }
 }

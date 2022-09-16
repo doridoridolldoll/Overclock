@@ -5,12 +5,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import overclock.overclock.dto.ItemDTO;
 import overclock.overclock.dto.PageRequestDTO;
 import overclock.overclock.dto.PostsDTO;
+import overclock.overclock.service.ItemService;
 import overclock.overclock.service.PostsService;
 
 @Controller
@@ -18,57 +19,53 @@ import overclock.overclock.service.PostsService;
 @Log4j2
 @RequiredArgsConstructor
 public class PostsController {
-    private final PostsService postsService;
+//    private final PostsService postsService;
+    private final ItemService itemService;
 
 
     //중고거래 컨트롤러
     @GetMapping("/mregister")
-    public void mregister(){
+    public void register(){
         log.info("register get...");
     }
+
     @PostMapping("/mregister")
-    public String registerPost(PostsDTO dto, RedirectAttributes redirectAttributes){
-        log.info("dto... {}", dto);
+    public String register(ItemDTO itemDTO, RedirectAttributes redirectAttributes){
+        log.info("itemDTO : " + itemDTO);
 
-        Long id = postsService.mregister(dto);
-        log.info("id {}", id);
+        Long ino = itemService.register(itemDTO);
+        redirectAttributes.addFlashAttribute("msg", ino);
 
-        redirectAttributes.addFlashAttribute("msg", id);
-
-        return "redirect:/posts/mregister";
+        return "redirect:/posts/list";
     }
+
+//    @PostMapping("/mregister")
+//    public String register(ItemDTO itemDTO, RedirectAttributes redirectAttributes) {
+//        Long id = itemService.register(itemDTO);
+//        redirectAttributes.addFlashAttribute("msg", id);
+//        return "redirect:/posts/list";
+//    }
 
     //부품게시판 컨트롤러
-    @GetMapping("/pregister")
-    public void pregister(){
-        log.info("register get...");
-    }
-    @PostMapping("/pregister")
-    public String pregisterPost(PostsDTO dto, RedirectAttributes redirectAttributes) {
-        log.info("dto... {}", dto);
+//    @GetMapping("/pregister")
+//    public void pregister(){
+//        log.info("register get...");
+//    }
+//    @PostMapping("/pregister")
+//    public String pregisterPost(PostsDTO dto, RedirectAttributes redirectAttributes) {
+//        log.info("dto... {}", dto);
+//
+//        Long id = postsService.pregister(dto);
+//        log.info("id {}", id);
+//
+//        redirectAttributes.addFlashAttribute("msg", id);
+//
+//        return "redirect:/posts/pregister";
+//    }
 
-        Long id = postsService.pregister(dto);
-        log.info("id {}", id);
-
-        redirectAttributes.addFlashAttribute("msg", id);
-
-        return "redirect:/posts/pregister";
-    }
-
-    //목록처리
-    @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
-        log.info("list.... {} ", pageRequestDTO);
-        model.addAttribute("result", postsService.getList(pageRequestDTO));
-    }
-
-    //조회처리
-    @GetMapping("/read")
-    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long id, Model model){
-        log.info("id: " + id);
-        PostsDTO postsDTO = postsService.get(id);
-        log.info(postsDTO);
-        model.addAttribute("dto", postsDTO);
-    }
-
+//    @GetMapping("/list")
+//    public void list(PageRequestDTO pageRequestDTO, Model model){
+//        log.info("list.... {} ", pageRequestDTO);
+//        model.addAttribute("result", postsService.getList(pageRequestDTO));
+//    }
 }

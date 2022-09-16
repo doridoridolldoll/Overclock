@@ -1,25 +1,28 @@
 package overclock.overclock.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class ItemDTO {
 
     private Long id;
+
     private String itemName;
     private String itemDetail;
-    private String imgUrl;
-    private Integer price;
+    private int price;
+    private int stock;
 
-//    @QueryProjection // QueryDSL 어노테이션 추가
-    public void MainItemDto(Long id, String itemName, String itemDetail,
-                       String imgUrl, Integer price){
-        this.id = id;
-        this.itemName = itemName;
-        this.itemDetail = itemDetail;
-        this.imgUrl = imgUrl;
-        this.price = price;
-    }
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
+
+    @Builder.Default
+    private List<ItemImgDTO> imageDTOList = new ArrayList<>();
 }

@@ -1,6 +1,7 @@
 package overclock.overclock.entity;
 
 import lombok.*;
+import overclock.overclock.dto.JoinFormDTO;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
 
@@ -9,10 +10,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@NoArgsConstructor
 @ToString
-@Builder
 public class Member extends BaseEntity{
 
     @Id
@@ -21,13 +20,9 @@ public class Member extends BaseEntity{
     private Long id;
 
     private String email;
-
     private String name;
-
     private String password;
-
     private String nickname;
-
     private String phone;
 
     @Enumerated(EnumType.STRING)
@@ -43,8 +38,9 @@ public class Member extends BaseEntity{
 //    private List<Posts> posts = new ArrayList<>();
 
     @Builder
-    public Member(String email, String name, String password, String nickname,
+    public Member(Long id, String email, String name, String password, String nickname,
                   String phone, MemberRole role, Address address) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
@@ -53,4 +49,5 @@ public class Member extends BaseEntity{
         this.address = address;
         this.role = role;
     }
+
 }

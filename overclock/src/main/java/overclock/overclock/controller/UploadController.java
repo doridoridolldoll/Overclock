@@ -30,17 +30,17 @@ import java.util.UUID;
 @Log4j2
 public class UploadController {
 
-    @Value("${overclock.overclock.upload.path}")
+    @Value("${overclock.upload.path}")
     private String uploadPath;
 
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles){
+    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles) {
 
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
 
-        for (MultipartFile uploadFile: uploadFiles) {
+        for (MultipartFile uploadFile : uploadFiles) {
 
-            if(uploadFile.getContentType().startsWith("image") == false) {
+            if (uploadFile.getContentType().startsWith("image") == false) {
                 log.warn("this file is not image type");
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
@@ -57,7 +57,7 @@ public class UploadController {
             String uuid = UUID.randomUUID().toString();
 
             //저장할 파일 이름 중간에 "_"를 이용해서 구분
-            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid +"_" + fileName;
+            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
             Path savePath = Paths.get(saveName);
 
             try {
@@ -66,12 +66,12 @@ public class UploadController {
 
                 //섬네일 생성
                 String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator
-                        +"s_" + uuid +"_" + fileName;
+                        + "s_" + uuid + "_" + fileName;
                 //섬네일 파일 이름은 중간에 s_로 시작하도록
                 File thumbnailFile = new File(thumbnailSaveName);
                 //섬네일 생성
-                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile,100,100 );
-                resultDTOList.add(new UploadResultDTO(fileName,uuid,folderPath));
+                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100, 100);
+                resultDTOList.add(new UploadResultDTO(fileName, uuid, folderPath));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -82,12 +82,11 @@ public class UploadController {
     }
 
 
-    //이미지파일 업로드 되는 폴더
     private String makeFolder() {
 
         String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
-        String folderPath =  str.replace("//", File.separator);
+        String folderPath = str.replace("//", File.separator);
 
         // make folder --------
         File uploadPathFolder = new File(uploadPath, folderPath);
@@ -98,44 +97,17 @@ public class UploadController {
         return folderPath;
     }
 
-    @PostMapping("/removeFile")
-    public ResponseEntity<Boolean> removeFile(String fileName){
-
-        String srcFileName;
-        try {
-            srcFileName = URLDecoder.decode(fileName,"UTF-8");
-            File file = new File(uploadPath +File.separator+ srcFileName);
-            boolean result = file.delete();
-
-            File thumbnail = new File(file.getParent(), "s_" + file.getName());
-
-            result = thumbnail.delete();
-
-            return new ResponseEntity<>(result, HttpStatus.OK);
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-    
-    //이미지 업로드하면 화면에 보이게 하기
     @GetMapping("/display")
-    public ResponseEntity<byte[]> getFile(String fileName, String size) {
+    public ResponseEntity<byte[]> getFile(String fileName) {
 
-        ResponseEntity<byte[]> result;
+        ResponseEntity<byte[]> result = null;
 
         try {
-            String srcFileName =  URLDecoder.decode(fileName,"UTF-8");
+            String srcFileName = URLDecoder.decode(fileName, "UTF-8");
 
             log.info("fileName: " + srcFileName);
 
-            File file = new File(uploadPath +File.separator+ srcFileName);
-
-            if(size != null && size.equals("1")){
-                file  = new File(file.getParent(), file.getName().substring(2));
-            }
+            File file = new File(uploadPath + File.separator + srcFileName);
 
             log.info("file: " + file);
 
@@ -152,5 +124,25 @@ public class UploadController {
         return result;
     }
 
+    @PostMapping("/removeFile")
+    public ResponseEntity<Boolean> removeFile(String fileName) {
 
+        String srcFileName = null;
+        try {
+            srcFileName = URLDecoder.decode(fileName, "UTF-8");
+            File file = new File(uploadPath + File.separator + srcFileName);
+            boolean result = file.delete();
+
+            File thumbnail = new File(file.getParent(), "s_" + file.getName());
+
+            result = thumbnail.delete();
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }

@@ -14,9 +14,7 @@ public interface PostsService {
 
     Long pregister(PostsDTO dto); //부품 게시판 글쓰기
 
-    PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO); //목록처리
-
-    PostsDTO get(Long id); //조회처리
+//    PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO); //목록처리
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()

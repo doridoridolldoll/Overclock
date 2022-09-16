@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment extends BaseEntity{
 

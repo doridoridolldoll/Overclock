@@ -21,9 +21,15 @@ public class MemberService {
     /**
      * 회원가입
      */
-    @Transactional
+//    public Member saveMember(Member member) {
+//        validateDuplicateMember(member);
+//        return memberRepository.save(member);
+//    }
+
+    @Transactional //변경
     public Long join(Member member) {
-        validateDuplicateMember(member);
+
+        validateDuplicateMember(member); // 중복 회원 검증
         memberRepository.save(member);
         return member.getId();
     }
