@@ -1,30 +1,34 @@
 package overclock.overclock.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.dto.OrderDTO;
 import overclock.overclock.dto.OrderItemDTO;
 import overclock.overclock.entity.*;
-import overclock.overclock.model.DeliveryStatus;
-import overclock.overclock.repository.ItemRepository;
-import overclock.overclock.repository.MemberRepository;
-import overclock.overclock.repository.OrderRepository;
+import overclock.overclock.model.OrderStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public interface OrderService {
 
-    Long order(Long memberId, Long itemId, int count);
+    Long order(OrderDTO orderDTO, Long memberId, int count);
 
 //    void cancelOrder(Long orderId);
 
     default Order dtoToEntity(OrderDTO orderDTO) {
 
+        Delivery delivery = new Delivery();
+
+        Member member = Member.builder()
+                .id(orderDTO.getMemberId())
+                .build();
+
         Order order = Order.builder()
                 .id(orderDTO.getItemId())
+                .delivery(delivery)
+                .orderStatus(OrderStatus.ORDER)
+                .member(member)
                 .build();
+
         return order;
     }
 

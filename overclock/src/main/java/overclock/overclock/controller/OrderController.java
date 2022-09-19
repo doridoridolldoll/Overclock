@@ -1,6 +1,7 @@
 package overclock.overclock.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.dto.OrderDTO;
 import overclock.overclock.entity.Item;
 import overclock.overclock.entity.Member;
+import overclock.overclock.entity.Order;
 import overclock.overclock.repository.ItemRepository;
 import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.service.ItemService;
@@ -21,6 +23,8 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("order")
+@Log4j2
 public class OrderController {
 
     private final MemberRepository memberRepository;
@@ -30,7 +34,7 @@ public class OrderController {
     private final MemberService memberService;
     private final ItemService itemService;
 
-    @GetMapping(value = "/order")
+    @GetMapping(value = "/orderForm")
     public String createForm(Model model) {
 
         List<Member> members = memberService.findMember();
@@ -42,21 +46,13 @@ public class OrderController {
         return "order/orderForm";
     }
 
-    @PostMapping(value = "/order")
-    public String order(@RequestParam("memberId") Long memberId,
-                        @RequestParam("itemId") Long itemId, @RequestParam("count") int count) {
+    @PostMapping(value = "/orderForm")
+    public String order(OrderDTO orderDTO, MemberDTO memberDTO, int count, RedirectAttributes redirectAttributes) {
 
-//        Long orderId = orderService.order(orderDTO);
-//        List<Member> memberNo = memberService.findMember();
-//        List<Item> itemNo = itemService.findItem();
-//
-//        redirectAttributes.addFlashAttribute("msg1", orderId);
-//        redirectAttributes.addFlashAttribute("msg2", memberNo);
-//        redirectAttributes.addFlashAttribute("msg3", itemNo);
-
-        orderService.order(memberId, itemId, count);
-
-        return "redirect:/posts/lists";
+        Long order = orderService.order(orderDTO, orderDTO.getItemId(), count);
+        log.info(order);
+        redirectAttributes.addFlashAttribute("msg", order);
+        return "redirect:/orderList";
     }
 
 }

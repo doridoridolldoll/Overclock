@@ -1,15 +1,13 @@
 package overclock.overclock.entity;
 
 import lombok.*;
-import overclock.overclock.model.Address;
-import overclock.overclock.model.DeliveryStatus;
-import overclock.overclock.model.MemberRole;
 import overclock.overclock.model.OrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "orders")
@@ -19,7 +17,7 @@ import java.util.List;
 public class Order extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
     private Long id;
 
@@ -55,17 +53,30 @@ public class Order extends BaseEntity{
         orderItem.setOrder(this);
     }
 
-    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+    public static Order createOrder(Optional<Member> member, Delivery delivery,  OrderItem... orderItems) {
 
         Order order = new Order();
-        order.setMember(member);
+        order.setMember(Member.builder().email("as").build());
         order.setDelivery(delivery);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
+
         order.setOrderStatus(OrderStatus.ORDER);
         order.setOrderDate(LocalDateTime.now());
         return order;
     }
+
+//    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+//
+//        Order order = new Order();
+//        order.setMember(member);
+//        for (OrderItem orderItem : orderItemList) {
+//            order.addOrderItem(orderItem);
+//        }
+//        order.setOrderDate(LocalDateTime.now());
+//        order.setOrderStatus(OrderStatus.ORDER);
+//        return order;
+//    }
 
 }

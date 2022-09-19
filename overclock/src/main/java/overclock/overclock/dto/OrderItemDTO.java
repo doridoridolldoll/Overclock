@@ -9,12 +9,12 @@ import overclock.overclock.entity.OrderItem;
 @Builder
 public class OrderItemDTO {
 
-    private String itemName;
+    private String itemDetail;
     private int count;
     private int orderPrice;
 
-    public void OrderItemDto(OrderItem orderItem, String itemName) {
-        this.itemName = itemName;
+    public void OrderItemDto(OrderItem orderItem, String itemDetail) {
+        this.itemDetail = itemDetail;
         this.count = orderItem.getCount();
         this.orderPrice = orderItem.getOrderPrice();
 

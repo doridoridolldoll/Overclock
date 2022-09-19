@@ -44,12 +44,12 @@
 import {reactive, ref} from '@vue/reactivity'
 import axios from 'axios'
 import {useRouter} from 'vue-router';
-// import Modal from './teleport/Modal.vue'
+import Modal from './teleport/Modal.vue'
 import FileUpload from './FileUpload.vue'
 
 export default {
   name: 'TheJoin',
-  components: { FileUpload },
+  components: { Modal, FileUpload },
   setup() {
     const router = useRouter();
     const state = reactive({
