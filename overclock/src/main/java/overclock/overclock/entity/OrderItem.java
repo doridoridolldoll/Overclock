@@ -31,10 +31,10 @@ public class OrderItem extends BaseEntity{
     private int count; // 주문 수량
 
     //상품 주문
-    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+    public static OrderItem createOrderItem(Item item, int count) {
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
-        orderItem.setOrderPrice(orderPrice);
+        orderItem.setOrderPrice(item.getPrice());
         orderItem.setCount(count);
 
         item.removeStock(count);

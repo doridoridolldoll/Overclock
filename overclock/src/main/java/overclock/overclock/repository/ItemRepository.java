@@ -13,4 +13,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("select i, ii from Item i " +
         " left outer join ItemImg ii on ii.item = i group by i ")
     Page<Object[]> getListPage(Pageable pageable);
+
+    Item findOne(Long id);
 }

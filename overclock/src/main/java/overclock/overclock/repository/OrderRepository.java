@@ -11,7 +11,7 @@ import overclock.overclock.entity.Order;
 import java.util.List;
 
 @Repository
-@EnableJpaRepositories
+//@EnableJpaRepositories
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o from Order o " +

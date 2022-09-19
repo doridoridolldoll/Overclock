@@ -10,13 +10,15 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-@EnableJpaRepositories
+//@EnableJpaRepositories
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
 
     Member findByEmail(String email);
 
     public List<Member> findByName(String name);
+
+    Member findOne(Long id);
 
 
 }
