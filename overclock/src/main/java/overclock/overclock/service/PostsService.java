@@ -16,6 +16,8 @@ public interface PostsService {
 
     Long pregister(PostsDTO dto); //부품 게시판 글쓰기
 
+    PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO);
+
     PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto);
 
 <<<<<<< HEAD

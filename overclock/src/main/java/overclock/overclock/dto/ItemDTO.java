@@ -14,7 +14,7 @@ import java.util.List;
 public class ItemDTO {
 
     private Long id;
-
+    private String title;
     private String itemName;
     private String itemDetail;
     private int price;

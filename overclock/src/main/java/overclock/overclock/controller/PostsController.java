@@ -65,5 +65,6 @@ public class PostsController {
     public void list(PageRequestDTO pageRequestDTO, Model model){
         log.info("list.... {} ", pageRequestDTO);
         model.addAttribute("result", postsService.getList(pageRequestDTO));
+        model.addAttribute("result", itemService.getList2(pageRequestDTO));
     }
 }
