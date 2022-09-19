@@ -72,6 +72,17 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
+    public PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO) {
+        log.info("pageRequestDTO : {} ", requestDTO);
+
+        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts)en[0]));
+        Page<Object[]> result = repository.getPostsWithMemberPage(requestDTO.getPageable(Sort.by("id").descending()));
+
+        return new PageResultDTO<>(result, fn);
+
+    }
+
+    @Override
     public List<PostsDTO> getList() {
         List<Posts> result = repository.findAll();
         log.info("result : {}", result);
