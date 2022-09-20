@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.dto.OrderDTO;
 import overclock.overclock.entity.*;
 import overclock.overclock.model.DeliveryStatus;
-import overclock.overclock.repository.ItemRepository;
 import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.repository.OrderRepository;
 

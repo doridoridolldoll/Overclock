@@ -11,12 +11,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-//@ToString(exclude = "item")
 public class ItemImg {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_img_id")
+    @Column(name = "posts_img_id")
     private Long id;
 
     @Column
@@ -28,7 +27,10 @@ public class ItemImg {
     @Column
     private String path;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Item item;
+    @ManyToOne
+    private Posts ItemImg;
 
+    public void updateItemImg(Posts id){
+        this.ItemImg = id;
+    }
 }

@@ -12,7 +12,7 @@
 
     </div>
   </section><!-- End Hero -->
-
+	<button><router-link to="/register"> 글쓰기</router-link></button>
   <main id="main">
     <section class="ftco-section ftco-cart">
 			<div class="container">
@@ -32,8 +32,8 @@
 						    <tbody>
 						      <tr class="text-center" v-for="(list,i) in state.lists" :key="(list,i)">
 						        <td class ="price"> {{list.id}} </td>
+						        <td class="image-prod"><img src=""></td>
 
-						        <td class="image-prod"></td>
 
 						        <td class="product-name">
 						        	<h3>{{list.title}}</h3>
@@ -65,7 +65,7 @@ export default {
       		handleGetList()
     	})
 		const state = reactive({
-      		lists: ''
+      		lists: 	''
    		})
 		const handleGetList = async () => {
 			const url = '/api/getlist'
@@ -75,7 +75,7 @@ export default {
 			const body = { email: state.email }
 			await axios.post(url, body, { headers }).then(function (res) {
 				if (res.status === 200) {
-					console.log(res)
+					console.log(res);
 				state.lists = res.data
 				}
 			})

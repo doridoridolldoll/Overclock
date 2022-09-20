@@ -7,6 +7,7 @@ import Detail from "@/components/Posts/PageDetail.vue"
 import Main from "@/components/Main.vue"
 import Login from "@/components/Login.vue"
 import Join from "@/components/Join.vue"
+import Register from "@/components/Register.vue"
 
 const routes = [
     {path:"/",name:"Main", component: Main}, 
@@ -15,7 +16,8 @@ const routes = [
     {path:"/used",name:"Used", component: Used}, 
     {path:"/detail",name:"Detail", component: Detail}, 
     {path:"/login",name:"Login", component: Login}, 
-    {path:"/join",name:"Join", component: Join}, 
+    {path:"/join",name:"Join", component: Join},
+    {path:"/register", name:"Register", component: Register}
   ]
   
   const router = createRouter({
