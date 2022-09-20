@@ -25,7 +25,6 @@ export default {
       fileInput   : '',
       fileLabel   : '',
       upResult    : '',
-      token       : sessionStorage.getItem("TOKEN"),
     })   
     const fileInput = ref('')
     const fileLabel = ref('')
