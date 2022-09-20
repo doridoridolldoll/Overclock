@@ -2,10 +2,10 @@ package overclock.overclock.service;
 
 import org.springframework.stereotype.Service;
 
-import overclock.overclock.dto.PageRequestDTO;
-import overclock.overclock.dto.PageResultDTO;
+import overclock.overclock.dto.*;
 
-import overclock.overclock.dto.PostsDTO;
+import overclock.overclock.entity.Item;
+import overclock.overclock.entity.ItemImg;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
@@ -48,6 +48,27 @@ public interface PostsService {
                 .memberId(posts.getMember().getId())
                 .build();
         return postsDTO;
+    }
+
+    default ItemImg imageDtoToEntity(ItemImgDTO dto, Long id){
+        Posts posts = Posts.builder()
+                .id(dto.getPostsId())
+                .build();
+        ItemImg ii = ItemImg.builder()
+                .uuid(dto.getUuid())
+                .path(dto.getPath())
+                .imgName(dto.getImgName())
+                .build();
+        return ii;
+    }
+
+    default ItemImg imageDtoToEntity2(ItemImgDTO dto){
+        ItemImg ii = ItemImg.builder()
+                .uuid(dto.getUuid())
+                .path(dto.getPath())
+                .imgName(dto.getImgName())
+                .build();
+        return ii;
     }
 }
 

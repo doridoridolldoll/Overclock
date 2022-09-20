@@ -68,13 +68,12 @@ export default {
       //전송할 파일이 있으면 목록 보기.It there are files to transfer,show list.
       for(let value of formData.values()) console.log(value)
       
-      const url = '/apiserverex/api/uploadAjax/'
+      const url = '/api/uploadAjax/'
       await axios.post(url, formData, {
         headers: {
           "Content-Type" : "multipart/form-data",
-          "process-data" : false,
-          Authorization: state.token, 
-          "token": state.token },
+          "process-data" : false
+          },
       }).then(function(res){
         showResult(res.data);
       }).catch(function(err){
@@ -83,7 +82,7 @@ export default {
     }
     const showResult = async(arr) => {
       const uploadUL = upResult.value;
-      const displayUrl = '/apiserverex/display'
+      const displayUrl = '/display'
       const url = `http://localhost:9090${displayUrl}`
       let str = ""
       for(let i=0;i<arr.length;i++){
@@ -100,13 +99,11 @@ export default {
       const removeBtns = document.querySelectorAll(".removeBtn");
       for (let i = 0; i < removeBtns.length; i++) {
         removeBtns[i].onclick = function(){
-          const removeUrl = '/apiserverex/api/removeFile'
+          const removeUrl = '/api/removeFile'
           const targetLI = this.parentElement.closest('li')
           const fileName = targetLI.dataset.file
           const headers = {
-            "Content-Type" : "application/json",
-            Authorization: state.token, 
-            "token": state.token }
+            "Content-Type" : "application/json"}
 
           axios({
             method: "POST",

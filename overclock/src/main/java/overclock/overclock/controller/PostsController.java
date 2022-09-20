@@ -11,7 +11,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import overclock.overclock.dto.ItemDTO;
 import overclock.overclock.dto.PageRequestDTO;
 import overclock.overclock.dto.PostsDTO;
-import overclock.overclock.service.ItemService;
 import overclock.overclock.service.PostsService;
 
 @Controller
@@ -20,7 +19,6 @@ import overclock.overclock.service.PostsService;
 @RequiredArgsConstructor
 public class PostsController {
     private final PostsService postsService;
-    private final ItemService itemService;
 
 
     //중고거래 컨트롤러
@@ -33,14 +31,12 @@ public class PostsController {
     public String register(ItemDTO itemDTO, PostsDTO dto, RedirectAttributes redirectAttributes){
         log.info("itemDTO : " + itemDTO);
 
-        Long ino = itemService.register(itemDTO);
-        redirectAttributes.addFlashAttribute("msg", ino);
-
         Long id = postsService.mregister(dto);
-        redirectAttributes.addFlashAttribute("msg2", id);
+        log.info("id : {}", id);
+//        redirectAttributes.addFlashAttribute("msg", id);
 
 
-        return "redirect:/posts/list";
+        return "redirect:/";
     }
 
 
@@ -61,10 +57,10 @@ public class PostsController {
 //        return "redirect:/posts/pregister";
 //    }
 
-    @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
-        log.info("list.... {} ", pageRequestDTO);
-        model.addAttribute("result", postsService.getList(pageRequestDTO));
-        model.addAttribute("result", itemService.getList2(pageRequestDTO));
-    }
+
+//    @GetMapping("/list")
+//    public void list(PageRequestDTO pageRequestDTO, Model model){
+//        log.info("list.... {} ", pageRequestDTO);
+//        model.addAttribute("result", itemService.getList2(pageRequestDTO));
+//    }
 }

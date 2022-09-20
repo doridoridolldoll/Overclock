@@ -4,6 +4,10 @@ import overclock.overclock.dto.OrderDTO;
 import overclock.overclock.dto.OrderItemDTO;
 import overclock.overclock.entity.*;
 import overclock.overclock.model.OrderStatus;
+import overclock.overclock.model.DeliveryStatus;
+import overclock.overclock.repository.MemberRepository;
+import overclock.overclock.repository.OrderRepository;
+
 
 import java.util.List;
 import java.util.stream.Collectors;

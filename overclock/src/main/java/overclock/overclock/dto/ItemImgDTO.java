@@ -14,9 +14,13 @@ import java.net.URLEncoder;
 @Builder
 public class ItemImgDTO {
 
+    private Long id;
     private String imgName;
     private String uuid;
     private String path;
+
+    private Long PostsId;
+
 
     public String getImageURL(){
         try {

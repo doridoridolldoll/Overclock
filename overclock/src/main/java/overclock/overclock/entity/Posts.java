@@ -6,6 +6,8 @@ import overclock.overclock.model.BoardType;
 import overclock.overclock.model.PartsType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,7 +29,7 @@ public class Posts extends BaseEntity{ //게시물
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @Column(nullable = false)
+
     private String title; //제목
 
     private String content;
@@ -40,6 +42,9 @@ public class Posts extends BaseEntity{ //게시물
     @Embedded
     private Address address; //주소
 
+    @Builder.Default
+    @OneToMany(mappedBy = "ItemImg", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<ItemImg> itemImgList = new ArrayList<>();
 
 
     @Builder

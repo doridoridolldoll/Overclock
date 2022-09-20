@@ -27,7 +27,7 @@ public class PostsTests {
     @Test
     public void insertPosts(){
         IntStream.rangeClosed(1,100).forEach(i -> {
-            Long id = (long)(Math.random()*100)+1;
+            Long id = (long)(Math.random()*20)+1;
             Member member = Member.builder().id(id).build();
             Posts posts = Posts.builder()
                     .title("title")
