@@ -1,7 +1,6 @@
 package overclock.overclock.service;
 
-import overclock.overclock.dto.ItemDTO;
-import overclock.overclock.dto.ItemImgDTO;
+import overclock.overclock.dto.*;
 import overclock.overclock.entity.Item;
 import overclock.overclock.entity.ItemImg;
 
@@ -14,7 +13,7 @@ public interface ItemService {
 
     Long register(ItemDTO itemDTO);
 
-//    PageResultDTO<MovieDTO, Object[]> getList(PageRequestDTO requestDTO); // 목록 처리
+    PageResultDTO<ItemDTO, Object[]> getList2(PageRequestDTO requestDTO); // 목록 처리
 //
 //    MovieDTO getMovie(Long mno);
 

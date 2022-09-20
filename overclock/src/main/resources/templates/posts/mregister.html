@@ -82,7 +82,7 @@
               const fileName = targetLI.dataset.file
               axios({
                 method: "POST",
-                url: `http://localhost:8080${removeUrl}?fileName=${fileName}`,
+                url: `http://localhost:9090${removeUrl}?fileName=${fileName}`,
               }).then(function (res) {
                 if (res.data === true) targetLI.remove();
               }).catch(function (err) { console.log(err) });
@@ -102,7 +102,7 @@
             var str = "";
             const liArr = document.querySelectorAll(".uploadResult ul li")
             for (let i = 0; i < liArr.length; i++) {
-              const target = liArr[i];
+              var target = liArr[i];
               str += `
               <input type="hidden" name="imageDTOList[${i}].imgName"
               value="${target.dataset.name}">

@@ -11,6 +11,7 @@ import overclock.overclock.dto.PageRequestDTO;
 import overclock.overclock.dto.PageResultDTO;
 import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Posts;
+import overclock.overclock.service.ItemService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
 
@@ -23,6 +24,8 @@ import java.util.List;
 public class ApiController {
     public final PostsService postsService;
     private final MemberService memberService;
+
+    private final ItemService itemService;
 
     @RequestMapping(value = "mregister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,6 +49,8 @@ public class ApiController {
     public ResponseEntity<List<PostsDTO>> getList() {
         List<PostsDTO> result = postsService.getList();
         log.info(result);
+
+
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
