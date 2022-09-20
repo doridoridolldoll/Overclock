@@ -96,11 +96,11 @@
 </template>
 
 <script>
-import {reactive, ref} from '@vue/reactivity'
+import {reactive, } from '@vue/reactivity'
 import axios from 'axios'
-import {useRouter} from 'vue-router';
+// import {useRouter} from 'vue-router';
 // import Modal from './teleport/Modal.vue'
-import FileUpload from './FileUpload.vue'
+// import FileUpload from './FileUpload.vue'
 
 export default {
 
