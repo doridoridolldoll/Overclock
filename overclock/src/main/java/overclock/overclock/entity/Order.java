@@ -25,7 +25,7 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "member_id")
     private Member member; // 주문 회원
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -38,11 +38,10 @@ public class Order extends BaseEntity{
     private OrderStatus orderStatus; // 주문상태 [ORDER, CANCEL]
 
     @Builder
-    public Order(Long id, Member member, Delivery delivery, List<OrderItem> orderItem,
+    public Order(Long id, Member member, List<OrderItem> orderItem,
                  OrderStatus orderStatus, LocalDateTime orderDate) {
         this.id = id;
         this.member = member;
-        this.delivery = delivery;
         this.orderItems = orderItem;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
@@ -53,10 +52,10 @@ public class Order extends BaseEntity{
         orderItem.setOrder(this);
     }
 
-    public static Order createOrder(Optional<Member> member, Delivery delivery,  OrderItem... orderItems) {
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
 
         Order order = new Order();
-        order.setMember(Member.builder().email("as").build());
+        order.setMember(member);
         order.setDelivery(delivery);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);

@@ -17,7 +17,6 @@ public class Delivery extends BaseEntity{
     @Column(name = "delivery_id")
     private Long id;
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
     private Order order;
     @Embedded
     private Address address;

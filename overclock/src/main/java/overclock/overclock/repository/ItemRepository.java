@@ -11,14 +11,14 @@ import overclock.overclock.entity.Item;
 import java.util.Optional;
 
 @Transactional
-@EnableJpaRepositories
+//@EnableJpaRepositories
 public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("select i, ii from Item i " +
         " left outer join ItemImg ii on ii.item = i group by i ")
     Page<Object[]> getListPage(Pageable pageable);
 
-//    @Query("select i from Item i")
-//    Item findOne(Long id);
+    @Query("select i from Item i where i.id = :id ")
+    Item findOne(Long id);
 
 //    public Optional<Item> findById(Long id);
 

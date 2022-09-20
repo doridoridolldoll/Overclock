@@ -10,6 +10,9 @@ import overclock.overclock.repository.ItemRepository;
 import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.repository.OrderRepository;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,20 +24,26 @@ public class OrderServiceImpl implements OrderService{
     private final ItemRepository itemRepository;
 
     @Transactional
-    public Long order(OrderDTO orderDTO, Long memberId, int count) {
+    public Long order(Long memberId, Long itemId, int count) {
 
-        Order order = dtoToEntity(orderDTO);
-        Optional<Member> member = memberRepository.findById(memberId);
+        Member member = memberRepository.findOne(memberId);
+        Item item = itemRepository.findOne(itemId);
 
+        //배송정보 생성
         Delivery delivery = new Delivery();
-        delivery.setAddress(member.get().getAddress());
+        delivery.setAddress(member.getAddress());
         delivery.setStatus(DeliveryStatus.READY);
 
-        order.setDelivery(delivery);
+        //주문상품 생성
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
 
+        //주문 생성
+        Order order = Order.createOrder(member, delivery, orderItem);
+
+        //주문 저장
         orderRepository.save(order);
-
         return order.getId();
+    }
 
 //        List<OrderItem> orderItemList = new ArrayList<>();
 //        Item item = itemRepository.findById(orderDTO.getItemId()).orElseThrow(EntityNotFoundException::new);
@@ -83,7 +92,7 @@ public class OrderServiceImpl implements OrderService{
 //        order.setDelivery(order.getDelivery());
 //        orderRepository.save(order);
 //        return order.getId();
-    }
+//    }
 //
 //    @Override
 //    public void cancelOrder(Long orderId) {

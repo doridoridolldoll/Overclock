@@ -14,6 +14,7 @@ import overclock.overclock.entity.Posts;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.repository.PostsRepository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class PostsServiceImpl implements PostsService {
         posts.setBoardType(BoardType.MARKET);
         repository.save(posts);
         return posts.getId();
+
     }
 
     @Override

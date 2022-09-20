@@ -13,7 +13,7 @@ public class OrderItemDTO {
     private int count;
     private int orderPrice;
 
-    public void OrderItemDto(OrderItem orderItem, String itemDetail) {
+    public void OrderItemDTO(OrderItem orderItem, String itemDetail) {
         this.itemDetail = itemDetail;
         this.count = orderItem.getCount();
         this.orderPrice = orderItem.getOrderPrice();

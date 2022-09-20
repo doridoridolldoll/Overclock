@@ -10,13 +10,11 @@ import java.util.stream.Collectors;
 
 public interface OrderService {
 
-    Long order(OrderDTO orderDTO, Long memberId, int count);
+    Long order(Long memberId, Long itemId, int count);
 
 //    void cancelOrder(Long orderId);
 
     default Order dtoToEntity(OrderDTO orderDTO) {
-
-        Delivery delivery = new Delivery();
 
         Member member = Member.builder()
                 .id(orderDTO.getMemberId())
@@ -24,7 +22,6 @@ public interface OrderService {
 
         Order order = Order.builder()
                 .id(orderDTO.getItemId())
-                .delivery(delivery)
                 .orderStatus(OrderStatus.ORDER)
                 .member(member)
                 .build();

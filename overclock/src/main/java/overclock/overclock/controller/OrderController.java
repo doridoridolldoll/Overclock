@@ -2,8 +2,12 @@ package overclock.overclock.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import overclock.overclock.dto.ItemDTO;
@@ -17,13 +21,11 @@ import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.service.ItemService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.OrderService;
-//import overclock.overclock.service.OrderService;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("order")
 @Log4j2
 public class OrderController {
 
@@ -34,7 +36,7 @@ public class OrderController {
     private final MemberService memberService;
     private final ItemService itemService;
 
-    @GetMapping(value = "/orderForm")
+    @GetMapping(value = "/order")
     public String createForm(Model model) {
 
         List<Member> members = memberService.findMember();
@@ -46,13 +48,13 @@ public class OrderController {
         return "order/orderForm";
     }
 
-    @PostMapping(value = "/orderForm")
-    public String order(OrderDTO orderDTO, MemberDTO memberDTO, int count, RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/order")
+    public String order(@RequestParam("memberId") Long memberId,
+                        @RequestParam("itemId") Long itemId, @RequestParam("count") int count) {
 
-        Long order = orderService.order(orderDTO, orderDTO.getItemId(), count);
-        log.info(order);
-        redirectAttributes.addFlashAttribute("msg", order);
-        return "redirect:/orderList";
+        orderService.order(memberId, itemId, count);
+        return "redirect:/order";
     }
+
 
 }
