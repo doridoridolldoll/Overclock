@@ -27,19 +27,9 @@
   </template>
   
   <script>
-  import {reactive } from '@vue/reactivity'
   export default {
     name: 'ToDetail',
     setup(){
-  const state = reactive({
-
-    title       :'',
-    member_id   :'',
-    reg_date    :'',
-    content     :'',
-
-  })
-
 
     }
   }

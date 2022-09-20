@@ -12,7 +12,7 @@
 
     </div>
   </section><!-- End Hero -->
-	<button><router-link to="/register"> 글쓰기</router-link></button>
+	<router-link to="/register" class="btn btn-primary"> 글쓰기</router-link>
   <main id="main">
     <section class="ftco-section ftco-cart">
 			<div class="container">
