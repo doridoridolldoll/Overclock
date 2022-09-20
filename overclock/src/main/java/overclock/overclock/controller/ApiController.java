@@ -6,12 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import overclock.overclock.dto.MemberDTO;
-import overclock.overclock.dto.PageRequestDTO;
-import overclock.overclock.dto.PageResultDTO;
-import overclock.overclock.dto.PostsDTO;
+import overclock.overclock.dto.*;
 import overclock.overclock.entity.Posts;
-import overclock.overclock.service.ItemService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
 
@@ -25,11 +21,10 @@ public class ApiController {
     public final PostsService postsService;
     private final MemberService memberService;
 
-    private final ItemService itemService;
 
-    @RequestMapping(value = "mregister", method = RequestMethod.POST,
+    @RequestMapping(value = "/mregister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> register(@RequestBody PostsDTO postsDTO){
+    public ResponseEntity<Long> register(@RequestBody PostsDTO postsDTO, ItemDTO itemDTO){
         log.info("api/memberRegister...ClubMemberDTO:" + postsDTO);
         Long id = postsService.mregister(postsDTO);
         return new ResponseEntity<>(id, HttpStatus.OK);
@@ -48,7 +43,9 @@ public class ApiController {
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PostsDTO>> getList() {
         List<PostsDTO> result = postsService.getList();
-        log.info(result);
+
+
+        log.info("List result : {}", result);
 
 
         return new ResponseEntity<>(result, HttpStatus.OK);

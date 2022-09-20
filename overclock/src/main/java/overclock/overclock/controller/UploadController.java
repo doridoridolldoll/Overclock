@@ -1,5 +1,6 @@
 package overclock.overclock.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,12 +29,13 @@ import java.util.UUID;
 
 @RestController
 @Log4j2
+@RequiredArgsConstructor
 public class UploadController {
 
     @Value("${overclock.upload.path}")
     private String uploadPath;
 
-    @PostMapping("/uploadAjax")
+    @PostMapping("/api/uploadAjax")
     public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles) {
 
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
@@ -124,7 +126,7 @@ public class UploadController {
         return result;
     }
 
-    @PostMapping("/removeFile")
+    @PostMapping("/api/removeFile")
     public ResponseEntity<Boolean> removeFile(String fileName) {
 
         String srcFileName = null;
