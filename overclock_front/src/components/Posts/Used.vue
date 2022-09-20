@@ -32,7 +32,9 @@
 						    <tbody>
 						      <tr class="text-center" v-for="(list,i) in state.lists" :key="(list,i)">
 						        <td class ="price"> {{list.id}} </td>
-						        <td class="image-prod"><img src="@/assets/img/2022/09/19/s_1542ea36-267a-48c0-bdf2-fa88cda2944a_5"></td>
+
+						        <td class="image-prod"></td>
+
 						        <td class="product-name">
 						        	<h3>{{list.title}}</h3>
 						        </td>
