@@ -30,8 +30,19 @@
   export default {
     name: 'ToDetail',
     setup(){
+  const state = reactive({
+
+    title       :'',
+    member_id   :'',
+    reg_date    :'',
+    content     :'',
+
+  })
+
+    return{state}
 
     }
+
   }
   </script>
   <style scoped>
