@@ -87,7 +87,7 @@
 
     </script>
 
-    <style>
+    <style scoped>
         .btn4{
             margin-top: 10px;
         }

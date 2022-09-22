@@ -7,11 +7,16 @@
                 <input type="text" class="form-control" v-model="state.title" placeholder="Enter Title">
             </div>
             <div class="form-group">
-                <label>Content</label>
+                <label>상품명</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>거래정보</label>
                 <textarea class ="form-control" v-model="state.content" rows="5" name="content"></textarea>
             </div>
             <div class="form-group">
-                <label>Item Detail</label>
+                <label>가격</label>
+
                 <textarea class ="form-control" v-model="state.itemDetail" rows="5" name="itemDetail"></textarea>
             </div>
             <div class="form-group">
@@ -21,6 +26,7 @@
             <div class="form-group">
 
                 <label>Price</label>
+
                 <input type="text" class="form-control" name="price" placeholder="price">
             </div>
 
@@ -39,6 +45,9 @@
 
             <FileUpload />
 
+
+
+
             <div class="form-group">
                 <label>부품 카테고리</label>
                 <input type="text" class="form-control" v-model="state.type" name="type" placeholder="type"><br>
@@ -50,7 +59,7 @@
                     <option>ETC</option>
                 </select> -->
             </div>
-            <button type="primary" @click="joinHandler">Register</button>
+            <button class="btn btn-primary btn7" @click="joinHandler">등록</button>
 
     </form>
     </section>

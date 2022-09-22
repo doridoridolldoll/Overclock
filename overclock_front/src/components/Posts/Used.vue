@@ -12,7 +12,8 @@
 
     </div>
   </section><!-- End Hero -->
-<button><router-link to="/register"> 글쓰기</router-link></button>
+
+	<router-link to="/usedregister" class="btn btn-primary"> 글쓰기</router-link>
 
   <main id="main">
     <section class="ftco-section ftco-cart">
@@ -38,7 +39,7 @@
 								</td>
 
 						        <td class="product-name">
-						        	<h3>{{list.title}}</h3>
+						        	<h3><a href="/useddetail">{{list.title}}</a></h3>
 						        </td>
 				            	<td class="price">{{list.regDate}}</td>
 						        <td class="price"> {{list.viewCount}} </td>

@@ -66,7 +66,7 @@
             <div class="icon-box">
               <div class="icon"><img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTmUHH0v9f2o86r8JPMrnRhY6V_Si8AT_ldqmyq4TxxTsNdXMHIsqqrDmA_R48ZbxSHCz2iSWqCvvrXhCHhSDNIYZAQ1RO0i0Jhn2Mw5dN7NG4Rm4RVnuIJ&usqp=CAE" style="width:292px;height:200px;"></div>
               <br><br><br><br><br>
-              <h3><a href="" style="width:292px;" >rtx 3080 ti</a></h3>
+              <h3><a href="/partsdetail" style="width:292px;" >rtx 3080 ti</a></h3>
               <span><h4>최저가 보증! 전국 최저가</h4></span>
               <span><h5>판매가 4,800,000원</h5></span>
               <span><h5>할인가 4,300,000원</h5></span>

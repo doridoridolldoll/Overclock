@@ -1,10 +1,9 @@
 <template>
-
-  <section id="hero" class="d-flex align-items-center justify-content-center ">
+  <section id="hero" class="d-flex align-items-center justify-content-center">
     <body>
       <main id="main">
         <section id="portfolio-details" class="portfolio-details">
-          <div class="container input-form flex-wrap">
+          <div class="container input-form">
             <div class="row gy-4">
               <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
@@ -16,13 +15,12 @@
               </div>
 
               <div class="col-lg-4">
-                <div class="portfolio-info" >
-                  <h3>titleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</h3>
+                <div class="portfolio-info">
+                  <h3>상품정보</h3>
                   <ul>
                     <li><strong>상품명</strong>: Web design</li>
                     <li><strong>판매자</strong>: ASU Company</li>
                     <li><strong>등록일자</strong>: 01 March, 2020</li>
-                    <li><strong>위치</strong>: 부산광역시 <br>사하구</li>
                     <li>
                       <strong>가격</strong>:
                       999,999,999
@@ -38,12 +36,18 @@
               </div>
             </div>
             <div class="portfolio-description">
-                  <h2>거래정보</h2>
+                  <h2>제품상세</h2>
                   <p>
-                    군대간 친형 컴퓨터 뜯어서 팝니다/
-                    부산내 직거래 가능/
-                    준등기 +1800/
-                    편택,반택 +1600/
+                    RTX 3060 Ti / 8nm / 
+                    베이스클럭: 1680MHz / 
+                    스트림 프로세서: 4864개 / 
+                    PCIe4.0x16 / GDDR6(DDR6) / 
+                    출력단자: HDMI2.1 , DP1.4 / 
+                    부가기능: 제로팬(0-dB기술) , 
+                    8K 해상도 지원 , 4K 해상도 지원 ,
+                     HDCP 지원 / 정격파워 600W 이상 /
+                      전원 포트: 8핀 x1개 / 2개 팬 / 
+                      가로(길이): 198mm / 백플레이트
                     </p>
                 </div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
@@ -64,7 +68,7 @@ export default {
 .input-form {
   text-align: center;
 
-  max-width: 1000px;
+  max-width: 900px;
 
   margin-top: 80px;
   padding: 32px;
@@ -73,9 +77,6 @@ export default {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-
-  word-break: break-all;
-
 }
 #hero h2 {
   color: rgb(0, 0, 0);
@@ -86,5 +87,4 @@ export default {
 p{
   margin-bottom: 1rem;
 }
-
 </style>
