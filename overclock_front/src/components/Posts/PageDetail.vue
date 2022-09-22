@@ -27,7 +27,6 @@
   </template>
   
   <script>
-  import {reactive } from '@vue/reactivity'
   export default {
     name: 'ToDetail',
     setup(){
@@ -41,6 +40,7 @@
   })
 
     return{state}
+
     }
 
   }

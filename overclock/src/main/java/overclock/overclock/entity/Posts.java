@@ -20,7 +20,7 @@ import java.util.List;
 public class Posts extends BaseEntity{ //게시물
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Enumerated

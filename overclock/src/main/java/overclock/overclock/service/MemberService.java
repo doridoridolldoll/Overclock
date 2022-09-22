@@ -30,7 +30,7 @@ public interface MemberService {
         return member;
     }
 
-    default MemberDTO EntityToDTO(Member member) {
+    default MemberDTO entityToDTO(Member member) {
         MemberDTO memberDTO = MemberDTO.builder()
                 .id(member.getId())
                 .email(member.getEmail())

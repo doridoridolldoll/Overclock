@@ -1,6 +1,7 @@
 <template>
-  <h1 class="mt-4">중고거래 글쓰기 Page</h1>
-    <form>
+  <section id="hero" class="d-flex align-items-center justify-content-center">
+    <form class="form-floating input-form9">
+  <h5 class="mt-4">중고거래 등록</h5>
             <div class="form-group">
                 <label>Title</label>
                 <input type="text" class="form-control" v-model="state.title" placeholder="Enter Title">
@@ -13,15 +14,12 @@
                 <label>Item Detail</label>
                 <textarea class ="form-control" v-model="state.itemDetail" rows="5" name="itemDetail"></textarea>
             </div>
-
-
-
-
             <div class="form-group">
                 <label>Stock</label>
                 <input type="text" class="form-control" name="stock" placeholder="stock">
             </div>
             <div class="form-group">
+
                 <label>Price</label>
                 <input type="text" class="form-control" name="price" placeholder="price">
             </div>
@@ -53,7 +51,9 @@
                 </select> -->
             </div>
             <button type="primary" @click="joinHandler">Register</button>
+
     </form>
+    </section>
 </template>
 
 <script>
@@ -128,5 +128,22 @@ export default {
 </script>
 
 <style>
+  .input-form9 {
+    text-align: center;
+
+    max-width: 680px;
+    max-height: 900px;
+
+    margin-top: 70px;
+    padding: 32px;
+
+    background: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+  }
+  .btn7{
+    margin-top: 0rem;
+  }
 
 </style>

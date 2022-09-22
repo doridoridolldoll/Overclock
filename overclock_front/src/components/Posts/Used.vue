@@ -13,6 +13,7 @@
     </div>
   </section><!-- End Hero -->
 <button><router-link to="/register"> 글쓰기</router-link></button>
+
   <main id="main">
     <section class="ftco-section ftco-cart">
 			<div class="container">
@@ -35,6 +36,7 @@
 						        <td>
 									<img v-bind:src= "state.img[i]">
 								</td>
+
 						        <td class="product-name">
 						        	<h3>{{list.title}}</h3>
 						        </td>

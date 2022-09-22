@@ -10,7 +10,7 @@
           <li><router-link to="/parts" class="nav-link scrollto" >부품</router-link></li>
           <li><router-link to="/peri" class="nav-link scrollto" >주변기기</router-link></li>
           <li><router-link to="/used" class="nav-link scrollto" >중고장터</router-link></li>
-          <li><a class="nav-link scrollto " >자유게시판 </a></li>
+          <li><router-link to="/free" class="nav-link scrollto" >자유게시판 </router-link></li>
           <li><a class="nav-link scrollto " href="#portfolio">고객센터</a></li>
           <li><a class="nav-link scrollto" href="#contact">찾아오시는 길</a></li>
           <li class="dropdown"><a href="#">
