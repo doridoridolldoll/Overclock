@@ -19,6 +19,7 @@ public class PostsDTO {
     private int viewCount;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
+    private String partsType;
     @Builder.Default
     private List<ItemImgDTO> imageDTOList = new ArrayList<>();
 

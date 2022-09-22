@@ -40,6 +40,7 @@ import overclock.overclock.entity.ItemImg;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.BoardType;
+import overclock.overclock.model.PartsType;
 import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
@@ -67,6 +68,7 @@ public class PostsServiceImpl implements PostsService {
         log.info("dto : {}", dto);
         Posts posts = dtoToEntity(dto);
         posts.setBoardType(BoardType.MARKET);
+
         repository.save(posts);
 
         List<ItemImgDTO> imgList = dto.getImageDTOList();
@@ -104,22 +106,35 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
-    public List<PostsDTO> getList() {
+    public List<PostsDTO> getList(PostsDTO postsDTO) {
         List<Posts> result = repository.findAll();
         log.info("result : {}", result);
+//        List<ItemImgDTO> imgList = dto.getImageDTOList();
+//        imgList.forEach(new Consumer<ItemImgDTO>() {
+//            @Override
+//            public void accept(ItemImgDTO itemImgDTO) {
+//                ItemImg ii = imageDtoToEntity(itemImgDTO, dto.getId());
+//                itemImgRepository.save(ii);
+//            }
+//        });
+//        log.info("imgList : {}", imgList);
         return result.stream().map(new Function<Posts,PostsDTO>() {
             @Override
             public PostsDTO apply(Posts t) {
+                log.info("asd : {}", entityToDTO(t));
                 return entityToDTO(t);
             }
         }).collect(Collectors.toList());
+
     }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {
         log.info("PageRequestDTO: " + dto);
-        Pageable pageable = dto.getPageable(Sort.by("id"));
-        Page<Posts> result = repository.getPageList(pageable);
+        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+//        Page<Posts> result = repository.getPageList(pageable);
+        Page<Posts> result = repository.findAll(pageable);
+        log.info("Page result : {}", result);
         Function<Posts, PostsDTO> fn = new Function<Posts,PostsDTO>() {
             @Override
             public PostsDTO apply(Posts t) {

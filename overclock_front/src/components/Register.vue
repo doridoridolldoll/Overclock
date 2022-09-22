@@ -14,6 +14,9 @@
                 <textarea class ="form-control" v-model="state.itemDetail" rows="5" name="itemDetail"></textarea>
             </div>
 
+
+
+
             <div class="form-group">
                 <label>Stock</label>
                 <input type="text" class="form-control" name="stock" placeholder="stock">
@@ -33,8 +36,22 @@
                 <input type="file" class="form-control" id="fileInput" multiple>
                 <label class="custom-file-label" data-browse="Browse"></label>
             </div> -->
+
             <div class="box"></div>
+
             <FileUpload />
+
+            <div class="form-group">
+                <label>부품 카테고리</label>
+                <input type="text" class="form-control" v-model="state.type" name="type" placeholder="type"><br>
+                <!-- <select v-model="state.type" name="type">
+                    <option>MB</option>
+                    <option>CPU</option>
+                    <option>GPU</option>
+                    <option>HDD</option>
+                    <option>ETC</option>
+                </select> -->
+            </div>
             <button type="primary" @click="joinHandler">Register</button>
     </form>
 </template>
@@ -48,15 +65,15 @@ export default {
     name:'ToRegister',
     components: { FileUpload },
     setup() {
-        
         const router = useRouter();
         const state = reactive({
-        title       : '',
-        content    : '',
-        memberId  : '',
-        name        : '',
-        itemDetail : '',
-        imageDTOList : new Array(),
+            title       : '',
+            content    : '',
+            memberId  : '',
+            name        : '',
+            itemDetail : '',
+            type : '',
+            imageDTOList : new Array(),
         })
         const joinHandler = async() => {
             let str = "";
@@ -85,13 +102,18 @@ export default {
                 "Content-Type" : "application/json"
                 }
             const body = {
-                title : state.title, content : state.content, memberId : state.memberId, imageDTOList: state.imageDTOList,
-                itemDetail: state.itemDetail
+                title : state.title, 
+                content : state.content, 
+                memberId : state.memberId, 
+                imageDTOList: state.imageDTOList,
+                itemDetail: state.itemDetail, 
+                type: state.type,
             }
             const response = await axios.post(url, body, {headers})
             console.log(response.data)
+            
             if(response.status === 200){
-                alert('회원가입이 되었습니다.');
+                alert(state.type);
             } else {
                 alert('회원가입에 실패하였습니다.')
             }

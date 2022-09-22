@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@ToString(exclude = "ItemImg")
 public class ItemImg {
 
     @Id

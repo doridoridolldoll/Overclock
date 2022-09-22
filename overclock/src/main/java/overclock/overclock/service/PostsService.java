@@ -10,6 +10,8 @@ import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public interface PostsService {
     Long mregister(PostsDTO dto); //중고거래 게시판 글쓰기
@@ -20,7 +22,7 @@ public interface PostsService {
 
     PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto);
 
-    List<PostsDTO> getList();
+    List<PostsDTO> getList(PostsDTO postsDTO);
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()
@@ -31,6 +33,7 @@ public interface PostsService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .viewCount(dto.getViewCount())
+                .partsType(dto.getPartsType())
                 .member(member)
                 .build();
         return posts;
@@ -44,7 +47,20 @@ public interface PostsService {
                 .regDate(posts.getRegDate())
                 .modDate(posts.getModDate())
                 .viewCount(posts.getViewCount())
+                .partsType(posts.getPartsType())
                 .memberId(posts.getMember().getId())
+                .imageDTOList(posts.getItemImgList().stream().map(new Function<ItemImg,ItemImgDTO>() {
+                    @Override
+                    public ItemImgDTO apply(ItemImg t) {
+                        ItemImgDTO result = ItemImgDTO.builder()
+                                .imgName(t.getImgName())
+                                .uuid(t.getUuid())
+                                .path(t.getPath())
+                                .build();
+
+                        return result;
+                    }
+                }).collect(Collectors.toList()))
                 .build();
         return postsDTO;
     }
