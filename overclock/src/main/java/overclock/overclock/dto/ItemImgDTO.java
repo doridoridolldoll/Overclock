@@ -22,6 +22,7 @@ public class ItemImgDTO {
     private Long PostsId;
 
 
+
     public String getImageURL(){
         try {
             return URLEncoder.encode(path+"/"+uuid+"_"+imgName,"UTF-8");

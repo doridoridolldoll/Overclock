@@ -1,4 +1,5 @@
 <template>
+
   <section id="hero" class="d-flex align-items-center justify-content-center ">
     <body>
       <main id="main">

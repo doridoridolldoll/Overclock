@@ -74,6 +74,7 @@ export default {
           "process-data" : false
           },
       }).then(function(res){
+        console.log(res.data)
         showResult(res.data);
       }).catch(function(err){
         console.log(err)
@@ -81,6 +82,8 @@ export default {
     }
     const showResult = async(arr) => {
       const uploadUL = upResult.value;
+      console.log("arr");
+      console.log(arr);
       const displayUrl = '/display'
       const url = `http://localhost:9090${displayUrl}`
       let str = ""

@@ -12,7 +12,9 @@
 
     </div>
   </section><!-- End Hero -->
+
 	<router-link to="/usedregister" class="btn btn-primary"> 글쓰기</router-link>
+
   <main id="main">
     <section class="ftco-section ftco-cart">
 			<div class="container">
@@ -32,7 +34,10 @@
 						    <tbody>
 						      <tr class="text-center" v-for="(list,i) in state.lists" :key="(list,i)">
 						        <td class ="price"> {{list.id}} </td>
-						        <td class="image-prod"><img src=""></td>
+						        <td>
+									<img v-bind:src= "state.img[i]">
+								</td>
+
 						        <td class="product-name">
 						        	<h3><a href="/useddetail">{{list.title}}</a></h3>
 						        </td>
@@ -63,7 +68,9 @@ export default {
       		handleGetList()
     	})
 		const state = reactive({
-      		lists: 	''
+      		lists: 	'',
+			upResult    : '',
+			img : [],
    		})
 		const handleGetList = async () => {
 			const url = '/api/getlist'
@@ -73,14 +80,28 @@ export default {
 			const body = { email: state.email }
 			await axios.post(url, body, { headers }).then(function (res) {
 				if (res.status === 200) {
-					console.log(res);
-				state.lists = res.data
+					state.lists = res.data.dtoList;
+					showResult(res.data)
 				}
 			})
+
+
+		}
+		const showResult = async(arr) => {
+			const displayUrl = '/display'
+			const url = `http://localhost:9090${displayUrl}`
+			let str2 = "";
+            for(let i=0;i<arr.dtoList.length;i++){
+                str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`
+				state.img[i] = str2;
+            }
+
+
 		}
 		return {state,handleGetList}
+		}
 	}
-}
+
 </script>	
 
 <style>
