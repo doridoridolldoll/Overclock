@@ -1,0 +1,90 @@
+<template>
+  <section id="hero" class="d-flex align-items-center justify-content-center">
+    <body>
+      <main id="main">
+        <section id="portfolio-details" class="portfolio-details">
+          <div class="container input-form">
+            <div class="row gy-4">
+              <div class="col-lg-8">
+                <div class="portfolio-details-slider swiper">
+                  <div class="swiper-wrapper align-items-center">
+                    <div class="swiper-slide">
+                      <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTmUHH0v9f2o86r8JPMrnRhY6V_Si8AT_ldqmyq4TxxTsNdXMHIsqqrDmA_R48ZbxSHCz2iSWqCvvrXhCHhSDNIYZAQ1RO0i0Jhn2Mw5dN7NG4Rm4RVnuIJ&usqp=CAE" style="width:370px;height:300px;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="portfolio-info">
+                  <h3>상품정보</h3>
+                  <ul>
+                    <li><strong>상품명</strong>: Web design</li>
+                    <li><strong>판매자</strong>: ASU Company</li>
+                    <li><strong>등록일자</strong>: 01 March, 2020</li>
+                    <li>
+                      <strong>가격</strong>:
+                      999,999,999
+                    </li>
+                  </ul>
+                </div>
+                <div class="portfolio-info">
+                  <ul>
+                    <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-description">
+                  <h2>제품상세</h2>
+                  <p>
+                    RTX 3060 Ti / 8nm / 
+                    베이스클럭: 1680MHz / 
+                    스트림 프로세서: 4864개 / 
+                    PCIe4.0x16 / GDDR6(DDR6) / 
+                    출력단자: HDMI2.1 , DP1.4 / 
+                    부가기능: 제로팬(0-dB기술) , 
+                    8K 해상도 지원 , 4K 해상도 지원 ,
+                     HDCP 지원 / 정격파워 600W 이상 /
+                      전원 포트: 8핀 x1개 / 2개 팬 / 
+                      가로(길이): 198mm / 백플레이트
+                    </p>
+                </div>
+                <router-link to="" class="btn btn-primary">구매</router-link>
+          </div>
+        </section>
+      </main>
+    </body>
+  </section>
+</template>
+
+<script>
+export default {
+  name: "ToDetail",
+  setup() {},
+};
+</script>
+<style scoped>
+.input-form {
+  text-align: center;
+
+  max-width: 900px;
+
+  margin-top: 80px;
+  padding: 32px;
+
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+#hero h2 {
+  color: rgb(0, 0, 0);
+}
+.col-lg-8{
+  max-height: 40vh;
+}
+p{
+  margin-bottom: 1rem;
+}
+</style>

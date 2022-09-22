@@ -7,11 +7,15 @@
                 <input type="text" class="form-control" v-model="state.title" placeholder="Enter Title">
             </div>
             <div class="form-group">
-                <label>Content</label>
+                <label>상품명</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>거래정보</label>
                 <textarea class ="form-control" v-model="state.content" rows="5" name="content"></textarea>
             </div>
             <div class="form-group">
-                <label>Price</label>
+                <label>가격</label>
                 <input type="text" class="form-control" name="price" placeholder="price">
             </div>
 
@@ -27,7 +31,7 @@
             </div> -->
             <div class="box"></div>
             <FileUpload />
-            <button class="btn btn-primary btn7" @click="joinHandler">Register</button>
+            <button class="btn btn-primary btn7" @click="joinHandler">등록</button>
     </form>
     </section>
 </template>

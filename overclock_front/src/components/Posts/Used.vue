@@ -12,7 +12,7 @@
 
     </div>
   </section><!-- End Hero -->
-	<router-link to="/register" class="btn btn-primary"> 글쓰기</router-link>
+	<router-link to="/usedregister" class="btn btn-primary"> 글쓰기</router-link>
   <main id="main">
     <section class="ftco-section ftco-cart">
 			<div class="container">
@@ -34,7 +34,7 @@
 						        <td class ="price"> {{list.id}} </td>
 						        <td class="image-prod"><img src=""></td>
 						        <td class="product-name">
-						        	<h3>{{list.title}}</h3>
+						        	<h3><a href="/useddetail">{{list.title}}</a></h3>
 						        </td>
 				            	<td class="price">{{list.regDate}}</td>
 						        <td class="price"> {{list.viewCount}} </td>

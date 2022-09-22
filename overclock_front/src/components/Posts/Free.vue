@@ -34,7 +34,7 @@
                                     <td class ="price"> {{list.id}} </td>
                                     <td class="image-prod"><img src=""></td>
                                     <td class="product-name">
-                                        <h3>{{list.title}}</h3>
+                                        <h3><a href="/freedetail">{{list.title}}</a></h3>
                                     </td>
                                     <td class="price">{{list.regDate}}</td>
                                     <td class="price"> {{list.viewCount}} </td>
