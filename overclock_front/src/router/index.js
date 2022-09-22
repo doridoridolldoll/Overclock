@@ -4,7 +4,7 @@ import Parts from "@/components/Parts.vue"
 import Peri from "@/components/Peripherals.vue"
 import Used from "@/components/Posts/Used.vue"
 import PartsDetail from "@/components/Posts/PartsDetail.vue"
-import UsedDetail from "@/components/Posts/UsedDetail.vue"
+import UsedDetail from "@/components/Posts/PageDetail.vue"
 import FreeDetail from "@/components/Posts/FreeDetail.vue"
 import Free from "@/components/Posts/Free.vue"
 import FreePost from "@/components/Posts/FreePost.vue"
@@ -12,7 +12,7 @@ import FreeRePost from "@/components/Posts/FreeRePost.vue"
 import Main from "@/components/Main.vue"
 import Login from "@/components/Login.vue"
 import Join from "@/components/Join.vue"
-import UsedRegister from "@/components/UsedRegister.vue"
+import UsedRegister from "@/components/Register.vue"
 
 const routes = [
     {path:"/",name:"Main", component: Main}, 
