@@ -7,11 +7,15 @@ import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
 public class Member extends BaseEntity{
 
@@ -19,18 +23,20 @@ public class Member extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-
     private String email;
     private String name;
     private String password;
     private String nickname;
     private String phone;
-
+    @Column
+    private boolean auth;
     @Enumerated(EnumType.STRING)
     private MemberRole role;
-
     @Embedded
     private Address address;
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<MemberRole> roleSet = new HashSet<>();
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Order> order = new ArrayList<>();
@@ -61,7 +67,9 @@ public class Member extends BaseEntity{
         return member;
     }
 
-    private void setAddress(String city, String street, String zipcode) {
+    private void setAddress(String city, String street, String zipcode) {}
+    public void addMemberRole(MemberRole role){
+        roleSet.add(role);
     }
 
 }

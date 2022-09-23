@@ -23,5 +23,7 @@ public class ItemDTO {
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 
+    @Builder.Default
+    private List<ItemImgDTO> imageDTOList = new ArrayList<>();
 
 }

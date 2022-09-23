@@ -7,6 +7,7 @@ module.exports = {
   devServer: {
     port: 8080,
     proxy: { '/api': { target, changeOrigin: true } },
+    proxy: { '/member': { target, changeOrigin: true } },
   },
   outputDir:
     'D:/Overclock/overclock/src/main/resources/static',

@@ -27,12 +27,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping(value = "/members")
-    public String list(Model model) {
-        List<Member> members = memberService.findMember();
-        model.addAttribute("members", members);
-        return "members/memberList";
-    }
+//    @GetMapping(value = "/members")
+//    public String list(Model model) {
+//        List<Member> members = memberService.findMember();
+//        model.addAttribute("members", members);
+//        return "members/memberList";
+//    }
 
 
     //회원가입 페이지
