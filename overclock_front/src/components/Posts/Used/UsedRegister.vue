@@ -62,7 +62,7 @@ export default {
             memberId  : '',
             name        : '',
             itemDetail : '',
-            type : '',
+            type : 'used',
             imageDTOList : new Array(),
         })
         const joinHandler = async() => {
