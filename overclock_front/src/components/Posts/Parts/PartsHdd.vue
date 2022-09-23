@@ -3,7 +3,7 @@
       <div class="container" data-aos="fade-up">
         <router-link to="/partsregister" class="btn btn-primary">글쓰기</router-link>
         <div class="section-title">
-          <p>CPU</p>
+          <p>HDD</p>
         </div>
         <div class="row">
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
@@ -48,9 +48,8 @@ export default {
 	  const headers = {
 	    "Content-Type": "application/json"
 	  };
-    axios.post(url, { page:1, type:"", category:"cpu" }, { headers })
+    axios.post(url, { page:1, type:"", category:"hdd" }, { headers })
     .then(function(res){
-		  // console.log(res.data.dtoList[1].partsType == "used");
       console.log(res.data)
       state.dtoList = res.data.dtoList
       state.end =  res.data.end,

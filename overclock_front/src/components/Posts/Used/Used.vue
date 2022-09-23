@@ -73,15 +73,12 @@
 </template>
 
 <script>
-// import { onMounted } from "vue";
 import { reactive } from "@vue/reactivity";
 import axios from "axios";
 
 export default {
   name: "ToUsed",
   setup() {
-
-
     const state = reactive({
       upResult: "",
       img: [],
@@ -94,6 +91,7 @@ export default {
       size: null,
       start: null,
       totalPage: null,
+      partsType: "used",
     });
 	const url = "/api/getlist";
 	const headers = {
