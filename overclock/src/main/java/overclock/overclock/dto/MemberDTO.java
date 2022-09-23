@@ -4,6 +4,8 @@ package overclock.overclock.dto;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @ToString
@@ -21,4 +23,7 @@ public class MemberDTO {
     private String city;
     private String street;
     private String zipcode;
+
+    @Builder.Default
+    private Set<String> roleSet = new HashSet<>();
 }

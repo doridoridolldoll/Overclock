@@ -5,7 +5,7 @@
       <div class="container">
           <div class="input-form2 col-md-12 mx-auto">
             <h4 class="mb-3">회원가입</h4>
-            <form class="validation-form" novalidate>
+            <form class="validation-form" @submit.prevent>
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="name">이름</label>
@@ -116,8 +116,8 @@ setup(){
   // const password = ref('')
   // const repassword = ref('')
   const joinHandler = async() => {
-
-    const url = '/api/memberRegister'
+    console.log("asas")
+    const url = './member/memberRegister'
     const headers = {
       "Content-Type" : "application/json",
     }
@@ -131,44 +131,45 @@ setup(){
       zipcode : state.zipcode,
       nickname : state.nickname,
     }
-    if (state.email === '') {
-    alert('이메일을 입력해주세요'); 
-    state.email.value.focus(); return false;
-    } else if (!(state.email.includes("@") && state.email.includes("."))) {
-    alert('이메일 양식이 맞지 않습니다.'); 
-    state.email.value.focus(); return false;
-    } else if (state.password === '') {
-    alert('비밀번호를 입력해주세요'); 
-    state.password.value.focus(); return false;
-    } else if (state.repassword === '') {
-    alert('비밀번호를 입력해주세요'); 
-    state.repassword.value.focus(); return false;
-    } else if (state.name === '') {
-    alert('이름을 입력해주세요'); 
-    state.nickname.value.focus(); return false;
-    } else if (state.nickname === '') {
-    alert('닉네임을 입력해주세요'); 
-    state.name.value.focus(); return false;
-    } else if (state.phone === '') {
-    alert('전화번호를 입력해주세요'); 
-    state.phone.value.focus(); return false;
-    } else if (state.city === '') {
-    alert('도시명을 입력해주세요'); 
-    state.city.value.focus(); return false;
-    } else if (state.street === '') {
-    alert('도로명주소를 입력해주세요'); 
-    state.street.value.focus(); return false;
-    } else if (state.zipcode === '') {
-    alert('우편번호를 입력해주세요'); 
-    state.zipcode.value.focus(); return false;
-    } else if (state.password != state.repassword) {
-    alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요');
-    state.password.value.value = ''; 
-    state.repassword.value.value = '';
-    state.password.value.focus(); return false;
-    }
+    console.log(body)
+    // if (state.email === '') {
+    // alert('이메일을 입력해주세요'); 
+    // state.email.value.focus(); return false;
+    // } else if (!(state.email.includes("@") && state.email.includes("."))) {
+    // alert('이메일 양식이 맞지 않습니다.'); 
+    // state.email.value.focus(); return false;
+    // } else if (state.password === '') {
+    // alert('비밀번호를 입력해주세요'); 
+    // state.password.value.focus(); return false;
+    // } else if (state.repassword === '') {
+    // alert('비밀번호를 입력해주세요'); 
+    // state.repassword.value.focus(); return false;
+    // } else if (state.name === '') {
+    // alert('이름을 입력해주세요'); 
+    // state.nickname.value.focus(); return false;
+    // } else if (state.nickname === '') {
+    // alert('닉네임을 입력해주세요'); 
+    // state.name.value.focus(); return false;
+    // } else if (state.phone === '') {
+    // alert('전화번호를 입력해주세요'); 
+    // state.phone.value.focus(); return false;
+    // } else if (state.city === '') {
+    // alert('도시명을 입력해주세요'); 
+    // state.city.value.focus(); return false;
+    // } else if (state.street === '') {
+    // alert('도로명주소를 입력해주세요'); 
+    // state.street.value.focus(); return false;
+    // } else if (state.zipcode === '') {
+    // alert('우편번호를 입력해주세요'); 
+    // state.zipcode.value.focus(); return false;
+    // } else if (state.password != state.repassword) {
+    // alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요');
+    // state.password.value.value = ''; 
+    // state.repassword.value.value = '';
+    // state.password.value.focus(); return false;
+    // }
     const response = await axios.post(url, body, {headers})
-    console.log(response.data)
+    // console.log(response.data)
     if(response.status === 200){
       alert('회원가입이 되었습니다.');
     } else {

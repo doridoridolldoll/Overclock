@@ -5,23 +5,31 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
-
-import java.util.List;
 
 @RestController
 @Log4j2
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class ApiController {
-    public final PostsService postsService;
+    private final PostsService postsService;
     private final MemberService memberService;
 
-
+    @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> register(@RequestBody MemberDTO dto){
+        log.info("asd");
+        log.info("api/memberRegister...ClubMemberDTO:" + dto);
+        String email = memberService.join(dto);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+    }
     @RequestMapping(value = "/mregister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> register(@RequestBody PostsDTO postsDTO, ItemDTO itemDTO){
@@ -29,18 +37,8 @@ public class ApiController {
         Long id = postsService.mregister(postsDTO);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
-
-    //멤버 회원가입
-    @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
-            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> register(@RequestBody MemberDTO dto){
-        log.info("api/memberRegister...ClubMemberDTO:" + dto);
-        Long id = memberService.join(dto);
-        return new ResponseEntity<>(id, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/getlist", method = RequestMethod.POST,
-        consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> getList(@RequestBody PageRequestDTO dto) {
         PageResultDTO<PostsDTO,Posts> result = postsService.getPageList(dto);
         log.info("postsDTO : {}", dto);

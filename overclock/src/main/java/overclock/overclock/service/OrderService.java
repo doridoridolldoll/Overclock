@@ -13,8 +13,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    Long order(String email, int count, OrderDTO orderDTO);
+    Long order(Long memberId, Long itemId, int count);
 
-    void cancelOrder(Long orderId);
 }
 

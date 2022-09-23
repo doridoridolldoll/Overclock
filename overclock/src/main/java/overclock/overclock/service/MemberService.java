@@ -6,17 +6,14 @@ import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface MemberService {
 
-    List<Member> findMember();
-    Long join(MemberDTO memberDTO);
-
-    Member saveMember(Member member);
+    String join(MemberDTO memberDTO);
 
     default Member dtoToEntity(MemberDTO dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
-        MemberRole memberRole = MemberRole.USER;
         Member member = Member.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -25,7 +22,15 @@ public interface MemberService {
                 .nickname(dto.getNickname())
                 .password(dto.getPassword())
                 .address(address)
-                .role(memberRole)
+                .roleSet(dto.getRoleSet().stream().map(
+                        t -> {
+                            if (t.equals("ROLE_MEMBER"))
+                                return MemberRole.USER;
+                            else if (t.equals("ROLE_ADMIN"))
+                                return MemberRole.ADMIN;
+                            else
+                                return MemberRole.USER;
+                        }).collect(Collectors.toSet()))
                 .build();
         return member;
     }
