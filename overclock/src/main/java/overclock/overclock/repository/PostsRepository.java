@@ -1,5 +1,6 @@
 package overclock.overclock.repository;
 
+import lombok.ToString;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -12,6 +13,7 @@ import overclock.overclock.entity.Posts;
 import java.util.List;
 
 @Repository
+
 public interface PostsRepository extends JpaRepository<Posts, Long> {
 
     @Query("select p, m from Posts p left join p.member m where p.id =:id")
@@ -42,4 +44,31 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
             countQuery = "select count(c) from Posts c"
     )
     Page<Posts> getPageList(Pageable pageable);
+
+
+
+
+    //중고거래 게시판
+    @Query(value = "SELECT p FROM Posts p WHERE p.partsType = 'used'")
+    Page<Posts> getPageList2(Pageable pageable);
+
+    //부품(CPU) 게시판
+    @Query(value = "SELECT p FROM Posts p WHERE p.partsType = 'cpu'")
+    Page<Posts> partsCpuPageList(Pageable pageable);
+
+    //부품(GPU) 게시판
+    @Query(value = "SELECT p FROM Posts p WHERE p.partsType = 'gpu'")
+    Page<Posts> partsGpuPageList(Pageable pageable);
+
+    //부품(MB) 게시판
+    @Query(value = "SELECT p FROM Posts p WHERE p.partsType = 'mb'")
+    Page<Posts> partsMbPageList(Pageable pageable);
+
+    //부품(etc) 게시판
+    @Query(value = "SELECT p FROM Posts p WHERE p.partsType = 'etc'")
+    Page<Posts> partsEtcPageList(Pageable pageable);
+
+    @Query(value = "SELECT p FROM Posts p WHERE p.partsType =:category")
+    Page<Posts> getPartsByCategeryPageList(Pageable pageable, String category);
+
 }

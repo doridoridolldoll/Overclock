@@ -1,18 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import Parts from "@/components/Parts.vue"
-import Peri from "@/components/Peripherals.vue"
-import Used from "@/components/Posts/Used.vue"
-import PartsDetail from "@/components/Posts/PartsDetail.vue"
-import UsedDetail from "@/components/Posts/PageDetail.vue"
-import FreeDetail from "@/components/Posts/FreeDetail.vue"
-import Free from "@/components/Posts/Free.vue"
-import FreePost from "@/components/Posts/FreePost.vue"
-import FreeRePost from "@/components/Posts/FreeRePost.vue"
 import Main from "@/components/Main.vue"
 import Login from "@/components/Login.vue"
 import Join from "@/components/Join.vue"
-import UsedRegister from "@/components/Register.vue"
+
+//부품
+import Parts from "@/components/Posts/Parts/Parts.vue"
+import PartsDetail from "@/components/Posts/Parts/PartsDetail.vue"
+import PartsRegister from "@/components/Posts/Parts/PartsRegister.vue"
+
+//주변기기
+import Peri from "@/components/Posts/Peripherals/Peripherals.vue"
+
+//중고거래
+import Used from "@/components/Posts/Used/Used.vue"
+import UsedDetail from "@/components/Posts/Used/UsedDetail.vue"
+import UsedRegister from "@/components/Posts/Used/UsedRegister.vue"
+
+//자유게시판
+import FreeDetail from "@/components/Posts/Free/FreeDetail.vue"
+import Free from "@/components/Posts/Free/Free.vue"
+import FreePost from "@/components/Posts/Free/FreePost.vue"
+import FreeRePost from "@/components/Posts/Free/FreeRePost.vue"
+
 
 const routes = [
     {path:"/",name:"Main", component: Main}, 
@@ -27,7 +37,8 @@ const routes = [
     {path:"/freerepost",name:"FreeRePost", component: FreeRePost}, 
     {path:"/login",name:"Login", component: Login}, 
     {path:"/join",name:"Join", component: Join},
-    {path:"/usedregister", name:"UsedRegister", component: UsedRegister}
+    {path:"/usedregister", name:"UsedRegister", component: UsedRegister},
+    {path:"/partsregister", name:"PartsRegister", component: PartsRegister}
   ]
   
   const router = createRouter({

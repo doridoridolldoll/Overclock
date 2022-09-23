@@ -1,22 +1,21 @@
 package overclock.overclock.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import overclock.overclock.entity.OrderItem;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Getter
+@Setter
 public class OrderItemDTO {
 
-    private String itemDetail;
+    private String itemName;
     private int count;
     private int orderPrice;
+    private String imgUrl;
 
-    public void OrderItemDTO(OrderItem orderItem, String itemDetail) {
-        this.itemDetail = itemDetail;
+    public void OrderItemDto(OrderItem orderItem, String imgUrl) {
         this.count = orderItem.getCount();
         this.orderPrice = orderItem.getOrderPrice();
-
+        this.imgUrl = imgUrl;
     }
 }

@@ -1,6 +1,35 @@
+
+//package overclock.overclock.service;
+//
+//import lombok.RequiredArgsConstructor;
+//import lombok.extern.log4j.Log4j2;
+//import org.springframework.stereotype.Service;
+//import overclock.overclock.dto.PostsDTO;
+//import overclock.overclock.entity.Posts;
+//import overclock.overclock.model.BoardType;
+//import overclock.overclock.repository.PostsRepository;
+//
+//@Service
+//@RequiredArgsConstructor
+//@Log4j2
+//public class PostsServiceImpl implements PostsService {
+//
+//    private final PostsRepository repository;
+//
+//    @Override
+//    public Long register(PostsDTO dto) {
+//        log.info(dto);
+//        Posts posts = dtoToEntity(dto);
+//        repository.save(posts);
+//        posts.setBoardType(BoardType.SALE);
+//        return posts.getId();
+//    }
+//}
+
 package overclock.overclock.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +46,7 @@ import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.function.Consumer;
@@ -26,6 +56,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Log4j2
+@ToString
 public class PostsServiceImpl implements PostsService {
 
     private final PostsRepository repository;
@@ -54,7 +85,6 @@ public class PostsServiceImpl implements PostsService {
             }
         });
         return posts.getId();
-
     }
 
     @Override
@@ -70,7 +100,7 @@ public class PostsServiceImpl implements PostsService {
     public PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO) {
         log.info("pageRequestDTO : {} ", requestDTO);
 
-        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts)en[0]));
+        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts) en[0]));
         Page<Object[]> result = repository.getPostsWithMemberPage(requestDTO.getPageable(Sort.by("id").descending()));
 
         return new PageResultDTO<>(result, fn);
@@ -81,16 +111,7 @@ public class PostsServiceImpl implements PostsService {
     public List<PostsDTO> getList(PostsDTO postsDTO) {
         List<Posts> result = repository.findAll();
         log.info("result : {}", result);
-//        List<ItemImgDTO> imgList = dto.getImageDTOList();
-//        imgList.forEach(new Consumer<ItemImgDTO>() {
-//            @Override
-//            public void accept(ItemImgDTO itemImgDTO) {
-//                ItemImg ii = imageDtoToEntity(itemImgDTO, dto.getId());
-//                itemImgRepository.save(ii);
-//            }
-//        });
-//        log.info("imgList : {}", imgList);
-        return result.stream().map(new Function<Posts,PostsDTO>() {
+        return result.stream().map(new Function<Posts, PostsDTO>() {
             @Override
             public PostsDTO apply(Posts t) {
                 log.info("asd : {}", entityToDTO(t));
@@ -104,10 +125,11 @@ public class PostsServiceImpl implements PostsService {
     public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {
         log.info("PageRequestDTO: " + dto);
         Pageable pageable = dto.getPageable(Sort.by("id").descending());
-//        Page<Posts> result = repository.getPageList(pageable);
-        Page<Posts> result = repository.findAll(pageable);
-        log.info("Page result : {}", result);
-        Function<Posts, PostsDTO> fn = new Function<Posts,PostsDTO>() {
+
+//        Page<Posts> result = repository.getPageList2(pageable);
+        Page<Posts> result = repository.getPartsByCategeryPageList(pageable, dto.getCategory());
+        log.info("result2 : {}", result);
+        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
             @Override
             public PostsDTO apply(Posts t) {
                 return entityToDTO(t);
@@ -117,9 +139,38 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
-    public PageResultDTO<PostsDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
-        return null;
+    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
+        log.info("PageRequestDTO: " + dto);
+
+        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+        Page<Posts> result = repository.partsCpuPageList(pageable);
+        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+            @Override
+            public PostsDTO apply(Posts t) {
+                log.info("asd : {}", t);
+                return entityToDTO(t);
+            }
+        };
+        return new PageResultDTO<>(result, fn);
     }
-}
+
+        @Override
+        public PageResultDTO<PostsDTO, Posts> partscategeryPageList (PageRequestDTO dto){
+            log.info("PageRequestDTO: " + dto);
+            Pageable pageable = dto.getPageable(Sort.by("id").descending());
+            Page<Posts> result = repository.getPartsByCategeryPageList(pageable, dto.getCategory());
+            Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+                @Override
+                public PostsDTO apply(Posts t) {
+                    log.info("asd : {}", t);
+                    return entityToDTO(t);
+                }
+            };
+            return new PageResultDTO<>(result, fn);
+        };
+    }
+
+
+
 
 

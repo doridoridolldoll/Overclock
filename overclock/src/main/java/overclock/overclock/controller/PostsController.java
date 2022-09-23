@@ -57,7 +57,6 @@ public class PostsController {
 //        return "redirect:/posts/pregister";
 //    }
 
-
 //    @GetMapping("/list")
 //    public void list(PageRequestDTO pageRequestDTO, Model model){
 //        log.info("list.... {} ", pageRequestDTO);

@@ -7,8 +7,6 @@ import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -18,7 +16,7 @@ import java.util.List;
 public class Member extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
@@ -34,8 +32,8 @@ public class Member extends BaseEntity{
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> order = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Order> order = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Posts> posts = new ArrayList<>();

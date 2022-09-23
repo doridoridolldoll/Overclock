@@ -96,14 +96,9 @@
 </template>
 
 <script>
-import {reactive, } from '@vue/reactivity'
+import {reactive } from '@vue/reactivity'
 import axios from 'axios'
-// import {useRouter} from 'vue-router';
-// import Modal from './teleport/Modal.vue'
-// import FileUpload from './FileUpload.vue'
-
 export default {
-
   name:'ToJoin',
 setup(){
   const state = reactive({
@@ -198,4 +193,5 @@ height: 100vh;
       -moz-border-radius: 10px;
       border-radius: 10px;
     }
+
 </style>

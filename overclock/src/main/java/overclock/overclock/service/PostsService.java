@@ -15,12 +15,15 @@ import java.util.stream.Collectors;
 
 public interface PostsService {
     Long mregister(PostsDTO dto); //중고거래 게시판 글쓰기
+    PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto); //중고거래 게시판 리스트
 
     Long pregister(PostsDTO dto); //부품 게시판 글쓰기
+    PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto); //부품 게시판 리스트
 
     PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO);
 
-    PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto);
+    PageResultDTO<PostsDTO, Posts> partscategeryPageList (PageRequestDTO dto);
+
 
     List<PostsDTO> getList(PostsDTO postsDTO);
 

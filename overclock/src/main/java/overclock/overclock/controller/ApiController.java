@@ -39,22 +39,22 @@ public class ApiController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/getlist", method = RequestMethod.POST,
-//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<PostsDTO>> getList(@RequestBody PostsDTO postsDTO) {
-//        List<PostsDTO> result = postsService.getList(postsDTO);
-//
-//        log.info("postsDTO : {}", postsDTO);
-//        log.info("List result : {}", result);
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
-        @RequestMapping(value = "/getlist", method = RequestMethod.POST,
+    @RequestMapping(value = "/getlist", method = RequestMethod.POST,
+        consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PageResultDTO<PostsDTO, Posts>> getList(@RequestBody PageRequestDTO dto) {
+        PageResultDTO<PostsDTO,Posts> result = postsService.getPageList(dto);
+        log.info("postsDTO : {}", dto);
+        log.info("List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/partsList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<PageResultDTO<PostsDTO, Posts>> getList(@RequestBody PageRequestDTO dto) {
-            PageResultDTO<PostsDTO,Posts> result = postsService.getPageList(dto);
-            log.info("postsDTO : {}", dto);
-            log.info("List result : {}", result);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<PageResultDTO<PostsDTO, Posts>> partsList(@RequestBody PageRequestDTO dto) {
+        PageResultDTO<PostsDTO,Posts> result = postsService.partscategeryPageList(dto);
+        log.info("postsDTO : {}", dto);
+        log.info("List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get-page-list", method = RequestMethod.POST,
