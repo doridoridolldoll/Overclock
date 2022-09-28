@@ -99,6 +99,7 @@
 <script>
 import {reactive} from '@vue/reactivity'
 import axios from 'axios'
+import router from '@/router'
 export default {
   name:'ToJoin',
 setup(){
@@ -175,6 +176,7 @@ setup(){
     } else {
       alert('회원가입에 실패하였습니다.')
     }
+    router.push({name: "Login"});
   }
   return {joinHandler,state}
 }

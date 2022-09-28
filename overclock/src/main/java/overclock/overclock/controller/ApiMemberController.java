@@ -34,6 +34,7 @@ public class ApiMemberController {
 
         String email = memberService.join(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
+
     }
 
 

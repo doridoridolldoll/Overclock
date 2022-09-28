@@ -1,7 +1,6 @@
 <template>
   <section id="hero" class="d-flex align-items-center justify-content-center">
     <body>
-      <main id="main">
         <section id="portfolio-details" class="portfolio-details">
           <div class="container input-form">
             <div class="row gy-4">
@@ -53,15 +52,18 @@
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
           </div>
+          
+          <Comment/>
+          
         </section>
-      </main>
-      <div></div>
     </body>
   </section>
 </template>
 
 <script>
-import {useRoute} from 'vue-router'
+
+
+
 import { reactive } from '@vue/reactivity';
   export default {
       name: 'PartsDetail',
@@ -88,6 +90,7 @@ import { reactive } from '@vue/reactivity';
 // console.log(props.test);
 // console.log(props);
 
+
 </script>
 <style scoped>
 .input-form {
@@ -102,6 +105,8 @@ import { reactive } from '@vue/reactivity';
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+
+  border: 1px solid rgb(226, 218, 218);
 }
 #hero h2 {
   color: rgb(0, 0, 0);
@@ -111,5 +116,11 @@ import { reactive } from '@vue/reactivity';
 }
 p{
   margin-bottom: 1rem;
+}
+#hero:before{
+  height: 1500px;
+}
+#hero{
+    overflow: scroll;
 }
 </style>
