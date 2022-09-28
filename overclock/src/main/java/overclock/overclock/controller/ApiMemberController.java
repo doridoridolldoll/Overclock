@@ -26,13 +26,11 @@ public class ApiMemberController {
 
     private final JWTUtil jwtUtil;
 
+
 //    멤버 회원가입
     @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody MemberDTO dto){
-
-        String email = memberService.join(dto);
-        return new ResponseEntity<>(email, HttpStatus.OK);
 
         String email = memberService.join(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
