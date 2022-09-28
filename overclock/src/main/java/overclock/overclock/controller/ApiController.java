@@ -26,14 +26,14 @@ public class ApiController {
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody MemberDTO dto){
         log.info("asd");
-        log.info("api/memberRegister...ClubMemberDTO:" + dto);
+        log.info("api/memberRegister...:" + dto);
         String email = memberService.join(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
     @RequestMapping(value = "/mregister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> register(@RequestBody PostsDTO postsDTO, ItemDTO itemDTO){
-        log.info("api/memberRegister...ClubMemberDTO:" + postsDTO);
+        log.info("api/memberRegister...:" + postsDTO);
         Long id = postsService.mregister(postsDTO);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }

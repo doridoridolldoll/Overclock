@@ -16,12 +16,12 @@ public class JWTUtil {
     private final String secretKey = "overclock121212";
     private final long expire = 60 * 24 * 30;
 
-    public String generateToken(String email, Long userid) throws Exception {
+    public String generateToken(String email, Long id) throws Exception {
         String result = Jwts.builder()
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(expire).toInstant()))
                 .claim("sub", email)
-                .claim("jti", userid)
+                .claim("jti", id)
                 .signWith(SignatureAlgorithm.HS256, secretKey.getBytes(StandardCharsets.UTF_8))
                 .compact();
         log.info(result);
@@ -29,7 +29,7 @@ public class JWTUtil {
     }
 
     @SuppressWarnings("rawtypes")
-    public Boolean validateAndExtract(String tokenStr, String userid) {
+    public Boolean validateAndExtract(String tokenStr, String id) {
         Boolean checker = null;
         try {
             DefaultJws defaultjJws = (DefaultJws) Jwts.parser()
@@ -37,7 +37,9 @@ public class JWTUtil {
 
             DefaultClaims claims = (DefaultClaims) defaultjJws.getBody();
             String uid = claims.getId();
-            if(Integer.parseInt(uid) == Integer.parseInt(userid)){
+            log.info("asasas"+Integer.parseInt(uid));
+            log.info("bdbdbd"+Integer.parseInt(id));
+            if(Integer.parseInt(uid) == Integer.parseInt(id)){
                 checker = true;
             }else{
                 checker = false;

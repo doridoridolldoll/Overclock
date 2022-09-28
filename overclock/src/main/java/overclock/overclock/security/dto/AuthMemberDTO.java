@@ -12,15 +12,17 @@ import overclock.overclock.model.Address;
 @Setter
 @ToString
 public class AuthMemberDTO extends User {
-    private Long userid;
+
+    private Long id;
     private String email;
     private String password;
     private String name;
+    private String curl;
     private boolean auth;
 
-    public AuthMemberDTO(String username, String password, Long userid, boolean auth, Collection<? extends GrantedAuthority> authorities) {
+    public AuthMemberDTO(String username, String password, Long id, boolean auth, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
-        this.userid = userid;
+        this.id = id;
         email = username;
         this.password = password;
         this.auth = auth;

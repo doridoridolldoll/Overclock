@@ -26,6 +26,7 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import axios from "axios";
+import store from "@/store";
 export default {
   name: 'PartsMb',
   props: [  ],
@@ -46,7 +47,9 @@ export default {
     });
     const url = "/api/partsList";
 	  const headers = {
-	    "Content-Type": "application/json"
+	    "Content-Type": "application/json; charset=utf-8",
+      "Authorization": store.state.token,
+      "id": store.state.id
 	  };
     axios.post(url, { page:1, type:"", category:"mb" }, { headers })
     .then(function(res){
@@ -72,7 +75,8 @@ export default {
         state.img[i] = str2;
       }
     };
-    return {state}
+    console.log(store.state.token)
+    return {state, store}
   
   }
 }

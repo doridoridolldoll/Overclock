@@ -33,6 +33,7 @@ public class ApiCheckFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        log.info("request :" + request);
         if(antPathMatcher.match(request.getContextPath()+pattern, request.getRequestURI())){
             boolean checkHeader = checkAuthHeader(request);
             if(checkHeader){
@@ -52,14 +53,18 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
     private boolean checkAuthHeader(HttpServletRequest request) {
         boolean checkResult = false;
+        log.info("checkAuthHeader request :" + request);
         String authHeader = request.getHeader("Authorization");
-        String userid = request.getHeader("userid");
+        log.info("Authorization :" + authHeader);
+        String id = request.getHeader("id");
+        log.info("id :" + id);
         if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
             log.info("Authorization exist: " + authHeader);
             try {
-                checkResult = jwtUtil.validateAndExtract(authHeader.substring(7), userid);
+                checkResult = jwtUtil.validateAndExtract(authHeader.substring(7), id);
                 log.info(("validate result: " + checkResult));
             } catch (Exception e) {
+                log.info("aas");
                 e.printStackTrace();
             }
         }
