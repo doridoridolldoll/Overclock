@@ -30,10 +30,10 @@ public class Member extends BaseEntity{
     private String phone;
     @Column
     private boolean auth;
-    @Enumerated(EnumType.STRING)
-    private MemberRole role;
     @Embedded
     private Address address;
+
+    private boolean fromSocial;
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
@@ -46,7 +46,7 @@ public class Member extends BaseEntity{
 
     @Builder
     public Member(Long id, String email, String name, String password, String nickname,
-                  String phone, MemberRole role, Address address) {
+                  String phone, Address address) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -54,7 +54,6 @@ public class Member extends BaseEntity{
         this.nickname = nickname;
         this.phone = phone;
         this.address = address;
-        this.role = role;
     }
 
     public static Member createMember(MemberDTO memberDTO) {
@@ -63,7 +62,6 @@ public class Member extends BaseEntity{
         member.setEmail(memberDTO.getEmail());
         member.setAddress(memberDTO.getCity(), memberDTO.getStreet(), memberDTO.getZipcode());
         member.setPassword(memberDTO.getPassword());
-        member.setRole(MemberRole.ADMIN);
         return member;
     }
 

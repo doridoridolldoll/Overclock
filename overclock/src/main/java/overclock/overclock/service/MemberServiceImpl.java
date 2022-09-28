@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
     public String join(MemberDTO memberDTO) {
         memberDTO.setPassword(BCrypt.hashpw(memberDTO.getPassword(), BCrypt.gensalt()));
         Member member = dtoToEntity(memberDTO);
-        member.setRole(MemberRole.USER);
+        member.addMemberRole(MemberRole.USER);
         memberRepository.save(member);
         return member.getEmail();
     }

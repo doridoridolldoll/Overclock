@@ -27,6 +27,7 @@ public class SecurityConfig {
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(apiLoginFilter(authenticationManager),
                 UsernamePasswordAuthenticationFilter.class);
+//        http.oauth2Login();
         return http.build();
     }
     @Bean
@@ -41,7 +42,7 @@ public class SecurityConfig {
 
     @Bean
     public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager) throws Exception {
-        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/member/login", jwtUtil());
+        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login", jwtUtil());
         apiLoginFilter.setAuthenticationManager(authenticationManager);
         apiLoginFilter.setAuthenticationSuccessHandler(successHandler());
         apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
@@ -56,7 +57,7 @@ public class SecurityConfig {
 
     @Bean
     public ApiCheckFilter apiCheckFilter(){
-        return new ApiCheckFilter("/asdsad/**/*", jwtUtil());
+        return new ApiCheckFilter("/asdasd/**/*", jwtUtil());
     }
 
     @Bean

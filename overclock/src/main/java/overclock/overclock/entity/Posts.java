@@ -1,6 +1,7 @@
 package overclock.overclock.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.model.PartsType;
@@ -34,7 +35,9 @@ public class Posts extends BaseEntity{ //게시물
 
     private String content;
 
-    private int viewCount; //조회수
+    @ColumnDefault("1")
+    private Long view; //조회수
+
 
 //    @Enumerated
 //    private PartsType partsType;
@@ -50,11 +53,11 @@ public class Posts extends BaseEntity{ //게시물
 
     @Builder
     public Posts(Member member, String title, String content,
-                int viewCount, BoardType boardType, Address address) {
+                Long view, BoardType boardType, Address address) {
         this.member = member;
         this.title = title;
         this.content = content;
-        this.viewCount = viewCount;
+        this.view = view;
         this.address = address;
         this.boardType = boardType;
     }

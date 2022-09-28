@@ -32,7 +32,7 @@ const routes = [
     {path:"/parts",name:"Parts", component: Parts}, 
     {path:"/peri",name:"Peri", component: Peri}, 
     {path:"/used",name:"Used", component: Used}, 
-    {path:"/partsdetail",name:"PartsDetail", component: PartsDetail}, 
+    {path:"/partsdetail",name:"PartsDetail", component: PartsDetail, props: { newsletterPopup: false }}, 
     {path:"/useddetail",name:"UsedDetail", component: UsedDetail}, 
     {path:"/freedetail",name:"FreeDetail", component: FreeDetail}, 
     {path:"/free",name:"Free", component: Free}, 
