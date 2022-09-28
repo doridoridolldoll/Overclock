@@ -50,7 +50,7 @@ public class ApiController {
     @RequestMapping(value = "/partsList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> partsList(@RequestBody PageRequestDTO dto) {
-        PageResultDTO<PostsDTO,Posts> result = postsService.partscategeryPageList(dto);
+        PageResultDTO<PostsDTO,Posts> result = postsService.partsCategoryPageList(dto);
         log.info("postsDTO : {}", dto);
         log.info("List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);

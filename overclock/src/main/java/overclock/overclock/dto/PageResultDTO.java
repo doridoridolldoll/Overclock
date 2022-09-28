@@ -12,7 +12,6 @@ import lombok.Data;
 @Data
 public class PageResultDTO<DTO, EN> {
   private List<DTO> dtoList; // 페이지에 나열되는 목록
-
   private int totalPage; //총 페이지 수
   private int page; //현재 페이지
   private int size; //목록 사이즈
@@ -38,6 +37,5 @@ public class PageResultDTO<DTO, EN> {
     //페이지네이션
     pageList = 
       IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-
   }
 }

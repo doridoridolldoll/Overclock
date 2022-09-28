@@ -103,7 +103,7 @@ function getUserList(page){
       }
     };
 
-    return {state, store}
+    return {state, store, getUserList}
 
   
   }

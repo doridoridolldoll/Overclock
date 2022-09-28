@@ -39,7 +39,7 @@
                       v-for="(list, i) in state.dtoList"
                       :key="(list, i)"
                     >
-                      <td class="price">{{ list.id }}</td>
+                      <td class="price"><a href="/posts/read/{{id}}"></a>{{ list.id }}</td>
                       <td>
                         <img v-bind:src="state.img[i]" />
                       </td>
@@ -59,6 +59,12 @@
             </div>
           </div>
           <router-link to="/UsedRegister" class="btn btn-primary"> 글쓰기</router-link>
+
+          <form action="/posts/search" method="GET" class="form-inline p-2 bd-highlight" role="search">       
+            <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">        
+            <button class="btn btn-success bi bi-search"></button>    
+          </form>
+
           <div class="page">
             <ul class="pagination">
               <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>

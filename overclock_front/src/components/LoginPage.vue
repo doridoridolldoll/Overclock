@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<Login class="d-flex justify-content-center align-items-center">
 		<div class="login  p-5 ">
 			<div class="loginlogo text-center"><img class="img-fluid px-5" src="#" alt="" srcset=""></div>
@@ -97,4 +97,4 @@ export default {
 };
 </script>
 
-<style lang=""></style>
+<style lang=""></style> -->
