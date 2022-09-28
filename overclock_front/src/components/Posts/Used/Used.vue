@@ -39,7 +39,7 @@
                       v-for="(list, i) in state.dtoList"
                       :key="(list, i)"
                     >
-                      <td class="price">{{ list.id }}</td>
+                      <td class="price"><a href="/posts/read/{{id}}"></a>{{ list.id }}</td>
                       <td>
                         <img v-bind:src="state.img[i]" />
                       </td>
@@ -65,6 +65,7 @@
                 <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
               </ul>
             </div>
+        
           </div>
         </div>
 	</section>

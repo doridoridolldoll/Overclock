@@ -1,5 +1,6 @@
 package overclock.overclock.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import lombok.ToString;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +16,8 @@ import overclock.overclock.entity.Posts;
 import java.util.List;
 
 @Repository
-
 public interface PostsRepository extends JpaRepository<Posts, Long> {
+
 
     @Query("select p, m from Posts p left join p.member m where p.id =:id")
     Object getPostsWithMember(@Param("id") Long id);
@@ -48,8 +49,6 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     Page<Posts> getPageList(Pageable pageable);
 
 
-
-
     //중고거래 게시판
     @Query(value = "SELECT p FROM Posts p WHERE p.partsType = 'used'")
     Page<Posts> getPageList2(Pageable pageable);
@@ -73,10 +72,20 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query(value = "SELECT p FROM Posts p WHERE p.partsType =:category")
     Page<Posts> getPartsByCategeryPageList(Pageable pageable, String category);
 
+
+//    @Query("SELECT m.name ,p.id, p.title, p.content, p.regDate " +
+//            "FROM Posts a left join Member m " +
+//            "on m.id = p.id " +
+//            "where p.name LIKE CONCAT('%',:search,'%') Or " +
+//            "p.title LIKE CONCAT('%',:search,'%') " +
+//            "ORDER BY p.id DESC")
+//    List<Object[]> getListAndAuthorByAuthorOrTitle(String search);
+
     @Modifying
         @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")
     void updateView(Long id);
 
     Posts getByid(Long id);
+
 }
 

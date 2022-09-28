@@ -28,26 +28,25 @@
 
 package overclock.overclock.service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.ItemImg;
-import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
+import overclock.overclock.entity.QPosts;
 import overclock.overclock.model.BoardType;
-import overclock.overclock.model.PartsType;
 import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -60,7 +59,6 @@ import java.util.stream.Collectors;
 public class PostsServiceImpl implements PostsService {
 
     private final PostsRepository repository;
-
     private final ItemImgRepository itemImgRepository;
 
 
@@ -122,6 +120,15 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
+    public PageResultDTO<PostsDTO, Posts> getList3(PageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
+        BooleanBuilder booleanBuilder = getSearch(requestDTO);
+        Page<Posts> result = repository.findAll(pageable);
+        Function<Posts, PostsDTO> fn = (entity -> entityToDTO(entity));
+        return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
     public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {
         log.info("PageRequestDTO: " + dto);
         Pageable pageable = dto.getPageable(Sort.by("id").descending());
@@ -155,10 +162,12 @@ public class PostsServiceImpl implements PostsService {
 //    }
 
     @Override
-    public PageResultDTO<PostsDTO, Posts> partscategeryPageList (PageRequestDTO dto){
+    public PageResultDTO<PostsDTO, Posts> partsCategoryPageList (PageRequestDTO dto){
         log.info("PageRequestDTO: " + dto);
         Pageable pageable = dto.getPageable(Sort.by("id").descending());
+        BooleanBuilder booleanBuilder = getSearch(dto);
         Page<Posts> result = repository.getPartsByCategeryPageList(pageable, dto.getCategory());
+//        Page<Posts> result2 = repository.findAll(booleanBuilder, pageable);
         Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
             @Override
             public PostsDTO apply(Posts t) {
@@ -169,6 +178,46 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     };
 
+
+    private BooleanBuilder getSearch(PageRequestDTO requestDTO) {
+        String type = requestDTO.getType();
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QPosts qPosts = QPosts.posts;
+        String keyword = requestDTO.getKeyword();
+        BooleanExpression expression = qPosts.id.gt(0L);
+        booleanBuilder.and(expression);
+
+        if (type == null || type.trim().length() == 0) {
+            return booleanBuilder;
+        }
+
+        //검색 조건 작성
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if (type.contains("t")) {
+            conditionBuilder.or(qPosts.title.contains(keyword));
+        }
+        if (type.contains("c")) {
+            conditionBuilder.or(qPosts.content.contains(keyword));
+        }
+
+        booleanBuilder.and(conditionBuilder);
+
+        return booleanBuilder;
+    }
+
+//    @Override
+//    public List<Object[]> getSearchPostList(String search) {
+//        String decode = "";
+//        try{
+//            decode = URLDecoder.decode(search, "UTF-8");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return repository.getListAndAuthorByAuthorOrTitle(decode);
+//    }
+
     @Transactional
     @Override
     public PostsDTO updateView(Long id) {
@@ -178,6 +227,7 @@ public class PostsServiceImpl implements PostsService {
         repository.updateView(id);
         return postsDTO;
     }
+
 }
 
 

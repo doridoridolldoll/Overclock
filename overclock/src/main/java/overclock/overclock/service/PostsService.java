@@ -1,5 +1,8 @@
 package overclock.overclock.service;
 
+import com.querydsl.core.BooleanBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import overclock.overclock.dto.*;
@@ -9,26 +12,25 @@ import overclock.overclock.entity.ItemImg;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public interface PostsService {
     Long mregister(PostsDTO dto); //중고거래 게시판 글쓰기
+    PageResultDTO<PostsDTO, Posts> getList3(PageRequestDTO requestDTO);
     PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto); //중고거래 게시판 리스트
-
     Long pregister(PostsDTO dto); //부품 게시판 글쓰기
-//    PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto); //부품 게시판 리스트
-
+    PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto); //부품 게시판 리스트
     PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO);
-
-    PageResultDTO<PostsDTO, Posts>  partscategeryPageList (PageRequestDTO dto); // 부품 게시판 리스트
+    PageResultDTO<PostsDTO, Posts>  partsCategoryPageList (PageRequestDTO dto);
 
     PostsDTO updateView(Long id);
 
-
-
     List<PostsDTO> getList(PostsDTO postsDTO);
+
+//    HashMap<String, Object> getSearchList(search vo);
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()

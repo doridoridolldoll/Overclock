@@ -1,7 +1,12 @@
 package overclock.overclock.controller;
 
+import io.jsonwebtoken.Header;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import overclock.overclock.dto.ItemDTO;
 import overclock.overclock.dto.PageRequestDTO;
 import overclock.overclock.dto.PostsDTO;
+import overclock.overclock.entity.Posts;
+import overclock.overclock.model.SearchCondition;
 import overclock.overclock.service.PostsService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
@@ -23,12 +32,12 @@ public class PostsController {
 
     //중고거래 컨트롤러
     @GetMapping("/mregister")
-    public void register(){
+    public void register() {
         log.info("register get...");
     }
 
     @PostMapping("/mregister")
-    public String register(ItemDTO itemDTO, PostsDTO dto, RedirectAttributes redirectAttributes){
+    public String register(ItemDTO itemDTO, PostsDTO dto, RedirectAttributes redirectAttributes) {
         log.info("itemDTO : " + itemDTO);
 
         Long id = postsService.mregister(dto);
