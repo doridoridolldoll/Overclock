@@ -1,6 +1,6 @@
 <template>
   <section id="hero" class="d-flex align-items-center justify-content-center">
-    <div class="input-form col-md-12 mx-auto form-floating">
+    <div class="input-form12 col-md-12 mx-auto form-floating">
       <div class="top-margin">
         <div class="mb-4">
           <span class="home-title">글 수정</span>
@@ -48,7 +48,6 @@ export default {
     title: "",
     editor: ClassicEditor,
     editorConfig: {
-      // The configuration of the editor.
       height: "500px",
       language: "ko",
     },
@@ -64,18 +63,33 @@ export default {
     },
   },
 
-  // const removeTag = (index) => {
-  // tags.splice(index, 1);
-  // };
+
 };
 </script>
 
-<style scoped>
-.btn4 {
-  margin-top: 10px;
-}
-.ck-editor__editable_inline {
-  max-height: 50vh;
-  height: 50vh;
-}
-</style>
+<style>
+  .btn4 {
+    margin-top: 10px;
+  }
+  .ck-editor__editable {
+    max-height: 50vh;
+    height: 50vh;
+  }
+  .input-form12 {
+        text-align: center;
+        padding: 32px;
+  
+        max-width: 840px;
+  
+        background: #fff;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+      }
+  #hero:before{
+  height: 5000px;
+      }
+
+  
+  </style>
+  

@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router"
 import Main from "@/components/Main.vue"
 import Login from "@/components/Login.vue"
 import Join from "@/components/Join.vue"
+import QnA from "@/components/QnA.vue"
+import Profil from "@/components/Profil.vue"
 
 //부품
 import Parts from "@/components/Posts/Parts/Parts.vue"
@@ -38,6 +40,8 @@ const routes = [
     {path:"/freerepost",name:"FreeRePost", component: FreeRePost}, 
     {path:"/login",name:"Login", component: Login}, 
     {path:"/join",name:"Join", component: Join},
+    {path:"/qna",name:"QnA", component: QnA},
+    {path:"/profil",name:"Profil", component: Profil},
     {path:"/usedregister", name:"UsedRegister", component: UsedRegister},
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister}
