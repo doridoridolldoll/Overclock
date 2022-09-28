@@ -22,7 +22,7 @@ public interface PostsService {
 
     PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO);
 
-    PageResultDTO<PostsDTO, Posts> partscategeryPageList (PageRequestDTO dto);
+    PageResultDTO<PostsDTO, Posts>  partscategeryPageList (PageRequestDTO dto);
 
 
     List<PostsDTO> getList(PostsDTO postsDTO);

@@ -1,12 +1,12 @@
 <template>
-    <section id="services" class="services">
+    <section id="services2" class="services">
       <div class="container" data-aos="fade-up">
-        <router-link to="/partsregister" class="btn btn-primary">글쓰기</router-link>
+        <router-link to="/periregister" class="btn btn-primary">글쓰기</router-link>
         <div class="section-title">
-          <p>GPU</p>
+          <p>HEADSET</p>
         </div>
         <div class="row">
-          <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
             <div class="icon-box">
@@ -18,7 +18,6 @@
               <span><h5>할인가 4,300,000원</h5></span>
             </div>
           </div>
-
           <div class="page">
             <ul class="pagination">
               <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
@@ -26,7 +25,6 @@
               <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
             </ul>
           </div>
-
 
         </div>
       </div>
@@ -37,7 +35,7 @@
 import { reactive } from '@vue/reactivity';
 import axios from "axios";
 export default {
-  name: 'PartsGpu',
+  name: 'PeriHeadset',
   props: [  ],
   setup(){
     const state = reactive({
@@ -52,14 +50,14 @@ export default {
       size: null,
       start: null,
       totalPage: null,
-      partsType: "gpu",
+      partsType: "headset",
     });
     const url = "/api/partsList";
 	  const headers = {
 	    "Content-Type": "application/json"
 	  };
     function getUserList(page){
-    axios.post(url, { page:page, type:"", category:"gpu" }, { headers })
+    axios.post(url, { page:page, type:"", category:"headset" }, { headers })
     .then(function(res){
       console.log(res.data)
       state.dtoList = res.data.dtoList
@@ -74,7 +72,7 @@ export default {
       showResult(res.data)
     })
   }
-  axios.post(url, { page: 1, category: "gpu" }, { headers })
+  axios.post(url, { page: 1, category: "headset" }, { headers })
             .then(function (res) {
             console.log(res);
             state.dtoList = res.data.dtoList,
@@ -88,6 +86,7 @@ export default {
                 state.totalPage = res.data.totalPage;
             showResult(res.data);
         });
+
     const showResult = async (arr) => {
       const displayUrl = "/display";
       const url = `http://localhost:9090${displayUrl}`;

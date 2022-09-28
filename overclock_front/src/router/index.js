@@ -11,6 +11,7 @@ import PartsRegister from "@/components/Posts/Parts/PartsRegister.vue"
 
 //주변기기
 import Peri from "@/components/Posts/Peripherals/Peripherals.vue"
+import PeriRegister from "@/components/Posts/Peripherals/PeriRegister.vue"
 
 //중고거래
 import Used from "@/components/Posts/Used/Used.vue"
@@ -38,6 +39,7 @@ const routes = [
     {path:"/login",name:"Login", component: Login}, 
     {path:"/join",name:"Join", component: Join},
     {path:"/usedregister", name:"UsedRegister", component: UsedRegister},
+    {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister}
   ]
   

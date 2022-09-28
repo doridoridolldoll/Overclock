@@ -19,15 +19,15 @@ public class ApiMemberController {
     public final PostsService postsService;
     private final MemberService memberService;
 
-    //멤버 회원가입
-//    @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
-//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> register(@RequestBody MemberDTO dto){
-//        log.info("asd");
-//        log.info("api/memberRegister...ClubMemberDTO:" + dto);
-//        String email = memberService.join(dto);
-//        return new ResponseEntity<>(email, HttpStatus.OK);
-//    }
+//    멤버 회원가입
+    @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> register(@RequestBody MemberDTO dto){
+        log.info("asd");
+        log.info("api/memberRegister...ClubMemberDTO:" + dto);
+        String email = memberService.join(dto);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+    }
 
 
 }

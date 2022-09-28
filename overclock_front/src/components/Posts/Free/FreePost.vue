@@ -20,20 +20,6 @@
           v-model="editorData"
           :config="editorConfig"
         ></ckeditor>
-        <div class="hashtags d-flex g-4 overflow-auto">
-          <div
-            class="tag d-flex justify-content-center align-items-center"
-            v-for="(item, i) in taghistory"
-            :key="item"
-          >
-            <span class="m-1">#{{ item }}</span>
-            <button
-              class="delbtn d-flex justify-content-center align-items-center px-1"
-            >
-              <span v-on:click="deleteTag(i)">x</span>
-            </button>
-          </div>
-        </div>
         <div class="tagwarning" ref="warning"></div>
         <button
           class="btn btn-primary btn4"
@@ -61,7 +47,6 @@ export default {
   data: () => ({
     title: "",
     editor: ClassicEditor,
-    editorData: "<p>Content of the editor.</p>",
     editorConfig: {
       // The configuration of the editor.
       height: "500px",

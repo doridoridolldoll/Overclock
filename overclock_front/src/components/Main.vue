@@ -15,20 +15,21 @@
       </div>
     </section>
     <router-view/>
+    <Contact/>
+
 
   </template>
   
   <script>
 import { ref } from '@vue/reactivity'
+import Contact from './Contact.vue'
 export default {
-    name:'ToMain',
-  setup(){
-    const title = ref('Main')
-
-    return {title}
-  }
-
-
+    name: "ToMain",
+    setup() {
+        const title = ref("Main");
+        return { title };
+    },
+    components: { Contact }
 }
   
   </script>
