@@ -50,14 +50,14 @@ public class MemberTests {
                 repository.save(member);
             });
         }
-    @Test
-    public void testRead() {
-
-        Optional<Member> result = repository.findByEmail("as", false);
-
-        Member member = result.get();
-
-        System.out.println(member);
-    }
+//    @Test
+//    public void testRead() {
+//
+//        Optional<Member> result = repository.findByEmail("as", false);
+//
+//        Member member = result.get();
+//
+//        System.out.println(member);
+//    }
 
 }

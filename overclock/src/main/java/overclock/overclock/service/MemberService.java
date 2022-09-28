@@ -23,6 +23,7 @@ public interface MemberService {
                 .nickname(dto.getNickname())
                 .password(dto.getPassword())
                 .address(address)
+                .fromSocial(dto.isFromSocial())
                 .roleSet(dto.getRoleSet().stream().map(
                         t -> {
                             if (t.equals("ROLE_MEMBER"))
@@ -43,8 +44,8 @@ public interface MemberService {
                 .name(member.getName())
                 .phone(member.getPhone())
                 .password(member.getPassword())
+                .fromSocial(member.isFromSocial())
                 .build();
-
                 return memberDTO;
     }
 

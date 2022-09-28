@@ -25,7 +25,6 @@ public class MemberTests {
               .password("1")
               .name("USER"+i)
               .phone("010"+i)
-              .role(MemberRole.USER)
               .phone("010")
               .address(Address.builder()
                       .city("busan")

@@ -5,9 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Posts;
 
 import java.util.List;
@@ -71,4 +73,10 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     @Query(value = "SELECT p FROM Posts p WHERE p.partsType =:category")
     Page<Posts> getPartsByCategeryPageList(Pageable pageable, String category);
 
+    @Modifying
+        @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")
+    void updateView(Long id);
+
+    Posts getByid(Long id);
 }
+

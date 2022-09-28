@@ -32,7 +32,6 @@ public class PostsTests {
             Posts posts = Posts.builder()
                     .title("title")
                     .member(member)
-                    .viewCount(1)
                     .content("content"+i)
                     .boardType(BoardType.MARKET)
                     .address(Address.builder().city("as").street("as").zipcode("as").build())

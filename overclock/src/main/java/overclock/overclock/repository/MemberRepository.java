@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import overclock.overclock.entity.Member;
 
@@ -22,8 +23,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findOne(Long id);
 
     @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("select m from Member m where m.email=:email ")
-    Optional<Member> findByEmail(String email);
+    @Query("select m from Member m where m.email=:email and m.fromSocial=:social ")
+    Optional<Member> findByEmail(@Param("email") String email,@Param("social") boolean social);
 
     @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.id=:id")

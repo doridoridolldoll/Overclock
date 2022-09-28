@@ -10,7 +10,7 @@
           <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
-            <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}">
+            <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)">
 
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
@@ -19,6 +19,7 @@
               <span><h4>{{list.id}}</h4></span>
               <span><h5>판매가 4,800,000원</h5></span>
               <span><h5>할인가 4,300,000원</h5></span>
+              
             </div>
           </router-link>
           </div>
@@ -43,6 +44,7 @@ export default {
   props: [  ],
   setup(){
     const state = reactive({
+      id: "",
       upResult: "",
       img: [],
 	    dtoList: [],
@@ -67,7 +69,8 @@ function getUserList(page){
     .then(function(res){
 		  // console.log(res.data.dtoList[1].partsType == "used");
       console.log(res.data)
-      state.dtoList = res.data.dtoList
+      state.id = res.data.dtoList.id,
+      state.dtoList = res.data.dtoList,
       state.end =  res.data.end,
       state.next =  res.data.next,
       state.page =  res.data.page,
@@ -92,6 +95,7 @@ function getUserList(page){
                 state.start = res.data.start,
                 state.totalPage = res.data.totalPage;
             showResult(res.data);
+
         });
     const showResult = async (arr) => {
       const displayUrl = "/display";
@@ -102,8 +106,18 @@ function getUserList(page){
         state.img[i] = str2;
       }
     };
+    function Join(urlId){
+      const url2 = `/api/read/${urlId}`;
+	    const headers2 = {
+	      "Content-Type": "application/json; charset=utf-8"
+	    };
+      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
 
-    return {state, store}
+        console.log(res);
+      })
+    }
+
+    return {state, store,getUserList,Join}
 
   
   }

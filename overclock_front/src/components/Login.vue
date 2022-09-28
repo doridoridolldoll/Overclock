@@ -37,7 +37,7 @@ export default {
         alert('비밀번호를 확인해주세요');
         return false;
       }
-      const url = "./member/login"
+      const url = "/member/login"
       const headers = { "Content-Type": "application/json; charset=utf-8;"}
       const body = { email: state.form.email, password: state.form.password };
       try{

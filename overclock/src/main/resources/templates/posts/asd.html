@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <tr><td><a href="/oauth2/authorization/google">Google</a></td></tr>
+
+    </th:block>
+</th:block>
