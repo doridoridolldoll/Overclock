@@ -1,7 +1,6 @@
 <template>
   <section id="hero" class="d-flex align-items-center justify-content-center">
     <body>
-      <main id="main">
         <section id="portfolio-details" class="portfolio-details">
           <div class="container input-form">
             <div class="row gy-4">
@@ -50,37 +49,47 @@
                       가로(길이): 198mm / 백플레이트
                     </p>
                 </div>
+                <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
           </div>
+          
+          <Comment/>
+          
         </section>
-      </main>
-      <div></div>
     </body>
   </section>
 </template>
 
 <script>
-import {useRoute} from 'vue-router'
-    export default {
-        name: 'PartsDetail',
-        setup(){  
-          let route = useRoute()
-          let asd = JSON.parse(route.query.name.join("").split(","));
-          console.log(asd);
-          const displayUrl = "/display";
-          const url = `http://localhost:9090${displayUrl}`;
-          let img = '';
-          img = `${url}?fileName=${asd.imageDTOList[0].imageURL}`;
-          
 
-          return {route,asd,img}
-        }
+
+
+import { reactive } from '@vue/reactivity';
+  export default {
+      name: 'PartsDetail',
+      setup(){
+        const state = reactive({
+          dtoList: [],
+        });
+        let route = useRoute()
+        // console.log(route.query.name);
+        let asd = JSON.parse(route.query.name.join("").split(","));
+        state.dtoList = asd;
+        console.log(asd);
+        const displayUrl = "/display";
+        const url = `http://localhost:9090${displayUrl}`;
+        let img = '';
+        img = `${url}?fileName=${asd.imageDTOList[0].imageURL}`;
+
+      return {route,img,state}
+      }
     }
 // import { defineProps } from 'vue '
 // let props = defineProps(["partsList", "test"])
 // console.log(props.partsList);
 // console.log(props.test);
 // console.log(props);
+
 
 </script>
 <style scoped>
@@ -96,6 +105,8 @@ import {useRoute} from 'vue-router'
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+
+  border: 1px solid rgb(226, 218, 218);
 }
 #hero h2 {
   color: rgb(0, 0, 0);
@@ -105,5 +116,11 @@ import {useRoute} from 'vue-router'
 }
 p{
   margin-bottom: 1rem;
+}
+#hero:before{
+  height: 1500px;
+}
+#hero{
+    overflow: scroll;
 }
 </style>

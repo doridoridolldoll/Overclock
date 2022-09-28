@@ -145,21 +145,21 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     }
 
-    @Override
-    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
-        log.info("PageRequestDTO: " + dto);
-
-        Pageable pageable = dto.getPageable(Sort.by("id").descending());
-        Page<Posts> result = repository.partsCpuPageList(pageable);
-        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
-            @Override
-            public PostsDTO apply(Posts t) {
-                log.info("asd : {}", t);
-                return entityToDTO(t);
-            }
-        };
-        return new PageResultDTO<>(result, fn);
-    }
+//    @Override
+//    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
+//        log.info("PageRequestDTO: " + dto);
+//
+//        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+//        Page<Posts> result = repository.partsCpuPageList(pageable);
+//        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+//            @Override
+//            public PostsDTO apply(Posts t) {
+//                log.info("asd : {}", t);
+//                return entityToDTO(t);
+//            }
+//        };
+//        return new PageResultDTO<>(result, fn);
+//    }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> partsCategoryPageList (PageRequestDTO dto){
@@ -217,6 +217,17 @@ public class PostsServiceImpl implements PostsService {
 //        }
 //        return repository.getListAndAuthorByAuthorOrTitle(decode);
 //    }
+
+    @Transactional
+    @Override
+    public PostsDTO updateView(Long id) {
+        log.info("id : {}", id);
+        Posts result = repository.getByid(id);
+        PostsDTO postsDTO = entityToDTO(result);
+        repository.updateView(id);
+        return postsDTO;
+    }
+
 }
 
 

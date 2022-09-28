@@ -45,7 +45,7 @@
     "rules": {
       "no-mixed-spaces-and-tabs": 0,
       "vue/multi-word-component-names": ["error", {
-        "ignores": ["Contact"]
+        "ignores": ["Contact","Comment"]
       }]
     }
   },

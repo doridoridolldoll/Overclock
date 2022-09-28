@@ -25,6 +25,9 @@ public interface PostsService {
     PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto); //부품 게시판 리스트
     PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO);
     PageResultDTO<PostsDTO, Posts>  partsCategoryPageList (PageRequestDTO dto);
+
+    PostsDTO updateView(Long id);
+
     List<PostsDTO> getList(PostsDTO postsDTO);
 
 //    HashMap<String, Object> getSearchList(search vo);
@@ -37,7 +40,7 @@ public interface PostsService {
                 .id(dto.getId())
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .viewCount(dto.getViewCount())
+                .view((long) dto.getViewCount())
                 .partsType(dto.getPartsType())
                 .member(member)
                 .build();
@@ -51,7 +54,7 @@ public interface PostsService {
                 .content(posts.getContent())
                 .regDate(posts.getRegDate())
                 .modDate(posts.getModDate())
-                .viewCount(posts.getViewCount())
+                .viewCount(Math.toIntExact(posts.getView()))
                 .partsType(posts.getPartsType())
                 .memberId(posts.getMember().getId())
                 .imageDTOList(posts.getItemImgList().stream().map(new Function<ItemImg,ItemImgDTO>() {

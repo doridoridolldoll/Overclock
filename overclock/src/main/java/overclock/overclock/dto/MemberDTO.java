@@ -19,6 +19,7 @@ public class MemberDTO {
     private String phone;
     private String nickname;
     private String password;
+    private boolean fromSocial;
 
     private String city;
     private String street;
