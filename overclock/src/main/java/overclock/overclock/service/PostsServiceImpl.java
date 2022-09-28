@@ -154,21 +154,24 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     }
 
-        @Override
-        public PageResultDTO<PostsDTO, Posts> partscategeryPageList (PageRequestDTO dto){
-            log.info("PageRequestDTO: " + dto);
-            Pageable pageable = dto.getPageable(Sort.by("id").descending());
-            Page<Posts> result = repository.getPartsByCategeryPageList(pageable, dto.getCategory());
-            Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
-                @Override
-                public PostsDTO apply(Posts t) {
-                    log.info("asd : {}", t);
-                    return entityToDTO(t);
-                }
-            };
-            return new PageResultDTO<>(result, fn);
+    @Override
+    public PageResultDTO<PostsDTO, Posts> partscategeryPageList (PageRequestDTO dto){
+        log.info("PageRequestDTO: " + dto);
+        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+        Page<Posts> result = repository.getPartsByCategeryPageList(pageable, dto.getCategory());
+        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+            @Override
+            public PostsDTO apply(Posts t) {
+                log.info("asd : {}", t);
+                return entityToDTO(t);
+            }
         };
-    }
+        return new PageResultDTO<>(result, fn);
+    };
+
+
+
+}
 
 
 

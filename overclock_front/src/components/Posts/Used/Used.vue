@@ -16,7 +16,6 @@
     </section>
     <!-- End Hero -->
 
-    <router-link to="/UsedRegister" class="btn btn-primary"> 글쓰기</router-link>
 
     <main id="main">
       <section class="ftco-section ftco-cart">
@@ -59,92 +58,107 @@
 	         </div>
             </div>
           </div>
+          <router-link to="/UsedRegister" class="btn btn-primary"> 글쓰기</router-link>
+          <div class="page">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
+              <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
+              <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
+            </ul>
+          </div>
         </div>
-		<nav aria-label="Page navigation example">
-			<ul class="pagination">
-				<li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
-				<li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
-				<li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
-			</ul>
-		</nav>
 	</section>
 </main>
   </div>
+  <Contact/>
 </template>
 
 <script>
 import { reactive } from "@vue/reactivity";
 import axios from "axios";
-
+import Contact from "@/components/Contact.vue";
 export default {
-  name: "ToUsed",
-  setup() {
-    const state = reactive({
-      upResult: "",
-      img: [],
-	    dtoList: [],
-      end: null,
-      next: null,
-      page: null,
-      pageList: null,
-      prev: null,
-      size: null,
-      start: null,
-      totalPage: null,
-      partsType: "used",
-    });
-	const url = "/api/getlist";
-	const headers = {
-	  "Content-Type": "application/json"
-	};
-	function getUserList(page){
-		axios.post(url, { page:page, category:"used" }, { headers })
-		.then(function(res){
-		console.log(page + "asdasdasd");
-		console.log(res);
-        state.dtoList =  res.data.dtoList,
-        state.end =  res.data.end,
-        state.next =  res.data.next,
-		    state.page = res.data.page,
-        state.pageList =  res.data.pageList,
-        state.prev =  res.data.prev,
-        state.size =  res.data.size,
-        state.start =  res.data.start,
-        state.totalPage = res.data.totalPage
-    })  
-    }
-	// var count = 0;
-    axios.post(url, { page:1, category:"used" }, { headers })
-    .then(function(res){
-      console.log(res)
-		    state.dtoList = res.data.dtoList,
-        state.end =  res.data.end,
-        state.next =  res.data.next,
-        state.page =  res.data.page,
-        state.pageList =  res.data.pageList,
-        state.prev =  res.data.prev,
-        state.size =  res.data.size,
-        state.start =  res.data.start,
-        state.totalPage = res.data.totalPage
-		    showResult(res.data)
-    })
-    const showResult = async (arr) => {
-      const displayUrl = "/display";
-      const url = `http://localhost:9090${displayUrl}`;
-      let str2 = "";
-      for (let i = 0; i < arr.dtoList.length; i++) {
-        str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
-        state.img[i] = str2;
-      }
-    };
-
-    return { state, getUserList};
-  },
+    name: "ToUsed",
+    setup() {
+        const state = reactive({
+            upResult: "",
+            img: [],
+            dtoList: [],
+            end: null,
+            next: null,
+            page: null,
+            pageList: null,
+            prev: null,
+            size: null,
+            start: null,
+            totalPage: null,
+            partsType: "used",
+        });
+        const url = "/api/getlist";
+        const headers = {
+            "Content-Type": "application/json"
+        };
+        function getUserList(page) {
+            axios.post(url, { page: page, category: "used" }, { headers })
+                .then(function (res) {
+                console.log(page + "asdasdasd");
+                console.log(res);
+                state.dtoList = res.data.dtoList,
+                    state.end = res.data.end,
+                    state.next = res.data.next,
+                    state.page = res.data.page,
+                    state.pageList = res.data.pageList,
+                    state.prev = res.data.prev,
+                    state.size = res.data.size,
+                    state.start = res.data.start,
+                    state.totalPage = res.data.totalPage;
+            });
+        }
+        // var count = 0;
+        axios.post(url, { page: 1, category: "used" }, { headers })
+            .then(function (res) {
+            console.log(res);
+            state.dtoList = res.data.dtoList,
+                state.end = res.data.end,
+                state.next = res.data.next,
+                state.page = res.data.page,
+                state.pageList = res.data.pageList,
+                state.prev = res.data.prev,
+                state.size = res.data.size,
+                state.start = res.data.start,
+                state.totalPage = res.data.totalPage;
+            showResult(res.data);
+        });
+        const showResult = async (arr) => {
+            const displayUrl = "/display";
+            const url = `http://localhost:9090${displayUrl}`;
+            let str2 = "";
+            for (let i = 0; i < arr.dtoList.length; i++) {
+                str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
+                state.img[i] = str2;
+            }
+        };
+        return { state, getUserList };
+    },
+    components: { Contact }
 };
 </script>
 
-<style>
+<style scoped>
+	.btn-primary{
+		float: right;
+	}
 	.pagination{
-		object-position: center;
+		width: 100px;
+		margin: auto;
+	}
+	.table tbody tr td{
+		padding: 10px;
+	}
+	#hero:before{
+		height: 500px;
+	}
+	#hero{
+		height: inherit;
 	}
 </style>
