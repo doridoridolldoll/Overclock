@@ -3,17 +3,18 @@ package overclock.overclock.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import overclock.overclock.entity.Member;
 import overclock.overclock.security.filter.ApiCheckFilter;
 import overclock.overclock.security.filter.ApiLoginFilter;
+import overclock.overclock.security.handler.ApiLoginFailHandler;
+import overclock.overclock.security.handler.LoginSuccessHandler;
 import overclock.overclock.security.util.JWTUtil;
 
 @Configuration
@@ -32,11 +33,18 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+    @Bean
+    public LoginSuccessHandler successHandler() {
+        return new LoginSuccessHandler(passwordEncoder());
+    }
+
     @Bean
     public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager) throws Exception {
-
         ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/member/login", jwtUtil());
         apiLoginFilter.setAuthenticationManager(authenticationManager);
+        apiLoginFilter.setAuthenticationSuccessHandler(successHandler());
+        apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
         return apiLoginFilter;
     }
 

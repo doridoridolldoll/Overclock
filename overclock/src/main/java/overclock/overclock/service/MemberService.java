@@ -1,9 +1,11 @@
 package overclock.overclock.service;
 
+import overclock.overclock.dto.LoginDTO;
 import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.entity.Member;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
+import overclock.overclock.security.dto.AuthMemberDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +13,6 @@ import java.util.stream.Collectors;
 public interface MemberService {
 
     String join(MemberDTO memberDTO);
-
     default Member dtoToEntity(MemberDTO dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
         Member member = Member.builder()

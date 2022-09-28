@@ -38,7 +38,6 @@ public class UserDetailsService implements org.springframework.security.core.use
                 member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
                         .collect(Collectors.toList()));
         dto.setName(member.getName());
-        dto.setAuth(member.isAuth());
         return dto;
     }
 }

@@ -21,12 +21,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.id = :id ")
     Member findOne(Long id);
 
-    @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.email=:email ")
     Optional<Member> findByEmail(String email);
 
     @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.id=:id")
     Optional<Member> findById(String id);
+
+    @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("select m from Member m where m.auth = :auth and m.email =:email")
+    Optional<Member> findByEmailWithAuth(String email, boolean auth);
+
 
 }

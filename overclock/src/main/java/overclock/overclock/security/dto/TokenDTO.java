@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 public class TokenDTO {
-    private Long userid;
+
+    private Long id;
     private String email;
-    private String username;
     private String name;
     private String token;
-    private boolean auth;
+    private String curl;
+    private Boolean auth;
 }

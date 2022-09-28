@@ -96,12 +96,13 @@
 </template>
 
 <script>
-import {reactive } from '@vue/reactivity'
+import {reactive} from '@vue/reactivity'
 import axios from 'axios'
 export default {
   name:'ToJoin',
 setup(){
   const state = reactive({
+    id          : '',
     email       : '',
     password    : '',
     repassword  : '', 
@@ -112,9 +113,6 @@ setup(){
     street      : '',
     zipcode     : '',
   })
-  // const email = ref('')
-  // const password = ref('')
-  // const repassword = ref('')
   const joinHandler = async() => {
     console.log("asas")
     const url = './member/memberRegister'
@@ -122,6 +120,7 @@ setup(){
       "Content-Type" : "application/json",
     }
     const body = {
+      id : state.id,
       email : state.email,
       password : state.password,
       name : state.name,

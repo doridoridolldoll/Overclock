@@ -37,6 +37,7 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import axios from "axios";
+import store from "@/store";
 export default {
   name: 'PartsCpu',
   props: [  ],
@@ -57,7 +58,9 @@ export default {
     });
     const url = "/api/partsList";
 	  const headers = {
-	    "Content-Type": "application/json"
+	    "Content-Type": "application/json; charset=utf-8",
+      "Authorization": store.state.token,
+      "id": store.state.id
 	  };
 function getUserList(page){
     axios.post(url, { page:page, type:"", category:"mb" }, { headers })
@@ -100,7 +103,8 @@ function getUserList(page){
       }
     };
 
-    return {state,getUserList}
+    return {state, store}
+
   
   }
 }

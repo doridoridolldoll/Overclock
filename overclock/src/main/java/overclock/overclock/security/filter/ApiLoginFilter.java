@@ -50,7 +50,7 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
         }
 
         String email = jsonObject.get("email").toString();
-        String pw = jsonObject.get("passwd").toString();
+        String pw = jsonObject.get("password").toString();
         log.info("email: " + email + "/pw: " + pw);
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, pw);
         return getAuthenticationManager().authenticate(authToken);
@@ -61,13 +61,13 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
                                             Authentication authResult) {
         log.info("successfulAuthentication... authResult:" + authResult.getPrincipal());
         String email = ((AuthMemberDTO) authResult.getPrincipal()).getEmail();
-        Long userid = ((AuthMemberDTO) authResult.getPrincipal()).getUserid();
-        Boolean auth = ((AuthMemberDTO) authResult.getPrincipal()).isAuth();
+        Long id = (((AuthMemberDTO) authResult.getPrincipal()).getId());
         String token = null;
+        String curl = "";
         ObjectMapper mapper = new ObjectMapper();
         try {
-            token = "Bearer " + jwtUtil.generateToken(email, userid);
-            TokenDTO tokenDTO = AuthToSessionDTO((AuthMemberDTO) authResult.getPrincipal(), token, auth);
+            token = "Bearer " + jwtUtil.generateToken(email, id);
+            TokenDTO tokenDTO = AuthToSessionDTO((AuthMemberDTO) authResult.getPrincipal(), token, curl);
             String res = mapper.writeValueAsString(tokenDTO);
             response.setContentType("application/json;charset=utf-8");
             response.getOutputStream().write(res.getBytes());
@@ -77,14 +77,14 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     private TokenDTO AuthToSessionDTO(AuthMemberDTO dto,
-                                      String token, boolean auth) {
+                                      String token, String curl) {
         TokenDTO tokenDTO = TokenDTO.builder()
-                .userid(dto.getUserid())
+                .id(dto.getId())
                 .email(dto.getEmail())
-                .username(dto.getUsername())
                 .name(dto.getName())
                 .token(token)
-                .auth(auth)
+                .auth(dto.isAuth())
+                .curl(curl)
                 .build();
         return tokenDTO;
     }
