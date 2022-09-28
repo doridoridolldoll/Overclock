@@ -1,18 +1,14 @@
 <template>
   <section id="hero" class="d-flex align-items-center justify-content-center">
-    <form class="form-floating input-form9" @submit.prevent>
-  <h5 class="mt-4">중고 거래 등록</h5>
-            <div class="form-group">
-                <label>Title</label>
-                <input type="text" class="form-control" v-model="state.title" placeholder="Enter Title">
-            </div>
+    <form class="form-floating input-form9 " @submit.prevent>
+  <h5 class="mt-4">주변기기 거래 등록</h5>
             <div class="form-group">
                 <label>상품명</label>
                 <input type="text" class="form-control">
             </div>
             <div class="form-group">
-                <label>거래정보</label>
-                <textarea class ="form-control" v-model="state.content" rows="5" name="content"></textarea>
+                <label>제품상세</label>
+                <textarea class ="form-control" v-model="state.item_detail" rows="5" name="item_detail"></textarea>
             </div>
             <div class="form-group">
                 <label>가격</label>
@@ -37,11 +33,22 @@
 
             <FileUpload />
 
-            <!--게시판 카테고리-->
-            <input type="hidden" class="form-control" v-model="state.type" name="type" placeholder="type"><br>
-            
 
+
+
+            <div class="form-group">
+                <label>주변기기 카테고리</label>
+                <input type="text" class="form-control" v-model="state.type" name="type" placeholder="type"><br>
+                <!-- <select v-model="state.type" name="type">
+                    <option>MB</option>
+                    <option>CPU</option>
+                    <option>GPU</option>
+                    <option>HDD</option>
+                    <option>ETC</option>
+                </select> -->
+            </div>
             <button class="btn btn-primary btn7" @click="joinHandler">등록</button>
+
     </form>
     </section>
 </template>
@@ -50,7 +57,7 @@
 import {reactive} from '@vue/reactivity'
 import axios from 'axios'
 import {useRouter} from 'vue-router';
-import FileUpload from '@/components/FileUpload.vue'
+import FileUpload from '../../FileUpload.vue'
 export default {
     name:'ToRegister',
     components: { FileUpload },
@@ -58,11 +65,11 @@ export default {
         const router = useRouter();
         const state = reactive({
             title       : '',
-            content    : '',
+            item_detail    : '',
             memberId  : '',
             name        : '',
             itemDetail : '',
-            type : 'used',
+            type : '',
             imageDTOList : new Array(),
         })
         const joinHandler = async() => {
@@ -93,22 +100,22 @@ export default {
                 }
             const body = {
                 title : state.title, 
-                content : state.content, 
+                item_detail : state.item_detail, 
                 memberId : state.memberId, 
                 imageDTOList: state.imageDTOList,
                 itemDetail: state.itemDetail, 
                 partsType: state.type,
             }
             const response = await axios.post(url, body, {headers})
+            console.log(response.data)
             
             if(response.status === 200){
-                alert('회원가입에 성공하였습니다.')
+                alert(state.type);
             } else {
                 alert('회원가입에 실패하였습니다.')
             }
-            router.push({name: "Used"})
+            router.push({name: "Peri"})
         }
-
         return {state,joinHandler }
     }
     

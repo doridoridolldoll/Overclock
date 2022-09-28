@@ -55,27 +55,27 @@
 
     </div>
   </section><!-- End Hero -->
-
-
-<div v-if="(state.form == 'mb')">
-  <PartsMb/>
-</div>  
-<div v-if="(state.form == 'cpu')">
-  <PartsCpu/>
+  
+  
+  <div v-if="(state.form == 'mb')">
+    <PartsMb/>
+  </div>  
+  <div v-if="(state.form == 'cpu')">
+    <PartsCpu/>
+  </div>
+  <div v-if="(state.form == 'gpu')">
+    <PartsGpu/>
+  </div> 
+  <div v-if="(state.form == 'hdd')">
+    <PartsHdd/>
+  </div> 
+  <div v-if="(state.form == 'etc')">
+    <PartsEtc/>
+  </div> 
+  
+  
 </div>
-<div v-if="(state.form == 'gpu')">
-  <PartsGpu/>
-</div> 
-<div v-if="(state.form == 'hdd')">
-  <PartsHdd/>
-</div> 
-<div v-if="(state.form == 'etc')">
-  <PartsEtc/>
-</div> 
-
-
-
-</div>
+<Contact/>
 </template>
 
 <script>
@@ -85,6 +85,7 @@ import PartsCpu from '@/components/Posts/Parts/PartsCpu.vue'
 import PartsGpu from '@/components/Posts/Parts/PartsGpu.vue'
 import PartsHdd from '@/components/Posts/Parts/PartsHdd.vue'
 import PartsEtc from '@/components/Posts/Parts/PartsEtc.vue'
+import Contact from '@/components/Contact.vue';
 export default {
   name:'ToParts',
   components: {
@@ -92,8 +93,9 @@ export default {
     PartsCpu,
     PartsGpu,
     PartsHdd,
-    PartsEtc
-  },
+    PartsEtc,
+    Contact
+},
   setup(){
     const state = reactive({
       form: "mb",

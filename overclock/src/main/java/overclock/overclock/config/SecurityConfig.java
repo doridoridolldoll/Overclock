@@ -56,7 +56,7 @@ public class SecurityConfig {
 
     @Bean
     public ApiCheckFilter apiCheckFilter(){
-        return new ApiCheckFilter("/api/**/*", jwtUtil());
+        return new ApiCheckFilter("/asdsad/**/*", jwtUtil());
     }
 
     @Bean

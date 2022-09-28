@@ -60,37 +60,40 @@
       </section>
     </main>
   </div>
+  <Contact/>
 </template>
 
 <script>
 import { onMounted } from "vue";
 import { reactive } from "@vue/reactivity";
 import axios from "axios";
+import Contact from "@/components/Contact.vue";
 
 export default {
-  name: "ToFree",
-  setup() {
-    onMounted(() => {
-      handleGetList();
-    });
-    const state = reactive({
-      lists: "",
-    });
-    const handleGetList = async () => {
-      const url = "/api/getlist";
-      const headers = {
-        "Content-Type": "application/json",
-      };
-      const body = { email: state.email };
-      await axios.post(url, body, { headers }).then(function (res) {
-        if (res.status === 200) {
-          console.log(res);
-          state.lists = res.data;
-        }
-      });
-    };
-    return { state, handleGetList };
-  },
+    name: "ToFree",
+    setup() {
+        onMounted(() => {
+            handleGetList();
+        });
+        const state = reactive({
+            lists: "",
+        });
+        const handleGetList = async () => {
+            const url = "/api/getlist";
+            const headers = {
+                "Content-Type": "application/json",
+            };
+            const body = { email: state.email };
+            await axios.post(url, body, { headers }).then(function (res) {
+                if (res.status === 200) {
+                    console.log(res);
+                    state.lists = res.data;
+                }
+            });
+        };
+        return { state, handleGetList };
+    },
+    components: { Contact }
 };
 </script>
 

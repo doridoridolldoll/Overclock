@@ -8,17 +8,17 @@
               <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
                   <div class="swiper-wrapper align-items-center">
-                    <div class="swiper-slide">
-                      <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTmUHH0v9f2o86r8JPMrnRhY6V_Si8AT_ldqmyq4TxxTsNdXMHIsqqrDmA_R48ZbxSHCz2iSWqCvvrXhCHhSDNIYZAQ1RO0i0Jhn2Mw5dN7NG4Rm4RVnuIJ&usqp=CAE" style="width:370px;height:300px;"></div>
+                      <div class="icon"><img v-bind:src="img"/></div>
                   </div>
                 </div>
               </div>
+
 
               <div class="col-lg-4">
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
                   <ul>
-                    <li><strong>상품명</strong>: Web design</li>
+                    <li><strong></strong>: Web design</li>
                     <li><strong>판매자</strong>: ASU Company</li>
                     <li><strong>등록일자</strong>: 01 March, 2020</li>
                     <li>
@@ -54,15 +54,34 @@
           </div>
         </section>
       </main>
+      <div></div>
     </body>
   </section>
 </template>
 
 <script>
-export default {
-  name: "ToDetail",
-  setup() {},
-};
+import {useRoute} from 'vue-router'
+    export default {
+        name: 'PartsDetail',
+        setup(){  
+          let route = useRoute()
+          let asd = JSON.parse(route.query.name.join("").split(","));
+          console.log(asd);
+          const displayUrl = "/display";
+          const url = `http://localhost:9090${displayUrl}`;
+          let img = '';
+          img = `${url}?fileName=${asd.imageDTOList[0].imageURL}`;
+          
+
+          return {route,asd,img}
+        }
+    }
+// import { defineProps } from 'vue '
+// let props = defineProps(["partsList", "test"])
+// console.log(props.partsList);
+// console.log(props.test);
+// console.log(props);
+
 </script>
 <style scoped>
 .input-form {

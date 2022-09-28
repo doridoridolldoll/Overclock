@@ -6,11 +6,13 @@ const target = 'http://localhost:9090'
 module.exports = {
   devServer: {
     port: 8080,
+
     proxy: {
       '/api': { target, changeOrigin: true } ,
       '/member': { target, changeOrigin: true } 
     }
+
   },
   outputDir:
-    'D:/Overclock/overclock/src/main/resources/static',
+    'D:/Overclock/overclock/src/main/resources/static'
 }
