@@ -34,19 +34,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import overclock.overclock.dto.*;
-import overclock.overclock.entity.ItemImg;
-import overclock.overclock.entity.Posts;
-import overclock.overclock.entity.QPosts;
+import overclock.overclock.entity.*;
 import overclock.overclock.model.BoardType;
+import overclock.overclock.model.search;
 import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
 import javax.transaction.Transactional;
 import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -145,21 +146,21 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     }
 
-//    @Override
-//    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
-//        log.info("PageRequestDTO: " + dto);
-//
-//        Pageable pageable = dto.getPageable(Sort.by("id").descending());
-//        Page<Posts> result = repository.partsCpuPageList(pageable);
-//        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
-//            @Override
-//            public PostsDTO apply(Posts t) {
-//                log.info("asd : {}", t);
-//                return entityToDTO(t);
-//            }
-//        };
-//        return new PageResultDTO<>(result, fn);
-//    }
+    @Override
+    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
+        log.info("PageRequestDTO: " + dto);
+
+        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+        Page<Posts> result = repository.partsCpuPageList(pageable);
+        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+            @Override
+            public PostsDTO apply(Posts t) {
+                log.info("asd : {}", t);
+                return entityToDTO(t);
+            }
+        };
+        return new PageResultDTO<>(result, fn);
+    }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> partsCategoryPageList (PageRequestDTO dto){
@@ -207,17 +208,6 @@ public class PostsServiceImpl implements PostsService {
         return booleanBuilder;
     }
 
-//    @Override
-//    public List<Object[]> getSearchPostList(String search) {
-//        String decode = "";
-//        try{
-//            decode = URLDecoder.decode(search, "UTF-8");
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return repository.getListAndAuthorByAuthorOrTitle(decode);
-//    }
-
     @Transactional
     @Override
     public PostsDTO updateView(Long id) {
@@ -228,6 +218,42 @@ public class PostsServiceImpl implements PostsService {
         return postsDTO;
     }
 
+    @Override
+    public PageResultDTO<PostsDTO, Object[]> getLists(PageRequestDTO requestDTO) {
+        Page<Object[]> result = repository.searchPage(
+                requestDTO.getType(),
+                requestDTO.getKeyword(),
+                requestDTO.getPageable(Sort.by("id").descending())
+        );
+        Function<Object[], PostsDTO> fn =
+                en -> entityToDTO((Posts)en[0]);
+        return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public HashMap<String, Object> getSearchList(search vo) {
+
+//        Pageable pageable;
+//        pageable = PageRequest.of(vo.getReqPage(), 9,Sort.by(Sort.Direction.DESC, "id"));
+
+        Pageable pageable = PageRequest.of(vo.getReqPage(), 9, Sort.by(Sort.Direction.DESC, "id"));
+        Pageable pageablee = PageRequest.of(vo.getReqPage(), 9,Sort.by(Sort.Direction.DESC, "id"));
+        Page<Posts> page = repository.getListAndAuthorPage(pageablee);
+        List<EmbedCard> result = repository.getSearchList(vo.getSearch(), pageable).get().stream().map(v -> {
+            return new EmbedCard(v);
+        }).collect(Collectors.toList());
+        HashMap<String, Object> cardInfo = new HashMap<>();
+        cardInfo.put("articles", result);
+        cardInfo.put("page", pageable.getPageNumber());
+        cardInfo.put("pageTotalCount", page.getTotalPages());
+
+        return cardInfo;
+    }
+
+    @Override
+    public List<Object[]> getSearchPostList(String search) {
+        return null;
+    }
 }
 
 

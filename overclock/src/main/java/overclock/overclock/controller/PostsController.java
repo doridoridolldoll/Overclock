@@ -1,26 +1,21 @@
 package overclock.overclock.controller;
 
-import io.jsonwebtoken.Header;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import overclock.overclock.dto.ItemDTO;
 import overclock.overclock.dto.PageRequestDTO;
 import overclock.overclock.dto.PostsDTO;
-import overclock.overclock.entity.Posts;
-import overclock.overclock.model.SearchCondition;
+import overclock.overclock.model.search;
 import overclock.overclock.service.PostsService;
 
-import java.util.List;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/posts")
@@ -47,6 +42,13 @@ public class PostsController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/list")
+    public void list(Model model, @ModelAttribute("requestDTO")PageRequestDTO req) {
+        log.info("list...... " + req);
+        model.addAttribute("result", postsService.getLists(req));
+    }
+
 
 
     //부품게시판 컨트롤러

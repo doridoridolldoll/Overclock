@@ -55,9 +55,14 @@
                     <!-- END TR-->
                   </tbody>
                 </table>
+                <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
+          <label for="searching"><i class="bi bi-search"></i></label>
+          <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
+        </form>
 	         </div>
            <router-link to="/UsedRegister" class="btn btn-primary"> 글쓰기</router-link>
-            </div>
+            </div><br>
+            
             <div class="page">
               <ul class="pagination">
                 <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
@@ -78,70 +83,91 @@
 import { reactive } from "@vue/reactivity";
 import axios from "axios";
 import Contact from "@/components/Contact.vue";
+import { useRouter } from "vue-router";
+import { useMeta } from "vue-meta";
 export default {
     name: "ToUsed",
     setup() {
-        const state = reactive({
-            upResult: "",
-            img: [],
-            dtoList: [],
-            end: null,
-            next: null,
-            page: null,
-            pageList: null,
-            prev: null,
-            size: null,
-            start: null,
-            totalPage: null,
-            partsType: "used",
-        });
-        const url = "/api/getlist";
-        const headers = {
-            "Content-Type": "application/json"
-        };
-        function getUserList(page) {
-            axios.post(url, { page: page, category: "used" }, { headers })
-                .then(function (res) {
-                console.log(page + "asdasdasd");
-                console.log(res);
-                state.dtoList = res.data.dtoList,
-                    state.end = res.data.end,
-                    state.next = res.data.next,
-                    state.page = res.data.page,
-                    state.pageList = res.data.pageList,
-                    state.prev = res.data.prev,
-                    state.size = res.data.size,
-                    state.start = res.data.start,
-                    state.totalPage = res.data.totalPage;
-            });
-        }
-        // var count = 0;
-        axios.post(url, { page: 1, category: "used" }, { headers })
-            .then(function (res) {
-            console.log(res);
-            state.dtoList = res.data.dtoList,
-                state.end = res.data.end,
-                state.next = res.data.next,
-                state.page = res.data.page,
-                state.pageList = res.data.pageList,
-                state.prev = res.data.prev,
-                state.size = res.data.size,
-                state.start = res.data.start,
-                state.totalPage = res.data.totalPage;
-            showResult(res.data);
-        });
-        const showResult = async (arr) => {
-            const displayUrl = "/display";
-            const url = `http://localhost:9090${displayUrl}`;
-            let str2 = "";
-            for (let i = 0; i < arr.dtoList.length; i++) {
-                str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
-                state.img[i] = str2;
-            }
-        };
-        return { state, getUserList };
-    },
-    components: { Contact }
+      const router = useRouter()
+
+      let search = reactive({
+      context:"",
+    })
+    function searchingAxios(){
+      if (search.context.trim().length == 0){
+        return
+      }
+
+      async function routing (){
+        await router.push(`/search?cards=${search.context}`)
+        console.log("이동(app)")
+      }
+    routing();
+    }
+    const { meta } = useMeta({
+                title:  ':: OverClock',
+            })
+      const state = reactive({
+          upResult: "",
+          img: [],
+          dtoList: [],
+          end: null,
+          next: null,
+          page: null,
+          pageList: null,
+          prev: null,
+          size: null,
+          start: null,
+          totalPage: null,
+          partsType: "used",
+      });
+      const url = "/api/getlist";
+      const headers = {
+          "Content-Type": "application/json"
+      };
+      function getUserList(page) {
+          axios.post(url, { page: page, category: "used" }, { headers })
+              .then(function (res) {
+              console.log(page + "asdasdasd");
+              console.log(res);
+              state.dtoList = res.data.dtoList,
+                  state.end = res.data.end,
+                  state.next = res.data.next,
+                  state.page = res.data.page,
+                  state.pageList = res.data.pageList,
+                  state.prev = res.data.prev,
+                  state.size = res.data.size,
+                  state.start = res.data.start,
+                  state.totalPage = res.data.totalPage;
+          });
+      }
+      // var count = 0;
+      axios.post(url, { page: 1, category: "used" }, { headers })
+          .then(function (res) {
+          console.log(res);
+          state.dtoList = res.data.dtoList,
+              state.end = res.data.end,
+              state.next = res.data.next,
+              state.page = res.data.page,
+              state.pageList = res.data.pageList,
+              state.prev = res.data.prev,
+              state.size = res.data.size,
+              state.start = res.data.start,
+              state.totalPage = res.data.totalPage;
+          showResult(res.data);
+      });
+      const showResult = async (arr) => {
+          const displayUrl = "/display";
+          const url = `http://localhost:9090${displayUrl}`;
+          let str2 = "";
+          for (let i = 0; i < arr.dtoList.length; i++) {
+              str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
+              state.img[i] = str2;
+          }
+      };
+      return { searchingAxios, search, state, getUserList, meta };
+  },
+  components: { Contact }
 };
 </script>
 

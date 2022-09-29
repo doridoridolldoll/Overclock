@@ -24,8 +24,6 @@ import java.util.List;
 public class ApiMemberController {
     public final PostsService postsService;
     private final MemberService memberService;
-
-
     private final JWTUtil jwtUtil;
 
 
@@ -36,12 +34,5 @@ public class ApiMemberController {
         String email = memberService.join(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
-
-
-    }
-//    @RequestMapping(value = "/search", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<HashMap<String, Object>> ArticleCardsSearch(@RequestBody search vo){
-//        log.info(vo);
-//        return new ResponseEntity<>(postsService.getSearchList(vo), HttpStatus.OK);
 
 }

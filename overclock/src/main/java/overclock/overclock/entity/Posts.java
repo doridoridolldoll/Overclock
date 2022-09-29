@@ -5,8 +5,10 @@ import org.hibernate.annotations.ColumnDefault;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.model.PartsType;
+import overclock.overclock.repository.PostsRepository;
 
 import javax.persistence.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,26 +25,18 @@ public class Posts extends BaseEntity{ //게시물
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Enumerated
     private BoardType boardType;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
-
-
     private String title; //제목
-
     private String content;
-
     @ColumnDefault("1")
     private Long view; //조회수
-
 
 //    @Enumerated
 //    private PartsType partsType;
     private String partsType; //게시판 카테고리
-
     @Embedded
     private Address address; //주소
 
@@ -60,5 +54,16 @@ public class Posts extends BaseEntity{ //게시물
         this.view = view;
         this.address = address;
         this.boardType = boardType;
+    }
+
+    public Posts(PostsRepository.getEmbedCardsInformation em){
+        this.id = em.getId();
+        this.title = em.getTitle();
+        this.content = updateContextToString(em.getContent());
+
+    }
+    public String updateContextToString(byte[] context){
+        String result = new String(context, Charset.forName("utf-8"));
+        return result;
     }
 }

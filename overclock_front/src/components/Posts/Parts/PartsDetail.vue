@@ -65,6 +65,7 @@
 
 
 import { reactive } from '@vue/reactivity';
+import { useRoute } from 'vue-router';
   export default {
       name: 'PartsDetail',
       setup(){

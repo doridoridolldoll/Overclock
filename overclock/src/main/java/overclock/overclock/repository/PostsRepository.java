@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import lombok.ToString;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,9 +15,10 @@ import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Posts;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface PostsRepository extends JpaRepository<Posts, Long> {
+public interface PostsRepository extends JpaRepository<Posts, Long>, SearchPostsRepository {
 
 
     @Query("select p, m from Posts p left join p.member m where p.id =:id")
@@ -73,19 +75,47 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
     Page<Posts> getPartsByCategeryPageList(Pageable pageable, String category);
 
 
-//    @Query("SELECT m.name ,p.id, p.title, p.content, p.regDate " +
-//            "FROM Posts a left join Member m " +
-//            "on m.id = p.id " +
-//            "where p.name LIKE CONCAT('%',:search,'%') Or " +
-//            "p.title LIKE CONCAT('%',:search,'%') " +
-//            "ORDER BY p.id DESC")
-//    List<Object[]> getListAndAuthorByAuthorOrTitle(String search);
+    @Query("SELECT m.name ,p.id, p.title, p.content, p.regDate " +
+            "FROM Posts p left join Member m " +
+            "on m.id = p.id " +
+            "where m.name LIKE CONCAT('%',:search,'%') Or " +
+            "p.title LIKE CONCAT('%',:search,'%') " +
+            "ORDER BY p.id DESC")
+    List<Object[]> getListAndAuthorByAuthorOrTitle(String search);
+
+//    List<Posts> findByPosts(Posts posts);
 
     @Modifying
-        @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")
+    @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")
     void updateView(Long id);
 
     Posts getByid(Long id);
+
+    @Query("SELECT m.name, p.id, p.title, p.content " +
+            "FROM Posts p left join Member m on p.id = m.id " +
+            "where p.id LIKE CONCAT('%',:search,'%') " +
+            "group by p.id")
+    Optional<List<getEmbedCardsInformation>> getSearchList(String search, Pageable pageable);
+
+    @Query("SELECT p FROM Posts p where p.id =id ")
+    Page<Posts> getListAndAuthorPage(Pageable pageable);
+
+//    @Query("SELECT m.id, p.id, p.title, p.content " +
+//            "FROM Posts p left join Member m on m.id = p.id " +
+//            "where m.memberId.memberId=:id " +
+//            "group by p.id")
+//    Optional<Page<getEmbedCardsInformation>> getListAndAuthor(Pageable pageable);
+
+    public interface getEmbedCardsInformation {
+        String getName();
+
+        Long getId();
+
+        String getTitle();
+
+        byte[] getContent();
+
+    }
 
 }
 
