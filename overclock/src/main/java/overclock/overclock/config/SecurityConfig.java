@@ -28,7 +28,7 @@ public class SecurityConfig {
         http.addFilterBefore(apiLoginFilter(authenticationManager),
                 UsernamePasswordAuthenticationFilter.class);
 
-//        http.oauth2Login().successHandler(successHandler());
+        http.oauth2Login().successHandler(successHandler());
 //        http.oauth2Login();
         return http.build() ;
     }

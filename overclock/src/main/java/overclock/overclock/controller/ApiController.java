@@ -90,11 +90,11 @@ public class ApiController {
         return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
     @RequestMapping(value = "/search", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashMap<String, Object>> ArticleCardsSearch(@RequestBody search vo){
+    public ResponseEntity<HashMap<String, Object>> ArticleCardsSearch(@RequestBody search vo) {
         log.info("------------------------------------search--------------------");
         log.info(vo);
         return new ResponseEntity<>(postsService.getSearchList(vo), HttpStatus.OK);
-        
+    }
     // 댓글등록
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -113,6 +113,12 @@ public class ApiController {
         log.info("Comment List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+//    @RequestMapping(value = "/modify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> articleModify(@RequestBody PostsDTO dto) {
+//        String articleInfo = postsService.PostsModify(dto);
+//        return new ResponseEntity<>(articleInfo, HttpStatus.OK);
+//    }
 
 
 }

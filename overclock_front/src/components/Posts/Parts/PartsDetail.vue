@@ -88,7 +88,6 @@ import Comment from '@/components/Posts/Comment/Comment.vue';
         img = `${url}?fileName=${asd.imageDTOList[0].imageURL}`;
         return { route, img, state };
     },
-    components: { Comment }
 }
 // import { defineProps } from 'vue '
 // let props = defineProps(["partsList", "test"])
@@ -112,6 +111,7 @@ import Comment from '@/components/Posts/Comment/Comment.vue';
 
   overflow: hidden;
 
+  word-break: break-all;
 }
 #hero h2 {
   color: rgb(0, 0, 0);

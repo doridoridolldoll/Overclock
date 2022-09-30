@@ -46,7 +46,6 @@ import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
 import javax.transaction.Transactional;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -95,16 +94,16 @@ public class PostsServiceImpl implements PostsService {
         return posts.getId();
     }
 
-    @Override
-    public PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO) {
-        log.info("pageRequestDTO : {} ", requestDTO);
-
-        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts) en[0]));
-        Page<Object[]> result = repository.getPostsWithMemberPage(requestDTO.getPageable(Sort.by("id").descending()));
-
-        return new PageResultDTO<>(result, fn);
-
-    }
+//    @Override
+//    public PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO) {
+//        log.info("pageRequestDTO : {} ", requestDTO);
+//
+//        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts) en[0]));
+//        Page<Object[]> result = repository.getPostsWithMemberPage(requestDTO.getPageable(Sort.by("id").descending()));
+//
+//        return new PageResultDTO<>(result, fn);
+//
+//    }
 
 //    @Override
 //    public List<PostsDTO> getList(PostsDTO postsDTO) {
@@ -146,21 +145,21 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     }
 
-    @Override
-    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
-        log.info("PageRequestDTO: " + dto);
-
-        Pageable pageable = dto.getPageable(Sort.by("id").descending());
-        Page<Posts> result = repository.partsCpuPageList(pageable);
-        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
-            @Override
-            public PostsDTO apply(Posts t) {
-                log.info("asd : {}", t);
-                return entityToDTO(t);
-            }
-        };
-        return new PageResultDTO<>(result, fn);
-    }
+//    @Override
+//    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
+//        log.info("PageRequestDTO: " + dto);
+//
+//        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+//        Page<Posts> result = repository.partsCpuPageList(pageable);
+//        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+//            @Override
+//            public PostsDTO apply(Posts t) {
+//                log.info("asd : {}", t);
+//                return entityToDTO(t);
+//            }
+//        };
+//        return new PageResultDTO<>(result, fn);
+//    }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> partsCategoryPageList (PageRequestDTO dto){
@@ -243,10 +242,30 @@ public class PostsServiceImpl implements PostsService {
         return cardInfo;
     }
 
-    @Override
-    public List<Object[]> getSearchPostList(String search) {
-        return null;
-    }
+//    @Override
+//    public String PostsModify(PostsDTO dto) {
+//        Posts entity = repository.getByid(dto.getId());
+//        PostsDTO getById = entityToDTO(entity);
+//
+//        entity.getItemImgList().forEach(image -> {
+//            itemImgRepository.deleteById(image.getId());
+//            ;
+//        });
+//
+//        getById.setTitle(dto.getTitle());
+//        getById.setContent(dto.getContent());
+//        Posts modifiedArticle = dtoToEntity(getById);
+//        repository.save(modifiedArticle);
+//
+//        List<ItemImgDTO> lists = dto.getImageDTOList();
+//        lists.forEach(new Consumer<ItemImgDTO>() {
+//            @Override
+//            public void accept(ItemImgDTO itemImgDTO) {
+//                if (!itemImgRepository.findById(itemImgDTO.getId()).isPresent()) {
+//                    ItemImgDTO.builder().imgName(itemImgDTO.getImgName()). articles(modifiedArticle).build();
+//                }
+//            }
+//        });
 }
 
 

@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
 
 
     //댓글추가
-    @Transactional
+//    @Transactional
     @Override
     public Long addComment(CommentDTO commentDTO) {
         log.info("CommentDTO : {}", commentDTO);

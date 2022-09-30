@@ -83,7 +83,7 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
                 .email(dto.getEmail())
                 .name(dto.getName())
                 .token(token)
-                .auth(dto.isAuth())
+                .fromSocial(dto.isFromSocial())
                 .curl(curl)
                 .build();
         return tokenDTO;
