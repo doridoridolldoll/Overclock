@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PostsRepository extends JpaRepository<Posts, Long>, SearchPostsRepository {
+public interface PostsRepository extends JpaRepository<Posts, String > {
 
 
     @Query("select p, m from Posts p left join p.member m where p.id =:id")
@@ -74,46 +74,33 @@ public interface PostsRepository extends JpaRepository<Posts, Long>, SearchPosts
     @Query(value = "SELECT p FROM Posts p WHERE p.partsType =:category")
     Page<Posts> getPartsByCategeryPageList(Pageable pageable, String category);
 
-
-    @Query("SELECT m.name ,p.id, p.title, p.content, p.regDate " +
-            "FROM Posts p left join Member m " +
-            "on m.id = p.id " +
-            "where m.name LIKE CONCAT('%',:search,'%') Or " +
-            "p.title LIKE CONCAT('%',:search,'%') " +
-            "ORDER BY p.id DESC")
-    List<Object[]> getListAndAuthorByAuthorOrTitle(String search);
-
-//    List<Posts> findByPosts(Posts posts);
-
     @Modifying
     @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")
     void updateView(Long id);
 
     Posts getByid(Long id);
 
-    @Query("SELECT m.name, p.id, p.title, p.content " +
-            "FROM Posts p left join Member m on p.id = m.id " +
-            "where p.id LIKE CONCAT('%',:search,'%') " +
+    @Query("SELECT p.id as id, p.title as title, p.content as content, m.nickname as nickname " +
+            "FROM Posts p " +
+            "LEFT JOIN Member m ON p.member.id = m.id " +
+            "WHERE p.title LIKE CONCAT('%',:search,'%') ")
+    Optional<List<getEmbedCardsInformation>> getSearchList2(String search);
+
+    @Query("SELECT p.id, p.title " +
+            "FROM Posts p left join Member m on m.id = p.id " +
+            "where p.title LIKE CONCAT('%',:search,'%') " +
             "group by p.id")
-    Optional<List<getEmbedCardsInformation>> getSearchList(String search, Pageable pageable);
+    Page<Posts> getListAndAuthorByAuthorOrTitlePage(String search, Pageable pageable);
 
-    @Query("SELECT p FROM Posts p where p.id =id ")
-    Page<Posts> getListAndAuthorPage(Pageable pageable);
-
-//    @Query("SELECT m.id, p.id, p.title, p.content " +
-//            "FROM Posts p left join Member m on m.id = p.id " +
-//            "where m.memberId.memberId=:id " +
-//            "group by p.id")
-//    Optional<Page<getEmbedCardsInformation>> getListAndAuthor(Pageable pageable);
 
     public interface getEmbedCardsInformation {
-        String getName();
-
         Long getId();
 
         String getTitle();
 
-        byte[] getContent();
+        String getContent();
+
+        String getNickname();
 
     }
 

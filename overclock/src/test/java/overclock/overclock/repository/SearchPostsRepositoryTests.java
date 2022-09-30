@@ -16,17 +16,17 @@ public class SearchPostsRepositoryTests {
     @Autowired
     PostsRepository repository;
 
-    @Test
-    @Transactional
-    public void testSearchPage(){
-        Pageable pageable = PageRequest.of(0,10, Sort.by("id")
-                .descending().and(Sort.by("title").ascending()));
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println(pageable);
-        System.out.println("-----------------------------------------------------------------");
-        Page<Object[]> result = repository.searchPage("t", "1", pageable);
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println(result);
-        System.out.println("-----------------------------------------------------------------");
-    }
+//    @Test
+//    @Transactional
+//    public void testSearchPage(){
+//        Pageable pageable = PageRequest.of(0,10, Sort.by("id")
+//                .descending().and(Sort.by("title").ascending()));
+//        System.out.println("-----------------------------------------------------------------");
+//        System.out.println(pageable);
+//        System.out.println("-----------------------------------------------------------------");
+//        Page<Object[]> result = repository.searchPage("t", "1", pageable);
+//        System.out.println("-----------------------------------------------------------------");
+//        System.out.println(result);
+//        System.out.println("-----------------------------------------------------------------");
+//    }
 }

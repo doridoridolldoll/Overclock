@@ -43,11 +43,6 @@ public class PostsController {
         return "redirect:/";
     }
 
-    @GetMapping("/list")
-    public void list(Model model, @ModelAttribute("requestDTO")PageRequestDTO req) {
-        log.info("list...... " + req);
-        model.addAttribute("result", postsService.getLists(req));
-    }
 
 
 

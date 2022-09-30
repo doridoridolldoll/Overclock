@@ -59,11 +59,11 @@ public class Posts extends BaseEntity{ //게시물
     public Posts(PostsRepository.getEmbedCardsInformation em){
         this.id = em.getId();
         this.title = em.getTitle();
-        this.content = updateContextToString(em.getContent());
+        this.content = em.getContent();
 
     }
-    public String updateContextToString(byte[] context){
-        String result = new String(context, Charset.forName("utf-8"));
-        return result;
-    }
+//    public String updateContextToString(byte[] context){
+//        String result = new String(context, Charset.forName("utf-8"));
+//        return result;
+//    }
 }

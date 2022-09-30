@@ -28,10 +28,7 @@ public interface PostsService {
     PageResultDTO<PostsDTO, Posts>  partsCategoryPageList (PageRequestDTO dto);
     PostsDTO updateView(Long id);
     List<PostsDTO> getList(PostsDTO postsDTO);
-
-    PageResultDTO<PostsDTO, Object[]> getLists(PageRequestDTO requestDTO);
     List<Object[]> getSearchPostList(String search);
-
     HashMap<String, Object> getSearchList(search vo);
 
     default Posts dtoToEntity(PostsDTO dto) {

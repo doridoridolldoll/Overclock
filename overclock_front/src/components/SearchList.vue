@@ -13,7 +13,7 @@
       <h1>검색 결과가 없습니다</h1>
     </div>
     <div class="row row-cols-3">
-      <div v-for="(card, idx) in state.cards" :key="idx">
+      <div v-for="(card, id) in state.cards" :key="id">
         <Cards :card="card"></Cards>
       </div>
     </div>
@@ -48,7 +48,7 @@ export default {
 
     //getCards
     async function getCardsInformation(){
-      const url= `./api/search`
+      const url= "/api/search"
       const headers = {
         "Content-Type": "application/json; charset=utf-8",
       }
@@ -60,6 +60,7 @@ export default {
       // if (state.reqPage == 0) state.cards = null;
       await axios.post(url, body, {headers}).then(function (res){
         state.pageTotalCount = res.data.pageTotalCount;
+        console.log("======================+===")
         console.log(res);
         if (body.reqPage == 0) {
           state.cards = res.data.articles;

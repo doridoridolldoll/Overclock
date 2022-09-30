@@ -219,34 +219,27 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
-    public PageResultDTO<PostsDTO, Object[]> getLists(PageRequestDTO requestDTO) {
-        Page<Object[]> result = repository.searchPage(
-                requestDTO.getType(),
-                requestDTO.getKeyword(),
-                requestDTO.getPageable(Sort.by("id").descending())
-        );
-        Function<Object[], PostsDTO> fn =
-                en -> entityToDTO((Posts)en[0]);
-        return new PageResultDTO<>(result, fn);
-    }
-
-    @Override
     public HashMap<String, Object> getSearchList(search vo) {
+        log.info(vo);
 
 //        Pageable pageable;
 //        pageable = PageRequest.of(vo.getReqPage(), 9,Sort.by(Sort.Direction.DESC, "id"));
 
-        Pageable pageable = PageRequest.of(vo.getReqPage(), 9, Sort.by(Sort.Direction.DESC, "id"));
-        Pageable pageablee = PageRequest.of(vo.getReqPage(), 9,Sort.by(Sort.Direction.DESC, "id"));
-        Page<Posts> page = repository.getListAndAuthorPage(pageablee);
-        List<EmbedCard> result = repository.getSearchList(vo.getSearch(), pageable).get().stream().map(v -> {
+        Pageable pageable = PageRequest.of(vo.getReqPage(), 9);
+        Page<Posts> page = repository.getListAndAuthorByAuthorOrTitlePage(vo.getSearch(), pageable);
+        log.info("=====page======");
+        log.info(page);
+        List<EmbedCard> result = repository.getSearchList2(vo.getSearch()).get().stream().map(v -> {
             return new EmbedCard(v);
         }).collect(Collectors.toList());
         HashMap<String, Object> cardInfo = new HashMap<>();
         cardInfo.put("articles", result);
         cardInfo.put("page", pageable.getPageNumber());
         cardInfo.put("pageTotalCount", page.getTotalPages());
-
+        log.info("===================result===========================");
+        log.info(result);
+        log.info("===================cardinfo===========================");
+        log.info(cardInfo);
         return cardInfo;
     }
 

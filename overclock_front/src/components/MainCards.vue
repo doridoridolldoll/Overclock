@@ -10,9 +10,9 @@
 				<div class="data">
 					<div class="content">
 						<div @click="read()">
-							<span class="author">{{ card.airName }}</span>
+							<span class="author">{{ card.id }}</span>
 							<h3 class="title"><a>{{ title }}</a></h3>
-							<p class="text" v-html="props.card.context"></p>
+							<p class="text" v-html="props.card.content"></p>
 						</div>
 						<label :for="props.cardinfo" class="menu-button"><span></span></label>
 					</div>
@@ -45,7 +45,7 @@ let regdate = new Date(Date.parse(props.card.regDate))
 let year = regdate.getFullYear();
 let date = regdate.getDate();
 let month = monthNames[regdate.getMonth()];
-let title = titleLength(props.card.atitle);
+let title = titleLength(props.card.title);
 
 
 function titleLength(title){
@@ -59,7 +59,7 @@ function titleLength(title){
 
 
 function read() {
-  router.push(`/read?article=${props.card.aid}`)
+  router.push(`/read?article=${props.card.id}`)
 }
 
 </script>
