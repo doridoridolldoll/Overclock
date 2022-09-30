@@ -1,4 +1,5 @@
 <template>
+
   <div class="comment" v-for="list in state.dtoList" :key="list"
           >
       <div class="commentId mt-3">
@@ -54,12 +55,15 @@ export default {
 <style scoped>
   .comment{
   margin-top: 30px;
+
   background: #fff;
+
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
 
 }
+
 .commentGr{
   margin-top: 15px;
 }

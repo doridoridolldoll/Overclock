@@ -1,16 +1,13 @@
 <template>
 
-  <section id="hero" class="d-flex align-items-center justify-content-center ">
-    <body>
-      <main id="main">
-        <section id="portfolio-details" class="portfolio-details">
-          <div class="container input-form flex-wrap">
+  <section id="hero" class="d-flex justify-content-center ">
+    <body class="form-floating">
+          <div class="container portfolio-details input-form">
             <div class="row gy-4">
               <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
                   <div class="swiper-wrapper align-items-center">
-                    <div class="swiper-slide">
-                      <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTmUHH0v9f2o86r8JPMrnRhY6V_Si8AT_ldqmyq4TxxTsNdXMHIsqqrDmA_R48ZbxSHCz2iSWqCvvrXhCHhSDNIYZAQ1RO0i0Jhn2Mw5dN7NG4Rm4RVnuIJ&usqp=CAE" style="width:370px;height:300px;"></div>
+                      <div class="icon"><img v-bind:src="img"/></div>
                   </div>
                 </div>
               </div>
@@ -46,27 +43,44 @@
                     편택,반택 +1600/
                     </p>
                 </div>
+                <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
+                <Comment/>
           </div>
-        </section>
-      </main>
     </body>
   </section>
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity';
+import { useRoute } from 'vue-router';
+import Comment from '../Comment/Comment.vue';
 export default {
-  name: "ToDetail",
-  setup() {},
-};
+    name: "UsedDetail",
+    setup() {
+        const state = reactive({
+            dtoList: [],
+        });
+        let route = useRoute();
+        // console.log(route.query.name);
+        let asd = JSON.parse(route.query.name.join("").split(","));
+        state.dtoList = asd;
+        console.log(asd);
+        const displayUrl = "/display";
+        const url = `http://localhost:9090${displayUrl}`;
+        let img = "";
+        img = `${url}?fileName=${asd.imageDTOList[0].imageURL}`;
+        return { route, img, state };
+    },
+    components: { Comment }
+}
 </script>
 <style scoped>
 .input-form {
   text-align: center;
 
-  max-width: 1000px;
+  max-width: 900px;
 
-  margin-top: 80px;
   padding: 32px;
 
   background: #fff;
@@ -75,6 +89,9 @@ export default {
   border-radius: 10px;
 
   word-break: break-all;
+
+  overflow: hidden;
+
 
 }
 #hero h2 {
@@ -86,5 +103,13 @@ export default {
 p{
   margin-bottom: 1rem;
 }
+#hero:before{
+  height: 2000px;
+}
+#hero{
+    overflow: scroll;
+}
+
+
 
 </style>

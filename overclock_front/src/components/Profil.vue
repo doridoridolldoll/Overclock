@@ -174,7 +174,7 @@
   }
   </script>
   
-  <style>
+  <style scoped>
   .container2{
   height: 100vh;
   }

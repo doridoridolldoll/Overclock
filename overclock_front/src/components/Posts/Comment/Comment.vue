@@ -1,6 +1,7 @@
 <template>
   <div class="comment form-floating">
     <h5 class="hh3 mt-2">댓글</h5>
+
     <textarea name="comment" id="comment" cols="80" rows="3" v-model="state.content" ref="commentcontext" placeholder="댓글을 입력하세요"></textarea>
     <button class="btn bbtn btn-primary pull-right my-2" type="button" @click="addNewcomment">등록</button> 
   </div>
@@ -8,6 +9,7 @@
     :postsId="state.postsId"
     :memberId="state.memberId"
   />  
+
   <!-- <hr />
     <div class="comment-area d-flex flex-column align-items-between">
         <CommentCard v-for="info in commentState" v-bind:key="info" v-bind:cardInfo="info"></CommentCard>
@@ -77,15 +79,16 @@ export default {
 }
 #comment{
   margin-left: 40px;
+  margin-top: 20px;
 }
-.hh4{
-  margin-left: 40px;
-  margin-top: 5px;
-
+.hh3{
+  float: left;
+  margin-left: 45px;
+  line-height: 100px;
 }
 .bbtn{
   margin-bottom: 45px;
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
 

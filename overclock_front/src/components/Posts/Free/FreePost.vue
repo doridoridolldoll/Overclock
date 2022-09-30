@@ -21,51 +21,101 @@
           :config="editorConfig"
         ></ckeditor>
         <div class="tagwarning" ref="warning"></div>
-        <button
-          class="btn btn-primary btn4"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasBottom"
-          aria-controls="offcanvasBottom"
-        >
-          등록
-        </button>
+        <button class="btn btn-primary m-3" @click.prevent="submit">글 쓰기</button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import CKEditor from "@ckeditor/ckeditor5-vue";
-
-export default {
-  name: "CKEditor2",
-  components: {
-    ckeditor: CKEditor.component,
-  },
-  data: () => ({
-    title: "",
-    editor: ClassicEditor,
-    editorConfig: {
-      height: "500px",
-      language: "ko",
+  import CKEditor from "@ckeditor/ckeditor5-vue";
+  import router from "@/router"
+  import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+  import axios from 'axios'
+  import store from "@/store";
+  export default {
+    name: "CKEditor2",
+      components: {
+      ckeditor: CKEditor.component,
     },
-  }),
-  methods: {
-    onReady: function onReady(editor) {
-      editor.ui
-        .getEditableElement()
-        .parentElement.insertBefore(
-          editor.ui.view.toolbar.element,
-          editor.ui.getEditableElement()
-        );
+    data(props) {
+      console.log(props);
+      return {
+        title: "",
+        editor: ClassicEditor,
+        editorData: "",
+        editorConfig: {
+          height: "500px",
+          language: "ko",
+          simpleUpload:
+          {
+                    ///////////////////////////////////////////////////
+            uploadUrl: store.state.axiosLink+"/api/article/write/image",
+                    ///////////////////////////////////////////////////
+            withCredentials: true,
+            headers: {
+              "Authorization": store.state.token,
+              "userid" : store.state.memberId
+            }
+          }
+        },
+      }
     },
-  },
-
-};
-</script>
-
+    methods: {
+      onReady: function onReady(editor) {
+        editor.ui.getEditableElement().parentElement.insertBefore(editor.ui.view.toolbar.element, editor.ui.getEditableElement())
+      },
+      submit: async function () {
+        const page = {
+          atitle: this.title,
+          context: this.editorData,
+          userId: store.state.memberId,
+          token: store.state.token,
+          images: []
+        }
+        //find image name where in context
+        function findImageName(list) {
+          let bonary = list.split("/")
+          let filenames = new Array
+          
+          for (let i in bonary) {
+            if (bonary[i].split("-").length == 5) {
+              let tmp = bonary[i].slice(0, bonary[i].indexOf('>\n<') - 1)
+              if (tmp.split('"')[2]!="YouTube video player"){
+              filenames.push({
+                fileName : tmp
+              })
+            }
+            }
+          }
+          return filenames
+        }
+        page.images = findImageName(page.context)
+        let result = JSON.stringify(page)
+        ///////////////////////////////////////////////////////
+        const url = store.state.axiosLink+"/api/article/write"
+        //////////////////////////////////////////////////////
+        const headers = {
+          "Content-Type": "application/json; charset=utf-8",
+          "Authorization": store.state.token,
+          "userid" : store.state.memberId
+        }
+        const body = result
+        await axios.post(url, body, { headers }).then(function (res) {
+          console.log(res);//글번호들어옴
+          sessionStorage.setItem("aid", res.data)
+          // router.push({name : "readReview", params: {"articleId" : res.data}})
+          router.push(`/read?article=${res.data}`)
+        }).catch((e) => {
+          console.log(e + "통신실패");
+        }).then(
+          console.log("통신 끝")
+        )
+      },
+    },
+  }
+  </script>
+  
 <style>
 .btn4 {
   margin-top: 10px;

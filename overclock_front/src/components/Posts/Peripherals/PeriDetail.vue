@@ -10,6 +10,8 @@
                   </div>
                 </div>
               </div>
+
+
               <div class="col-lg-4">
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
@@ -48,41 +50,32 @@
                 </div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
-            <Comment
-              :dtoList="state.dtoList"
-            />  
+                <Comment/>
           </div>
-      <div></div>
+          
+          
     </body>
   </section>
 </template>
 
 <script>
-import {useRoute} from 'vue-router'
+
+
+
 import { reactive } from '@vue/reactivity';
-
-import Comment from '@/components/Posts/Comment/Comment.vue';
+import { useRoute } from 'vue-router';
+import Comment from '../Comment/Comment.vue';
   export default {
-  components: { Comment },
-      name: 'PartsDetail',
-      setup(){
+    name: "PeriDetail",
+    setup() {
         const state = reactive({
-          dtoList: '',
-          memberId: null,
-          postsId: null,
-          
-
+            dtoList: [],
         });
         let route = useRoute();
         // console.log(route.query.name);
         let asd = JSON.parse(route.query.name.join("").split(","));
         state.dtoList = asd;
-        console.log(state.dtoList)
-        state.postsId = state.dtoList.id
-        console.log(state.postsId);
-
-        state.memberId = state.dtoList.memberId;
-        console.log(state.memberId);
+        console.log(asd);
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
@@ -96,6 +89,7 @@ import Comment from '@/components/Posts/Comment/Comment.vue';
 // console.log(props.partsList);
 // console.log(props.test);
 // console.log(props);
+
 
 </script>
 <style scoped>
