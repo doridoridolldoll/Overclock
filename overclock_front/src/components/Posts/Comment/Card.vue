@@ -1,27 +1,52 @@
 <template>
-  <div class="comment">
+
+  <div class="comment" v-for="list in state.dtoList" :key="list"
+          >
       <div class="commentId mt-3">
-        <span class="commentMember">123456</span>
+        <span class="commentMember">{{list.id}}</span>
       </div>
       <div class="commentContent mt-3">
-        <span class="commentText mt-1">힘세고 강한 아침</span>
-      </div>
-    </div>
-  <div class="comment">
-      <div class="commentId mt-3">
-        <span class="commentMember">123456</span>
-      </div>
-      <div class="commentContent mt-3">
-        <span class="commentText mt-1">힘세고 강한 아침</span>
+        <span class="commentText mt-1">{{list.content}}</span>
       </div>
     </div>
 </template>
 
 <script>
+import {reactive } from "vue"
+import axios from 'axios';
 export default {
+  
     name:'ToCard',
-    setup(){
+    props: ["memberId","postsId"],
+    setup(props){
+      const state = reactive({
+        id : null,
+        content: null,
+        dtoList: null,
+        postsId: props.postsId,
+        memberId: props.memberId,
+      })
+  
+      let body = {
+          postsId: state.postsId,
+          memberId: state.memberId
+      };
+          console.log(state.memberId);
+          console.log(state.postsId);
+      const url = "/api/comment/list";
+      const headers = {
+        "Content-Type": "application/json; charset=utf-8"
+      };
       
+      axios.post(url, body, { headers }).then(function (res) {
+        state.dtoList = res.data.dtoList;
+        console.log(state.dtoList); 
+        for (let i = 0; i < res.data.dtoList.length; i++) {
+          state.id = res.data.dtoList[i].id;
+          state.content = res.data.dtoList[i].content;
+        }
+      });
+      return {state}
     }
 
 }
@@ -32,8 +57,6 @@ export default {
   margin-top: 30px;
 
   background: #fff;
-
-
 
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;

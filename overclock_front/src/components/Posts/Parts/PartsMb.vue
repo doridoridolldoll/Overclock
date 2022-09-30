@@ -64,7 +64,7 @@ export default {
       "Authorization": store.state.token,
       "id": store.state.id
 	  };
-function getUserList(page){
+  function getUserList(page){
     axios.post(url, { page:page, type:"", category:"mb" }, { headers })
     .then(function(res){
 		  // console.log(res.data.dtoList[1].partsType == "used");

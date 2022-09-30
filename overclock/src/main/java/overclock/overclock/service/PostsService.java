@@ -28,7 +28,7 @@ public interface PostsService {
 
     PostsDTO updateView(Long id);
 
-    List<PostsDTO> getList(PostsDTO postsDTO);
+//    List<PostsDTO> getList(PostsDTO postsDTO);
 
 //    HashMap<String, Object> getSearchList(search vo);
 
