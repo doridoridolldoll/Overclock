@@ -53,6 +53,16 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/periList", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PageResultDTO<PostsDTO, Posts>> periList(@RequestBody PageRequestDTO dto) {
+        PageResultDTO<PostsDTO,Posts> result = postsService.partsCategoryPageList(dto);
+        log.info("postsDTO : {}", dto);
+        log.info("List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
     @RequestMapping(value = "/mbDetail", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> mbDetail(@RequestBody PageRequestDTO dto) {
@@ -70,5 +80,6 @@ public class ApiController {
 
         return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
+
 
 }

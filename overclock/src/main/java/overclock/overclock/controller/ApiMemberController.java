@@ -44,4 +44,4 @@ public class ApiMemberController {
 //        log.info(vo);
 //        return new ResponseEntity<>(postsService.getSearchList(vo), HttpStatus.OK);
 
-}
+

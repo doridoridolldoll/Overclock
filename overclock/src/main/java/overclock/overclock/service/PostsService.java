@@ -22,7 +22,7 @@ public interface PostsService {
     PageResultDTO<PostsDTO, Posts> getList3(PageRequestDTO requestDTO);
     PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto); //중고거래 게시판 리스트
     Long pregister(PostsDTO dto); //부품 게시판 글쓰기
-    PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto); //부품 게시판 리스트
+//    PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto); //부품 게시판 리스트
     PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO);
     PageResultDTO<PostsDTO, Posts>  partsCategoryPageList (PageRequestDTO dto);
 

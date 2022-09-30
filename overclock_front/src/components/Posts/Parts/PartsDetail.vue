@@ -1,8 +1,7 @@
 <template>
-  <section id="hero" class="d-flex align-items-center justify-content-center">
-    <body>
-        <section id="portfolio-details" class="portfolio-details">
-          <div class="container input-form">
+  <section id="hero" class="d-flex justify-content-center">
+    <body class="form-floating">
+          <div class="container portfolio-details input-form">
             <div class="row gy-4">
               <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
@@ -51,11 +50,10 @@
                 </div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
+                <Comment/>
           </div>
           
-          <Comment/>
           
-        </section>
     </body>
   </section>
 </template>
@@ -65,25 +63,27 @@
 
 
 import { reactive } from '@vue/reactivity';
+import { useRoute } from 'vue-router';
+import Comment from '../Comment/Comment.vue';
   export default {
-      name: 'PartsDetail',
-      setup(){
+    name: "PartsDetail",
+    setup() {
         const state = reactive({
-          dtoList: [],
+            dtoList: [],
         });
-        let route = useRoute()
+        let route = useRoute();
         // console.log(route.query.name);
         let asd = JSON.parse(route.query.name.join("").split(","));
         state.dtoList = asd;
         console.log(asd);
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
-        let img = '';
+        let img = "";
         img = `${url}?fileName=${asd.imageDTOList[0].imageURL}`;
-
-      return {route,img,state}
-      }
-    }
+        return { route, img, state };
+    },
+    components: { Comment }
+}
 // import { defineProps } from 'vue '
 // let props = defineProps(["partsList", "test"])
 // console.log(props.partsList);
@@ -98,7 +98,6 @@ import { reactive } from '@vue/reactivity';
 
   max-width: 900px;
 
-  margin-top: 80px;
   padding: 32px;
 
   background: #fff;
@@ -106,7 +105,8 @@ import { reactive } from '@vue/reactivity';
   -moz-border-radius: 10px;
   border-radius: 10px;
 
-  border: 1px solid rgb(226, 218, 218);
+  overflow: hidden;
+
 }
 #hero h2 {
   color: rgb(0, 0, 0);
@@ -118,7 +118,7 @@ p{
   margin-bottom: 1rem;
 }
 #hero:before{
-  height: 1500px;
+  height: 2000px;
 }
 #hero{
     overflow: scroll;

@@ -183,7 +183,7 @@ setup(){
 }
 </script>
 
-<style>
+<style scoped>
 .container2{
 height: 100vh;
 }
@@ -191,10 +191,22 @@ height: 100vh;
       text-align: center;
       padding: 32px;
 
+      margin-top: 45px;
+
       background: #fff;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       border-radius: 10px;
     }
+
+#hero{
+  overflow: scroll;
+
+  max-height: 1100px;
+}
+
+#hero::before{
+  height: 1100px;
+}
 
 </style>

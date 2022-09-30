@@ -51,7 +51,7 @@
                     </tbody>
                   </table>
                 </div>
-                <router-link to="/freepost" class="btn btn-primary">
+                <router-link to="/qnapost" class="btn btn-primary">
                   글쓰기</router-link>
               </div>
               <div class="page">
