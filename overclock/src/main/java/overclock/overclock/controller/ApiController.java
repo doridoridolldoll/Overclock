@@ -90,10 +90,11 @@ public class ApiController {
         return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
     @RequestMapping(value = "/search", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashMap<String, Object>> ArticleCardsSearch(@RequestBody search vo){
+    public ResponseEntity<HashMap<String, Object>> ArticleCardsSearch(@RequestBody search vo) {
         log.info("------------------------------------search--------------------");
         log.info(vo);
         return new ResponseEntity<>(postsService.getSearchList(vo), HttpStatus.OK);
+    }
         
     // 댓글등록
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST,

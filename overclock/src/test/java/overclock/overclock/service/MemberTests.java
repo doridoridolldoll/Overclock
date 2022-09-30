@@ -37,16 +37,16 @@ public class MemberTests {
                         .name("사용자" + i)
                         .nickname("as" + i)
                         .phone("010"+ i)
-                        .auth(false)
+                        .fromSocial(false)
                         .password(passwordEncoder.encode("1111"))
                         .build();
 
                 //default role
                 member.addMemberRole(MemberRole.USER);
 
-                if (i > 80) {
-                    member.addMemberRole(MemberRole.ADMIN);
-                }
+//                if (i > 80) {
+//                    member.addMemberRole(MemberRole.ADMIN);
+//                }
                 repository.save(member);
             });
         }

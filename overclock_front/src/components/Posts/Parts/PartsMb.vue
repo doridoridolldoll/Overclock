@@ -10,8 +10,9 @@
           <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
-            <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)">
-
+            <!-- <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)"> -->
+            <!-- <a  @click="Join(list)"> -->
+            <a :href="'./PartsDetail?id=' + list.id" @click="Join(list)">
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
@@ -19,9 +20,9 @@
               <span><h4>{{list.memberId}}</h4></span>
               <span><h5>판매가 4,800,000원</h5></span>
               <span><h5>할인가 4,300,000원</h5></span>
-              
             </div>
-          </router-link>
+            </a>
+          <!-- </router-link> -->
           </div>
             <div class="page">
               <ul class="pagination">
@@ -38,11 +39,12 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import axios from "axios";
-import store from "@/store";
+import { useStore } from 'vuex';
 export default {
   name: 'PartsMb',
   props: [  ],
   setup(){
+    const store = useStore();
     const state = reactive({
       id: "",
       upResult: "",
@@ -106,14 +108,17 @@ export default {
         state.img[i] = str2;
       }
     };
-    function Join(urlId){
-      const url2 = `/api/read/${urlId}`;
+    function Join(list){
+      console.log(list);
+     
+      //조회수 처리
+      const url2 = `/api/read/${list.id}`;
 	    const headers2 = {
 	      "Content-Type": "application/json; charset=utf-8"
 	    };
       
       axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
-        console.log(res);
+         store.commit('setdtoList',res.data);
       })
     }
     return {state, store, getUserList,Join}

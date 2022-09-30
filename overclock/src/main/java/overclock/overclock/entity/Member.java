@@ -30,8 +30,6 @@ public class Member extends BaseEntity{
     private String password;
     private String nickname;
     private String phone;
-    @Column
-    private boolean auth;
     @Embedded
     private Address address;
 

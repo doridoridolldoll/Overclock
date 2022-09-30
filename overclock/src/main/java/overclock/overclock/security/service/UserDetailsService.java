@@ -23,6 +23,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     private final MemberRepository repository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.info("loadUserByUsername: " + email);
 
@@ -34,8 +35,8 @@ public class UserDetailsService implements org.springframework.security.core.use
         log.info("Overclock 유저정보: " + member);
 
         AuthMemberDTO dto = new AuthMemberDTO(
-                member.getEmail(), member.getPassword(), member.getId(),
-                member.isAuth(),
+                member.getEmail(), member.getPassword(),
+                member.isFromSocial(),
                 member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
                         .collect(Collectors.toList()));
         dto.setName(member.getName());

@@ -52,10 +52,15 @@ export default {
         axios.post(url, body, { headers }).then((res) => {
           console.log(res);
          })
-
-        router.push({name: "Parts"})
-
+// router.push(`/search?cards=${search.context}&order=new`)
+        async function routing(){
+          await router.push(`/PartsDetail?id=${state.postsId}`)  
+          await router.go(0)
+        }
+        routing();
       }
+
+
     return{addNewcomment,state}
   },
     // components: { CommentCard }
