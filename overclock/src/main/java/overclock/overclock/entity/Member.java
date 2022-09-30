@@ -7,7 +7,9 @@ import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,6 +39,10 @@ public class Member extends BaseEntity{
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Order> order = new ArrayList<>();

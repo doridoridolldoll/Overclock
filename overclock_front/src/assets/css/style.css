@@ -434,7 +434,6 @@ h6 {
 #hero .container {
   position: relative;
   padding-top: 74px;
-  text-align: center;
 }
 
 #hero h1 {
@@ -895,7 +894,7 @@ section {
 
 .portfolio-details .portfolio-details-slider .swiper-pagination {
   margin-top: 20px;
-  position: relative;
+  position: absolute;
 }
 
 .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {

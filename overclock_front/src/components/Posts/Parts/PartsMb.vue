@@ -40,7 +40,7 @@ import { reactive } from '@vue/reactivity';
 import axios from "axios";
 import store from "@/store";
 export default {
-  name: 'PartsCpu',
+  name: 'PartsMb',
   props: [  ],
   setup(){
     const state = reactive({
@@ -64,7 +64,7 @@ export default {
       "Authorization": store.state.token,
       "id": store.state.id
 	  };
-function getUserList(page){
+  function getUserList(page){
     axios.post(url, { page:page, type:"", category:"mb" }, { headers })
     .then(function(res){
 		  // console.log(res.data.dtoList[1].partsType == "used");
@@ -111,18 +111,12 @@ function getUserList(page){
 	    const headers2 = {
 	      "Content-Type": "application/json; charset=utf-8"
 	    };
+      
       axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
-
         console.log(res);
       })
     }
-
-
-
-    return {state, store,getUserList,Join}
-
-
-  
+    return {state, store, getUserList,Join}
   }
 }
 </script>

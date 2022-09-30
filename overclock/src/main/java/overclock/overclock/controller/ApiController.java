@@ -7,8 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import overclock.overclock.dto.*;
+import overclock.overclock.entity.Comment;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
+import overclock.overclock.service.CommentService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
 
@@ -22,6 +24,8 @@ import java.util.List;
 public class ApiController {
     private final PostsService postsService;
     private final MemberService memberService;
+
+    private final CommentService commentService;
 
     @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,6 +60,17 @@ public class ApiController {
         log.info("List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    
+   //주변기기 디테일
+    @RequestMapping(value = "/periList", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PageResultDTO<PostsDTO, Posts>> periList(@RequestBody PageRequestDTO dto) {
+        PageResultDTO<PostsDTO,Posts> result = postsService.partsCategoryPageList(dto);
+        log.info("postsDTO : {}", dto);
+        log.info("List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/mbDetail", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -79,6 +94,24 @@ public class ApiController {
         log.info("------------------------------------search--------------------");
         log.info(vo);
         return new ResponseEntity<>(postsService.getSearchList(vo), HttpStatus.OK);
+        
+    // 댓글등록
+    @RequestMapping(value = "/comment/add", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> comment(@RequestBody CommentDTO dto) {
+        log.info("CommentDTO : {}", dto);
+        Long commentDTO = commentService.addComment(dto);
+        return new ResponseEntity<>(commentDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/comment/list", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PageResultDTO<CommentDTO, Comment>> commentList(@RequestBody PageRequestDTO dto) {
+        PageResultDTO<CommentDTO,Comment> result = commentService.commentPageList(dto);
+//        log.info("comment Id : {}", commentDTO);
+        log.info("PageRequestDTO : {}", dto);
+        log.info("Comment List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 

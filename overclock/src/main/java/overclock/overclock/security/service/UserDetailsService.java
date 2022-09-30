@@ -11,6 +11,7 @@ import overclock.overclock.entity.Member;
 import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.security.dto.AuthMemberDTO;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

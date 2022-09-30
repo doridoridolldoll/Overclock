@@ -17,7 +17,7 @@ import java.util.Optional;
 @EnableJpaRepositories
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    public List<Member> findByName(String name);
+//    public List<Member> findByName(String name);
 
     @Query("select m from Member m where m.id = :id ")
     Member findOne(Long id);
@@ -38,6 +38,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.auth = :auth and m.email =:email")
     Optional<Member> findByEmailWithAuth(String email, boolean auth);
-
 
 }

@@ -26,10 +26,10 @@ public class CommentTests {
 //        comment.setPosts(Posts.builder().id(1L).build());
 //        commentRepository.save(comment);
 
-        IntStream.rangeClosed(1,100).forEach(i -> {
-            long post_id = (long)(Math.random() * 100) + 1;
+        IntStream.rangeClosed(1,10).forEach(i -> {
+            long post_id = (long)(Math.random() * 10) + 1;
             Posts posts = Posts.builder().id(post_id).build();
-            long member_id = (long)(Math.random() * 100) + 1;
+            long member_id = (long)(Math.random() * 10) + 1;
             Member member = Member.builder().id(member_id).build();
             Comment comment = Comment.builder()
                     .content("asd")
@@ -38,10 +38,10 @@ public class CommentTests {
                     .build();
             commentRepository.save(comment);
         });
-        Comment comment = new Comment();
-        comment.setContent("as");
-        comment.setMember(Member.builder().id(1L).build());
-        comment.setPosts(Posts.builder().id(1L).build());
-        commentRepository.save(comment);
+//        Comment comment = new Comment();
+//        comment.setContent("as");
+//        comment.setMember(Member.builder().id(1L).build());
+//        comment.setPosts(Posts.builder().id(1L).build());
+//        commentRepository.save(comment);
     }
 }

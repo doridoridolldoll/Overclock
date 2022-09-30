@@ -9,14 +9,17 @@
           <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
+          <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)">
+
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
               <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{list.id}}</h4></span>
+              <span><h4>{{list.memberId}}</h4></span>
               <span><h5>판매가 4,800,000원</h5></span>
               <span><h5>할인가 4,300,000원</h5></span>
             </div>
+          </router-link>
           </div>
           <div class="page">
             <ul class="pagination">
@@ -35,6 +38,7 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import axios from "axios";
+import store from '@/store';
 export default {
   name: 'PeriMouse',
   props: [  ],
@@ -53,9 +57,11 @@ export default {
       totalPage: null,
       partsType: "mouse",
     });
-    const url = "/api/partsList";
+    const url = "/api/periList";
 	  const headers = {
-	    "Content-Type": "application/json"
+	    "Content-Type": "application/json; charset=utf-8",
+      "Authorization": store.state.token,
+      "id": store.state.id
 	  };
     function getUserList(page){
     axios.post(url, { page:page, type:"", category:"mouse" }, { headers })
@@ -98,7 +104,17 @@ export default {
         state.img[i] = str2;
       }
     };
-    return {state,getUserList}
+    function Join(urlId){
+      const url2 = `/api/read/${urlId}`;
+	    const headers2 = {
+	      "Content-Type": "application/json; charset=utf-8"
+	    };
+      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
+
+        console.log(res);
+      })
+    }
+    return {state, store, getUserList,Join}
   
   }
 }

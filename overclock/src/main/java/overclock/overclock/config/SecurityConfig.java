@@ -27,8 +27,10 @@ public class SecurityConfig {
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(apiLoginFilter(authenticationManager),
                 UsernamePasswordAuthenticationFilter.class);
+
+//        http.oauth2Login().successHandler(successHandler());
 //        http.oauth2Login();
-        return http.build();
+        return http.build() ;
     }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
