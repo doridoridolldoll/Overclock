@@ -31,7 +31,7 @@ public class MemberTests {
             //80~ 90까지는 USER,MANAGER
             //91~ 100까지는 USER,MANAGER,ADMIN
 
-            IntStream.rangeClosed(1, 100).forEach(i -> {
+            IntStream.rangeClosed(1, 20).forEach(i -> {
                 Member member = Member.builder()
                         .email("user" + i + "@as.com")
                         .name("사용자" + i)

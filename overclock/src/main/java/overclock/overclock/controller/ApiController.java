@@ -7,7 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import overclock.overclock.dto.*;
+import overclock.overclock.entity.Comment;
 import overclock.overclock.entity.Posts;
+import overclock.overclock.service.CommentService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
 
@@ -18,6 +20,8 @@ import overclock.overclock.service.PostsService;
 public class ApiController {
     private final PostsService postsService;
     private final MemberService memberService;
+
+    private final CommentService commentService;
 
     @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,6 +73,25 @@ public class ApiController {
         PostsDTO postsDTO = postsService.updateView(id);
 
         return new ResponseEntity<>(postsDTO, HttpStatus.OK);
+    }
+
+    // 댓글등록
+    @RequestMapping(value = "/comment/add", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> comment(@RequestBody CommentDTO dto) {
+        log.info("CommentDTO : {}", dto);
+        Long commentDTO = commentService.addComment(dto);
+        return new ResponseEntity<>(commentDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/comment/list", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PageResultDTO<CommentDTO, Comment>> commentList(@RequestBody PageRequestDTO dto) {
+        PageResultDTO<CommentDTO,Comment> result = commentService.commentPageList(dto);
+//        log.info("comment Id : {}", commentDTO);
+        log.info("PageRequestDTO : {}", dto);
+        log.info("Comment List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

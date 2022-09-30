@@ -33,7 +33,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     AuthMemberDTO dto = (AuthMemberDTO) authentication.getPrincipal();
     boolean fromSocial = dto.isAuth();
     log.info("isFromSocial : " + fromSocial);
-    boolean passResult = encoder.matches("12", dto.getPassword());
+    boolean passResult = encoder.matches("1111", dto.getPassword());
     log.info("fromSocial && passResult: " + (fromSocial && passResult));
     if (fromSocial && passResult) {
       redirectStrategy.sendRedirect(request, response, "/member/modify?from=auth");

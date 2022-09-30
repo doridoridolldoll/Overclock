@@ -1,15 +1,63 @@
 <template>
   <div class="comment form-floating">
-    <h4 class="hh4">댓글</h4>
-    <textarea name="comment" id="comment" cols="100" rows="2"></textarea>
-    <button class="btn btn-primary bbtn" type="submit">등록</button>
+    <h5 class="hh3 mt-2">댓글</h5>
+    <textarea name="comment" id="comment" cols="80" rows="3" v-model="state.content" ref="commentcontext" placeholder="댓글을 입력하세요"></textarea>
+    <button class="btn bbtn btn-primary pull-right my-2" type="button" @click="addNewcomment">등록</button> 
   </div>
+  <Card
+    :postsId="state.postsId"
+    :memberId="state.memberId"
+  />  
+  <!-- <hr />
+    <div class="comment-area d-flex flex-column align-items-between">
+        <CommentCard v-for="info in commentState" v-bind:key="info" v-bind:cardInfo="info"></CommentCard>
+        <button class="btn btn-primary w-100"  @click="getMoreComment" v-if="!(stateInfo[stateInfo.length - 1] == -999||stateInfo[stateInfo.length -1]==0)">댓글 더 보기</button>
+    </div> -->
 </template>
 
 <script>
+// import store from "@/store";
+  import {reactive } from "vue"
+  import Card from '@/components/Posts/Comment/Card.vue';
+  // import { useRouter } from "vue-router"
+  import axios from "axios"
+import router from '@/router';
+  // import CommentCard from "@/comment/Posts/CommentCard.vue"
 export default {
-  
-};
+    name: "ToComment",
+    props: ['dtoList'],
+     components: { Card },
+    setup(props) {
+      const state = reactive({
+        content: '',
+        postsId: props.dtoList.id,
+        memberId: props.dtoList.memberId,
+      })
+ 
+      const addNewcomment = async() => {
+        const url = "/api/comment/add";
+        const headers = {
+          "Content-Type": "application/json; charset=utf-8"
+        };
+        console.log(state.postsId);
+        console.log(state.memberId);
+        
+        let body = {
+            memberId: state.memberId,
+            postsId  : state.postsId,
+            content: state.content,
+        };
+        axios.post(url, body, { headers }).then((res) => {
+          console.log(res);
+         })
+
+        router.push({name: "Parts"})
+
+      }
+    return{addNewcomment,state}
+  },
+    // components: { CommentCard }
+}
 </script>
 
 <style scoped>
