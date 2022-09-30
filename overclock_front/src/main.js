@@ -7,7 +7,8 @@ import CKEditor from "@ckeditor/ckeditor5-vue";
 import "@ckeditor/ckeditor5-build-classic/build/translations/ko";
 import store from '@/store'
 import router from './router'
+import { createMetaManager } from 'vue-meta'
 
 import "bootstrap";
 
-createApp(App).use(store).use(router).use(CKEditor).mount('#app')
+createApp(App).use(store).use(router).use(CKEditor).use(createMetaManager()).mount('#app')

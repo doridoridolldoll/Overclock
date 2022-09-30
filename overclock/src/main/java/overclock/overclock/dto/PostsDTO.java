@@ -20,6 +20,7 @@ public class PostsDTO {
     private LocalDateTime regDate;
     private LocalDateTime modDate;
     private String partsType;
+    private String search;
     @Builder.Default
     private List<ItemImgDTO> imageDTOList = new ArrayList<>();
 

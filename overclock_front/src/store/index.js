@@ -12,7 +12,8 @@ export default createStore({
   state: {
     token: 0,
     email: 0,
-    id: 0
+    id: 0,
+    axiosLink:".",
   },
   getters: {
     

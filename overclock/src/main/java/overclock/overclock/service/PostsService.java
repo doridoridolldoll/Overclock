@@ -11,6 +11,7 @@ import overclock.overclock.entity.Item;
 import overclock.overclock.entity.ItemImg;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
+import overclock.overclock.model.search;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,12 +26,10 @@ public interface PostsService {
 //    PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto); //부품 게시판 리스트
     PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO);
     PageResultDTO<PostsDTO, Posts>  partsCategoryPageList (PageRequestDTO dto);
-
     PostsDTO updateView(Long id);
-
-//    List<PostsDTO> getList(PostsDTO postsDTO);
-
-//    HashMap<String, Object> getSearchList(search vo);
+    List<PostsDTO> getList(PostsDTO postsDTO);
+    List<Object[]> getSearchPostList(String search);
+    HashMap<String, Object> getSearchList(search vo);
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()

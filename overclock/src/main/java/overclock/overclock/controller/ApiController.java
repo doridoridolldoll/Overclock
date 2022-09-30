@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Comment;
 import overclock.overclock.entity.Posts;
+import overclock.overclock.model.search;
 import overclock.overclock.service.CommentService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
+
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @Log4j2
@@ -85,6 +89,12 @@ public class ApiController {
 
         return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
+    @RequestMapping(value = "/search", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Object>> ArticleCardsSearch(@RequestBody search vo){
+        log.info("------------------------------------search--------------------");
+        log.info(vo);
+        return new ResponseEntity<>(postsService.getSearchList(vo), HttpStatus.OK);
+        
     // 댓글등록
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

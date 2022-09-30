@@ -29,6 +29,8 @@ import Free from "@/components/Posts/Free/Free.vue"
 import FreePost from "@/components/Posts/Free/FreePost.vue"
 import FreeRePost from "@/components/Posts/Free/FreeRePost.vue"
 
+import SearchList from "@/components/SearchList.vue"
+
 
 const routes = [
     {path:"/",name:"Main", component: Main}, 
@@ -48,7 +50,8 @@ const routes = [
     {path:"/profil",name:"Profil", component: Profil},
     {path:"/usedregister", name:"UsedRegister", component: UsedRegister},
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
-    {path:"/partsregister", name:"PartsRegister", component: PartsRegister}
+    {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
+    {path:"/search", name: 'SearchList', component: SearchList }
   ]
   
   const router = createRouter({

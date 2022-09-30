@@ -60,7 +60,6 @@
 <script>
 import {useRoute} from 'vue-router'
 import { reactive } from '@vue/reactivity';
-
 import Comment from '@/components/Posts/Comment/Comment.vue';
   export default {
   components: { Comment },
