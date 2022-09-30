@@ -11,6 +11,7 @@ import overclock.overclock.entity.Member;
 import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.security.dto.AuthMemberDTO;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.info("loadUserByUsername: " + email);
 
-        Optional<Member> result = repository.findByEmail(email, true);
+        Optional<Member> result = repository.findByEmail(email, false);
         if (!result.isPresent()) {
             throw new UsernameNotFoundException("Check email or Social");
         }

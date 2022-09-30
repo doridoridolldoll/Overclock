@@ -50,6 +50,12 @@ public class Posts extends BaseEntity{ //게시물
     @OneToMany(mappedBy = "ItemImg", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ItemImg> itemImgList = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+
+
 
     @Builder
     public Posts(Member member, String title, String content,

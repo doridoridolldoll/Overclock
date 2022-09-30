@@ -31,11 +31,11 @@ public class MemberServiceImpl implements MemberService {
         return member.getEmail();
     }
 
-    private void validateDuplicateMember(MemberDTO memberDTO) {
-
-        List<Member> findMembers = memberRepository.findByName(memberDTO.getName());
-        if (!findMembers.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
-        }
-    }
+//    private void validateDuplicateMember(MemberDTO memberDTO) {
+//
+//        List<Member> findMembers = memberRepository.findByName(memberDTO.getName());
+//        if (!findMembers.isEmpty()) {
+//            throw new IllegalStateException("이미 존재하는 회원입니다.");
+//        }
+//    }
 }

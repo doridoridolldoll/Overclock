@@ -1,8 +1,7 @@
 <template>
-  <section id="hero" class="d-flex align-items-center justify-content-center">
+  <section id="hero" class="d-flex justify-content-center">
     <body>
-        <section id="portfolio-details" class="portfolio-details">
-          <div class="container input-form">
+          <div class="container portfolio-details input-form">
             <div class="row gy-4">
               <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
@@ -11,8 +10,6 @@
                   </div>
                 </div>
               </div>
-
-
               <div class="col-lg-4">
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
@@ -51,31 +48,39 @@
                 </div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
+            <Comment
+              :dtoList="state.dtoList"
+            />  
           </div>
-          
-          <Comment/>
-          
-        </section>
+      <div></div>
     </body>
   </section>
 </template>
 
 <script>
-
-
-
+import {useRoute} from 'vue-router'
 import { reactive } from '@vue/reactivity';
+import Comment from '@/components/Posts/Comment/Comment.vue';
   export default {
+  components: { Comment },
       name: 'PartsDetail',
       setup(){
         const state = reactive({
-          dtoList: [],
+          dtoList: '',
+          memberId: null,
+          postsId: null,
+          
         });
         let route = useRoute()
         // console.log(route.query.name);
         let asd = JSON.parse(route.query.name.join("").split(","));
         state.dtoList = asd;
-        console.log(asd);
+        console.log(state.dtoList)
+        state.postsId = state.dtoList.id
+        console.log(state.postsId);
+
+        state.memberId = state.dtoList.memberId;
+        console.log(state.memberId);
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         let img = '';
@@ -90,7 +95,6 @@ import { reactive } from '@vue/reactivity';
 // console.log(props.test);
 // console.log(props);
 
-
 </script>
 <style scoped>
 .input-form {
@@ -98,7 +102,6 @@ import { reactive } from '@vue/reactivity';
 
   max-width: 900px;
 
-  margin-top: 80px;
   padding: 32px;
 
   background: #fff;
@@ -106,7 +109,8 @@ import { reactive } from '@vue/reactivity';
   -moz-border-radius: 10px;
   border-radius: 10px;
 
-  border: 1px solid rgb(226, 218, 218);
+  overflow: hidden;
+
 }
 #hero h2 {
   color: rgb(0, 0, 0);
@@ -118,7 +122,7 @@ p{
   margin-bottom: 1rem;
 }
 #hero:before{
-  height: 1500px;
+  height: 2000px;
 }
 #hero{
     overflow: scroll;
