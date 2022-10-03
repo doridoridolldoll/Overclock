@@ -9,6 +9,10 @@ import Profil from "@/components/Profil.vue"
 import QnA from "@/components/QnA.vue"
 import QnAPost from "@/components/QnAPost.vue"
 
+//결제
+import PcPay from '@/components/Pay/PcPay.vue'
+import PayComplete from '@/components/Pay/PayComplete.vue'
+
 //부품
 import Parts from "@/components/Posts/Parts/Parts.vue"
 import PartsDetail from "@/components/Posts/Parts/PartsDetail.vue"
@@ -51,8 +55,22 @@ const routes = [
     {path:"/usedregister", name:"UsedRegister", component: UsedRegister},
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
+<<<<<<< Updated upstream
     {path:"/search", name: 'SearchList', component: SearchList }
   ]
+=======
+    {
+        path: '/PcPay',
+        component: PcPay,
+        name: 'PcPay'
+    },
+    {
+        path: '/PayComplete',
+        component: PayComplete,
+        name: 'PayComplete'
+    }        
+    ]
+>>>>>>> Stashed changes
   
   const router = createRouter({
     history: createWebHistory(), routes

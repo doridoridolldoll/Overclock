@@ -31,8 +31,15 @@ public class ApiMemberController {
     @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody MemberDTO dto){
+<<<<<<< Updated upstream
         String email = memberService.join(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
+=======
+
+        String email = memberService.join(dto);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+
+>>>>>>> Stashed changes
     }
 
 }
