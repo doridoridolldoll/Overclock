@@ -26,13 +26,11 @@ import static overclock.overclock.model.MemberRole.*;
 public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
     private final MemberRepository memberRepository;
-
     private final PasswordEncoder passwordEncoder;
 
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-
 
         log.info("------------------------------");
         log.info("userRequest: {}", userRequest.toString());
@@ -55,20 +53,21 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
             email = oAuth2User.getAttribute("email");
         }
         log.info("EMAIL: {}", email);
-//        Member member = saveSocialMember(email);
-//        return oAuth2User;
+
         Member member = saveSocialMember(email);
-        AuthMemberDTO authMemberDTO = new AuthMemberDTO(
+        AuthMemberDTO dto = new AuthMemberDTO(
+
                 member.getEmail(),
                 member.getPassword(),
                 true,
                 member.getRoleSet().stream().map(
-                        role->new SimpleGrantedAuthority("ROLE_" + role.name())
-                ).collect(Collectors.toList()),
-                oAuth2User.getAttributes()
-        );
 
-        return authMemberDTO;
+                        role -> new SimpleGrantedAuthority("ROLE_" + role.name())).
+                        collect(Collectors.toList()),
+                oAuth2User.getAttributes());
+
+        return dto;
+
     }
     private Member saveSocialMember(String email){
         Optional<Member> result = memberRepository.findByEmail(email, true);

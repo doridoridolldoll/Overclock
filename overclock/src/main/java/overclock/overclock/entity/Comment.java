@@ -19,13 +19,10 @@ public class Comment extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     private Posts posts; //글제목
-
     @ManyToOne
     private Member member; //작성자
-
     private String content; //내용
 
     public Comment(Long id, Posts posts, Member member, String content) {

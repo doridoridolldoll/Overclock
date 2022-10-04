@@ -48,7 +48,8 @@
                 </div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
-            <Comment
+                <router-link to="/partsModify" class="btn btn-primary">수정</router-link>
+                <Comment
               :dtoList="state.dtoList"
             />  
           </div>
@@ -68,6 +69,7 @@ import Comment from '@/components/Posts/Comment/Comment.vue';
       setup(){
         const store = useStore();
         const state = reactive({
+        
           dtoList: '',
           memberId: null,
           postsId: null,
@@ -111,6 +113,7 @@ import Comment from '@/components/Posts/Comment/Comment.vue';
 
   overflow: hidden;
 
+  word-break: break-all;
 }
 #hero h2 {
   color: rgb(0, 0, 0);

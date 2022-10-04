@@ -73,6 +73,11 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
             "group by p.id")
     Page<Posts> getListAndAuthorByAuthorOrTitlePage(String search, Pageable pageable);
 
+    @Query("SELECT p FROM Posts p WHERE p_id =:userid and id=:id ")
+    Optional<Posts> getArticleByAidAndUserId(Long id, Long userid);
+
+    void deleteById(Long id);
+
 
     public interface getEmbedCardsInformation {
         Long getId();

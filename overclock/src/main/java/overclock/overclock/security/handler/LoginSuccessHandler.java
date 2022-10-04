@@ -32,24 +32,22 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
       Authentication authentication) throws IOException, ServletException {
     log.info("onAuthenticationSuccess");
     AuthMemberDTO dto = (AuthMemberDTO) authentication.getPrincipal();
-//    MemberDTO dto1 = (MemberDTO) authentication.getPrincipal();
-//    log.info("dto1 : {}", dto1);
     boolean fromSocial = dto.isFromSocial();
+    log.info("---------------------------");
     log.info("isFromSocial : " + fromSocial);
     log.info("qweqewqwe : {}", dto.getEmail());
     String email = dto.getEmail();
     boolean passResult = encoder.matches("1111", dto.getPassword());
     log.info("fromSocial && passResult: " + (fromSocial && passResult));
     if (fromSocial && passResult) {
-      redirectStrategy.sendRedirect(request, response, "http://localhost:8080/join?'email'");
+
+      redirectStrategy.sendRedirect(request, response, "http://localhost:8080/join");
       return;
-    }
-    else{
+    } else {
       redirectStrategy.sendRedirect(request, response, "http://localhost:8080/");
       return;
     }
-//      return;
-//    }
+
 //    List<String> roleNames = new ArrayList<>();
 //    dto.getAuthorities().forEach(new Consumer<GrantedAuthority>() {
 //      @Override
@@ -64,5 +62,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 //    if (roleNames.contains("ROLE_ADMIN"))
 //      forward = "/sample/admin";
 //    redirectStrategy.sendRedirect(request, response, forward);
+//  }
+
   }
 }

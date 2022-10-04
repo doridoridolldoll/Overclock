@@ -49,9 +49,7 @@
           language: "ko",
           simpleUpload:
           {
-                    ///////////////////////////////////////////////////
             uploadUrl: store.state.axiosLink+"/api/article/write/image",
-                    ///////////////////////////////////////////////////
             withCredentials: true,
             headers: {
               "Authorization": store.state.token,
@@ -92,9 +90,7 @@
         }
         page.images = findImageName(page.context)
         let result = JSON.stringify(page)
-        ///////////////////////////////////////////////////////
         const url = store.state.axiosLink+"/api/article/write"
-        //////////////////////////////////////////////////////
         const headers = {
           "Content-Type": "application/json; charset=utf-8",
           "Authorization": store.state.token,
