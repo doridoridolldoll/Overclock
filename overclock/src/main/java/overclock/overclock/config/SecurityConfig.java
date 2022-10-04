@@ -27,9 +27,12 @@ public class SecurityConfig {
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(apiLoginFilter(authenticationManager),
                 UsernamePasswordAuthenticationFilter.class);
+//        http.authorizeRequests().antMatchers("http://localhost:8080/partsregister").hasRole("ADMIN");
 
-//        http.oauth2Login().successHandler(successHandler());
+        http.oauth2Login().successHandler(successHandler());
 //        http.oauth2Login();
+//        http.oauth2Login().defaultSuccessUrl("./asdsad");
+//
         return http.build() ;
     }
     @Bean
@@ -59,7 +62,7 @@ public class SecurityConfig {
 
     @Bean
     public ApiCheckFilter apiCheckFilter(){
-        return new ApiCheckFilter("/asas/**/*", jwtUtil());
+        return new ApiCheckFilter("/adsasd/**/*", jwtUtil());
     }
 
     @Bean

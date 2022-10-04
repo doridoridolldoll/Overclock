@@ -10,10 +10,12 @@ const vuexLocal = new VuexPersistence({
 
 export default createStore({
   state: {
+    dtoList: 0,
     token: 0,
     email: 0,
     id: 0,
     axiosLink:".",
+    role: "",
   },
   getters: {
     
@@ -28,6 +30,12 @@ export default createStore({
     },
     setId(state, payload){
       state.id = payload
+    },
+    setdtoList(state, payload){
+      state.dtoList = payload
+    },
+    setRole(state, payload){
+      state.role = payload
     }
   },
   actions: {

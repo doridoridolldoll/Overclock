@@ -17,5 +17,6 @@ public class TokenDTO {
     private String name;
     private String token;
     private String curl;
-    private Boolean auth;
+    private String role;
+    private Boolean fromSocial;
 }

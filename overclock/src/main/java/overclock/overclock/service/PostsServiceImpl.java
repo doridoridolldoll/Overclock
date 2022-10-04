@@ -86,25 +86,26 @@ public class PostsServiceImpl implements PostsService {
         return posts.getId();
     }
 
-    @Override
-    public Long pregister(PostsDTO dto) {
-        log.info(dto);
-        Posts posts = dtoToEntity(dto);
-        posts.setBoardType(BoardType.PARTS);
-        repository.save(posts);
-        return posts.getId();
-    }
 
-    @Override
-    public PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO) {
-        log.info("pageRequestDTO : {} ", requestDTO);
+//    @Override
+//    public Long pregister(PostsDTO dto) {
+//        log.info(dto);
+//        Posts posts = dtoToEntity(dto);
+//        posts.setBoardType(BoardType.PARTS);
+//        repository.save(posts);
+//        return posts.getId();
+//    }
 
-        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts) en[0]));
-        Page<Object[]> result = repository.getPostsWithMemberPage(requestDTO.getPageable(Sort.by("id").descending()));
-
-        return new PageResultDTO<>(result, fn);
-
-    }
+//    @Override
+//    public PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO) {
+//        log.info("pageRequestDTO : {} ", requestDTO);
+//
+//        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts) en[0]));
+//        Page<Object[]> result = repository.getPostsWithMemberPage(requestDTO.getPageable(Sort.by("id").descending()));
+//
+//        return new PageResultDTO<>(result, fn);
+//
+//    }
 
 //    @Override
 //    public List<PostsDTO> getList(PostsDTO postsDTO) {
@@ -120,14 +121,14 @@ public class PostsServiceImpl implements PostsService {
 //
 //    }
 
-    @Override
-    public PageResultDTO<PostsDTO, Posts> getList3(PageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
-        BooleanBuilder booleanBuilder = getSearch(requestDTO);
-        Page<Posts> result = repository.findAll(pageable);
-        Function<Posts, PostsDTO> fn = (entity -> entityToDTO(entity));
-        return new PageResultDTO<>(result, fn);
-    }
+//    @Override
+//    public PageResultDTO<PostsDTO, Posts> getList3(PageRequestDTO requestDTO) {
+//        Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
+//        BooleanBuilder booleanBuilder = getSearch(requestDTO);
+//        Page<Posts> result = repository.findAll(pageable);
+//        Function<Posts, PostsDTO> fn = (entity -> entityToDTO(entity));
+//        return new PageResultDTO<>(result, fn);
+//    }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {
@@ -146,21 +147,21 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     }
 
-    @Override
-    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
-        log.info("PageRequestDTO: " + dto);
-
-        Pageable pageable = dto.getPageable(Sort.by("id").descending());
-        Page<Posts> result = repository.partsCpuPageList(pageable);
-        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
-            @Override
-            public PostsDTO apply(Posts t) {
-                log.info("asd : {}", t);
-                return entityToDTO(t);
-            }
-        };
-        return new PageResultDTO<>(result, fn);
-    }
+//    @Override
+//    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
+//        log.info("PageRequestDTO: " + dto);
+//
+//        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+//        Page<Posts> result = repository.partsCpuPageList(pageable);
+//        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+//            @Override
+//            public PostsDTO apply(Posts t) {
+//                log.info("asd : {}", t);
+//                return entityToDTO(t);
+//            }
+//        };
+//        return new PageResultDTO<>(result, fn);
+//    }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> partsCategoryPageList (PageRequestDTO dto){
@@ -243,10 +244,7 @@ public class PostsServiceImpl implements PostsService {
         return cardInfo;
     }
 
-    @Override
-    public List<Object[]> getSearchPostList(String search) {
-        return null;
-    }
+
 }
 
 

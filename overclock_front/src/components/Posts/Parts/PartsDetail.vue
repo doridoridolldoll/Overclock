@@ -58,37 +58,36 @@
 </template>
 
 <script>
-import {useRoute} from 'vue-router'
+import { useStore } from 'vuex'
+// import {useRoute} from 'vue-router'
 import { reactive } from '@vue/reactivity';
 import Comment from '@/components/Posts/Comment/Comment.vue';
   export default {
   components: { Comment },
       name: 'PartsDetail',
       setup(){
+        const store = useStore();
         const state = reactive({
           dtoList: '',
           memberId: null,
           postsId: null,
-          
-
         });
-        let route = useRoute();
-        // console.log(route.query.name);
-        let asd = JSON.parse(route.query.name.join("").split(","));
-        state.dtoList = asd;
-        console.log(state.dtoList)
-        state.postsId = state.dtoList.id
-        console.log(state.postsId);
+        // let route = useRoute();
+        // // console.log(route.query.name);
+        // let asd = JSON.parse(route.query.name.join("").split(","));
+        let list = store.state.dtoList;
+        state.dtoList = list;
+        // state.postsId = state.dtoList.id
+        // console.log(state.postsId);
 
-        state.memberId = state.dtoList.memberId;
-        console.log(state.memberId);
+        // state.memberId = state.dtoList.memberId;
+        // console.log(state.memberId);
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
-        img = `${url}?fileName=${asd.imageDTOList[0].imageURL}`;
-        return { route, img, state };
-    },
-    components: { Comment }
+        img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+        return {state,img};
+    }
 }
 // import { defineProps } from 'vue '
 // let props = defineProps(["partsList", "test"])
