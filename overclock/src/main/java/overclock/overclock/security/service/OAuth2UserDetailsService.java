@@ -84,6 +84,7 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
                 .fromSocial(true)
                 .build();
         member.addMemberRole(USER);
+        log.info("member : {} ",member);
         memberRepository.save(member);
 
         return member;

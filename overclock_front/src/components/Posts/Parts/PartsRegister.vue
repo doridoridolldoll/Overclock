@@ -2,50 +2,44 @@
   <section id="hero" class="d-flex align-items-center justify-content-center">
     <form class="form-floating input-form9 " @submit.prevent>
   <h5 class="mt-4">부품 거래 등록</h5>
+
             <div class="form-group">
                 <label>상품명</label>
-                <input type="text" class="form-control">
+                <input type="text" v-model="state.title" class="form-control">
             </div>
+
             <div class="form-group">
                 <label>제품상세</label>
-                <textarea class ="form-control" v-model="state.item_detail" rows="5" name="item_detail"></textarea>
+                <textarea class ="form-control" v-model="state.itemDetail" rows="5" name="content"></textarea>
             </div>
+
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class ="form-control" v-model="state.itemDetail" rows="5" name="itemDetail">
+                <input type="text" class ="form-control" v-model="state.price" rows="5" name="itemDetail">
             </div>
+
             <div class="form-group">
                 <label>수량</label>
-                <input type="text" class="form-control" name="stock" placeholder="stock">
+                <input type="text" class="form-control" v-model="state.stock" name="stock" placeholder="stock">
             </div>
+
             <div class="form-group">
                 <label>회원ID</label>
                 <input type="text" class="form-control" v-model="state.memberId" name="memberId" placeholder="memberId"><br>
             </div>
-<!-- 
-            <div class="form-group" style="margin-bottom: 10px;">
-                <label>Image Files</label>
-                <input type="file" class="form-control" id="fileInput" multiple>
-                <label class="custom-file-label" data-browse="Browse"></label>
-            </div> -->
 
             <div class="box"></div>
 
             <FileUpload />
 
-
-
-
             <div class="form-group">
-                <label>부품 카테고리</label>
-                <input type="text" class="form-control" v-model="state.type" name="type" placeholder="type"><br>
-                <!-- <select v-model="state.type" name="type">
+                <select v-model="state.type" name="type">
                     <option>MB</option>
                     <option>CPU</option>
                     <option>GPU</option>
                     <option>HDD</option>
                     <option>ETC</option>
-                </select> -->
+                </select>
             </div>
             <button class="btn btn-primary btn7" @click="joinHandler">등록</button>
 
@@ -65,10 +59,12 @@ export default {
         const router = useRouter();
         const state = reactive({
             title       : '',
-            item_detail    : '',
+            content: '',
             memberId  : '',
             name        : '',
             itemDetail : '',
+            stock: '',  
+            price: '',
             type : '',
             imageDTOList : new Array(),
         })
@@ -94,26 +90,32 @@ export default {
             }
             document.querySelector(".box").innerHTML = str
             
+            //글쓰기
             const url = '/api/mregister'
             const headers = {
                 "Content-Type" : "application/json"
                 }
             const body = {
                 title : state.title, 
-                item_detail : state.item_detail, 
+                content: state.content,
                 memberId : state.memberId, 
                 imageDTOList: state.imageDTOList,
-                itemDetail: state.itemDetail, 
                 partsType: state.type,
             }
             const response = await axios.post(url, body, {headers})
             console.log(response.data)
-            
-            if(response.status === 200){
-                alert(state.type);
-            } else {
-                alert('회원가입에 실패하였습니다.')
+
+
+            const url2 = '/api/mregister2'
+            const headers2 = {
+                "Content-Type" : "application/json"
             }
+            const body2 = {
+                price: state.price,
+                stock: state.stock,
+                itemDetail: state.itemDetail, 
+            }
+            await axios.post(url2,body2,{headers2})
             router.push({name: "Parts"})
         }
         return {state,joinHandler }

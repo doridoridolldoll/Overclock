@@ -36,10 +36,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 //    log.info("dto1 : {}", dto1);
     boolean fromSocial = dto.isFromSocial();
     log.info("isFromSocial : " + fromSocial);
+    log.info("qweqewqwe : {}", dto.getEmail());
+    String email = dto.getEmail();
     boolean passResult = encoder.matches("1111", dto.getPassword());
     log.info("fromSocial && passResult: " + (fromSocial && passResult));
     if (fromSocial && passResult) {
-      redirectStrategy.sendRedirect(request, response, "http://localhost:8080/join");
+      redirectStrategy.sendRedirect(request, response, "http://localhost:8080/join?'email'");
       return;
     }
     else{

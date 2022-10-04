@@ -6,16 +6,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.expression.Lists;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Comment;
+import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
 import overclock.overclock.service.CommentService;
+import overclock.overclock.service.ItemService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Log4j2
@@ -25,6 +29,7 @@ public class ApiController {
     private final PostsService postsService;
     private final MemberService memberService;
 
+    private final ItemService itemService;
     private final CommentService commentService;
 
     @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
@@ -37,11 +42,20 @@ public class ApiController {
     }
     @RequestMapping(value = "/mregister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> register(@RequestBody PostsDTO postsDTO, ItemDTO itemDTO){
+    public ResponseEntity<Long> register(@RequestBody PostsDTO postsDTO){
         log.info("api/memberRegister...:" + postsDTO);
         Long id = postsService.mregister(postsDTO);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/mregister2", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> register2(@RequestBody ItemDTO itemDTO){
+        log.info("api/memberRgister item DTO {}", itemDTO);
+        Long id = itemService.mregister2(itemDTO);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/getlist", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> getList(@RequestBody PageRequestDTO dto) {
@@ -60,6 +74,25 @@ public class ApiController {
         log.info("List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/partsItemList", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ItemDTO>> partsItemList(@RequestBody ItemDTO dto) {
+        List<ItemDTO> result = itemService.partsItemList(dto);
+        log.info("csacacsacsac : {}", dto);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    
+    //소셜 로그인 후 회원정보수정
+//    @RequestMapping(value = "/modify", method = RequestMethod.POST,
+//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> modify(@RequestBody MemberDTO memberDTO) {
+//        String email = memberService.modify(memberDTO);
+//        log.info("postsDTO : {}", memberDTO);
+//        log.info("List result : {}", email);
+//        return new ResponseEntity<>(email, HttpStatus.OK);
+//    }
+
     
    //주변기기 디테일
     @RequestMapping(value = "/periList", method = RequestMethod.POST,

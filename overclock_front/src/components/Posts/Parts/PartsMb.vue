@@ -1,7 +1,8 @@
 <template>
     <section id="services" class="services">
       <div class="container" data-aos="fade-up">
-        <router-link to="/partsregister" class="btn btn-primary">글쓰기</router-link>
+        <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '2')">글쓰기</router-link>
+        <!-- <div v-if="(state.form == 'gpu')"> -->
         <div class="section-title">
           <p>MB</p>
         </div>
@@ -17,8 +18,8 @@
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
               <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{list.memberId}}</h4></span>
-              <span><h5>판매가 4,800,000원</h5></span>
+              <span><h4>{{list.content}}</h4></span>
+              <span><h5>{{state.price}}</h5></span>
               <span><h5>할인가 4,300,000원</h5></span>
             </div>
             </a>
@@ -45,6 +46,7 @@ export default {
   props: [  ],
   setup(){
     const store = useStore();
+    
     const state = reactive({
       id: "",
       upResult: "",
@@ -59,6 +61,7 @@ export default {
       start: null,
       totalPage: null,
       partsType: "mb",
+      price: '',
     });
     const url = "/api/partsList";
 	  const headers = {
@@ -84,6 +87,12 @@ export default {
       showResult(res.data)
     })
   }
+
+  axios.post("/api/partsItemList", {headers}).then(function(res){
+    state.price = res.data.id
+    console.log( res.data);
+  })
+
   axios.post(url, { page: 1, category: "mb" }, { headers })
             .then(function (res) {
             console.log(res);

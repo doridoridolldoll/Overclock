@@ -27,6 +27,7 @@ public class SecurityConfig {
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(apiLoginFilter(authenticationManager),
                 UsernamePasswordAuthenticationFilter.class);
+//        http.authorizeRequests().antMatchers("http://localhost:8080/partsregister").hasRole("ADMIN");
 
         http.oauth2Login().successHandler(successHandler());
 //        http.oauth2Login();

@@ -23,6 +23,8 @@ public class AuthMemberDTO extends User implements OAuth2User {
     private String password;
     private String name;
     private String curl;
+
+    private String role;
     private boolean fromSocial;
 
     public AuthMemberDTO(String username, String password, boolean fromSocial, Collection<? extends GrantedAuthority> authorities,

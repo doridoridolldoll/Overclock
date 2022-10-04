@@ -15,6 +15,7 @@ export default createStore({
     email: 0,
     id: 0,
     axiosLink:".",
+    role: "",
   },
   getters: {
     
@@ -32,6 +33,9 @@ export default createStore({
     },
     setdtoList(state, payload){
       state.dtoList = payload
+    },
+    setRole(state, payload){
+      state.role = payload
     }
   },
   actions: {

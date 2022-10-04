@@ -12,6 +12,7 @@ import overclock.overclock.model.MemberRole;
 import overclock.overclock.repository.MemberRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,15 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder;
 
+    @Override
+    public String modify(MemberDTO memberDTO) {
+        log.info("Member DTO : {}",memberDTO);
+        Optional<Member> modifyList = memberRepository.findByEmail(memberDTO.getEmail(), memberDTO.isFromSocial());
+        log.info(modifyList);
+
+
+        return null;
+    }
 
     @Transactional //변경
     public String join(MemberDTO memberDTO) {

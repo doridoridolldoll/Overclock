@@ -86,6 +86,7 @@ public class PostsServiceImpl implements PostsService {
         return posts.getId();
     }
 
+
 //    @Override
 //    public Long pregister(PostsDTO dto) {
 //        log.info(dto);
