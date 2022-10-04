@@ -48,6 +48,7 @@ import overclock.overclock.repository.PostsRepository;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -242,30 +243,57 @@ public class PostsServiceImpl implements PostsService {
         return cardInfo;
     }
 
-//    @Override
-//    public String PostsModify(PostsDTO dto) {
-//        Posts entity = repository.getByid(dto.getId());
-//        PostsDTO getById = entityToDTO(entity);
-//
-//        entity.getItemImgList().forEach(image -> {
-//            itemImgRepository.deleteById(image.getId());
-//            ;
-//        });
-//
-//        getById.setTitle(dto.getTitle());
-//        getById.setContent(dto.getContent());
-//        Posts modifiedArticle = dtoToEntity(getById);
-//        repository.save(modifiedArticle);
-//
-//        List<ItemImgDTO> lists = dto.getImageDTOList();
-//        lists.forEach(new Consumer<ItemImgDTO>() {
-//            @Override
-//            public void accept(ItemImgDTO itemImgDTO) {
-//                if (!itemImgRepository.findById(itemImgDTO.getId()).isPresent()) {
-//                    ItemImgDTO.builder().imgName(itemImgDTO.getImgName()). articles(modifiedArticle).build();
-//                }
-//            }
-//        });
+    @Override
+    public String PostsModify(PostsDTO dto) {
+        log.info("dto--------------------- :" + dto);
+        Posts entity = repository.getByid(dto.getId());
+        PostsDTO getById = entityToDTO(entity);
+
+        entity.getItemImgList().forEach(image -> {
+            itemImgRepository.deleteById(image.getId());
+            ;
+        });
+
+        getById.setTitle(dto.getTitle());
+        getById.setContent(dto.getContent());
+        Posts modifiedArticle = dtoToEntity(getById);
+        repository.save(modifiedArticle);
+
+        List<ItemImgDTO> lists = dto.getImageDTOList();
+        lists.forEach(new Consumer<ItemImgDTO>() {
+            @Override
+            public void accept(ItemImgDTO itemImgDTO) {
+                if (!itemImgRepository.findById(itemImgDTO.getId()).isPresent()) {
+                    ItemImgDTO.builder().imgName(itemImgDTO.getImgName()).posts(modifiedArticle).build();
+                }
+            }
+        });
+
+        return modifiedArticle.getId().toString();
+    }
+
+    @Override
+    public PostsDTO CheckBeforeModifyArticle(Long id, Long userid) {
+        Optional<Posts> isit = repository.getArticleByAidAndUserId(id, userid);
+        if (!isit.isPresent()) {
+            return null;
+        } else {
+            PostsDTO dto = entityToDTO(isit.get());
+            return dto;
+        }
+    }
+
+    @Transactional
+    @Override
+    public Long PostsDelete(PostsDTO dto) {
+
+
+        Long id = dto.getId();
+        log.info("id----------- :" + id);
+        repository.deleteById(id);
+        return id;
+
+    }
 }
 
 

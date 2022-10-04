@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import overclock.overclock.entity.Posts;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -20,6 +21,8 @@ public class ItemImgDTO {
     private String path;
 
     private Long PostsId;
+
+    private Posts posts;
 
 
 

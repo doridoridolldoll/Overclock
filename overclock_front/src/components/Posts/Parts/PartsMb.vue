@@ -106,7 +106,6 @@ export default {
         state.img[i] = str2;
       }
     };
-<<<<<<< Updated upstream
     function Join(urlId){
       const url2 = `/api/read/${urlId}`;
 	    const headers2 = {
@@ -118,12 +117,6 @@ export default {
       })
     }
     return {state, store, getUserList,Join}
-=======
-
-    return {state, store, getUserList}
-
-  
->>>>>>> Stashed changes
   }
 }
 </script>

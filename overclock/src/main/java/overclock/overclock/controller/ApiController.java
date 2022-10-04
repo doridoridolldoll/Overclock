@@ -10,6 +10,7 @@ import overclock.overclock.dto.*;
 import overclock.overclock.entity.Comment;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
+import overclock.overclock.model.subcard;
 import overclock.overclock.service.CommentService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
@@ -114,11 +115,26 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/modify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> articleModify(@RequestBody PostsDTO dto) {
-//        String articleInfo = postsService.PostsModify(dto);
-//        return new ResponseEntity<>(articleInfo, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/modify/check", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PostsDTO> CheckarticleBeforeModify(@RequestBody subcard vo) {
+        PostsDTO articleInfo = postsService.CheckBeforeModifyArticle(vo.getId(), vo.getUserid());
+        return new ResponseEntity<>(articleInfo, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/modify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> articleModify(@RequestBody PostsDTO dto) {
+        log.info("asasaas :" + dto);
+        String articleInfo = postsService.PostsModify(dto);
+        return new ResponseEntity<>(articleInfo, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> PostsDelete(@RequestBody PostsDTO dto) {
+        log.info("ppppppppppppppppp :" + dto);
+        Long articleInfo = postsService.PostsDelete(dto);
+        return new ResponseEntity<>(articleInfo, HttpStatus.OK);
+    }
+
 
 
 }

@@ -28,7 +28,10 @@ public interface PostsService {
     PostsDTO updateView(Long id);
     HashMap<String, Object> getSearchList(search vo);
 
-//    String PostsModify(PostsDTO dto);
+    PostsDTO CheckBeforeModifyArticle(Long aid, Long userid);
+
+    String PostsModify(PostsDTO dto);
+    Long PostsDelete(PostsDTO dto);
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()

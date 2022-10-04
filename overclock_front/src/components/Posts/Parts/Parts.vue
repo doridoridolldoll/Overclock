@@ -10,9 +10,7 @@
         </div>
       </div>
       <h1>
-      <router-link to="/PcPay">
-        PC 결제
-      </router-link>
+
     </h1>
 
       <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
