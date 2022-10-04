@@ -149,14 +149,8 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/modify/check", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PostsDTO> CheckarticleBeforeModify(@RequestBody subcard vo) {
-        PostsDTO articleInfo = postsService.CheckBeforeModifyArticle(vo.getId(), vo.getUserid());
-        return new ResponseEntity<>(articleInfo, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/modify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> articleModify(@RequestBody PostsDTO dto) {
+    public ResponseEntity<String> PostsModify(@RequestBody PostsDTO dto) {
         log.info("asasaas :" + dto);
         String articleInfo = postsService.PostsModify(dto);
         return new ResponseEntity<>(articleInfo, HttpStatus.OK);
@@ -168,7 +162,32 @@ public class ApiController {
         Long articleInfo = postsService.PostsDelete(dto);
         return new ResponseEntity<>(articleInfo, HttpStatus.OK);
     }
+    @RequestMapping(value = "/cModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> CommentModify(@RequestBody CommentDTO dto) {
+        log.info("asasaas :" + dto);
+        String commentInfo = commentService.CommentModify(dto);
+        return new ResponseEntity<>(commentInfo, HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/cDelete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> CommentDelete(@RequestBody CommentDTO dto) {
+        Long commentInfo = commentService.CommentDelete(dto);
+        return new ResponseEntity<>(commentInfo, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/mModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> MemberModify(@RequestBody MemberDTO dto) {
+        log.info("asasaas :" + dto);
+        String memberInfo = memberService.modify(dto);
+        return new ResponseEntity<>(memberInfo, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/mList", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List> mList(@RequestBody MemberDTO dto) {
+        log.info("asasaas :" + dto);
+        List email = memberService.mList(dto);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+    }
 
 
 }

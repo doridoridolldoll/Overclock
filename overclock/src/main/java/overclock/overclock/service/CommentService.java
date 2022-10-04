@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 public interface CommentService {
     Long addComment(CommentDTO commentDTO);
+    String CommentModify(CommentDTO dto);
+    Long CommentDelete(CommentDTO dto);
 
     PageResultDTO<CommentDTO, Comment> commentPageList (PageRequestDTO dto);
     default Comment dtoToEntity(CommentDTO dto) {

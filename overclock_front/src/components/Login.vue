@@ -73,7 +73,7 @@ export default {
           store.commit("setToken", res.data.token);
           store.commit("setId", res.data.id);
           store.commit("setEmail", res.data.email);
-            store.commit("setRole", "2")
+          store.commit("setRole", "2")
           // store.commit("setrole)
           console.log(res.data);
           alert("로그인되었습니다.");

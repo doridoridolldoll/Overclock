@@ -42,6 +42,7 @@ import overclock.overclock.dto.*;
 import overclock.overclock.entity.*;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.model.search;
+import overclock.overclock.repository.CommentRepository;
 import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
@@ -61,7 +62,7 @@ public class PostsServiceImpl implements PostsService {
 
     private final PostsRepository repository;
     private final ItemImgRepository itemImgRepository;
-
+    private final CommentRepository commentRepository;
 
     @Transactional
     @Override
@@ -86,21 +87,6 @@ public class PostsServiceImpl implements PostsService {
         return posts.getId();
     }
 
-
-//    @Override
-//    public List<PostsDTO> getList(PostsDTO postsDTO) {
-//        List<Posts> result = repository.findAll();
-//        log.info("result : {}", result);
-//        return result.stream().map(new Function<Posts, PostsDTO>() {
-//            @Override
-//            public PostsDTO apply(Posts t) {
-//                log.info("asd : {}", entityToDTO(t));
-//                return entityToDTO(t);
-//            }
-//        }).collect(Collectors.toList());
-//
-//    }
-
     @Override
     public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {
         log.info("PageRequestDTO: " + dto);
@@ -117,22 +103,6 @@ public class PostsServiceImpl implements PostsService {
         };
         return new PageResultDTO<>(result, fn);
     }
-
-//    @Override
-//    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
-//        log.info("PageRequestDTO: " + dto);
-//
-//        Pageable pageable = dto.getPageable(Sort.by("id").descending());
-//        Page<Posts> result = repository.partsCpuPageList(pageable);
-//        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
-//            @Override
-//            public PostsDTO apply(Posts t) {
-//                log.info("asd : {}", t);
-//                return entityToDTO(t);
-//            }
-//        };
-//        return new PageResultDTO<>(result, fn);
-//    }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> partsCategoryPageList (PageRequestDTO dto){
@@ -244,27 +214,13 @@ public class PostsServiceImpl implements PostsService {
         return modifiedArticle.getId().toString();
     }
 
-    @Override
-    public PostsDTO CheckBeforeModifyArticle(Long id, Long userid) {
-        Optional<Posts> isit = repository.getArticleByAidAndUserId(id, userid);
-        if (!isit.isPresent()) {
-            return null;
-        } else {
-            PostsDTO dto = entityToDTO(isit.get());
-            return dto;
-        }
-    }
-
     @Transactional
     @Override
     public Long PostsDelete(PostsDTO dto) {
-
-
         Long id = dto.getId();
         log.info("id----------- :" + id);
         repository.deleteById(id);
         return id;
-
     }
 }
 
