@@ -18,9 +18,12 @@ public class AuthMemberDTO extends User implements OAuth2User {
 
     private Long id;
     private String email;
+    private Map<String,Object> attr;
+
     private String password;
     private String name;
     private String curl;
+
     private boolean fromSocial;
     private Map<String, Object> attr; // Google에서 받은 정보 담는 곳
 
@@ -30,7 +33,6 @@ public class AuthMemberDTO extends User implements OAuth2User {
 
          this.attr = attr;
     }
-
     public AuthMemberDTO(String username, String password, boolean fromSocial, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         email = username;
@@ -41,7 +43,6 @@ public class AuthMemberDTO extends User implements OAuth2User {
     @Override
     public Map<String, Object> getAttributes() {
         return attr;
+
     }
-
-
 }

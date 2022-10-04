@@ -86,25 +86,6 @@ public class PostsServiceImpl implements PostsService {
         return posts.getId();
     }
 
-    @Override
-    public Long pregister(PostsDTO dto) {
-        log.info(dto);
-        Posts posts = dtoToEntity(dto);
-        posts.setBoardType(BoardType.PARTS);
-        repository.save(posts);
-        return posts.getId();
-    }
-
-//    @Override
-//    public PageResultDTO<PostsDTO, Object[]> getList2(PageRequestDTO requestDTO) {
-//        log.info("pageRequestDTO : {} ", requestDTO);
-//
-//        Function<Object[], PostsDTO> fn = (en -> entityToDTO((Posts) en[0]));
-//        Page<Object[]> result = repository.getPostsWithMemberPage(requestDTO.getPageable(Sort.by("id").descending()));
-//
-//        return new PageResultDTO<>(result, fn);
-//
-//    }
 
 //    @Override
 //    public List<PostsDTO> getList(PostsDTO postsDTO) {
@@ -119,15 +100,6 @@ public class PostsServiceImpl implements PostsService {
 //        }).collect(Collectors.toList());
 //
 //    }
-
-    @Override
-    public PageResultDTO<PostsDTO, Posts> getList3(PageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("id").descending());
-        BooleanBuilder booleanBuilder = getSearch(requestDTO);
-        Page<Posts> result = repository.findAll(pageable);
-        Function<Posts, PostsDTO> fn = (entity -> entityToDTO(entity));
-        return new PageResultDTO<>(result, fn);
-    }
 
     @Override
     public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {

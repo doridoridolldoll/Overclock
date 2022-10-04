@@ -44,9 +44,9 @@ public class MemberTests {
                 //default role
                 member.addMemberRole(MemberRole.USER);
 
-                if (i > 80) {
-                    member.addMemberRole(MemberRole.ADMIN);
-                }
+//                if (i > 80) {
+//                    member.addMemberRole(MemberRole.ADMIN);
+//                }
                 repository.save(member);
             });
         }

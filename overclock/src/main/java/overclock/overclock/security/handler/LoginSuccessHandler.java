@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.security.dto.AuthMemberDTO;
 
 import javax.servlet.ServletException;
@@ -34,15 +35,19 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     boolean fromSocial = dto.isFromSocial();
     log.info("---------------------------");
     log.info("isFromSocial : " + fromSocial);
+    log.info("qweqewqwe : {}", dto.getEmail());
+    String email = dto.getEmail();
     boolean passResult = encoder.matches("1111", dto.getPassword());
     log.info("fromSocial && passResult: " + (fromSocial && passResult));
     if (fromSocial && passResult) {
+
       redirectStrategy.sendRedirect(request, response, "http://localhost:8080/join");
       return;
     } else {
       redirectStrategy.sendRedirect(request, response, "http://localhost:8080/");
       return;
     }
+
 //    List<String> roleNames = new ArrayList<>();
 //    dto.getAuthorities().forEach(new Consumer<GrantedAuthority>() {
 //      @Override
@@ -58,5 +63,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 //      forward = "/sample/admin";
 //    redirectStrategy.sendRedirect(request, response, forward);
 //  }
+
   }
 }

@@ -1,7 +1,8 @@
 <template>
     <section id="services" class="services">
       <div class="container" data-aos="fade-up">
-        <router-link to="/partsregister" class="btn btn-primary">글쓰기</router-link>
+        <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '2')">글쓰기</router-link>
+        <!-- <div v-if="(state.form == 'gpu')"> -->
         <div class="section-title">
           <p>MB</p>
         </div>
@@ -10,18 +11,19 @@
           <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
-            <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)">
-
+            <!-- <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)"> -->
+            <!-- <a  @click="Join(list)"> -->
+            <a :href="'./PartsDetail?id=' + list.id" @click="Join(list)">
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
               <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{list.memberId}}</h4></span>
-              <span><h5>판매가 4,800,000원</h5></span>
+              <span><h4>{{list.content}}</h4></span>
+              <span><h5>{{state.price}}</h5></span>
               <span><h5>할인가 4,300,000원</h5></span>
-              
             </div>
-          </router-link>
+            </a>
+          <!-- </router-link> -->
           </div>
             <div class="page">
               <ul class="pagination">
@@ -38,11 +40,13 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import axios from "axios";
-import store from "@/store";
+import { useStore } from 'vuex';
 export default {
   name: 'PartsMb',
   props: [  ],
   setup(){
+    const store = useStore();
+    
     const state = reactive({
       id: "",
       upResult: "",
@@ -57,6 +61,7 @@ export default {
       start: null,
       totalPage: null,
       partsType: "mb",
+      price: '',
     });
     const url = "/api/partsList";
 	  const headers = {
@@ -82,6 +87,12 @@ export default {
       showResult(res.data)
     })
   }
+
+  axios.post("/api/partsItemList", {headers}).then(function(res){
+    state.price = res.data.id
+    console.log( res.data);
+  })
+
   axios.post(url, { page: 1, category: "mb" }, { headers })
             .then(function (res) {
             console.log(res);
@@ -106,14 +117,17 @@ export default {
         state.img[i] = str2;
       }
     };
-    function Join(urlId){
-      const url2 = `/api/read/${urlId}`;
+    function Join(list){
+      console.log(list);
+     
+      //조회수 처리
+      const url2 = `/api/read/${list.id}`;
 	    const headers2 = {
 	      "Content-Type": "application/json; charset=utf-8"
 	    };
       
       axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
-        console.log(res);
+         store.commit('setdtoList',res.data);
       })
     }
     return {state, store, getUserList,Join}
