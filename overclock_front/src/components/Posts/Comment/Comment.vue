@@ -24,7 +24,6 @@
   // import { useRouter } from "vue-router"
   import axios from "axios"
 import router from '@/router';
-import store from "@/store";
   // import CommentCard from "@/comment/Posts/CommentCard.vue"
 export default {
     name: "ToComment",
@@ -52,7 +51,7 @@ export default {
             content: state.content,
         };
         axios.post(url, body, { headers }).then((res) => {
-
+          console.log(res);
          })
 // router.push(`/search?cards=${search.context}&order=new`)
         async function routing(){

@@ -10,7 +10,7 @@ import QnA from "@/components/QnA.vue"
 import QnAPost from "@/components/QnAPost.vue"
 
 // //결제
-// import PcPay from '@/components/Pay/PcPay.vue'
+import PcPay from '@/components/Pay/PcPay.vue'
 // import PayComplete from '@/components/Pay/PayComplete.vue'
 
 //부품
@@ -62,7 +62,8 @@ const routes = [
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
     {path:"/search", name: 'SearchList', component: SearchList},
     {path:"/partsModify", name: 'PartsModify', component: PartsModify},
-    {path:"/commentModify", name: 'CommentModify', component: CommentModify}
+    {path:"/commentModify", name: 'CommentModify', component: CommentModify},
+    {path: '/PcPay', name: 'PcPay', component: PcPay},
   
     ]
   
