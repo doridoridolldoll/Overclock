@@ -28,25 +28,20 @@ public class JWTUtil {
         return result;
     }
 
-    @SuppressWarnings("rawtypes")
-    public Boolean validateAndExtract(String tokenStr, String id) {
-        Boolean checker = null;
+    public String validateAndExtract(String tokenStr) {
+        log.info("================");
+        String checker = null;
         try {
             DefaultJws defaultjJws = (DefaultJws) Jwts.parser()
                     .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(tokenStr);
 
             DefaultClaims claims = (DefaultClaims) defaultjJws.getBody();
-            String uid = claims.getId();
-            log.info("asasas"+Integer.parseInt(uid));
-            log.info("bdbdbd"+Integer.parseInt(id));
-            if(Integer.parseInt(uid) == Integer.parseInt(id)){
-                checker = true;
-            }else{
-                checker = false;
-            }
+            checker = claims.getSubject();
+
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e.getMessage());
+            checker = null;
         }
         return checker;
     }

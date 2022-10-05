@@ -10,6 +10,7 @@ module.exports = {
           port: 8080,
           proxy: {
             '/api': { target, changeOrigin: true } ,
+            '/register': { target, changeOrigin: true } ,
             '/member': { target, changeOrigin: true } 
           }
         },

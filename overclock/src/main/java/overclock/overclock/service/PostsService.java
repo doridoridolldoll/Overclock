@@ -19,16 +19,14 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public interface PostsService {
-    Long mregister(PostsDTO dto); //중고거래 게시판 글쓰기
-    PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto); //중고거래 게시판 리스트
-    Long pregister(PostsDTO dto); //부품 게시판 글쓰기
-//    PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto); //부품 게시판 리스트
+
+    Long posting(PostsDTO dto); // 게시판 글쓰기
+    PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto); //일반 게시판 리스트
+
     PageResultDTO<PostsDTO, Posts>  partsCategoryPageList (PageRequestDTO dto); //부품,주변기기 게시판 리스트
 
-    PostsDTO updateView(Long id);
-    HashMap<String, Object> getSearchList(search vo);
-
-    PostsDTO CheckBeforeModifyArticle(Long aid, Long userid);
+    PostsDTO updateView(Long id); //조회수 처리
+    HashMap<String, Object> getSearchList(search vo); //검색
 
     String PostsModify(PostsDTO dto);
     Long PostsDelete(PostsDTO dto);

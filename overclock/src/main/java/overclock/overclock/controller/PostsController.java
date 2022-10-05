@@ -35,7 +35,7 @@ public class PostsController {
     public String register(ItemDTO itemDTO, PostsDTO dto, RedirectAttributes redirectAttributes) {
         log.info("itemDTO : " + itemDTO);
 
-        Long id = postsService.mregister(dto);
+        Long id = postsService.posting(dto);
         log.info("id : {}", id);
 //        redirectAttributes.addFlashAttribute("msg", id);
 
