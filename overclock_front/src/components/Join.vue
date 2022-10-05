@@ -117,7 +117,7 @@ setup(){
   })
   const joinHandler = async() => {
     console.log("asas")
-    const url = './member/memberRegister'
+    const url = './api/memberRegister'
     const headers = {
       "Content-Type" : "application/json",
     }

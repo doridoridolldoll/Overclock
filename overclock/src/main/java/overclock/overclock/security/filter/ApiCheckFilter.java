@@ -56,13 +56,13 @@ public class ApiCheckFilter extends OncePerRequestFilter {
         log.info("checkAuthHeader request :" + request);
         String authHeader = request.getHeader("Authorization");
         log.info("Authorization :" + authHeader);
-        String id = request.getHeader("id");
-        log.info("id :" + id);
+
         if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
             log.info("Authorization exist: " + authHeader);
             try {
-                checkResult = jwtUtil.validateAndExtract(authHeader.substring(7), id);
+                String email = jwtUtil.validateAndExtract(authHeader.substring(7));
                 log.info(("validate result: " + checkResult));
+                checkResult = email.length() > 0 ;
             } catch (Exception e) {
                 log.info("aas");
                 e.printStackTrace();

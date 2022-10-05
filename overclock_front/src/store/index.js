@@ -9,12 +9,14 @@ const vuexLocal = new VuexPersistence({
   });
 
 export default createStore({
+
   state: {
     dtoList: 0,
     token: 0,
     email: 0,
     id: 0,
     axiosLink:".",
+    price: 0,
     role: "",
   },
   getters: {

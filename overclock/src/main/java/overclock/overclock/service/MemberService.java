@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public interface MemberService {
     String modify(MemberDTO memberDTO);
-    String join(MemberDTO memberDTO);
+    String memberRegister(MemberDTO memberDTO);
     default Member dtoToEntity(MemberDTO dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
         Member member = Member.builder()

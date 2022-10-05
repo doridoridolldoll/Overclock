@@ -65,13 +65,10 @@ public class PostsServiceImpl implements PostsService {
 
     @Transactional
     @Override
-    public Long mregister(PostsDTO dto) {
+    public Long posting(PostsDTO dto) {
         log.info("dto : {}", dto);
         Posts posts = dtoToEntity(dto);
-        posts.setBoardType(BoardType.MARKET);
-
         repository.save(posts);
-
         List<ItemImgDTO> imgList = dto.getImageDTOList();
         log.info("imgList : {}", imgList);
         imgList.forEach(new Consumer<ItemImgDTO>() {
@@ -86,28 +83,13 @@ public class PostsServiceImpl implements PostsService {
         return posts.getId();
     }
 
-
-//    @Override
-//    public List<PostsDTO> getList(PostsDTO postsDTO) {
-//        List<Posts> result = repository.findAll();
-//        log.info("result : {}", result);
-//        return result.stream().map(new Function<Posts, PostsDTO>() {
-//            @Override
-//            public PostsDTO apply(Posts t) {
-//                log.info("asd : {}", entityToDTO(t));
-//                return entityToDTO(t);
-//            }
-//        }).collect(Collectors.toList());
-//
-//    }
-
     @Override
     public PageResultDTO<PostsDTO, Posts> getPageList(PageRequestDTO dto) {
         log.info("PageRequestDTO: " + dto);
         Pageable pageable = dto.getPageable(Sort.by("id").descending());
 
 //        Page<Posts> result = repository.getPageList2(pageable);
-        Page<Posts> result = repository.getPartsByCategeryPageList(pageable, dto.getCategory());
+        Page<Posts> result = repository.getPartsByCategoryPageList(pageable, dto.getCategory());
         log.info("result2 : {}", result);
         Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
             @Override
@@ -118,28 +100,12 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     }
 
-//    @Override
-//    public PageResultDTO<PostsDTO, Posts> partsPageList(PageRequestDTO dto) {
-//        log.info("PageRequestDTO: " + dto);
-//
-//        Pageable pageable = dto.getPageable(Sort.by("id").descending());
-//        Page<Posts> result = repository.partsCpuPageList(pageable);
-//        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
-//            @Override
-//            public PostsDTO apply(Posts t) {
-//                log.info("asd : {}", t);
-//                return entityToDTO(t);
-//            }
-//        };
-//        return new PageResultDTO<>(result, fn);
-//    }
-
     @Override
     public PageResultDTO<PostsDTO, Posts> partsCategoryPageList (PageRequestDTO dto){
         log.info("PageRequestDTO: " + dto);
         Pageable pageable = dto.getPageable(Sort.by("id").descending());
         BooleanBuilder booleanBuilder = getSearch(dto);
-        Page<Posts> result = repository.getPartsByCategeryPageList(pageable, dto.getCategory());
+        Page<Posts> result = repository.getPartsByCategoryPageList(pageable, dto.getCategory());
 //        Page<Posts> result2 = repository.findAll(booleanBuilder, pageable);
         Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
             @Override
@@ -194,14 +160,11 @@ public class PostsServiceImpl implements PostsService {
     public HashMap<String, Object> getSearchList(search vo) {
         log.info(vo);
 
-//        Pageable pageable;
-//        pageable = PageRequest.of(vo.getReqPage(), 9,Sort.by(Sort.Direction.DESC, "id"));
-
         Pageable pageable = PageRequest.of(vo.getReqPage(), 9);
         Page<Posts> page = repository.getListAndAuthorByAuthorOrTitlePage(vo.getSearch(), pageable);
         log.info("=====page======");
         log.info(page);
-        List<EmbedCard> result = repository.getSearchList2(vo.getSearch()).get().stream().map(v -> {
+        List<EmbedCard> result = repository.getSearchList(vo.getSearch()).get().stream().map(v -> {
             return new EmbedCard(v);
         }).collect(Collectors.toList());
         HashMap<String, Object> cardInfo = new HashMap<>();
@@ -242,17 +205,6 @@ public class PostsServiceImpl implements PostsService {
         });
 
         return modifiedArticle.getId().toString();
-    }
-
-    @Override
-    public PostsDTO CheckBeforeModifyArticle(Long id, Long userid) {
-        Optional<Posts> isit = repository.getArticleByAidAndUserId(id, userid);
-        if (!isit.isPresent()) {
-            return null;
-        } else {
-            PostsDTO dto = entityToDTO(isit.get());
-            return dto;
-        }
     }
 
     @Transactional

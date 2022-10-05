@@ -15,6 +15,7 @@ public class ItemDTO {
 
     private Long id;
     private String title;
+    private Long postsId;
     private String itemName;
     private String itemDetail;
     private int price;

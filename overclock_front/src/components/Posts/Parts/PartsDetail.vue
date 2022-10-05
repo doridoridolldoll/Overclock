@@ -46,6 +46,7 @@
                       가로(길이): 198mm / 백플레이트
                     </p>
                 </div>
+                <div>{{state.price}}</div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 <router-link to="" class="btn btn-primary">구매</router-link>
                 <router-link to="/partsModify" class="btn btn-primary">수정</router-link>
@@ -69,11 +70,13 @@ import Comment from '@/components/Posts/Comment/Comment.vue';
       setup(){
         const store = useStore();
         const state = reactive({
-        
+          price: '',
           dtoList: '',
           memberId: null,
           postsId: null,
         });
+        state.price = store.state.price;
+        console.log(store.state.price);
         // let route = useRoute();
         // // console.log(route.query.name);
         // let asd = JSON.parse(route.query.name.join("").split(","));
