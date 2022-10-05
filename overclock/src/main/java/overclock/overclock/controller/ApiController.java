@@ -35,30 +35,22 @@ public class ApiController {
     private final ItemService itemService;
     private final CommentService commentService;
 
+
+    /**
+     * 멤버 회원가입
+     */
     @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody MemberDTO dto){
         log.info("asd");
         log.info("api/memberRegister...:" + dto);
-        String email = memberService.join(dto);
+        String email = memberService.memberRegister(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
-    @RequestMapping(value = "/mregister", method = RequestMethod.POST,
-            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> register(@RequestBody PostsDTO postsDTO){
-        log.info("api/memberRegister...:" + postsDTO);
-        Long id = postsService.mregister(postsDTO);
-        return new ResponseEntity<>(id, HttpStatus.OK);
-    }
 
-    @RequestMapping(value = "/mregister2", method = RequestMethod.POST,
-            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> register2(@RequestBody ItemDTO itemDTO){
-        log.info("api/memberRgister item DTO {}", itemDTO);
-        Long id = itemService.mregister2(itemDTO);
-        return new ResponseEntity<>(id, HttpStatus.OK);
-    }
-
+    /**
+     * 일반 게시판 목록 처리
+     */
     @RequestMapping(value = "/getlist", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> getList(@RequestBody PageRequestDTO dto) {
@@ -68,7 +60,9 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
+    /**
+     * 부품 게시판 목록 처리
+     */
     @RequestMapping(value = "/partsList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> partsList(@RequestBody PageRequestDTO dto) {
@@ -78,6 +72,9 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    /**
+     * partsItem price 값 받아옴
+     */
     @RequestMapping(value = "/partsItemList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ItemDTO>> partsItemList(@RequestBody ItemDTO dto) {
@@ -85,19 +82,10 @@ public class ApiController {
         log.info("csacacsacsac : {}", dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    
-    //소셜 로그인 후 회원정보수정
-//    @RequestMapping(value = "/modify", method = RequestMethod.POST,
-//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> modify(@RequestBody MemberDTO memberDTO) {
-//        String email = memberService.modify(memberDTO);
-//        log.info("postsDTO : {}", memberDTO);
-//        log.info("List result : {}", email);
-//        return new ResponseEntity<>(email, HttpStatus.OK);
-//    }
 
-    
-   //주변기기 디테일
+    /**
+     * 주변기기 게시판 출력
+     */
     @RequestMapping(value = "/periList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> periList(@RequestBody PageRequestDTO dto) {
@@ -108,7 +96,10 @@ public class ApiController {
     }
 
 
-    @RequestMapping(value = "/mbDetail", method = RequestMethod.POST,
+    /**
+     * 부품 상세 게시판
+     */
+    @RequestMapping(value = "/partsDetail", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> mbDetail(@RequestBody PageRequestDTO dto) {
         PageResultDTO<PostsDTO,Posts> result = postsService.getPageList(dto);
@@ -117,6 +108,9 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    /**
+     * 조회수 처리
+     */
     @RequestMapping(value = "/read/{id}", method = RequestMethod.GET,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateView(@ModelAttribute("id") Long id) {
@@ -125,6 +119,10 @@ public class ApiController {
 
         return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
+
+    /**
+     * 검색 처리
+     */
     @RequestMapping(value = "/search", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HashMap<String, Object>> ArticleCardsSearch(@RequestBody search vo) {
         log.info("------------------------------------search--------------------");
@@ -132,7 +130,9 @@ public class ApiController {
         return new ResponseEntity<>(postsService.getSearchList(vo), HttpStatus.OK);
     }
 
-    // 댓글등록
+    /**
+     * 댓글 등록
+     */
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> comment(@RequestBody CommentDTO dto) {
@@ -141,6 +141,9 @@ public class ApiController {
         return new ResponseEntity<>(commentDTO, HttpStatus.OK);
     }
 
+    /**
+     * 댓글 목록 처리
+     */
     @RequestMapping(value = "/comment/list", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO<CommentDTO, Comment>> commentList(@RequestBody PageRequestDTO dto) {
@@ -150,14 +153,20 @@ public class ApiController {
         log.info("Comment List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+    
+    /**
+     * 글 수정
+     */
     @RequestMapping(value = "/modify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> PostsModify(@RequestBody PostsDTO dto) {
         log.info("asasaas :" + dto);
         String articleInfo = postsService.PostsModify(dto);
         return new ResponseEntity<>(articleInfo, HttpStatus.OK);
     }
-
+    
+    /**
+     * 글 삭제
+     */
     @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> PostsDelete(@RequestBody PostsDTO dto) {
         log.info("ppppppppppppppppp :" + dto);
@@ -177,12 +186,24 @@ public class ApiController {
         return new ResponseEntity<>(commentInfo, HttpStatus.OK);
     }
 
+
     @RequestMapping(value = "/mModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> MemberModify(@RequestBody MemberDTO dto) {
         log.info("asasaas :" + dto);
         String memberInfo = memberService.modify(dto);
         return new ResponseEntity<>(memberInfo, HttpStatus.OK);
     }
+
+    //소셜 로그인 후 회원정보수정
+//    @RequestMapping(value = "/modify", method = RequestMethod.POST,
+//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> modify(@RequestBody MemberDTO memberDTO) {
+//        String email = memberService.modify(memberDTO);
+//        log.info("postsDTO : {}", memberDTO);
+//        log.info("List result : {}", email);
+//        return new ResponseEntity<>(email, HttpStatus.OK);
+//    }
+
 
     @RequestMapping(value = "/mList", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List> mList(@RequestBody MemberDTO dto) {

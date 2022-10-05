@@ -21,27 +21,6 @@ import java.util.Optional;
 public interface PostsRepository extends JpaRepository<Posts, String > {
 
 
-    @Query("select p, m from Posts p left join p.member m where p.id =:id")
-    Object getPostsWithMember(@Param("id") Long id);
-
-    @Query("select p, c from Posts p left join Comment c on c.posts = p where p.id = :id")
-    List<Object[]> getPostsWithComment(@Param("id") Long id);
-
-    //게시물 화면에 필요한 데이터 추출
-    @Query(value = "SELECT p, m, count(c) " +
-            " FROM Posts p " +
-            " LEFT JOIN p.member m " +
-            " LEFT JOIN Comment c ON c.posts = p " +
-            " GROUP BY p",
-            countQuery = "SELECT count(p) FROM Posts p")
-    Page<Object[]> getPostsWithMemberPage(Pageable pageable);
-
-
-//    @Query("SELECT p , m, count(c) " +
-//            " FROM Posts p LEFT JOIN p.member m " +
-//            " LEFT OUTER JOIN Comment c ON c.posts = p " +
-//            " WHERE p.id = :id")
-//    Object getPostsById(@Param("id") Long id);
 
     @EntityGraph(attributePaths = { "member" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query(
@@ -51,9 +30,9 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
     Page<Posts> getPageList(Pageable pageable);
 
 
-
     @Query(value = "SELECT p FROM Posts p WHERE p.partsType =:category")
-    Page<Posts> getPartsByCategeryPageList(Pageable pageable, String category);
+    Page<Posts> getPartsByCategoryPageList(Pageable pageable, String category);
+
 
     @Modifying
     @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")
@@ -65,7 +44,7 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
             "FROM Posts p " +
             "LEFT JOIN Member m ON p.member.id = m.id " +
             "WHERE p.title LIKE CONCAT('%',:search,'%') ")
-    Optional<List<getEmbedCardsInformation>> getSearchList2(String search);
+    Optional<List<getEmbedCardsInformation>> getSearchList(String search);
 
     @Query("SELECT p.id, p.title " +
             "FROM Posts p left join Member m on m.id = p.id " +

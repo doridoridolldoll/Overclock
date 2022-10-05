@@ -17,6 +17,7 @@ public interface MemberService {
 
     List mList(MemberDTO memberDTO);
 
+    String memberRegister(MemberDTO memberDTO);
     default Member dtoToEntity(MemberDTO dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
         Member member = Member.builder()

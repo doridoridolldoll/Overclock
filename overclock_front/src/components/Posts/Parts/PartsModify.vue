@@ -25,6 +25,7 @@
 
     export default {
         name: "WritePage",
+        
         setup() {
             const store = useStore();
             const state = reactive({
@@ -56,8 +57,6 @@
                     content: state.content
 
                 }
-                console.log(state.id)
-                console.log(typeof(state.id))
                 await axios.post(url, body, {headers} )
             }
             return { state, modify, deleted }

@@ -41,55 +41,5 @@ public class PostsTests {
 
     }
 
-    @Test
-//    @Transactional
-    public void testReadWithMember(){
-        Object result = postsRepository.getPostsWithMember(1L);
-        System.out.println(result);
-        Object[] arr = (Object[]) result;
-        System.out.println("-----------------------");
-        System.out.println(Arrays.toString(arr));
-    }
-
-    @Test
-    @Transactional
-    public void testGetPostsWithComment() {
-        List<Object[]> result = postsRepository.getPostsWithComment(1L);
-        for (Object[] arr : result) {
-            System.out.println(Arrays.toString(arr));
-        }
-    }
-
-    @Test
-    @Transactional
-    public void testWithMemberPage(){
-        Pageable pageable = PageRequest.of(0,10, Sort.by("post_id").descending());
-
-        Page<Object[]> result = postsRepository.getPostsWithMemberPage(pageable);
-
-        result.get().forEach(row -> {
-            Object[] arr = (Object[]) row;
-            System.out.println(Arrays.toString(arr));
-        });
-    }
-//    @Test
-//    public void getPostsWithComment(){
-//        Pageable pageable = PageRequest.of(0,10, Sort.by("id").descending());
-//
-//        Page<Object[]> result = postsRepository.getPostsWithCommentCount(pageable);
-//
-//        result.get().forEach(row -> {
-//            Object[] arr = (Object[]) row;
-//            System.out.println(Arrays.toString(arr));
-//        });
-//    }
-
-//    @Test
-//    public void testRead(){
-//        Object result = postsRepository.getPostsById(100L);
-//        Object[] arr = (Object[])result;
-//        System.out.println(Arrays.toString(arr));
-//    }
-
 
 }

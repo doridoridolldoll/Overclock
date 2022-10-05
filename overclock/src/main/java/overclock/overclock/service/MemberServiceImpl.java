@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder encoder;
 
     @Transactional //변경
-    public String join(MemberDTO memberDTO) {
+    public String memberRegister(MemberDTO memberDTO) {
         memberDTO.setPassword(BCrypt.hashpw(memberDTO.getPassword(), BCrypt.gensalt()));
         Member member = dtoToEntity(memberDTO);
         member.addMemberRole(MemberRole.USER);

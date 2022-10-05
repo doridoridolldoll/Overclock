@@ -7,12 +7,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.entity.Item;
+import overclock.overclock.entity.Posts;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
-//    @Query("select i, ii from Item i " +
-//        " left outer join ItemImg ii on ii.item = :i group by i ")
-//    Page<Object[]> getListPage(Pageable pageable);
 
     @Query("select i from Item i where i.id = :id ")
     Item findOne(Long id);
+
+    @Query(value = "SELECT i FROM Item i LEFT JOIN Posts p WHERE p.partsType =:category AND p.id = i.id")
+    Page<Posts> getItem(Pageable pageable, String category);
+
 }
