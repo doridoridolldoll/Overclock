@@ -9,7 +9,6 @@ const vuexLocal = new VuexPersistence({
   });
 
 export default createStore({
-
   state: {
     dtoList: 0,
     token: 0,

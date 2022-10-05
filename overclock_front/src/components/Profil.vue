@@ -9,14 +9,14 @@
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label for="name">이름</label>
-                    <input type="text" class="form-control" value="노인천" id="name"  required>
+                    <input type="text" class="form-control" v-model="state.name" id="name"  required>
                     <div class="invalid-feedback">
                       이름을 입력해주세요.
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="nickname">닉네임</label>
-                    <input type="text" class="form-control" value="NIC" id="nickname" placeholder="" required>
+                    <input type="text" class="form-control" v-model="state.nickname" id="nickname" required>
                     <div class="invalid-feedback">
                       닉네임을 입력해주세요.
                     </div>
@@ -25,7 +25,8 @@
       
                 <div class="mb-3">
                   <label for="email">이메일</label>
-                  <input type="email" class="form-control" value="soll9911@naver.com" id="email" placeholder="you@example.com" required>
+                  <input type="email" class="form-control" v-model="state.email" id="email"  required>
+                  {{state.email}}
                   <div class="invalid-feedback">
                     이메일을 입력해주세요.
                   </div>
@@ -33,7 +34,7 @@
   
                 <div class="mb-3">
                   <label for="password">비밀번호</label>
-                  <input type="password" class="form-control" value="@c4016532@" id="password">
+                  <input type="password" class="form-control" v-model="state.password" id="password" required>
                   <div class="invalid-feedback">
                     비밀번호를 입력해주세요.
                   </div>
@@ -41,7 +42,7 @@
   
                 <div class="mb-3">
                   <label for="repassword">비밀번호확인</label>
-                  <input type="password" class="form-control" v-model="state.repassword" id="repassword">
+                  <input type="password" class="form-control" v-model="state.repassword" id="repassword" required>
                   <div class="invalid-feedback">
                     비밀번호를 입력해주세요.
                   </div>
@@ -49,7 +50,7 @@
   
                 <div class="mb-3">
                   <label for="phone">전화번호</label>
-                  <input type="text" class="form-control" value="010-2588-6083" id="phone" placeholder="010-0000-0000" required>
+                  <input type="text" class="form-control" v-model="state.phone" id="phone" required>
                   <div class="invalid-feedback">
                     전화번호를 입력해주세요.
                   </div>
@@ -57,7 +58,7 @@
   
                 <div class="mb-3">
                   <label for="city">도시</label>
-                  <input type="text" class="form-control" value="부산광역시 사하구" id="city" required>
+                  <input type="text" class="form-control" v-model="state.city" id="city" required>
                   <div class="invalid-feedback">
                     도시를 입력해주세요.
                   </div>
@@ -65,7 +66,7 @@
       
                 <div class="mb-3">
                   <label for="street">도로명</label>
-                  <input type="text" class="form-control" value="낙동대로224번길" id="street" required>
+                  <input type="text" class="form-control" v-model="state.street" id="street" required>
                   <div class="invalid-feedback">
                     도로명 주소를 입력해주세요.
                   </div>
@@ -73,12 +74,12 @@
       
                 <div class="mb-3">
                   <label for="zipcode">우편번호</label>
-                  <input type="text" class="form-control" value="22222" id="zipcode" required>
+                  <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" required>
                   <div class="invalid-feedback">
                     우편번호를 입력해주세요.
                   </div>
                 </div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler" >수정</button>
+                <button class="btn btn-primary btn-lg btn-block" @click="modify" >수정</button>
               </form>
             </div>
           </div>
@@ -91,12 +92,14 @@
   import {reactive} from '@vue/reactivity'
   import axios from 'axios'
   import router from '@/router'
+  import { useStore } from 'vuex'
   export default {
     name:'ToProfil',
   setup(){
+    const store = useStore();
     const state = reactive({
-      id          : '',
-      email       : '',
+      id          : store.state.dtoList.id,
+      email       : store.state.email,
       password    : '',
       repassword  : '', 
       name        : '',
@@ -106,16 +109,14 @@
       street      : '',
       zipcode     : '',
     })
-    const joinHandler = async() => {
-      console.log("asas")
-      const url = './member/memberRegister'
-      const headers = {
+    const headers = {
         "Content-Type" : "application/json",
       }
-      const body = {
-        id : state.id,
+    const body = {
+        id : store.state.id,
         email : state.email,
         password : state.password,
+        repassword : state.repassword,
         name : state.name,
         phone : state.phone,
         city : state.city,
@@ -123,6 +124,21 @@
         zipcode : state.zipcode,
         nickname : state.nickname,
       }
+    axios.post("/api/mList", body, {headers}).then(function(res){
+      state.name = res.data[0].name
+      state.nickname = res.data[0].nickname
+      state.phone = res.data[0].phone
+      state.city = res.data[0].city
+      state.street = res.data[0].street
+      state.zipcode = res.data[0].zipcode
+      console.log(res.data)
+      console.log(state.phone)
+      console.log(state.city)
+    })
+    const modify = async() => {
+      const url = '/api/mModify/send'
+
+
       console.log(body)
       // if (state.email === '') {
       // alert('이메일을 입력해주세요'); 
@@ -163,13 +179,13 @@
       const response = await axios.post(url, body, {headers})
       // console.log(response.data)
       if(response.status === 200){
-        alert('회원가입이 되었습니다.');
+        alert('회원정보가 수정되었습니다.');
       } else {
         alert('회원가입에 실패하였습니다.')
       }
       router.push({name: "Login"});
     }
-    return {joinHandler,state}
+    return {modify ,state}
   }
   }
   </script>

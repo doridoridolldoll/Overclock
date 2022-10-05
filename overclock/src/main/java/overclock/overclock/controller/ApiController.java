@@ -5,8 +5,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.expression.Lists;
+import overclock.overclock.domain.PcPayRequest;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Comment;
 import overclock.overclock.entity.Member;
@@ -156,7 +158,7 @@ public class ApiController {
      * 글 수정
      */
     @RequestMapping(value = "/modify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> articleModify(@RequestBody PostsDTO dto) {
+    public ResponseEntity<String> PostsModify(@RequestBody PostsDTO dto) {
         log.info("asasaas :" + dto);
         String articleInfo = postsService.PostsModify(dto);
         return new ResponseEntity<>(articleInfo, HttpStatus.OK);
@@ -171,6 +173,26 @@ public class ApiController {
         Long articleInfo = postsService.PostsDelete(dto);
         return new ResponseEntity<>(articleInfo, HttpStatus.OK);
     }
+    @RequestMapping(value = "/cModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> CommentModify(@RequestBody CommentDTO dto) {
+        log.info("asasaas :" + dto);
+        String commentInfo = commentService.CommentModify(dto);
+        return new ResponseEntity<>(commentInfo, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/cDelete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> CommentDelete(@RequestBody CommentDTO dto) {
+        Long commentInfo = commentService.CommentDelete(dto);
+        return new ResponseEntity<>(commentInfo, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/mModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> MemberModify(@RequestBody MemberDTO dto) {
+        log.info("asasaas :" + dto);
+        String memberInfo = memberService.modify(dto);
+        return new ResponseEntity<>(memberInfo, HttpStatus.OK);
+    }
 
     //소셜 로그인 후 회원정보수정
 //    @RequestMapping(value = "/modify", method = RequestMethod.POST,
@@ -183,5 +205,11 @@ public class ApiController {
 //    }
 
 
+    @RequestMapping(value = "/mList", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List> mList(@RequestBody MemberDTO dto) {
+        log.info("asasaas :" + dto);
+        List email = memberService.mList(dto);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+    }
 
 }

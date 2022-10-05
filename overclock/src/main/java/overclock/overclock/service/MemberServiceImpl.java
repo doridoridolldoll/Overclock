@@ -22,16 +22,6 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder;
 
-    @Override
-    public String modify(MemberDTO memberDTO) {
-        log.info("Member DTO : {}",memberDTO);
-        Optional<Member> modifyList = memberRepository.findByEmail(memberDTO.getEmail(), memberDTO.isFromSocial());
-        log.info(modifyList);
-
-
-        return null;
-    }
-
     @Transactional //변경
     public String memberRegister(MemberDTO memberDTO) {
         memberDTO.setPassword(BCrypt.hashpw(memberDTO.getPassword(), BCrypt.gensalt()));
@@ -41,11 +31,41 @@ public class MemberServiceImpl implements MemberService {
         return member.getEmail();
     }
 
-//    private void validateDuplicateMember(MemberDTO memberDTO) {
+    @Override
+    public String modify(MemberDTO dto) {
+        log.info("dto : " + dto);
+        Member entity = memberRepository.getReferenceById(dto.getId());
+        log.info("entity : " + entity);
+        MemberDTO getById = EntityToDTO(entity);
+        log.info("getById : " + getById);
+        getById.setPassword(dto.getPassword());
+        getById.setNickname(dto.getNickname());
+        getById.setStreet(dto.getStreet());
+        getById.setCity(dto.getCity());
+        getById.setZipcode(dto.getZipcode());
+
+        Member modifiedMember = dtoToEntity(getById);
+        memberRepository.save(modifiedMember);
+
+        return modifiedMember.getId().toString();
+    }
+
+    //    private void validateDuplicateMember(MemberDTO memberDTO) {
 //
 //        List<Member> findMembers = memberRepository.findByName(memberDTO.getName());
 //        if (!findMembers.isEmpty()) {
 //            throw new IllegalStateException("이미 존재하는 회원입니다.");
 //        }
 //    }
+
+
+    @Override
+    public List mList(MemberDTO dto) {
+        List<Member> result = memberRepository.findByEmail(dto.getEmail());
+        log.info("dto.getEmail : {}", result);
+        if (result.isEmpty()) {
+            return null;
+        }
+        return result;
+    }
 }

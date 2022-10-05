@@ -84,6 +84,7 @@ export default {
           store.commit("setId", state.form.id);
            console.log(state.form.id);
           store.commit("setEmail", res.data.email);
+
             store.commit("setRole", "2")
           // store.commit("setrole) 
           alert("로그인되었습니다.");

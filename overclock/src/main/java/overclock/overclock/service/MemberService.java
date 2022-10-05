@@ -1,5 +1,6 @@
 package overclock.overclock.service;
 
+import overclock.overclock.dto.CommentDTO;
 import overclock.overclock.dto.LoginDTO;
 import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.entity.Member;
@@ -11,7 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface MemberService {
-    String modify(MemberDTO memberDTO);
+    String modify(MemberDTO dto);
+    String join(MemberDTO memberDTO);
+
+    List mList(MemberDTO memberDTO);
+
     String memberRegister(MemberDTO memberDTO);
     default Member dtoToEntity(MemberDTO dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
@@ -48,16 +53,6 @@ public interface MemberService {
                 .build();
                 return memberDTO;
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

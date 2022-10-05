@@ -7,6 +7,7 @@
       </div>
       <div class="commentContent mt-3">
         <span class="commentText mt-1">{{list.content}}</span>
+         <a :href="'./CommentModify?id=' + list.id">수정</a>
       </div>
     </div>
 </template>
@@ -19,6 +20,7 @@ export default {
     name:'ToCard',
     props: ["memberId","postsId"],
     setup(props){
+
       const state = reactive({
         id : null,
         content: null,

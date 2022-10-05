@@ -42,6 +42,7 @@ import overclock.overclock.dto.*;
 import overclock.overclock.entity.*;
 import overclock.overclock.model.BoardType;
 import overclock.overclock.model.search;
+import overclock.overclock.repository.CommentRepository;
 import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
@@ -61,7 +62,7 @@ public class PostsServiceImpl implements PostsService {
 
     private final PostsRepository repository;
     private final ItemImgRepository itemImgRepository;
-
+    private final CommentRepository commentRepository;
 
     @Transactional
     @Override
@@ -210,13 +211,10 @@ public class PostsServiceImpl implements PostsService {
     @Transactional
     @Override
     public Long PostsDelete(PostsDTO dto) {
-
-
         Long id = dto.getId();
         log.info("id----------- :" + id);
         repository.deleteById(id);
         return id;
-
     }
 }
 

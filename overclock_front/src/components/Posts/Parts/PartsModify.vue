@@ -19,18 +19,15 @@
 </template>
 
 <script>
-    // import router from "@/router";
     import axios from "axios";
-  import { useStore } from 'vuex'
-    // import FileUpload from '../../FileUpload.vue'
-import { reactive } from "vue";
+    import { useStore } from 'vuex'
+    import { reactive } from "vue";
 
     export default {
         name: "WritePage",
         
         setup() {
             const store = useStore();
-            console.log(store.state.dtoList.id);
             const state = reactive({
                 id: store.state.dtoList.id,
                 title: '',

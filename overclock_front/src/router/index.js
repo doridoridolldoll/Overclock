@@ -10,7 +10,7 @@ import QnA from "@/components/QnA.vue"
 import QnAPost from "@/components/QnAPost.vue"
 
 // //결제
-// import PcPay from '@/components/Pay/PcPay.vue'
+import PcPay from '@/components/Pay/PcPay.vue'
 // import PayComplete from '@/components/Pay/PayComplete.vue'
 
 //부품
@@ -34,6 +34,10 @@ import Free from "@/components/Posts/Free/Free.vue"
 import FreePost from "@/components/Posts/Free/FreePost.vue"
 import FreeRePost from "@/components/Posts/Free/FreeRePost.vue"
 
+//댓글
+import CommentModify from "@/components/Posts/Comment/CommentModify.vue"
+
+//검색
 import SearchList from "@/components/SearchList.vue"
 
 
@@ -57,17 +61,10 @@ const routes = [
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
     {path:"/search", name: 'SearchList', component: SearchList},
-    {path:"/partsModify", name: 'PartsModify', component: PartsModify}
-    // {
-    //     path: '/PcPay',
-    //     component: PcPay,
-    //     name: 'PcPay'
-    // },
-    // {
-    //     path: '/PayComplete',
-    //     component: PayComplete,
-    //     name: 'PayComplete'
-    // }        
+    {path:"/partsModify", name: 'PartsModify', component: PartsModify},
+    {path:"/commentModify", name: 'CommentModify', component: CommentModify},
+    {path: '/PcPay', name: 'PcPay', component: PcPay},
+  
     ]
   
   const router = createRouter({
