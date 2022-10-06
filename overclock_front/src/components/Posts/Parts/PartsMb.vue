@@ -11,9 +11,10 @@
           <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
-            <!-- <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)"> -->
+          
             <!-- <a  @click="Join(list,i)"> -->
             <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
+
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
@@ -24,7 +25,6 @@
               <div></div>
             </div>
             </a>
-          <!-- </router-link> -->
           </div>
             <div class="page">
               <ul class="pagination">

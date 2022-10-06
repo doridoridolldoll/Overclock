@@ -23,7 +23,6 @@ public class AuthMemberDTO extends User implements OAuth2User {
     private String curl;
 
     private boolean fromSocial;
-    private Map<String, Object> attr; // Google에서 받은 정보 담는 곳
 
     public AuthMemberDTO(
          String username, String password, boolean fromSocial, Collection<? extends GrantedAuthority> authorities, Map<String, Object> attr) { // 구글에서 넘어온 정보

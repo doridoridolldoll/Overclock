@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import Main from "@/components/Main.vue"
 
+import Logout from "@/components/Logout.vue"
 import Login from "@/components/MemberShip/Login.vue"
 import Join from "@/components/MemberShip/Join.vue"
 
@@ -10,6 +11,7 @@ import MbJoin from "@/components/MemberShip/MbJoin.vue"
 
 import CpLogin from "@/components/MemberShip/MbLogin.vue"
 import CpJoin from "@/components/MemberShip/MbJoin.vue"
+
 import Profil from "@/components/Profil.vue"
 
 //고객센터
@@ -66,6 +68,7 @@ const routes = [
     {path:"/cplogin",name:"CpLogin", component: CpLogin}, 
     {path:"/cpjoin",name:"CpJoin", component: CpJoin},
     {path:"/login",name:"Login", component: Login}, 
+    {path:"/logout",name:"Logout", component: Logout}, 
     {path:"/join",name:"Join", component: Join},
     {path:"/qna",name:"QnA", component: QnA},
     {path:"/qnapost",name:"QnAPost", component: QnAPost},
@@ -74,10 +77,12 @@ const routes = [
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
     {path:"/search", name: 'SearchList', component: SearchList},
+
+    
+
     {path:"/partsModify", name: 'PartsModify', component: PartsModify},
     {path:"/commentModify", name: 'CommentModify', component: CommentModify},
     {path:'/PcPay', name: 'PcPay', component: PcPay},
-  
     ]
   
   const router = createRouter({

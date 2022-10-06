@@ -8,17 +8,31 @@
       <button type="button" class="btn btn-outline-dark" @click="star()">평점순</button>
       <button type="button" class="btn btn-outline-dark" @click="latest()">최신순</button>
     </div>
+    <div>
+    <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
+          <label for="searching"><i class="bi bi-search"></i></label>
+          <input id="searching" type="text" v-model="state.a" class="form-control border-0 bg-white" @submit="searchingAxios()">
+        </form>
+      </div>
     <!-- 검색카드 -->
     <div class="mb-4 mt-5 ms-4 ps-1 text-center" v-if="state.notSearchWord">
       <h1>검색 결과가 없습니다</h1>
     </div>
+    <hr>
     <div class="row row-cols-3">
       <div v-for="(card, id) in state.cards" :key="id">
         <Cards :card="card"></Cards>
       </div>
     </div>
+    <div class="page">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
+        <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
+        <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
+      </ul>
+    </div>  
   </div>
-<!--  </div>-->
+  <!--  </div>-->
 </template>
 
 <script>
@@ -41,10 +55,36 @@ export default {
       notSearchWord : false,
       reqPage: 0,
       pageTotalCount: 0,
+      a:"",
+      end: null,
+      next: null,
+      page: null,
+      pageList: null,
+      prev: null,
+      size: null,
+      start: null,
+      totalPage: null,
     })
+
     const router = useRouter()
+
     let searchword = new URLSearchParams(window.location.search).get("cards");
 
+    // let search = reactive({
+    //   context:"",
+    // })
+
+    function searchingAxios(){
+      if (state.a.trim().length == 0){
+        return
+      }
+      async function routing (){
+        await router.push(`/search?cards=${state.a}`)
+        await router.go(0);
+        console.log("이동(app)")
+      }
+    routing();
+    }
 
     //getCards
     async function getCardsInformation(){
@@ -56,18 +96,16 @@ export default {
         search: searchword,
         reqPage: state.reqPage
       }
-      console.log(body)
+      // console.log(body)
       // if (state.reqPage == 0) state.cards = null;
       await axios.post(url, body, {headers}).then(function (res){
         state.pageTotalCount = res.data.pageTotalCount;
-        console.log("======================+===")
-        console.log(res);
+        // console.log("======================+===")
+        // console.log(res);
         if (body.reqPage == 0) {
+          // console.log("===========");
+          // console.log(res.data)
           state.cards = res.data.articles;
-        } else {
-          for (let i = 0; i < 9; i++) {
-            state.cards.push(res.data.articles[i]);
-          }
         }
       })
     }
@@ -110,9 +148,20 @@ export default {
 
       getCardsInformation()
 
-  return {state, view, latest, star, like }
+  return {state, view, latest, star, like, searchingAxios }
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.btn-group{
+  margin-top: 100px;
+}
+.pagination{
+		width: 100px;
+		margin: auto;
+	}
+  .page{
+    margin-top: 30px;
+  }
+</style>

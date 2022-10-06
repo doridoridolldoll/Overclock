@@ -17,10 +17,12 @@
             <i class="bi bi-person-square" style="font-size:x-large"></i>
             <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><router-link to="/profil" >내정보</router-link></li>
-              <li><a href="#">주문내역</a></li>
-              <li><router-link to="/login">로그인</router-link></li>
-              <li><router-link to="/join">회원가입</router-link></li>
+              <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li>
+              <li><a href="#" v-if="$store.state.token">주문내역</a></li>
+              <li><router-link to="/login" v-if="!$store.state.token">로그인</router-link></li>
+              <li><router-link to="/logout" @click="logout()" v-if="$store.state.token">
+                로그아웃</router-link></li>
+              <li><router-link to="/join" v-if="!$store.state.token">회원가입</router-link></li>
             </ul>
           </li> 
         </ul>
@@ -36,9 +38,19 @@
 
 <script>
 import MobileNav from './components/MobileNav.vue';
+import router from './router';
+import store from './store';
 export default {
     name: "App",
     setup() {
+      const logout =()=>{
+      store.commit('setToken',"");
+      store.commit('setId',0);
+      store.commit('setEmail',0);
+      store.commit("setRole", "")
+      router.push({path:"/logout"})
+    }
+      return{logout}
     },
     components: { MobileNav }
 }
