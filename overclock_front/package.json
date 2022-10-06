@@ -57,7 +57,8 @@
         {
           "ignores": [
             "Contact",
-            "Comment"
+            "Comment",
+            "Logout"
           ]
         }
       ]

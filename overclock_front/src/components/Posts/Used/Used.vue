@@ -70,7 +70,6 @@
                 <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
               </ul>
             </div>
-        
           </div>
         </div>
 	</section>
@@ -85,6 +84,7 @@ import axios from "axios";
 import Contact from "@/components/Contact.vue";
 import { useRouter } from "vue-router";
 import { useMeta } from "vue-meta";
+import store from '@/store';
 export default {
     name: "ToUsed",
     setup() {
@@ -93,14 +93,17 @@ export default {
       let search = reactive({
       context:"",
     })
+
     function searchingAxios(){
       if (search.context.trim().length == 0){
         return
       }
 
       async function routing (){
-        await router.push(`/search?cards=${search.context}`)
-        console.log("이동(app)")
+        await router.push(`/search?cards=${search.context}`);
+  
+        await router.go(0);
+        // console.log("이동(app)")
       }
     routing();
     }
@@ -121,6 +124,7 @@ export default {
           totalPage: null,
           partsType: "used",
       });
+
       const url = "/api/getlist";
       const headers = {
           "Content-Type": "application/json"
@@ -128,8 +132,8 @@ export default {
       function getUserList(page) {
           axios.post(url, { page: page, category: "used" }, { headers })
               .then(function (res) {
-              console.log(page + "asdasdasd");
-              console.log(res);
+              // console.log(page + "asdasdasd");
+              // console.log(res);
               state.dtoList = res.data.dtoList,
                   state.end = res.data.end,
                   state.next = res.data.next,
@@ -144,7 +148,7 @@ export default {
       // var count = 0;
       axios.post(url, { page: 1, category: "used" }, { headers })
           .then(function (res) {
-          console.log(res);
+          // console.log(res);
           state.dtoList = res.data.dtoList,
               state.end = res.data.end,
               state.next = res.data.next,
@@ -154,6 +158,18 @@ export default {
               state.size = res.data.size,
               state.start = res.data.start,
               state.totalPage = res.data.totalPage;
+              for (let i = 0; i < state.dtoList.length; i++) {
+                console.log(search.context);
+                if(search.context == state.dtoList[i].title){
+                  store.state.img[i] = state.dtoList[i].imageDTOList[0]
+                  console.log(i + "번쨰");
+                  console.log(store.state.img[i]);
+                }
+                // console.log(state.dtoList[i].title);
+              }
+
+      // console.log(store.state.img);
+      // console.log("asd");
           showResult(res.data);
       });
       const showResult = async (arr) => {

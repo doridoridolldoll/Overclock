@@ -7,21 +7,24 @@
         <p>MB</p>
       </div>
 
-      <div class="row">
-        <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
-        v-for="(list,i) in state.dtoList" :key="(list,i)"
-        >
-          <!-- <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)"> -->
-          <!-- <a  @click="Join(list,i)"> -->
-          <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
-          <div class="icon-box">
-            <div class="icon"><img v-bind:src="state.img[i]" /></div>
-            <br><br><br><br><br>
-            <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-            <span><h4>{{list.content}}</h4></span>
-            <span><h5>{{state.price[i]}}</h5></span>
-            <span><h5>할인가 4,300,000원</h5></span>
-            <div></div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
+          v-for="(list,i) in state.dtoList" :key="(list,i)"
+          >
+          
+            <!-- <a  @click="Join(list,i)"> -->
+            <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
+
+            <div class="icon-box">
+              <div class="icon"><img v-bind:src="state.img[i]" /></div>
+              <br><br><br><br><br>
+              <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
+              <span><h4>{{list.content}}</h4></span>
+              <span><h5>{{state.price[i]}}</h5></span>
+              <span><h5>할인가 4,300,000원</h5></span>
+              <div></div>
+            </div>
+            </a>
           </div>
           </a>
         <!-- </router-link> -->
@@ -89,8 +92,6 @@ function getUserList(page){
   })
 }
 
-
-
 axios.post(url, { page: 1, category: "mb" }, { headers })
           .then(function (res) {
           console.log(res);
@@ -136,15 +137,37 @@ axios.post(url, { page: 1, category: "mb" }, { headers })
         // console.log(store.item.price);
     })
 
-    //조회수 처리
-    const url2 = `/api/read/${list.id}`;
-     const headers2 = {
-       "Content-Type": "application/json; charset=utf-8"
-     };
-    
-    axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
-       store.commit('setdtoList',res.data);
-    })
+    function Join(list,i){
+      // console.log(list);
+      const body = {
+        category:"mb"
+      }
+      axios.post("/api/partsItemList", body, {headers}).then(function(res){
+        // store.state.dtoList = res.data;
+        console.log("===========");
+        console.log(res.data);
+        store.commit("setPrice", ...[res.data[i].price]);
+        store.state.price = res.data[i].price;
+          // console.log(store.item.price);
+      })
+
+      //조회수 처리
+      const url2 = `/api/read/${list.id}`;
+	    const headers2 = {
+	      "Content-Type": "application/json; charset=utf-8"
+	    };
+      
+      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
+        store.state.dtoList = res.data;
+        // store.b.dto = res.data;
+        // store.state.posts.d.dto = res.data;
+        store.commit('setdtoList',...[res.data]);
+        console.log("asdasd");
+        console.log(store.state.dtoList);
+        // console.log(store.b.dto);
+      })
+    }
+    return {state, store, getUserList,Join}
   }
   return {state, store, getUserList,Join}
 }

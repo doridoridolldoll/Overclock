@@ -29,8 +29,7 @@
 
                     <PcPay
                       :price="state.price">
-                    </PcPay>
-                    
+                      </PcPay>               
                   </ul>
                 </div>
               </div>
@@ -52,7 +51,10 @@
                 </div>
                 <div>{{state.price}}</div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
-                <router-link to="/PcPay" class="btn btn-primary">구매</router-link>
+
+                <router-link to="" class="btn1 btn btn-primary ">구매</router-link>
+                <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
+
                 <Comment
               :dtoList="state.dtoList"
             />
@@ -86,6 +88,7 @@ import PcPay from '@/components/Pay/PcPay.vue';
         // // console.log(route.query.name);
         // let asd = JSON.parse(route.query.name.join("").split(","));
         let list = store.state.dtoList;
+        console.log(store.state.dtoList);
         state.dtoList = list;
         // state.postsId = state.dtoList.id
         // console.log(state.postsId);
@@ -95,9 +98,8 @@ import PcPay from '@/components/Pay/PcPay.vue';
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
-        for (let i = 0; i < list.imageDTOList; i++) {
-        img = `${url}?fileName=${list.imageDTOList[i].imageURL}`;
-        }
+        img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+        console.log(list.imageDTOList);
         return {state,img};
     }
 }
@@ -139,5 +141,11 @@ p{
 }
 #hero{
     overflow: scroll;
+}
+.btn1{
+  margin-right: 10px;
+}
+.btn2{
+  margin-right: 10px;
 }
 </style>

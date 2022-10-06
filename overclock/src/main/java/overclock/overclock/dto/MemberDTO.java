@@ -25,6 +25,8 @@ public class MemberDTO {
     private String street;
     private String zipcode;
 
+    private int crn;
+
     @Builder.Default
     private Set<String> roleSet = new HashSet<>();
 }

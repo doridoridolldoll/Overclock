@@ -15,8 +15,8 @@
             <ul>
               <li><router-link to="/profil" >내정보</router-link></li>
               <li><a href="#">주문내역</a></li>
-              <li><router-link to="/login">로그인</router-link></li>
-              <li><router-link to="/join">회원가입</router-link></li>
+              <li><router-link to="/mblogin">로그인</router-link></li>
+              <li><router-link to="/mbjoin">회원가입</router-link></li>
             </ul>
           </li> 
         </ul>

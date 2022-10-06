@@ -145,7 +145,7 @@ export default {
     border-radius: 10px;
   }
   .btn7{
-    margin-top: 0rem;
+    margin-top: 20px;
   }
 #hero{
     overflow: scroll;

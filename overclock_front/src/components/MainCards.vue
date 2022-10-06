@@ -1,12 +1,7 @@
 <template>
 	<div class="col maincards">
 		<div class="card-1 card border-0 w-100 mb-5">
-			<div class="wrapper">
-				<div class="date">
-					<span class="day">{{date}}</span>
-					<span class="month">{{month}}</span>
-					<span class="year">{{year}}</span>
-				</div>
+			<div class="wrapper" :style="'background-image: url('+store.state.axiosLink+'/images/read/'+image+'); background-size:cover;'">
 				<div class="data">
 					<div class="content">
 						<div @click="read()">
@@ -14,16 +9,7 @@
 							<h3 class="title"><a>{{ title }}</a></h3>
 							<p class="text" v-html="props.card.content"></p>
 						</div>
-						<label :for="props.cardinfo" class="menu-button"><span></span></label>
 					</div>
-					<input type="checkbox" :id="props.cardinfo" />
-					<ul class="menu-content">
-						<li>
-							<a href="#" class="bi bi-bookmark"></a>
-						</li>
-						<li><a href="#" class="bi bi-suit-heart-fill"><span ref="favCount">47</span></a></li>
-						<li><a href="#" class="bi bi-exclamation-lg"></a></li>
-					</ul>
 				</div>
 			</div>
 		</div>
@@ -31,21 +17,16 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, reactive } from "vue";
 import router from "@/router";
+import store from "@/store";
 
 const props = defineProps({
   card: Object,
 })
 
-const monthNames = ["JAN", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-];
-let regdate = new Date(Date.parse(props.card.regDate))
-let year = regdate.getFullYear();
-let date = regdate.getDate();
-let month = monthNames[regdate.getMonth()];
 let title = titleLength(props.card.title);
+console.log(props.card)
 
 
 function titleLength(title){
@@ -55,12 +36,32 @@ function titleLength(title){
     return title.substr(0, 30) + "...";
   }
 }
+let state = reactive({
+      img: store.state.img,
+    })
+	console.log(state.img)
+let image = imageslice(props.card.fileName);
 
-
+function imageslice(a){
+  if(a != null){
+    return a.slice(0, -1)
+  } else { return "basic.png"}
+}
 
 function read() {
   router.push(`/read?article=${props.card.id}`)
 }
+
+// const showResult = async (arr) => {
+//           const displayUrl = "/display";
+//           const url = `http://localhost:9090${displayUrl}`;
+//           let str2 = "";
+//           for (let i = 0; i < arr.dtoList.length; i++) {
+//               str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
+// 			  console.log(str2)
+//               state.img[i] = str2;
+//           }
+//       };
 
 </script>
 
@@ -184,9 +185,6 @@ h3 {
 	}
 }
 .card-1 {
-	.wrapper {
-		background: url(https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80) 20% 1% / cover no-repeat;
-	}
 
 	.date {
 		position: absolute;

@@ -16,7 +16,7 @@ export default {
   props: ["price"],
   setup(props){
     const state = reactive({
-      price: props.price
+      price: props.price,
     });
     console.log(state.price);
     document.cookie = "safeCookie1=foo; SameSite=Lax";
