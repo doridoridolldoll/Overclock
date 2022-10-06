@@ -47,8 +47,8 @@
                     </p>
                 </div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
-                <router-link to="" class="btn btn-primary">구매</router-link>
-                <router-link to="/partsModify" class="btn btn-primary">수정</router-link>
+                <router-link to="" class="btn1 btn btn-primary ">구매</router-link>
+                <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
                 <Comment
               :dtoList="state.dtoList"
             />  
@@ -129,5 +129,11 @@ p{
 }
 #hero{
     overflow: scroll;
+}
+.btn1{
+  margin-right: 10px;
+}
+.btn2{
+  margin-right: 10px;
 }
 </style>

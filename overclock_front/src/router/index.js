@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import Main from "@/components/Main.vue"
 import Login from "@/components/Login.vue"
+import Logout from "@/components/Logout.vue"
 import Join from "@/components/Join.vue"
 import Profil from "@/components/Profil.vue"
 
@@ -36,6 +37,8 @@ import FreeRePost from "@/components/Posts/Free/FreeRePost.vue"
 
 import SearchList from "@/components/SearchList.vue"
 
+import BusiJoin from "@/components/Business/BusiJoin.vue"
+import BusiLogin from "@/components/Business/BusiLogin.vue"
 
 const routes = [
     {path:"/",name:"Main", component: Main}, 
@@ -49,6 +52,7 @@ const routes = [
     {path:"/freepost",name:"FreePost", component: FreePost}, 
     {path:"/freerepost",name:"FreeRePost", component: FreeRePost}, 
     {path:"/login",name:"Login", component: Login}, 
+    {path:"/logout",name:"Logout", component: Logout}, 
     {path:"/join",name:"Join", component: Join},
     {path:"/qna",name:"QnA", component: QnA},
     {path:"/qnapost",name:"QnAPost", component: QnAPost},
@@ -57,6 +61,10 @@ const routes = [
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
     {path:"/search", name: 'SearchList', component: SearchList},
+    
+    {path:"/busijoin", name: 'BusiJoin', component: BusiJoin},
+    {path:"/busilogin", name: 'BusiLogin', component: BusiLogin},
+    
     {path:"/partsModify", name: 'PartsModify', component: PartsModify}
     // {
     //     path: '/PcPay',

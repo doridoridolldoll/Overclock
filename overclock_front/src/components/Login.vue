@@ -70,11 +70,11 @@ export default {
       const body = { email: state.form.email, password: state.form.password, role: state.form.role };
       try {
         await axios.post(url, body, { headers }).then(function (res) {
+   
           store.commit("setToken", res.data.token);
           store.commit("setId", res.data.id);
           store.commit("setEmail", res.data.email);
-            store.commit("setRole", "2")
-          // store.commit("setrole)
+          store.commit("setRole", "2")
           console.log(res.data);
           alert("로그인되었습니다.");
           router.push(`/`);
