@@ -31,6 +31,16 @@ public class MemberServiceImpl implements MemberService {
         return member.getEmail();
     }
 
+//    @Override
+//    public String companyRegister(MemberDTO memberDTO) {
+//        log.info("company MemberDTO : {}", memberDTO);
+//        memberDTO.setPassword(BCrypt.hashpw(memberDTO.getPassword(), BCrypt.gensalt()));
+//        Member member = dtoToEntity(memberDTO);
+//        member.addMemberRole(MemberRole.COMPANY);
+//        memberRepository.save(member);
+//        return member.getEmail();
+//    }
+
     @Override
     public String modify(MemberDTO dto) {
         log.info("dto : " + dto);

@@ -47,6 +47,16 @@ public class ApiController {
         String email = memberService.memberRegister(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
+    /**
+     * 업체 회원가입
+     */
+//    @RequestMapping(value = "/companyRegister", method = RequestMethod.POST,
+//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> companyRegister(@RequestBody MemberDTO dto){
+//        log.info("api/companyRegister...:" + dto);
+//        String email = memberService.companyRegister(dto);
+//        return new ResponseEntity<>(email, HttpStatus.OK);
+//    }
 
     /**
      * 일반 게시판 목록 처리

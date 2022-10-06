@@ -4,7 +4,6 @@ import VuexPersistence from 'vuex-persist'
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
-  key: "TOKEN",
 
   });
 
@@ -34,10 +33,14 @@ export default createStore({
     },
     setdtoList(state, payload){
       state.dtoList = payload
+      console.log(state.dtoList);
     },
     setRole(state, payload){
       state.role = payload
-    }
+    },
+    setPrice(state, payload){
+      state.price = payload
+    },
   },
   actions: {
     

@@ -1,12 +1,12 @@
 <template>
-  <section id="hero" class="d-flex align-items-center justify-content-center">
+
     <div
       id="back"
       class="d-flex flex-column form-floating"
       action="login"
       method="post"
     >
-    <h3>로그인</h3>
+    <h3>일반 로그인</h3>
       <div class="input-group idsection px-5 my-2">
         <input
           class="form-control"
@@ -36,7 +36,6 @@
         </button>
       </div>
     </div>
-  </section>
 </template>
 <script>
 import { reactive } from "@vue/reactivity";
@@ -49,7 +48,7 @@ export default {
   setup() {
     const state = reactive({
       form: {
-        id: "1",
+        id: "",
         email: "",
         password: "",
         role: "2",
@@ -66,23 +65,16 @@ export default {
       }
 
 
-
-
-
-
-
-
-
       const url = "./member/login"
       const headers = { "Content-Type": "application/json; charset=utf-8;"}
 
-      const body = {id:state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
+      const body = {id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
       try {
         await axios.post(url, body, { headers }).then(function (res) {
           store.commit("setToken", res.data.token);
-         
-          store.commit("setId", state.form.id);
-           console.log(state.form.id);
+          store.commit("setId", res.data.id);
+          state.form.id = res.data.id;
+          // console.log(res.data);
           store.commit("setEmail", res.data.email);
 
             store.commit("setRole", "2")

@@ -88,9 +88,6 @@ export default {
       showResult(res.data)
     })
   }
-
-
-
   axios.post(url, { page: 1, category: "mb" }, { headers })
             .then(function (res) {
             console.log(res);
@@ -134,9 +131,11 @@ export default {
         category:"mb"
       }
       axios.post("/api/partsItemList", body, {headers}).then(function(res){
-          console.log(res.data);
-          store.state.price = res.data[i].price;
-          console.log(res.data[i].price);
+        // store.state.dtoList = res.data;
+        console.log("===========");
+        console.log(res.data);
+        store.commit("setPrice", ...[res.data[i].price]);
+        store.state.price = res.data[i].price;
           // console.log(store.item.price);
       })
 
@@ -147,7 +146,13 @@ export default {
 	    };
       
       axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
-         store.commit('setdtoList',res.data);
+        store.state.dtoList = res.data;
+        // store.b.dto = res.data;
+        // store.state.posts.d.dto = res.data;
+        store.commit('setdtoList',...[res.data]);
+        console.log("asdasd");
+        console.log(store.state.dtoList);
+        // console.log(store.b.dto);
       })
     }
     return {state, store, getUserList,Join}

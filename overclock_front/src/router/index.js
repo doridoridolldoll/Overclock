@@ -1,8 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router"
 
 import Main from "@/components/Main.vue"
-import Login from "@/components/Login.vue"
-import Join from "@/components/Join.vue"
+
+import Login from "@/components/MemberShip/Login.vue"
+import Join from "@/components/MemberShip/Join.vue"
+
+import MbLogin from "@/components/MemberShip/MbLogin.vue"
+import MbJoin from "@/components/MemberShip/MbJoin.vue"
+
+import CpLogin from "@/components/MemberShip/MbLogin.vue"
+import CpJoin from "@/components/MemberShip/MbJoin.vue"
 import Profil from "@/components/Profil.vue"
 
 //고객센터
@@ -41,6 +48,8 @@ import CommentModify from "@/components/Posts/Comment/CommentModify.vue"
 import SearchList from "@/components/SearchList.vue"
 
 
+
+
 const routes = [
     {path:"/",name:"Main", component: Main}, 
     {path:"/parts",name:"Parts", component: Parts}, 
@@ -52,6 +61,10 @@ const routes = [
     {path:"/free",name:"Free", component: Free}, 
     {path:"/freepost",name:"FreePost", component: FreePost}, 
     {path:"/freerepost",name:"FreeRePost", component: FreeRePost}, 
+    {path:"/mblogin",name:"MbLogin", component: MbLogin}, 
+    {path:"/mbjoin",name:"MbJoin", component: MbJoin},
+    {path:"/cplogin",name:"CpLogin", component: CpLogin}, 
+    {path:"/cpjoin",name:"CpJoin", component: CpJoin},
     {path:"/login",name:"Login", component: Login}, 
     {path:"/join",name:"Join", component: Join},
     {path:"/qna",name:"QnA", component: QnA},
@@ -63,7 +76,7 @@ const routes = [
     {path:"/search", name: 'SearchList', component: SearchList},
     {path:"/partsModify", name: 'PartsModify', component: PartsModify},
     {path:"/commentModify", name: 'CommentModify', component: CommentModify},
-    {path: '/PcPay', name: 'PcPay', component: PcPay},
+    {path:'/PcPay', name: 'PcPay', component: PcPay},
   
     ]
   
