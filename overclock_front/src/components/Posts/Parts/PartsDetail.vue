@@ -29,7 +29,8 @@
 
                     <PcPay
                       :price="state.price">
-                      </PcPay>               
+                      </PcPay>
+                    
                   </ul>
                 </div>
               </div>

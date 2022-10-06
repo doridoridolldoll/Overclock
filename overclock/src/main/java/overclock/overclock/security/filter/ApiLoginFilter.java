@@ -88,7 +88,6 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
                 .fromSocial(dto.isFromSocial())
                 .curl(curl)
                 .build();
-
         return tokenDTO;
     }
 

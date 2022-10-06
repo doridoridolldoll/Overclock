@@ -10,9 +10,9 @@ import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.entity.Member;
 import overclock.overclock.model.MemberRole;
 import overclock.overclock.repository.MemberRepository;
-import overclock.overclock.vo.passCheck;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,8 +48,7 @@ public class MemberServiceImpl implements MemberService {
         log.info("entity : " + entity);
         MemberDTO getById = EntityToDTO(entity);
         log.info("getById : " + getById);
-        getById.setId(dto.getId());
-        getById.setPassword(encoder.encode(dto.getPassword()));
+        getById.setPassword(dto.getPassword());
         getById.setNickname(dto.getNickname());
         getById.setStreet(dto.getStreet());
         getById.setCity(dto.getCity());
@@ -79,11 +78,4 @@ public class MemberServiceImpl implements MemberService {
         }
         return result;
     }
-
-//    @Override
-//    public String findPass(passCheck vo) {
-//        memberRepository.findByPass(vo.getId(), encoder.encode(vo.getPassword()));
-//        return "인증되었습니다";
-//    }
-
 }
