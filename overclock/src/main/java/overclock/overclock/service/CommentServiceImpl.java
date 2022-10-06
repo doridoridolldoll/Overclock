@@ -56,4 +56,28 @@ public class CommentServiceImpl implements CommentService {
         };
         return new PageResultDTO<>(result, fn);
     }
+
+    @Transactional
+    @Override
+    public Long CommentDelete(CommentDTO dto) {
+        Long id = dto.getId();
+        commentRepository.deleteById(id);
+        return id;
+
+    }
+
+    @Override
+    public String CommentModify(CommentDTO dto) {
+        log.info("dto :" + dto);
+        Comment entity = commentRepository.getReferenceById(dto.getId());
+        log.info("entity : " + entity);
+        CommentDTO getById = entityToDTO(entity);
+        log.info("getById : " + getById);
+
+        getById.setContent(dto.getContent());
+        Comment modifiedComment = dtoToEntity(getById);
+        commentRepository.save(modifiedComment);
+
+        return modifiedComment.getId().toString();
+    }
 }

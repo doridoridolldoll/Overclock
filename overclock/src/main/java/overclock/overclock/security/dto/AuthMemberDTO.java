@@ -18,8 +18,6 @@ public class AuthMemberDTO extends User implements OAuth2User {
 
     private Long id;
     private String email;
-    private Map<String,Object> attr;
-
     private String password;
     private String name;
     private String curl;

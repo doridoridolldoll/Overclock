@@ -48,19 +48,23 @@ public class Posts extends BaseEntity{ //게시물
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "posts2", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Item> items = new ArrayList<>();
 
 
 
-    @Builder
-    public Posts(Member member, String title, String content,
-                Long view, BoardType boardType, Address address) {
-        this.member = member;
-        this.title = title;
-        this.content = content;
-        this.view = view;
-        this.address = address;
-        this.boardType = boardType;
-    }
+
+        @Builder
+        public Posts(Member member, String title, String content,
+                    Long view, BoardType boardType, Address address) {
+            this.member = member;
+            this.title = title;
+            this.content = content;
+            this.view = view;
+            this.address = address;
+            this.boardType = boardType;
+        }
 
     public Posts(PostsRepository.getEmbedCardsInformation em){
         this.id = em.getId();

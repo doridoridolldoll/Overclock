@@ -3,6 +3,8 @@ package overclock.overclock.service;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Item;
 import overclock.overclock.entity.ItemImg;
+import overclock.overclock.entity.Member;
+import overclock.overclock.entity.Posts;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,17 +13,21 @@ import java.util.stream.Collectors;
 
 public interface ItemService {
 
-    Long mregister2(ItemDTO itemDTO);
+    Long itemPosting(ItemDTO itemDTO);
 
     List<ItemDTO> partsItemList(ItemDTO itemDTO);
 
     default Item dtoToEntity(ItemDTO dto){
+        Posts posts = Posts.builder()
+                .id(dto.getPostsId())
+                .build();
         Item item = Item.builder()
                 .id(dto.getId())
                 .price(dto.getPrice())
                 .itemDetail(dto.getItemDetail())
                 .price(dto.getPrice())
                 .stock(dto.getStock())
+                .posts2(posts)
                 .build();
         return item;
     }
@@ -33,6 +39,7 @@ public interface ItemService {
                 .stock(item.getStock())
                 .regDate(item.getRegDate())
                 .modDate(item.getModDate())
+                .postsId(item.getPosts2().getId())
                 .build();
         return itemDTO;
     }

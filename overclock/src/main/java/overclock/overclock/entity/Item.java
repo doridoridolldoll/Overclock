@@ -28,8 +28,8 @@ public class Item extends BaseEntity{
     @Column(nullable = false)
     private int stock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Posts posts;
+    @ManyToOne
+    private Posts posts2;
 
     // 상품 등록
     public void updateItem(Item item) {

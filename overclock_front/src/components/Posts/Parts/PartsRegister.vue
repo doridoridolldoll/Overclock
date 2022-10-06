@@ -52,6 +52,7 @@ import {reactive} from '@vue/reactivity'
 import axios from 'axios'
 import {useRouter} from 'vue-router';
 import FileUpload from '../../FileUpload.vue'
+import store from '@/store';
 export default {
     name:'ToRegister',
     components: { FileUpload },
@@ -66,6 +67,7 @@ export default {
             stock: '',  
             price: '',
             type : '',
+            postsId : '',
             imageDTOList : new Array(),
         })
         const joinHandler = async() => {
@@ -91,9 +93,10 @@ export default {
             document.querySelector(".box").innerHTML = str
             
             //글쓰기
-            const url = '/api/mregister'
+            const url = '/register/posting'
             const headers = {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                "Authorization": store.state.token,
                 }
             const body = {
                 title : state.title, 
@@ -101,21 +104,22 @@ export default {
                 memberId : state.memberId, 
                 imageDTOList: state.imageDTOList,
                 partsType: state.type,
+                token: store.state.token,
             }
-            const response = await axios.post(url, body, {headers})
-            console.log(response.data)
+            await axios.post(url, body, {headers}).then((res)=>{
+                state.postsId = res.data;
+                console.log(res.data);
+            })
 
 
-            const url2 = '/api/mregister2'
-            const headers2 = {
-                "Content-Type" : "application/json"
-            }
+            const url2 = '/register/itemPosting'
             const body2 = {
                 price: state.price,
                 stock: state.stock,
-                itemDetail: state.itemDetail, 
+                itemDetail: state.itemDetail,
+                postsId : state.postsId 
             }
-            await axios.post(url2,body2,{headers2})
+            await axios.post(url2,body2,{headers})
             router.push({name: "Parts"})
         }
         return {state,joinHandler }

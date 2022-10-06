@@ -19,17 +19,17 @@
 </template>
 
 <script>
-    // import router from "@/router";
     import axios from "axios";
-    // import store from "@/store";
-    // import FileUpload from '../../FileUpload.vue'
-import { reactive } from "vue";
+    import { useStore } from 'vuex'
+    import { reactive } from "vue";
 
     export default {
         name: "WritePage",
+        
         setup() {
+            const store = useStore();
             const state = reactive({
-                id: 3,
+                id: store.state.dtoList.id,
                 title: '',
                 content: '',
             })
@@ -57,8 +57,6 @@ import { reactive } from "vue";
                     content: state.content
 
                 }
-                console.log(state.id)
-                console.log(typeof(state.id))
                 await axios.post(url, body, {headers} )
             }
             return { state, modify, deleted }

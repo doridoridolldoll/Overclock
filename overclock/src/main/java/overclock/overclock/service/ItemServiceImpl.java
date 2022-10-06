@@ -31,10 +31,12 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private final ItemRepository itemRepository; //final
 
+    @Transactional
     @Override
-    public Long mregister2(ItemDTO itemDTO) {
+    public Long itemPosting(ItemDTO itemDTO) {
         log.info("dto : {}", itemDTO);
         Item item = dtoToEntity(itemDTO);
+        log.info(item);
         itemRepository.save(item);
         return item.getId();
     }

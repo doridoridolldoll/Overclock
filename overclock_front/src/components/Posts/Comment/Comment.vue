@@ -31,6 +31,7 @@ export default {
      components: { Card },
     setup(props) {
       const state = reactive({
+        // commentId: ,
         content: '',
         postsId: props.dtoList.id,
         memberId: props.dtoList.memberId,

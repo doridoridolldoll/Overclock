@@ -26,6 +26,10 @@
                 <div class="portfolio-info">
                   <ul>
                     <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
+
+                    <PcPay
+                      :price="state.price">
+                      </PcPay>
                     
                   </ul>
                 </div>
@@ -46,12 +50,16 @@
                       가로(길이): 198mm / 백플레이트
                     </p>
                 </div>
+                <div>{{state.price}}</div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
+
                 <router-link to="" class="btn1 btn btn-primary ">구매</router-link>
                 <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
+
                 <Comment
               :dtoList="state.dtoList"
-            />  
+            />
+
           </div>
       <div></div>
     </body>
@@ -63,21 +71,25 @@ import { useStore } from 'vuex'
 // import {useRoute} from 'vue-router'
 import { reactive } from '@vue/reactivity';
 import Comment from '@/components/Posts/Comment/Comment.vue';
+import PcPay from '@/components/Pay/PcPay.vue';
   export default {
-  components: { Comment },
+  components: { Comment, PcPay },
       name: 'PartsDetail',
       setup(){
         const store = useStore();
         const state = reactive({
-        
+          price: '',
           dtoList: '',
           memberId: null,
           postsId: null,
         });
+        state.price = store.state.price;
+        console.log(store.state.price);
         // let route = useRoute();
         // // console.log(route.query.name);
         // let asd = JSON.parse(route.query.name.join("").split(","));
         let list = store.state.dtoList;
+        console.log(store.state.dtoList);
         state.dtoList = list;
         // state.postsId = state.dtoList.id
         // console.log(state.postsId);
@@ -88,6 +100,7 @@ import Comment from '@/components/Posts/Comment/Comment.vue';
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
         img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+        console.log(list.imageDTOList);
         return {state,img};
     }
 }

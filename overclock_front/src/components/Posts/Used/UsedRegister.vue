@@ -51,6 +51,7 @@ import {reactive} from '@vue/reactivity'
 import axios from 'axios'
 import {useRouter} from 'vue-router';
 import FileUpload from '@/components/FileUpload.vue'
+import store from '@/store';
 export default {
     name:'ToRegister',
     components: { FileUpload },
@@ -87,10 +88,14 @@ export default {
             }
             document.querySelector(".box").innerHTML = str
             
-            const url = '/api/mregister'
+            const url = '/register/posting'
             const headers = {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                "Authorization": store.state.token
+                
                 }
+                console.log("=================");
+                console.log(store.state.token);
             const body = {
                 title : state.title, 
                 content : state.content, 

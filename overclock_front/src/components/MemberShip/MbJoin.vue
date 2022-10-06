@@ -1,10 +1,7 @@
 <template>
-  <section id="hero" class="d-flex align-items-center justify-content-center">
-  <div class="container2" data-aos="fade-up">
 
-      <div class="container">
           <div class="input-form2 col-md-12 mx-auto">
-            <h4 class="mb-3">회원가입</h4>
+            <h4 class="mb-3">일반 회원가입</h4>
             <form class="validation-form" @submit.prevent>
               <div class="row">
                 <div class="col-md-6 mb-3">
@@ -87,12 +84,11 @@
               </div>
               <div class="mb-4"></div>
               <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler" >가입 완료</button>
-               <tr><td><a href="http://localhost:9090/oauth2/authorization/google">Google</a></td></tr> 
+               <tr><td><a href="http://localhost:9090/oauth2/authorization/google" @click="asd">Google</a></td></tr> 
             </form>
           </div>
-        </div>
-      </div> 
-  </section>
+
+
 
 </template>
 
@@ -100,10 +96,17 @@
 import {reactive} from '@vue/reactivity'
 import axios from 'axios'
 import router from '@/router'
+import store from '@/store'
 export default {
   name:'ToJoin',
 setup(){
   const state = reactive({
+    form: {
+      id: "1",
+      email: "",
+      password: "",
+      role: "2",
+    },
     id          : '',
     email       : '',
     password    : '',
@@ -117,7 +120,7 @@ setup(){
   })
   const joinHandler = async() => {
     console.log("asas")
-    const url = './member/memberRegister'
+    const url = './api/memberRegister'
     const headers = {
       "Content-Type" : "application/json",
     }
@@ -178,9 +181,25 @@ setup(){
     }
     router.push({name: "Login"});
   }
-  return {joinHandler,state}
-}
-}
+  const asd = async() => {
+    alert("asd");
+    const url = "./member/login"
+    const headers = { "Content-Type": "application/json; charset=utf-8;"}
+    const body = {id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
+    await axios.post(url, body, { headers }).then(function (res) {
+      store.commit("setToken", res.data.token);
+      store.commit("setId", state.form.id);
+      store.commit("setEmail", res.data.email);
+        store.commit("setRole", "2")
+      // store.commit("setrole)
+      console.log(res.data);
+      alert("로그인되었습니다.");
+      router.push(`/`)
+    })
+  }
+  return {joinHandler,state,asd}
+  },
+};
 </script>
 
 <style scoped>

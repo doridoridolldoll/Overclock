@@ -48,7 +48,7 @@ public class MemberController {
 
             Member member = Member.createMember(memberDTO);
         model.addAttribute("msg", member);
-            memberService.join(memberDTO);
+            memberService.memberRegister(memberDTO);
 
         return "redirect:/members/memberList";
     }
