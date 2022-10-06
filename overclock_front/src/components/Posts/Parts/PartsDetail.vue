@@ -27,7 +27,9 @@
                   <ul>
                     <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
 
-                    <PcPay></PcPay>
+                    <PcPay
+                      :price="state.price">
+                      </PcPay>
                     
                   </ul>
                 </div>
@@ -84,6 +86,7 @@ import PcPay from '@/components/Pay/PcPay.vue';
         // // console.log(route.query.name);
         // let asd = JSON.parse(route.query.name.join("").split(","));
         let list = store.state.dtoList;
+        console.log(store.state.dtoList);
         state.dtoList = list;
         // state.postsId = state.dtoList.id
         // console.log(state.postsId);
@@ -94,6 +97,7 @@ import PcPay from '@/components/Pay/PcPay.vue';
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
         img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+        console.log(list.imageDTOList);
         return {state,img};
     }
 }

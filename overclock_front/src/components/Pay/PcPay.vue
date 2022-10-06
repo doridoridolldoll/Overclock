@@ -13,9 +13,10 @@ const { IMP } = window;
 
 export default {
   name: "ToTest",
-  setup(){
+  props: ["price"],
+  setup(props){
     const state = reactive({
-      price: '',
+      price: props.price,
     });
     document.cookie = "safeCookie1=foo; SameSite=Lax";
     document.cookie = "safeCookie2=foo";
@@ -26,7 +27,7 @@ export default {
       IMP.request_pay({ // param
         pg: "html5_inicis",
         pay_method: "card",
-        merchant_uid: "ORD20180131-0000014",
+        merchant_uid: "ORD20180131-0000016",
         name: "overclock",
         amount: state.price,
         buyer_email: "jinwoo@naver.com",

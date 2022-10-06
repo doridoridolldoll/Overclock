@@ -13,11 +13,15 @@ import java.util.stream.Collectors;
 
 public interface MemberService {
     String modify(MemberDTO dto);
-    String join(MemberDTO memberDTO);
+
 
     List mList(MemberDTO memberDTO);
 
     String memberRegister(MemberDTO memberDTO);
+
+//    String companyRegister(MemberDTO memberDTO);
+
+
     default Member dtoToEntity(MemberDTO dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
         Member member = Member.builder()
@@ -29,6 +33,7 @@ public interface MemberService {
                 .password(dto.getPassword())
                 .address(address)
                 .fromSocial(dto.isFromSocial())
+//                .crn(dto.getCrn())
                 .roleSet(dto.getRoleSet().stream().map(
                         t -> {
                             if (t.equals("ROLE_MEMBER"))
@@ -50,6 +55,7 @@ public interface MemberService {
                 .phone(member.getPhone())
                 .password(member.getPassword())
                 .fromSocial(member.isFromSocial())
+//                .crn(member.getCrn())
                 .build();
                 return memberDTO;
     }
