@@ -59,7 +59,6 @@ public class SecurityConfig {
         return new JWTUtil();
     }
 
-
     @Bean
     public ApiCheckFilter apiCheckFilter(){
         return new ApiCheckFilter("/register/**/*", jwtUtil());

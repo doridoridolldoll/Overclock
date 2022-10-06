@@ -4,6 +4,7 @@ import Main from "@/components/Main.vue"
 import Login from "@/components/Login.vue"
 import Join from "@/components/Join.vue"
 import Profil from "@/components/Profil.vue"
+import profileModify from "@/components/ProfileModify"
 
 //고객센터
 import QnA from "@/components/QnA.vue"
@@ -40,6 +41,8 @@ import CommentModify from "@/components/Posts/Comment/CommentModify.vue"
 //검색
 import SearchList from "@/components/SearchList.vue"
 
+//모달
+
 
 const routes = [
     {path:"/",name:"Main", component: Main}, 
@@ -63,7 +66,8 @@ const routes = [
     {path:"/search", name: 'SearchList', component: SearchList},
     {path:"/partsModify", name: 'PartsModify', component: PartsModify},
     {path:"/commentModify", name: 'CommentModify', component: CommentModify},
-    {path: '/PcPay', name: 'PcPay', component: PcPay},
+    {path:"/pcPay", name: 'PcPay', component: PcPay},
+    {path:"/profileModify", name: 'profileModify', component: profileModify},
   
     ]
   

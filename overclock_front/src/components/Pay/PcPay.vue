@@ -1,6 +1,6 @@
 <template>
 
-    <input type="number" placeholder="금액 입력" v-model="state.price" >
+    <div>{{state.price}}</div>
     <div @click="PaymentBtn">결제</div>
 
 </template>
@@ -13,10 +13,12 @@ const { IMP } = window;
 
 export default {
   name: "ToTest",
-  setup(){
+  props: ["price"],
+  setup(props){
     const state = reactive({
-      price: '',
+      price: props.price
     });
+    console.log(state.price);
     document.cookie = "safeCookie1=foo; SameSite=Lax";
     document.cookie = "safeCookie2=foo";
     document.cookie = "crossCookie=bar; SameSite=None; Secure";
@@ -26,14 +28,12 @@ export default {
       IMP.request_pay({ // param
         pg: "html5_inicis",
         pay_method: "card",
-        merchant_uid: "ORD20180131-0000014",
-        name: "overclock",
-        amount: state.price,
-        buyer_email: "jinwoo@naver.com",
+        merchant_uid: "ORD_" + new Date().getTime(),
+        name: "overclock", // 상품명
+        amount: state.price, // 가격
+        buyer_email: "",
         buyer_name: "테스터",
-        buyer_tel: "010-8832-4280",
-        buyer_addr: "서울특별시 영등포구 당산동",
-        buyer_postcode: "07222"
+
       }, rsp => { // callback
         console.log(rsp);
         if (rsp.success) {

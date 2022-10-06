@@ -66,6 +66,8 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
                         collect(Collectors.toList()),
                 oAuth2User.getAttributes());
 
+
+
         return dto;
 
     }

@@ -41,6 +41,7 @@ public class UserDetailsService implements org.springframework.security.core.use
                         .collect(Collectors.toList()));
 
         dto.setName(member.getName());
+        dto.setId(member.getId());
         return dto;
     }
 }

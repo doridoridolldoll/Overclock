@@ -27,7 +27,9 @@
                   <ul>
                     <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
 
-                    <PcPay></PcPay>
+                    <PcPay
+                      :price="state.price">
+                    </PcPay>
                     
                   </ul>
                 </div>
@@ -93,7 +95,9 @@ import PcPay from '@/components/Pay/PcPay.vue';
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
-        img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+        for (let i = 0; i < list.imageDTOList; i++) {
+        img = `${url}?fileName=${list.imageDTOList[i].imageURL}`;
+        }
         return {state,img};
     }
 }
