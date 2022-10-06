@@ -19,6 +19,7 @@ import overclock.overclock.service.CommentService;
 import overclock.overclock.service.ItemService;
 import overclock.overclock.service.MemberService;
 import overclock.overclock.service.PostsService;
+import overclock.overclock.vo.passCheck;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,6 @@ public class ApiController {
 
     private final ItemService itemService;
     private final CommentService commentService;
-
 
     /**
      * 멤버 회원가입
@@ -199,7 +199,7 @@ public class ApiController {
 
     @RequestMapping(value = "/mModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> MemberModify(@RequestBody MemberDTO dto) {
-        log.info("asasaas :" + dto);
+        log.info("mModify dto :" + dto);
         String memberInfo = memberService.modify(dto);
         return new ResponseEntity<>(memberInfo, HttpStatus.OK);
     }
@@ -221,5 +221,13 @@ public class ApiController {
         List email = memberService.mList(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
+
+    //회원정보 수정 전 패스워드 검증
+//    @RequestMapping(value = "/profil", method = RequestMethod.POST,
+//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> passCheck(@RequestBody passCheck vo) {
+//        log.info(vo);
+//        return new ResponseEntity<>(memberService.findPass(vo),HttpStatus.OK);
+//    }
 
 }
