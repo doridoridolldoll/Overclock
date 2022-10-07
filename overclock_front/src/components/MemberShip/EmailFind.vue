@@ -4,9 +4,9 @@
       <div class="container">
         <div class="input-form2 col-md-12 mx-auto">
           <form class="d-flex flex-column" action="login" method="post">
-            <span class="answer text-center" i-d-b-database="answerForRecovery1">폰번</span>
+            <span class="answer text-center" i-d-b-database="answerForRecovery1">휴대전화 번호</span>
             <div class="input-group idsection px-5 my-2">
-              <input class="form-control" type="text" name="id" id="id" required placeholder="폰번"
+              <input class="form-control" type="text" name="id" id="id" required placeholder="휴대전화 번호"
                 v-model="state.phone" />
             </div>
             <div class="px-5 my-4">
@@ -19,7 +19,7 @@
   </section>
 </template>
 <script>
-import { reactive, ref } from "@vue/reactivity";
+import { reactive } from "@vue/reactivity";
 import axios from "axios";
 // import store from "@/store";
 
@@ -28,21 +28,15 @@ export default {
     const state = reactive({
       phone: "",
     })
-    const phone = ref('')
 
     const submit = () => {
       if (state.phone === '') {
         alert('이메일을 입력해주세요');
-        phone.value.focus();
+        state.phone.value.focus();
         return false;
       } 
-      // else if (!(state.email.includes("@") && state.email.includes("."))) {
-      //   alert('이메일 양식이 맞지 않습니다.');
-      //   email.value.focus();
-      //   return false;
-      // }
         
-      const url = '/api/findemail'
+      const url = '/api/findEmail'
       const headers = {
         "Content-Type": "application/json",
       }

@@ -18,7 +18,6 @@
           placeholder="이메일"
         />
       </div>
-
       <div class="input-group passwordsection px-5 my-2 w-100">
         <input
           class="form-control"
@@ -44,50 +43,47 @@ import store from "@/store";
 import router from "@/router";
 
 export default {
-  name: "ToLogin",
-  setup() {
-    const state = reactive({
-      form: {
-        id: "",
-        email: "",
-        password: "",
-        role: "2",
-
-      },
-    });
-    const submit = async () => {
-      if (state.form.email === "") {
-        alert("아이디를 확인해주세요");
-        return false;
-      } else if (state.form.password === "") {
-        alert("비밀번호를 확인해주세요");
-        return false;
-      }
-
-
-      const url = "./member/login"
-      const headers = { "Content-Type": "application/json; charset=utf-8;"}
-
-      const body = {id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
-      try {
-        await axios.post(url, body, { headers }).then(function (res) {
-          store.commit("setToken", res.data.token);
-          store.commit("setId", res.data.id);
-          state.form.id = res.data.id;
-          // console.log(res.data);
-          store.commit("setEmail", res.data.email);
-
-            store.commit("setRole", "2")
-          // store.commit("setrole) 
-          alert("로그인되었습니다.");
-          router.push(`/`);
+    name: "ToLogin",
+    setup() {
+        const state = reactive({
+            form: {
+                id: "",
+                email: "",
+                password: "",
+                role: "2",
+            },
         });
-      } catch (err) {
-        alert("로그인에 실패하였습니다.");
-      }
-    };
-    return { state, submit };
-  },
+        const submit = async () => {
+            if (state.form.email === "") {
+                alert("아이디를 확인해주세요");
+                return false;
+            }
+            else if (state.form.password === "") {
+                alert("비밀번호를 확인해주세요");
+                return false;
+            }
+            const url = "./member/login";
+            const headers = { "Content-Type": "application/json; charset=utf-8;" };
+            const body = { id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
+            try {
+                await axios.post(url, body, { headers }).then(function (res) {
+                    store.commit("setToken", res.data.token);
+                    store.commit("setId", res.data.id);
+                    state.form.id = res.data.id;
+                    // console.log(res.data);
+                    store.commit("setEmail", res.data.email);
+                    store.commit("setRole", "2");
+                    // store.commit("setrole) 
+                    alert("로그인되었습니다.");
+                    router.push(`/`);
+                });
+            }
+            catch (err) {
+                alert("로그인에 실패하였습니다.");
+            }
+        };
+        return { state, submit };
+      },
 };
 </script>
 <style scoped>

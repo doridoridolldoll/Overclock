@@ -14,7 +14,7 @@
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
                   <ul>
-                    <li><strong></strong>: Web design</li>
+                    <li><strong>상품명 </strong>: {{state.dtoList.title}}</li>
                     <li><strong>판매자</strong>: ASU Company</li>
                     <li><strong>등록일자</strong>: 01 March, 2020</li>
                     <li>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="portfolio-info">
                   <ul>
-                    <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
+                    <li><strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"></li>
 
                     <PcPay
                       :price="state.price">
@@ -53,7 +53,7 @@
                 <div>{{state.price}}</div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
 
-                <router-link to="" class="btn1 btn btn-primary ">구매</router-link>
+                <button class="btn1 btn btn-primary" @click="add">구매</button>
                 <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
 
                 <Comment
@@ -70,16 +70,20 @@ import { useStore } from 'vuex'
 import { reactive } from '@vue/reactivity';
 import Comment from '@/components/Posts/Comment/Comment.vue';
 import PcPay from '@/components/Pay/PcPay.vue';
+import axios from 'axios';
   export default {
   components: { Comment, PcPay },
       name: 'PartsDetail',
       setup(){
         const store = useStore();
         const state = reactive({
+          title: '',
           price: '',
+          count: '',
+          imgUrl: '',
           dtoList: '',
-          memberId: null,
           postsId: null,
+          memberId : store.state.id,
         });
         
 
@@ -87,6 +91,10 @@ import PcPay from '@/components/Pay/PcPay.vue';
         console.log(store.state.dtoList);
         state.dtoList = store.state.dtoList;
         state.price =store.state.price;
+        console.log(store.state.price);
+        state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
+        console.log(state.imgUrl);
+        state.title = state.dtoList.title;
         // state.postsId = state.dtoList.id
         // console.log(state.postsId);
 
@@ -97,7 +105,31 @@ import PcPay from '@/components/Pay/PcPay.vue';
         let img = "";
         img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
         // // console.log(list.imageDTOList);
-        return {state,img};
+
+
+
+        //장바구니 담기
+
+        function add(){
+          const url = "/register/cartAdd";
+          const headers = {
+            "Content-Type": "application/json"
+          };
+          const body = {
+            memberId : state.memberId,
+            cartName: state.title,
+            price: state.price,
+            count: state.count,
+            imgUrl: state.imgUrl,
+
+          }
+          console.log("===============");
+          console.log(state.title);
+          axios.post(url, body, { headers })
+            .then(function(){
+            })
+        }
+        return {state,img,add};
     }
 }
 // import { defineProps } from 'vue '
