@@ -1,11 +1,11 @@
 <template>
-  <section id="services" class="services">
-    <div class="container" data-aos="fade-up">
-      <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '2')">글쓰기</router-link>
-      <!-- <div v-if="(state.form == 'gpu')"> -->
-      <div class="section-title">
-        <p>MB</p>
-      </div>
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '2')">글쓰기</router-link>
+        <!-- <div v-if="(state.form == 'gpu')"> -->
+        <div class="section-title">
+          <p>MB</p>
+        </div>
 
         <div class="row">
           <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
@@ -25,18 +25,18 @@
               <div></div>
             </div>
             </a>
-        <!-- </router-link> -->
+
+          </div>
+            <div class="page">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
+                <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
+                <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
+              </ul>
+            </div>  
         </div>
-          <div class="page">
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
-              <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
-              <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
-            </ul>
-          </div>  
       </div>
-    </div>
-  </section><!-- End Services Section -->
+    </section><!-- End Services Section -->
 </template>
 
 <script>
@@ -144,11 +144,11 @@ axios.post(url, { page: 1, category: "mb" }, { headers })
 }
 </script>
 <style scoped>
- .pagination{
-    width: 100px;
-    margin: auto;
- }
-.page{
-  margin-top: 30px;
-}
+	.pagination{
+		width: 100px;
+		margin: auto;
+	}
+  .page{
+    margin-top: 30px;
+  }
 </style>
