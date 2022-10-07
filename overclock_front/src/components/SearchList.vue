@@ -20,13 +20,11 @@
       <h1>검색 결과가 없습니다</h1>
     </div>
     <hr>
-    <div class="row row-cols-3">
-      <div v-for="(card, id) in state.cards" :key="id">
+
         <Cards 
-        :card="card"
-        :imgUrl="state.imgUrl"></Cards>
-      </div>
-    </div>
+          :card="state.cards" :imgUrl="state.imgUrl">
+      </Cards>
+
     <div class="page">
       <ul class="pagination">
         <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
@@ -54,11 +52,11 @@ export default {
   },
   setup() {
     const state = reactive({
-      imgName : 0,
-      imgPath: 0,
-      imgUuid : 0,
-      imgUrl: "",
-      cards: 0,
+      imgName : [],
+      imgPath: [],
+      imgUuid : [],
+      imgUrl: [],
+      cards: [],
       notSearchWord : false,
       reqPage: 0,
       pageTotalCount: 0,
@@ -76,6 +74,9 @@ export default {
     const router = useRouter()
 
     let searchword = new URLSearchParams(window.location.search).get("cards");
+    let postsType = new URLSearchParams(window.location.search).get("postsType");
+  
+
 
     // let search = reactive({
     //   context:"",
@@ -101,33 +102,38 @@ export default {
       }
       const body = {
         search: searchword,
+        postsType: postsType,
         reqPage: state.reqPage
       }
       // console.log(body)
       // if (state.reqPage == 0) state.cards = null;
 
       await axios.post(url, body, {headers}).then(function (res){
-        const displayUrl = "/display";
-        const url = `http://localhost:9090${displayUrl}`;
-        state.pageTotalCount = res.data.pageTotalCount;
-        console.log("======================+===")
-        console.log(res.data);
+        const url = `http://localhost:9090/display`;
+        // state.pageTotalCount = res.data.pageTotalCount;
+        // console.log("======================+===")
+        // console.log(res.data);
+        let str = "";
         for (let i = 0; i < res.data.articles.length; i++) {
-          state.imgName = res.data.articles[i].imgName;
-          state.imgPath = res.data.articles[i].imgPath;
-          state.imgUuid = res.data.articles[i].imgUuid;
-          state.imgUrl = state.imgPath + "/s_" +state.imgUuid+ "_" + state.imgName;
-          state.imgUrl = `${url}?fileName=${state.imgUrl}`;
+          state.imgName[i] = res.data.articles[i].imgName;
+          state.imgPath[i] = res.data.articles[i].imgPath;
+          state.imgUuid[i] = res.data.articles[i].imgUuid;
+          str = state.imgPath[i] + "/s_" +state.imgUuid[i] + "_" + state.imgName[i];
+          state.imgUrl[i] = `${url}?fileName=${str}`;
         }
-        console.log(state.imgName);
-        console.log(state.imgPath);
-        console.log(state.imgUuid);
-        console.log(state.imgUrl);
+        // console.log(state.imgName);
+        // console.log(state.imgPath);
+        // console.log(state.imgUuid);
+        // console.log("===============");
+        // console.log(state.imgUrl);
         
         if (body.reqPage == 0) {
-          // console.log("===========");
+          console.log("===========");
+          console.log("===========");
+          console.log("===========");
           // console.log(res.data)
           state.cards = res.data.articles;
+          console.log(state.cards);
         }
       })
     }

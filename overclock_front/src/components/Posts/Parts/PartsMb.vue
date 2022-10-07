@@ -14,7 +14,6 @@
           
             <!-- <a @click="Join(list,i)"> -->
             <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
-
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>

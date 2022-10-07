@@ -48,6 +48,7 @@ export default createStore({
   modules: {
 
   },
-  plugins: [new VuexPersistence().plugin, vuexLocal.plugin]
-}
-)
+  plugins: [new VuexPersistence().plugin, 
+            vuexLocal.plugin, 
+  ]
+})

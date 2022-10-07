@@ -9,8 +9,8 @@
           <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
-          <router-link :to="{name: 'PartsDetail', query: {name: [...JSON.stringify(list)]}}" @click="Join(list.id)">
-
+          
+            <a :href="'./PeriDetail?id=' + list.id" @click="Join(list,i)">
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
@@ -19,7 +19,8 @@
               <span><h5>판매가 4,800,000원</h5></span>
               <span><h5>할인가 4,300,000원</h5></span>
             </div>
-          </router-link>
+          </a>
+          
           </div>
           <div class="page">
             <ul class="pagination">
@@ -38,12 +39,15 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import axios from "axios";
-import store from '@/store';
+import { useStore } from 'vuex';
 export default {
   name: 'PeriMouse',
   props: [  ],
   setup(){
+    const store = useStore();
+
     const state = reactive({
+      id: "",
       upResult: "",
       img: [],
 	    dtoList: [],
@@ -56,6 +60,8 @@ export default {
       start: null,
       totalPage: null,
       partsType: "mouse",
+      price: [],
+
     });
     const url = "/api/periList";
 	  const headers = {
@@ -104,18 +110,29 @@ export default {
         state.img[i] = str2;
       }
     };
-    function Join(urlId){
-      const url2 = `/api/read/${urlId}`;
+    const body = {
+    category:"mouse"
+  }
+
+  axios.post("/api/partsItemList", body, {headers}).then(function(res){
+    store.state.price = res.data[0].price;
+  })
+
+  function Join(list,i){
+    store.commit('setdtoList', ...[list]);
+    store.commit("setPrice", ...[state.price[i]]);
+
+      //조회수 처리
+      const url2 = `/api/read/${list.id}`;
 	    const headers2 = {
 	      "Content-Type": "application/json; charset=utf-8"
 	    };
-      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
+      
+      axios.get(url2, {page: 1, category: "mouse" }, { headers2 }).then(function(){
 
-        console.log(res);
       })
     }
     return {state, store, getUserList,Join}
-  
   }
 }
 </script>

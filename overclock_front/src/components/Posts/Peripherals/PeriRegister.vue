@@ -22,12 +22,7 @@
                 <label>회원ID</label>
                 <input type="text" class="form-control" v-model="state.memberId" name="memberId" placeholder="memberId"><br>
             </div>
-<!-- 
-            <div class="form-group" style="margin-bottom: 10px;">
-                <label>Image Files</label>
-                <input type="file" class="form-control" id="fileInput" multiple>
-                <label class="custom-file-label" data-browse="Browse"></label>
-            </div> -->
+
 
             <div class="box"></div>
 
@@ -37,17 +32,16 @@
 
 
             <div class="form-group">
-                <label>주변기기 카테고리</label>
-                <input type="text" class="form-control" v-model="state.type" name="type" placeholder="type"><br>
-                <!-- <select v-model="state.type" name="type">
-                    <option>MB</option>
-                    <option>CPU</option>
-                    <option>GPU</option>
-                    <option>HDD</option>
-                    <option>ETC</option>
-                </select> -->
+                <label>주변기기 카테고리</label><br>
+                <select v-model="state.type" name="type">
+                    <option>mouse</option>
+                    <option>keyboard</option>
+                    <option>headset</option>
+                    <option>display</option>
+                    <option>perietc</option>
+                </select>
             </div>
-            <button class="btn btn-primary btn7" @click="joinHandler">등록</button>
+            <button class="btn btn-primary btn7 mt-3" @click="joinHandler">등록</button>
 
     </form>
     </section>
@@ -58,6 +52,7 @@ import {reactive} from '@vue/reactivity'
 import axios from 'axios'
 import {useRouter} from 'vue-router';
 import FileUpload from '../../FileUpload.vue'
+import store from '@/store';
 export default {
     name:'ToRegister',
     components: { FileUpload },
@@ -94,26 +89,31 @@ export default {
             }
             document.querySelector(".box").innerHTML = str
             
-            const url = '/api/mregister'
+            const url = '/register/posting'
             const headers = {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                "Authorization": store.state.token,
                 }
             const body = {
                 title : state.title, 
-                item_detail : state.item_detail, 
+                content: state.content,
                 memberId : state.memberId, 
                 imageDTOList: state.imageDTOList,
-                itemDetail: state.itemDetail, 
                 partsType: state.type,
+                token: store.state.token,
             }
-            const response = await axios.post(url, body, {headers})
-            console.log(response.data)
-            
-            if(response.status === 200){
-                alert(state.type);
-            } else {
-                alert('회원가입에 실패하였습니다.')
+            await axios.post(url, body, {headers}).then((res)=>{
+                state.postsId = res.data;
+                console.log(res.data);
+            })            
+            const url2 = '/register/itemPosting'
+            const body2 = {
+                price: state.price,
+                stock: state.stock,
+                itemDetail: state.itemDetail,
+                postsId : state.postsId 
             }
+            await axios.post(url2,body2,{headers})
             router.push({name: "Peri"})
         }
         return {state,joinHandler }

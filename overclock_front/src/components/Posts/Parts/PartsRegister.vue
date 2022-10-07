@@ -33,6 +33,7 @@
             <FileUpload />
 
             <div class="form-group">
+                <label>부품 카테고리</label><br>
                 <select v-model="state.type" name="type">
                     <option>MB</option>
                     <option>CPU</option>
@@ -41,7 +42,7 @@
                     <option>ETC</option>
                 </select>
             </div>
-            <button class="btn btn-primary btn7" @click="joinHandler">등록</button>
+            <button class="btn btn-primary btn7 mt-3" @click="joinHandler">등록</button>
 
     </form>
     </section>
