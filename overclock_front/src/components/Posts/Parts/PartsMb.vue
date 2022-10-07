@@ -12,7 +12,7 @@
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
           
-            <!-- <a  @click="Join(list,i)"> -->
+            <!-- <a @click="Join(list,i)"> -->
             <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
 
             <div class="icon-box">
@@ -25,8 +25,6 @@
               <div></div>
             </div>
             </a>
-          </div>
-          </a>
         <!-- </router-link> -->
         </div>
           <div class="page">
@@ -112,13 +110,15 @@ axios.post(url, { page: 1, category: "mb" }, { headers })
     const url = `http://localhost:9090${displayUrl}`;
     let str2 = "";
     for (let i = 0; i < arr.dtoList.length; i++) {
-      str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[i].thumbnailURL}`;
+      str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
+      console.log(str2);
       state.img[i] = str2;
     }
   };
   const body = {
     category:"mb"
   }
+
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
     for (let i = 0; i < res.data.length; i++) {
       state.price[i] = res.data[i].price;
@@ -126,30 +126,8 @@ axios.post(url, { page: 1, category: "mb" }, { headers })
   })
 
   function Join(list,i){
-    // console.log(list);
-    const body = {
-      category:"mb"
-    }
-    axios.post("/api/partsItemList", body, {headers}).then(function(res){
-        console.log(res.data);
-        store.state.price = res.data[i].price;
-        console.log(res.data[i].price);
-        // console.log(store.item.price);
-    })
-
-    function Join(list,i){
-      // console.log(list);
-      const body = {
-        category:"mb"
-      }
-      axios.post("/api/partsItemList", body, {headers}).then(function(res){
-        // store.state.dtoList = res.data;
-        console.log("===========");
-        console.log(res.data);
-        store.commit("setPrice", ...[res.data[i].price]);
-        store.state.price = res.data[i].price;
-          // console.log(store.item.price);
-      })
+    store.commit('setdtoList', ...[list]);
+    store.commit("setPrice", ...[state.price[i]]);
 
       //조회수 처리
       const url2 = `/api/read/${list.id}`;
@@ -157,20 +135,12 @@ axios.post(url, { page: 1, category: "mb" }, { headers })
 	      "Content-Type": "application/json; charset=utf-8"
 	    };
       
-      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
-        store.state.dtoList = res.data;
-        // store.b.dto = res.data;
-        // store.state.posts.d.dto = res.data;
-        store.commit('setdtoList',...[res.data]);
-        console.log("asdasd");
-        console.log(store.state.dtoList);
-        // console.log(store.b.dto);
+      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(){
+
       })
     }
     return {state, store, getUserList,Join}
   }
-  return {state, store, getUserList,Join}
-}
 }
 </script>
 <style scoped>

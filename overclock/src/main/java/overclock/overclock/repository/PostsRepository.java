@@ -40,9 +40,11 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
 
     Posts getByid(Long id);
 
-    @Query("SELECT p.id as id, p.title as title, p.content as content, m.nickname as nickname " +
+    @Query("SELECT p.id as id, p.title as title, p.content as content, m.nickname as nickname, i.uuid as imgUuid, " +
+            "i.imgName as imgName, i.path as imgPath " +
             "FROM Posts p " +
             "LEFT JOIN Member m ON p.member.id = m.id " +
+            "left join ItemImg i ON i.ItemImg.id = p.id " +
             "WHERE p.title LIKE CONCAT('%',:search,'%') ")
     Optional<List<getEmbedCardsInformation>> getSearchList(String search);
 
@@ -66,6 +68,10 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
         String getContent();
 
         String getNickname();
+
+        String getImgUuid();
+        String getImgName();
+        String getImgPath();
 
     }
 

@@ -82,14 +82,12 @@ import PcPay from '@/components/Pay/PcPay.vue';
           memberId: null,
           postsId: null,
         });
-        state.price = store.state.price;
-        console.log(store.state.price);
-        // let route = useRoute();
-        // // console.log(route.query.name);
-        // let asd = JSON.parse(route.query.name.join("").split(","));
+        
+
         let list = store.state.dtoList;
         console.log(store.state.dtoList);
-        state.dtoList = list;
+        state.dtoList = store.state.dtoList;
+        state.price =store.state.price;
         // state.postsId = state.dtoList.id
         // console.log(state.postsId);
 
@@ -99,7 +97,7 @@ import PcPay from '@/components/Pay/PcPay.vue';
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
         img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
-        console.log(list.imageDTOList);
+        // // console.log(list.imageDTOList);
         return {state,img};
     }
 }

@@ -148,7 +148,7 @@ export default {
       // var count = 0;
       axios.post(url, { page: 1, category: "used" }, { headers })
           .then(function (res) {
-          // console.log(res);
+          console.log(res);
           state.dtoList = res.data.dtoList,
               state.end = res.data.end,
               state.next = res.data.next,

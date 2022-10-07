@@ -35,14 +35,13 @@
 </template>
 
 <script>
-import MobileNav from './components/MobileNav.vue';
 import router from './router';
 import store from './store';
 export default {
     name: "App",
     setup() {
       const logout =()=>{
-      store.commit('setToken',"");
+      store.commit('setToken',0);
       store.commit('setId',0);
       store.commit('setEmail',0);
       store.commit("setRole", "")
