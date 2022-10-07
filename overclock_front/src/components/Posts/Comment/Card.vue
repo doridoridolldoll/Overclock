@@ -9,7 +9,7 @@
         <span class="commentText mt-1">{{list.content}}</span>
          <a :href="'./CommentModify?id=' + list.id">수정</a>
       </div>
-    </div>
+    </div>  
 </template>
 
 <script>

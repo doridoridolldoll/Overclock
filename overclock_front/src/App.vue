@@ -18,8 +18,9 @@
             <i class="bi bi-person-square" style="font-size:x-large"></i>
             <i class="bi bi-chevron-down"></i></a>
             <ul>
+              <!-- <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li> -->
               <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li>
-              <li><router-link to="/cart" v-if="$store.state.token">주문내역</router-link></li>
+              <li><a :href="'./cart?id=' + memberId" v-if="$store.state.token">주문내역</a></li>
               <li><router-link to="/login" v-if="!$store.state.token">로그인</router-link></li>
               <li><router-link to="/" @click="logout()" v-if="$store.state.token">
                 로그아웃</router-link></li>
@@ -42,14 +43,16 @@ import store from './store';
 export default {
     name: "App",
     setup() {
+      const memberId = store.state.id;
       const logout =()=>{
+      store.commit('setdtoList',"");
       store.commit('setToken',0);
       store.commit('setId',0);
       store.commit('setEmail',0);
       store.commit("setRole", "")
       router.push({path:"/logout"})
     }
-      return{logout}
+      return{logout,memberId}
     },
     components: { }
 }
