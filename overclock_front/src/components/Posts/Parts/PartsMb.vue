@@ -27,6 +27,7 @@
             </a>
 
           </div>
+
             <div class="page">
               <ul class="pagination">
                 <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
