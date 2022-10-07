@@ -32,7 +32,6 @@
     
   </header>
   <i class="bi bi-list mobile-nav-toggle">
-    <MobileNav/>
   </i>
   <router-view/>
 </template>
@@ -52,7 +51,7 @@ export default {
     }
       return{logout}
     },
-    components: { MobileNav }
+    components: { }
 }
 </script>
 

@@ -8,4 +8,6 @@ public interface SendEmailService {
      MailDTO createMailAndChangePassword(String email);
 //     void updatePassword(String str,String email);
      String  mailSend(MailDTO dto);
+     MailDTO createMail(String email);
+
 }

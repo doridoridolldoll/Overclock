@@ -1,14 +1,10 @@
 package overclock.overclock.service;
 
-import overclock.overclock.dto.CommentDTO;
-import overclock.overclock.dto.LoginDTO;
 import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.entity.Member;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
-import overclock.overclock.security.dto.AuthMemberDTO;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,8 +16,8 @@ public interface MemberService {
     Optional findByPhone(MemberDTO phone);
     Optional findByEmail(MemberDTO email);
     boolean userEmailCheck(String email);
+    String passChange(MemberDTO dto);
 
-//    String findPass(MemberDTO pass);
 //    String companyRegister(MemberDTO memberDTO);
 
 

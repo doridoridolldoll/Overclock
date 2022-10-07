@@ -5,18 +5,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.expression.Lists;
-import overclock.overclock.domain.PcPayRequest;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Comment;
-import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
-import overclock.overclock.model.subcard;
 import overclock.overclock.service.*;
-import overclock.overclock.vo.passCheck;
 
 import java.util.HashMap;
 import java.util.List;
@@ -220,13 +214,6 @@ public class ApiController {
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/passFind", method = RequestMethod.POST,
-//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Optional> findEmail(@RequestBody MemberDTO email) {
-//        log.info(email);
-//        return new ResponseEntity<>(memberService.findByEmail(email),HttpStatus.OK);
-//    }
-
     //회원정보 수정 전 패스워드 검증
 //    @RequestMapping(value = "/passcheck", method = RequestMethod.POST,
 //            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -235,10 +222,10 @@ public class ApiController {
 //        return new ResponseEntity<>(memberService.findPass(pass),HttpStatus.OK);
 //    }
 
+
     @RequestMapping(value = "/passFind", method = RequestMethod.GET,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Map<String, Boolean> pw_find(String email){
-        email = "skaduf73@gmail.com";
+    public @ResponseBody Map<String, Boolean> passFind(String email){
         log.info("pw_find-----------------" + email);
         Map<String,Boolean> json = new HashMap<>();
         boolean pwFindCheck = memberService.userEmailCheck(email);
@@ -251,14 +238,62 @@ public class ApiController {
     //등록된 이메일로 임시비밀번호를 발송하고 발송된 임시비밀번호로 사용자의 pw를 변경하는 컨트롤러
     @RequestMapping(value = "/passFind/send", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MemberDTO> sendEmail(@RequestBody MemberDTO memberDTO){
-
-        log.info("sendEmail------------------" + memberDTO.getEmail());
-//        email = "skaduf73@gmail.com";
-        log.info("sendEmail2------------------" + memberDTO);
-        MailDTO dto = sendEmailService.createMailAndChangePassword(memberDTO.getEmail());
+    public ResponseEntity<MailDTO> sendEmail(@RequestBody MailDTO mailDTO){
+        MailDTO dto = sendEmailService.createMailAndChangePassword(mailDTO.getEmail());
         log.info("MailDTO : "+ dto);
         sendEmailService.mailSend(dto);
-        return new ResponseEntity<>(memberDTO, HttpStatus.OK);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
+
+    // 회원 비밀번호 찾기 후 변경
+    @RequestMapping(value = "/passFind/passChange", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> passChange(@RequestBody MemberDTO memberDTO) {
+        log.info("memberDTO {}", memberDTO);
+        String newPass = memberService.passChange(memberDTO);
+        return new ResponseEntity<>(newPass,HttpStatus.OK);
+    }
+    // 회원 비밀번호 찾기 이메일 검증
+    @RequestMapping(value = "/passFind/email", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Optional> passEmail(@RequestBody MemberDTO memberDTO) {
+        log.info("memberDTO : {}", memberDTO);
+        Optional findEmail = memberService.findByEmail(memberDTO);
+        return new ResponseEntity<>(findEmail,HttpStatus.OK);
+    }
+
+    // 회원가입 이메일 인증번호 발송
+    @RequestMapping(value = "/join/emailCheck", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MailDTO> sendEmailCheck(@RequestBody MailDTO mailDTO){
+        MailDTO dto = sendEmailService.createMail(mailDTO.getEmail());
+        log.info("sendEmailCheck : "+ dto);
+        sendEmailService.mailSend(dto);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    // 회원가입 이메일 중복 검증
+    @RequestMapping(value = "/emailVali", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Map<String, Boolean> validateEmail(@RequestBody String email){
+        Map<String,Boolean> json = new HashMap<>();
+        boolean valiEmail = memberService.userEmailCheck(email);
+        json.put("validate", valiEmail);
+        log.info("json : " + json);
+        return json;
+    }
+
+    //회원 이메일 찾기 전화번호 검증
+//    @RequestMapping(value = "/emailPass", method = RequestMethod.POST,
+//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Optional> emailPass(@RequestBody String phone) {
+//        Map<String,Boolean> json = new HashMap<>();
+//        boolean valiEmail = memberService.userEmailCheck(phone);
+//        json.put("validate", valiEmail);
+//        log.info("json : " + json);
+//        return json;
+//    }
+
 }
+
+
