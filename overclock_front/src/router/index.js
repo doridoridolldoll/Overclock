@@ -13,7 +13,11 @@ import CpLogin from "@/components/MemberShip/MbLogin.vue"
 import CpJoin from "@/components/MemberShip/MbJoin.vue"
 
 import Profil from "@/components/Profil.vue"
-import profileModify from "@/components/ProfileModify"
+
+import EmailFind from "@/components/MemberShip/EmailFind"
+import PassFind from "@/components/MemberShip/PassFind"
+import PassCheck from "@/components/MemberShip/PassCheck"
+
 
 //고객센터
 import QnA from "@/components/QnA.vue"
@@ -50,8 +54,10 @@ import CommentModify from "@/components/Posts/Comment/CommentModify.vue"
 //검색
 import SearchList from "@/components/SearchList.vue"
 
+
 import Cart from "@/components/Cart.vue"
 import Auction from "@/components/Auction.vue"
+
 
 
 
@@ -81,15 +87,21 @@ const routes = [
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
     {path:"/search", name: 'SearchList', component: SearchList},
 
+
     {path:"/cart", name: 'Cart', component: Cart},
     {path:"/auction", name: 'Auction', component: Auction},
+
+
+    {path:"/emailFind", name: 'EmailFind', component: EmailFind},
+    {path:"/passFind", name: 'PassFind', component: PassFind},
+    {path:"/passCheck", name: 'PassCheck', component: PassCheck},
+    
 
     
 
     {path:"/partsModify", name: 'PartsModify', component: PartsModify},
     {path:"/commentModify", name: 'CommentModify', component: CommentModify},
-    {path:"/pcPay", name: 'PcPay', component: PcPay},
-    {path:"/profileModify", name: 'profileModify', component: profileModify},
+    {path:'/PcPay', name: 'PcPay', component: PcPay},
     ]
   
   const router = createRouter({

@@ -21,17 +21,19 @@
               <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li>
               <li><router-link to="/cart" v-if="$store.state.token">주문내역</router-link></li>
               <li><router-link to="/login" v-if="!$store.state.token">로그인</router-link></li>
-              <li><router-link to="/logout" @click="logout()" v-if="$store.state.token">
+              <li><router-link to="/" @click="logout()" v-if="$store.state.token">
                 로그아웃</router-link></li>
               <li><router-link to="/join" v-if="!$store.state.token">회원가입</router-link></li>
             </ul>
           </li> 
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
     </div>
-
+    
   </header>
+  <i class="bi bi-list mobile-nav-toggle">
+    <MobileNav/>
+  </i>
   <router-view/>
 </template>
 
@@ -42,7 +44,7 @@ export default {
     name: "App",
     setup() {
       const logout =()=>{
-      store.commit('setToken',"");
+      store.commit('setToken',0);
       store.commit('setId',0);
       store.commit('setEmail',0);
       store.commit("setRole", "")
@@ -50,6 +52,7 @@ export default {
     }
       return{logout}
     },
+    components: { MobileNav }
 }
 </script>
 

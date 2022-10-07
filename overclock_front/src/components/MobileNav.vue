@@ -1,6 +1,4 @@
 <template>
-  <header id="header" class="fixed-top ">
-      <div class="container d-flex align-items-center justify-content-lg-between">  
         <nav id="navbar" class="navbar order-last order-lg-0 navbar-mobile">
         <ul>
           <li><router-link to="/parts" class="nav-link scrollto" >부품</router-link></li>
@@ -9,7 +7,7 @@
           <li><router-link to="/free" class="nav-link scrollto" >자유게시판 </router-link></li>
           <li><router-link to="/qna" class="nav-link scrollto" >고객센터 </router-link></li>
           <li><a class="nav-link scrollto" href="#contact">찾아오시는 길</a></li>
-          <li class="dropdown"><a href="#">
+          <li class="dropdown-active"><a href="#">
             <i class="bi bi-person-square" style="font-size:x-large"></i>
             <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -21,8 +19,7 @@
           </li> 
         </ul>
         </nav>
-      </div>
-    </header>
+
 </template>
 
 <script>

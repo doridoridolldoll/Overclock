@@ -24,6 +24,8 @@ public class AuthMemberDTO extends User implements OAuth2User {
     private Map<String, Object> attr;
 
 
+    private Map<String, Object> attr;
+
     private boolean fromSocial;
 
     public AuthMemberDTO(
