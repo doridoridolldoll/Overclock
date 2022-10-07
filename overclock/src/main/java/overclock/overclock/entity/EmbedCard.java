@@ -12,12 +12,18 @@ public class EmbedCard {
     private String title;
     private String content;
     private String nickname;
+    private String imgUuid;
+    private String imgName;
+    private String imgPath;
 
     public EmbedCard(PostsRepository.getEmbedCardsInformation em){
         this.id= em.getId();
         this.title = em.getTitle();
         this.content = em.getContent();
         this.nickname = em.getNickname();
+        this.imgUuid = em.getImgUuid();
+        this.imgName = em.getImgName();
+        this.imgPath = em.getImgPath();
     }
 
 //    public String updateContextToString(byte[] content){

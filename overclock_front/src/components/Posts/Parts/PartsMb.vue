@@ -12,7 +12,7 @@
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
           
-            <!-- <a  @click="Join(list,i)"> -->
+            <!-- <a @click="Join(list,i)"> -->
             <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
 
             <div class="icon-box">
@@ -25,6 +25,7 @@
               <div></div>
             </div>
             </a>
+
           </div>
             <div class="page">
               <ul class="pagination">
@@ -43,101 +44,90 @@ import { reactive } from '@vue/reactivity';
 import axios from "axios";
 import { useStore } from 'vuex';
 export default {
-  name: 'PartsMb',
-  props: [  ],
-  setup(){
-    const store = useStore();
-  
-    const state = reactive({
-      id: "",
-      upResult: "",
-      img: [],
-	    dtoList: [],
-      end: null,
-      next: null,
-      page: null,
-      pageList: null,
-      prev: null,
-      size: null,
-      start: null,
-      totalPage: null,
-      partsType: "mb",
-      price: [],
-    });
-    const url = "/api/partsList";
-	  const headers = {
-	    "Content-Type": "application/json; charset=utf-8",
-      "Authorization": store.state.token,
-      "id": store.state.id
-	  };
-  function getUserList(page){
-    axios.post(url, { page:page, type:"", category:"mb" }, { headers })
-    .then(function(res){
-		  // console.log(res.data.dtoList[1].partsType == "used");
-      console.log(res.data)
-      state.id = res.data.dtoList.id,
-      state.dtoList = res.data.dtoList,
-      state.end =  res.data.end,
-      state.next =  res.data.next,
-      state.page =  res.data.page,
-      state.pageList =  res.data.pageList,
-      state.prev =  res.data.prev,
-      state.size =  res.data.size,
-      state.start =  res.data.start,
-      state.totalPage = res.data.totalPage
-      showResult(res.data)
-    })
-  }
-  axios.post(url, { page: 1, category: "mb" }, { headers })
-            .then(function (res) {
-            console.log(res);
-            state.dtoList = res.data.dtoList,
-                state.end = res.data.end,
-                state.next = res.data.next,
-                state.page = res.data.page,
-                state.pageList = res.data.pageList,
-                state.prev = res.data.prev,
-                state.size = res.data.size,
-                state.start = res.data.start,
-                state.totalPage = res.data.totalPage;
-            showResult(res.data);
+name: 'PartsMb',
+props: [  ],
+setup(){
+  const store = useStore();
 
-        });
-    const showResult = async (arr) => {
-      const displayUrl = "/display";
-      const url = `http://localhost:9090${displayUrl}`;
-      let str2 = "";
-      for (let i = 0; i < arr.dtoList.length; i++) {
-        str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
-        state.img[i] = str2;
-      }
-    };
-    const body = {
-      category:"mb"
+  const state = reactive({
+    id: "",
+    upResult: "",
+    img: [],
+     dtoList: [],
+    end: null,
+    next: null,
+    page: null,
+    pageList: null,
+    prev: null,
+    size: null,
+    start: null,
+    totalPage: null,
+    partsType: "mb",
+    price: [],
+  });
+  const url = "/api/partsList";
+   const headers = {
+     "Content-Type": "application/json; charset=utf-8",
+    "Authorization": store.state.token,
+    "id": store.state.id
+   };
+function getUserList(page){
+  axios.post(url, { page:page, type:"", category:"mb" }, { headers })
+  .then(function(res){
+      // console.log(res.data.dtoList[1].partsType == "used");
+    console.log(res.data)
+    state.id = res.data.dtoList.id,
+    state.dtoList = res.data.dtoList,
+    state.end =  res.data.end,
+    state.next =  res.data.next,
+    state.page =  res.data.page,
+    state.pageList =  res.data.pageList,
+    state.prev =  res.data.prev,
+    state.size =  res.data.size,
+    state.start =  res.data.start,
+    state.totalPage = res.data.totalPage
+    showResult(res.data)
+  })
+}
+
+axios.post(url, { page: 1, category: "mb" }, { headers })
+          .then(function (res) {
+          console.log(res);
+          state.dtoList = res.data.dtoList,
+              state.end = res.data.end,
+              state.next = res.data.next,
+              state.page = res.data.page,
+              state.pageList = res.data.pageList,
+              state.prev = res.data.prev,
+              state.size = res.data.size,
+              state.start = res.data.start,
+              state.totalPage = res.data.totalPage;
+          showResult(res.data);
+
+      });
+  const showResult = async (arr) => {
+    const displayUrl = "/display";
+    const url = `http://localhost:9090${displayUrl}`;
+    let str2 = "";
+    for (let i = 0; i < arr.dtoList.length; i++) {
+      str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
+      console.log(str2);
+      state.img[i] = str2;
     }
-    axios.post("/api/partsItemList", body, {headers}).then(function(res){
-      for (let i = 0; i < res.data.length; i++) {
-        state.price[i] = res.data[i].price;
-        
-      }
-        // state.price[i] = res.data;
-        console.log(state.price);
+  };
+  const body = {
+    category:"mb"
+  }
 
-    })
+  axios.post("/api/partsItemList", body, {headers}).then(function(res){
+    for (let i = 0; i < res.data.length; i++) {
+      state.price[i] = res.data[i].price;
+    }
+  })
 
-    function Join(list,i){
-      // console.log(list);
-      const body = {
-        category:"mb"
-      }
-      axios.post("/api/partsItemList", body, {headers}).then(function(res){
-        // store.state.dtoList = res.data;
-        console.log("===========");
-        console.log(res.data);
-        store.commit("setPrice", ...[res.data[i].price]);
-        store.state.price = res.data[i].price;
-          // console.log(store.item.price);
-      })
+  function Join(list,i){
+    store.commit('setdtoList', ...[list]);
+    store.commit("setPrice", ...[state.price[i]]);
 
       //조회수 처리
       const url2 = `/api/read/${list.id}`;
@@ -145,14 +135,8 @@ export default {
 	      "Content-Type": "application/json; charset=utf-8"
 	    };
       
-      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
-        store.state.dtoList = res.data;
-        // store.b.dto = res.data;
-        // store.state.posts.d.dto = res.data;
-        store.commit('setdtoList',...[res.data]);
-        console.log("asdasd");
-        console.log(store.state.dtoList);
-        // console.log(store.b.dto);
+      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(){
+
       })
     }
     return {state, store, getUserList,Join}

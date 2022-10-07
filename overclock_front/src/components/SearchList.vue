@@ -7,6 +7,7 @@
       <button type="button" class="btn btn-outline-dark" @click="like()">좋아요순</button>
       <button type="button" class="btn btn-outline-dark" @click="star()">평점순</button>
       <button type="button" class="btn btn-outline-dark" @click="latest()">최신순</button>
+      
     </div>
     <div>
     <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
@@ -21,7 +22,9 @@
     <hr>
     <div class="row row-cols-3">
       <div v-for="(card, id) in state.cards" :key="id">
-        <Cards :card="card"></Cards>
+        <Cards 
+        :card="card"
+        :imgUrl="state.imgUrl"></Cards>
       </div>
     </div>
     <div class="page">
@@ -51,6 +54,10 @@ export default {
   },
   setup() {
     const state = reactive({
+      imgName : 0,
+      imgPath: 0,
+      imgUuid : 0,
+      imgUrl: "",
       cards: 0,
       notSearchWord : false,
       reqPage: 0,
@@ -98,10 +105,25 @@ export default {
       }
       // console.log(body)
       // if (state.reqPage == 0) state.cards = null;
+
       await axios.post(url, body, {headers}).then(function (res){
+        const displayUrl = "/display";
+        const url = `http://localhost:9090${displayUrl}`;
         state.pageTotalCount = res.data.pageTotalCount;
-        // console.log("======================+===")
-        // console.log(res);
+        console.log("======================+===")
+        console.log(res.data);
+        for (let i = 0; i < res.data.articles.length; i++) {
+          state.imgName = res.data.articles[i].imgName;
+          state.imgPath = res.data.articles[i].imgPath;
+          state.imgUuid = res.data.articles[i].imgUuid;
+          state.imgUrl = state.imgPath + "/s_" +state.imgUuid+ "_" + state.imgName;
+          state.imgUrl = `${url}?fileName=${state.imgUrl}`;
+        }
+        console.log(state.imgName);
+        console.log(state.imgPath);
+        console.log(state.imgUuid);
+        console.log(state.imgUrl);
+        
         if (body.reqPage == 0) {
           // console.log("===========");
           // console.log(res.data)
