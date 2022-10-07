@@ -26,7 +26,6 @@
             </div>
             </a>
           </div>
-          </a>
         <!-- </router-link> -->
         </div>
           <div class="page">
@@ -37,7 +36,6 @@
             </ul>
           </div>  
       </div>
-    </div>
   </section><!-- End Services Section -->
 </template>
 

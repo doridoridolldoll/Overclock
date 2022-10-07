@@ -150,6 +150,10 @@ h6 {
   text-transform: uppercase;
 }
 
+#header .logo2{
+  margin-right: 0px;
+}
+
 #header .logo a {
   color: #fff;
 }
@@ -1575,7 +1579,6 @@ section {
   color: #fff;
 }
 .table {
-  min-width: 1000px !important;
   width: 100%;
   text-align: center; }
   .table th {

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import Main from "@/components/Main.vue"
 
-import Logout from "@/components/Logout.vue"
+import Logout from "@/components/MemberShip/Logout.vue"
 import Login from "@/components/MemberShip/Login.vue"
 import Join from "@/components/MemberShip/Join.vue"
 
@@ -50,8 +50,8 @@ import CommentModify from "@/components/Posts/Comment/CommentModify.vue"
 //검색
 import SearchList from "@/components/SearchList.vue"
 
-//모달
-
+import Cart from "@/components/Cart.vue"
+import Auction from "@/components/Auction.vue"
 
 
 
@@ -80,6 +80,9 @@ const routes = [
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
     {path:"/search", name: 'SearchList', component: SearchList},
+
+    {path:"/cart", name: 'Cart', component: Cart},
+    {path:"/auction", name: 'Auction', component: Auction},
 
     
 

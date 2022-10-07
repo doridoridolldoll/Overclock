@@ -68,7 +68,7 @@ height: 100vh;
 }
 
 #hero::before{
-  height: 1100px;
+  height: 1200px;
 }
 
 </style>
