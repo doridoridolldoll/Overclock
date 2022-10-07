@@ -119,12 +119,18 @@ export default {
   }
 
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
-    store.state.price = res.data[0].price;
+    for (let i = 0; i < res.data.length; i++) {
+      state.price[i] = res.data[i].price;
+      console.log(res);
+      
+      
+    }
   })
 
   function Join(list,i){
     store.commit('setdtoList', ...[list]);
     store.commit("setPrice", ...[state.price[i]]);
+    console.log(state.price[i]);
 
       //조회수 처리
       const url2 = `/api/read/${list.id}`;

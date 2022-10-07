@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.expression.Lists;
 import overclock.overclock.domain.PcPayRequest;
 import overclock.overclock.dto.*;
+import overclock.overclock.entity.Cart;
 import overclock.overclock.entity.Comment;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
@@ -33,6 +34,8 @@ public class ApiController {
     private final ItemService itemService;
     private final CommentService commentService;
     private final SendEmailService sendEmailService;
+
+    private final CartService cartService;
     
     /**
      * 멤버 회원가입
@@ -260,5 +263,17 @@ public class ApiController {
         log.info("MailDTO : "+ dto);
         sendEmailService.mailSend(dto);
         return new ResponseEntity<>(memberDTO, HttpStatus.OK);
+    }
+
+    /**
+     * 장바구니 리스트 출력
+     */
+    @RequestMapping(value = "/cartList", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PageResultDTO<CartDTO, Cart>> cartList(@RequestBody PageRequestDTO dto) {
+        PageResultDTO<CartDTO,Cart> result = cartService.cartList(dto);
+        log.info("CartDTO : {}", dto);
+        log.info("List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

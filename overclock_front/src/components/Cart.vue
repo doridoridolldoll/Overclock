@@ -8,45 +8,19 @@
               <th>번호</th>
               <th>상품사진</th>
               <th>상품명</th>
+              <th>가격</th>
               <th>작성일</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><input type="checkbox" class="ch" /> aa</td>
-              <td>aa</td>
-              <td><h3>aa</h3></td>
-              <td>aa</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="ch" /> aa</td>
-              <td>aa</td>
-              <td><h3>aa</h3></td>
-              <td>aa</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="ch" /> aa</td>
-              <td>aa</td>
-              <td><h3>aa</h3></td>
-              <td>aa</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="ch" /> aa</td>
-              <td>aa</td>
-              <td><h3>aa</h3></td>
-              <td>aa</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="ch" /> aa</td>
-              <td>aa</td>
-              <td><h3>aa</h3></td>
-              <td>aa</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="ch" /> aa</td>
-              <td>aa</td>
-              <td><h3>aa</h3></td>
-              <td>aa</td>
+            <tr v-for="(list,i) in state.dtoList" :key="(list,i)">
+              <td><input type="checkbox" class="ch" />{{list.id}}</td>
+              <td>
+                <img v-bind:src="state.imgUrl[i]"/>
+              </td>
+              <td><h3>{{list.cartName}}</h3></td>
+              <td>{{list.price}}</td>
+              <td>작성일</td>
             </tr>
           
           </tbody>
@@ -64,68 +38,67 @@
 </template>
 
 <script>
-// import { reactive } from '@vue/reactivity';
+import { reactive } from '@vue/reactivity';
+import store from '@/store';
+import axios from 'axios';
 // import axios from 'axios';
 export default {
   name: "ToCart",
   setup() {
-    //     const state = reactive({
-    //     end: null,
-    //     next: null,
-    //     page: null,
-    //     pageList: null,
-    //     prev: null,
-    //     size: null,
-    //     start: null,
-    //     totalPage: null,
-    //     partsType: "cart",
-    //   });
-    //   const url = "/api/getlist";
-    //    const headers = {
-    //     "Content-Type": "application/json"
-    //    };
-    // function getUserList(page){
-    //   axios.post(url, { page:page, type:"", category:"cart" }, { headers })
-    //   .then(function(res){
-    //     state.id = res.data.dtoList.id,
-    //     state.dtoList = res.data.dtoList,
-    //     state.end =  res.data.end,
-    //     state.next =  res.data.next,
-    //     state.page =  res.data.page,
-    //     state.pageList =  res.data.pageList,
-    //     state.prev =  res.data.prev,
-    //     state.size =  res.data.size,
-    //     state.start =  res.data.start,
-    //     state.totalPage = res.data.totalPage
-    //     showResult(res.data)
-    //   })
-    // }
-    // axios.post(url, { page: 1, category: "cart" }, { headers })
-    //           .then(function (res) {
-    //           console.log(res);
-    //           state.dtoList = res.data.dtoList,
-    //               state.end = res.data.end,
-    //               state.next = res.data.next,
-    //               state.page = res.data.page,
-    //               state.pageList = res.data.pageList,
-    //               state.prev = res.data.prev,
-    //               state.size = res.data.size,
-    //               state.start = res.data.start,
-    //               state.totalPage = res.data.totalPage;
-    //           showResult(res.data);
-    //       });
-    //   const showResult = async (arr) => {
-    //     const displayUrl = "/display";
-    //     const url = `http://localhost:9090${displayUrl}`;
-    //     let str2 = "";
-    //     for (let i = 0; i < arr.dtoList.length; i++) {
-    //       str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[i].thumbnailURL}`;
-    //       state.img[i] = str2;
-    //     }
-    //   };
-    //   return{getUserList}
-  },
-};
+  const id = new URLSearchParams(window.location.search).get("id")
+   const state = reactive({
+      id: "",
+      img: [],
+	    dtoList: [],
+      end: null,
+      next: null,
+      page: null,
+      pageList: null,
+      prev: null,
+      size: null,
+      start: null,
+      totalPage: null,
+      price: [],
+      memberId: id,
+      imgUrl:[],
+   })
+
+
+  const url = "/api/cartList";
+  const headers = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Authorization": store.state.token,
+    "id": store.state.id
+  };
+  const body = {
+    memberId: state.memberId
+  }
+  axios.post(url, body, { headers }).then(function (res) {
+    console.log("===========");
+    console.log(res);
+    state.dtoList = res.data.dtoList,
+    state.end = res.data  .end,
+    state.next = res.data.next,
+    state.page = res.data.page,
+    state.pageList = res.data.pageList,
+    state.prev = res.data.prev,
+    state.size = res.data.size,
+    state.start = res.data.start,
+    state.totalPage = res.data.totalPage;
+
+    const displayUrl = "/display";
+    const url2 = `http://localhost:9090${displayUrl}`;
+    for (let i = 0; i < res.data.dtoList.length; i++) {
+      state.imgUrl[i] =`${url2}?fileName=${res.data.dtoList[i].imgUrl}`;
+    }
+    console.log(state.imgUrl);
+
+
+  });
+   return {state}
+  }
+  }
+
 </script>
 
 <style scoped>
