@@ -9,16 +9,19 @@ import overclock.overclock.model.MemberRole;
 import overclock.overclock.security.dto.AuthMemberDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public interface MemberService {
     String modify(MemberDTO dto);
-
-
-    List mList(MemberDTO memberDTO);
+    Optional mList(MemberDTO memberDTO);
 
     String memberRegister(MemberDTO memberDTO);
+    Optional findByPhone(MemberDTO phone);
+    Optional findByEmail(MemberDTO email);
+    boolean userEmailCheck(String email);
 
+//    String findPass(MemberDTO pass);
 //    String companyRegister(MemberDTO memberDTO);
 
 

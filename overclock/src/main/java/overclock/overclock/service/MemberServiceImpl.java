@@ -70,12 +70,49 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public List mList(MemberDTO dto) {
-        List<Member> result = memberRepository.findByEmail(dto.getEmail());
+    public Optional mList(MemberDTO dto) {
+        Optional<Member> result = memberRepository.findByEmail(dto.getEmail());
         log.info("dto.getEmail : {}", result);
         if (result.isEmpty()) {
             return null;
         }
         return result;
+    }
+
+    @Override
+    public Optional findByPhone(MemberDTO phone) {
+        Optional<Member> result = memberRepository.findByPhone(phone.getPhone());
+        log.info("result : " + result);
+        if (result.isEmpty()) {
+            return null;
+        }
+        return result;
+    }
+
+    @Override
+    public Optional findByEmail(MemberDTO email) {
+        Optional<Member> result = memberRepository.findByEmail(email.getEmail());
+        if (result.isEmpty()) {
+            return null;
+        }
+        return result;
+    }
+
+    //    @Override
+//    public String findPass(MemberDTO pass) {
+//        memberRepository.findByPass(pass.getId(), encoder.encode(pass.getPassword()));
+//        return "인증되었습니다";
+//    }
+
+
+    @Override
+    public boolean userEmailCheck(String email) {
+        Member member = memberRepository.findUserByEmail(email);
+        if(member!=null && member.getEmail().equals(email)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

@@ -14,6 +14,11 @@ import CpJoin from "@/components/MemberShip/MbJoin.vue"
 
 import Profil from "@/components/Profil.vue"
 
+import EmailFind from "@/components/MemberShip/EmailFind"
+import PassFind from "@/components/MemberShip/PassFind"
+import PassCheck from "@/components/MemberShip/PassCheck"
+
+
 //고객센터
 import QnA from "@/components/QnA.vue"
 import QnAPost from "@/components/QnAPost.vue"
@@ -77,7 +82,10 @@ const routes = [
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
     {path:"/search", name: 'SearchList', component: SearchList},
-
+    {path:"/emailFind", name: 'EmailFind', component: EmailFind},
+    {path:"/passFind", name: 'PassFind', component: PassFind},
+    {path:"/passCheck", name: 'PassCheck', component: PassCheck},
+    
     
 
     {path:"/partsModify", name: 'PartsModify', component: PartsModify},
