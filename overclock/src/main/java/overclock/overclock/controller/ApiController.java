@@ -33,6 +33,7 @@ public class ApiController {
     private final ItemService itemService;
     private final CommentService commentService;
     private final SendEmailService sendEmailService;
+    
     /**
      * 멤버 회원가입
      */
@@ -196,7 +197,7 @@ public class ApiController {
 
     @RequestMapping(value = "/mModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> MemberModify(@RequestBody MemberDTO dto) {
-        log.info("mModify dto :" + dto);
+        log.info("asasaas :" + dto);
         String memberInfo = memberService.modify(dto);
         return new ResponseEntity<>(memberInfo, HttpStatus.OK);
     }

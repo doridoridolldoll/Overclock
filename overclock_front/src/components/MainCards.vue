@@ -1,7 +1,8 @@
 <template>
 	<div class="col maincards">
 		<div class="card-1 card border-0 w-100 mb-5">
-			<div class="wrapper" :style="'background-image: url('+store.state.axiosLink+'/images/read/'+image+'); background-size:cover;'">
+			<div class="wrapper" :style="'background-image: url('+props.imgUrl+'); background-size:cover;'">
+			<!-- <div class="icon"><img v-bind:src="props.imgUrl"></div>	 -->
 				<div class="data">
 					<div class="content">
 						<div @click="read()">
@@ -23,11 +24,13 @@ import store from "@/store";
 
 const props = defineProps({
   card: Object,
+  imgUrl: String,
 })
 
 let title = titleLength(props.card.title);
 console.log(props.card)
-
+console.log("=============");
+console.log(props.imgUrl);
 
 function titleLength(title){
   if (title.length < 30){
@@ -40,13 +43,13 @@ let state = reactive({
       img: store.state.img,
     })
 	console.log(state.img)
-let image = imageslice(props.card.fileName);
+// let image = imageslice(props.card.fileName);
 
-function imageslice(a){
-  if(a != null){
-    return a.slice(0, -1)
-  } else { return "basic.png"}
-}
+// function imageslice(a){
+//   if(a != null){
+//     return a.slice(0, -1)
+//   } else { return "basic.png"}
+// }
 
 function read() {
   router.push(`/read?article=${props.card.id}`)

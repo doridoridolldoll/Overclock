@@ -65,7 +65,7 @@ export default {
         // console.log(route.query.name);
         let asd = JSON.parse(route.query.name.join("").split(","));
         state.dtoList = asd;
-        // console.log(asd);
+        console.log(asd);
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";

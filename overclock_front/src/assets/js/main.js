@@ -1,5 +1,5 @@
 /**
-* Template Name: Gp - v4.9.0
+* Template Name: Gp - v4.8.1
 * Template URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
@@ -51,9 +51,9 @@
       let section = select(navbarlink.hash)
       if (!section) return
       if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-        navbarlink.classList.add('active')
+        // navbarlink.classList.add('active')
       } else {
-        navbarlink.classList.remove('active')
+        // navbarlink.classList.remove('active')
       }
     })
   }

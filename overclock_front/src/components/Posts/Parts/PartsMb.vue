@@ -1,18 +1,18 @@
 <template>
-  <section id="services" class="services">
-    <div class="container" data-aos="fade-up">
-      <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '2')">글쓰기</router-link>
-      <!-- <div v-if="(state.form == 'gpu')"> -->
-      <div class="section-title">
-        <p>MB</p>
-      </div>
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '2')">글쓰기</router-link>
+        <!-- <div v-if="(state.form == 'gpu')"> -->
+        <div class="section-title">
+          <p>MB</p>
+        </div>
 
         <div class="row">
           <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
           
-            <!-- <a  @click="Join(list,i)"> -->
+            <!-- <a @click="Join(list,i)"> -->
             <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
 
             <div class="icon-box">
@@ -25,19 +25,17 @@
               <div></div>
             </div>
             </a>
+
           </div>
-
-        <!-- </router-link> -->
+            <div class="page">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
+                <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
+                <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
+              </ul>
+            </div>  
         </div>
-          <div class="page">
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
-              <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
-              <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
-            </ul>
-          </div>  
       </div>
-
   </section><!-- End Services Section -->
 </template>
 
@@ -118,35 +116,14 @@ export default {
   const body = {
     category:"mb"
   }
+
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
     store.state.price = res.data[0].price;
   })
 
   function Join(list,i){
-    // console.log(list);
-    const body = {
-      category:"mb"
-    }
-    axios.post("/api/partsItemList", body, {headers}).then(function(res){
-        console.log(res.data);
-        store.state.price = res.data[i].price;
-        console.log(res.data[i].price);
-        // console.log(store.item.price);
-    })
-
-    function Join(list,i){
-      // console.log(list);
-      const body = {
-        category:"mb"
-      }
-      axios.post("/api/partsItemList", body, {headers}).then(function(res){
-        // store.state.dtoList = res.data;
-        console.log("===========");
-        console.log(res.data);
-        store.commit("setPrice", ...[res.data[i].price]);
-        store.state.price = res.data[i].price;
-          // console.log(store.item.price);
-      })
+    store.commit('setdtoList', ...[list]);
+    store.commit("setPrice", ...[state.price[i]]);
 
       //조회수 처리
       const url2 = `/api/read/${list.id}`;
@@ -154,28 +131,20 @@ export default {
 	      "Content-Type": "application/json; charset=utf-8"
 	    };
       
-      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(res){
-        store.state.dtoList = res.data;
-        // store.b.dto = res.data;
-        // store.state.posts.d.dto = res.data;
-        store.commit('setdtoList',...[res.data]);
-        console.log("asdasd");
-        console.log(store.state.dtoList);
-        // console.log(store.b.dto);
+      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(){
+
       })
     }
     return {state, store, getUserList,Join}
   }
-  return {state, store, getUserList,Join}
-}
 }
 </script>
 <style scoped>
- .pagination{
-    width: 100px;
-    margin: auto;
- }
-.page{
-  margin-top: 30px;
-}
+	.pagination{
+		width: 100px;
+		margin: auto;
+	}
+  .page{
+    margin-top: 30px;
+  }
 </style>

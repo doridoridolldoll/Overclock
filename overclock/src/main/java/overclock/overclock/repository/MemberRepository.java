@@ -26,6 +26,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.email=:email and m.fromSocial=:social ")
     Optional<Member> findByEmail(@Param("email") String email,@Param("social") boolean social);
 
+
+
     @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.id=:id")
     Optional<Member> findById(String id);
@@ -52,4 +54,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 //    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
 //    @Query("select m from Member m where m.password=:password ")
 //    Optional<Member> findByPass(Long id, String password);
+
 }
