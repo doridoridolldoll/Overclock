@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import overclock.overclock.dto.MailDTO;
+import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.repository.MemberRepository;
 
 @Service
@@ -23,12 +24,25 @@ public class SendEmailServiceimpl implements SendEmailService {
     public MailDTO createMailAndChangePassword(String email){
         String str = getTempPassword(); //임시번호생성
         MailDTO dto = new MailDTO();
+
         log.info("MailDTOqwqw : " + email);
         dto.setAddress(email);
         dto.setTitle(email+"님의 OVERCLOCK 임시비밀번호 안내 이메일 입니다.");
         dto.setMessage("안녕하세요. OVERCLOCK 임시비밀번호 안내 관련 이메일 입니다." + "[" + email + "]" +"님의 임시 비밀번호는 "
                 + str + " 입니다.");
+        dto.setTempPass(str);
         updatePassword(str,email);
+        return dto;
+    }
+    public MailDTO createMail(String email){
+        String str = getTempPassword(); //임시번호생성
+        MailDTO dto = new MailDTO();
+
+        dto.setAddress(email);
+        dto.setTitle(email+"님의 OVERCLOCK 인증번호 안내 이메일 입니다.");
+        dto.setMessage("안녕하세요. OVERCLOCK 인증번호 안내 관련 이메일 입니다." + "[" + email + "]" +"님의 인증번호는 "
+                + str + " 입니다.");
+        dto.setKey(str);
         return dto;
     }
 
@@ -39,7 +53,6 @@ public class SendEmailServiceimpl implements SendEmailService {
 //        Long id = memberRepository.findUserById(email).get().getId();
 //        log.info("id : " + id);
         log.info("password : " + str);
-
 //        memberRepository.updateUserPassword(em,str);
 
         return str;

@@ -27,6 +27,7 @@ public class MemberDTO {
 
     private int crn;
 
+
     @Builder.Default
     private Set<String> roleSet = new HashSet<>();
 }

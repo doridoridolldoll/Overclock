@@ -11,17 +11,14 @@ import overclock.overclock.entity.Member;
 import overclock.overclock.model.MemberRole;
 import overclock.overclock.repository.MemberRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Log4j2
 public class MemberServiceImpl implements MemberService {
-
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder;
-
     @Transactional //변경
     public String memberRegister(MemberDTO memberDTO) {
         memberDTO.setPassword(BCrypt.hashpw(memberDTO.getPassword(), BCrypt.gensalt()));
@@ -60,18 +57,9 @@ public class MemberServiceImpl implements MemberService {
         return modifiedMember.getId().toString();
     }
 
-    //    private void validateDuplicateMember(MemberDTO memberDTO) {
-//
-//        List<Member> findMembers = memberRepository.findByName(memberDTO.getName());
-//        if (!findMembers.isEmpty()) {
-//            throw new IllegalStateException("이미 존재하는 회원입니다.");
-//        }
-//    }
-
-
     @Override
     public Optional mList(MemberDTO dto) {
-        Optional<Member> result = memberRepository.findByEmail(dto.getEmail());
+        Optional<Member> result = memberRepository.findByEmail12(dto.getEmail());
         log.info("dto.getEmail : {}", result);
         if (result.isEmpty()) {
             return null;
@@ -80,8 +68,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Optional findByPhone(MemberDTO phone) {
-        Optional<Member> result = memberRepository.findByPhone(phone.getPhone());
+    public Optional findByPhone(MemberDTO dto) {
+        Optional<Member> result = memberRepository.findByPhone(dto.getPhone());
         log.info("result : " + result);
         if (result.isEmpty()) {
             return null;
@@ -91,19 +79,15 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Optional findByEmail(MemberDTO email) {
-        Optional<Member> result = memberRepository.findByEmail(email.getEmail());
+        log.info("member DTO email : {}", email.getEmail());
+
+        Optional<Member> result = memberRepository.findIdByEmail(email.getEmail());
+        log.info("findByEmail result : {}", result);
         if (result.isEmpty()) {
             return null;
         }
         return result;
     }
-
-    //    @Override
-//    public String findPass(MemberDTO pass) {
-//        memberRepository.findByPass(pass.getId(), encoder.encode(pass.getPassword()));
-//        return "인증되었습니다";
-//    }
-
 
     @Override
     public boolean userEmailCheck(String email) {
@@ -115,4 +99,15 @@ public class MemberServiceImpl implements MemberService {
             return false;
         }
     }
+    @Override
+    public String passChange(MemberDTO dto) {
+        Member entity = memberRepository.getReferenceById(dto.getId());
+        MemberDTO getById = EntityToDTO(entity);
+        getById.setPassword(encoder.encode(dto.getPassword()));
+        Member passChange = dtoToEntity(getById);
+        memberRepository.save(passChange);
+
+        return passChange.getId().toString();
+    }
+
 }
