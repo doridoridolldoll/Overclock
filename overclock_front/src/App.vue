@@ -20,7 +20,7 @@
               <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li>
               <li><a href="#" v-if="$store.state.token">주문내역</a></li>
               <li><router-link to="/login" v-if="!$store.state.token">로그인</router-link></li>
-              <li><router-link to="/logout" @click="logout()" v-if="$store.state.token">
+              <li><router-link to="/" @click="logout()" v-if="$store.state.token">
                 로그아웃</router-link></li>
               <li><router-link to="/join" v-if="!$store.state.token">회원가입</router-link></li>
             </ul>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import MobileNav from './components/MobileNav.vue';
 import router from './router';
 import store from './store';
 export default {

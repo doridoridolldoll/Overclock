@@ -38,7 +38,9 @@
               </div>
             </div>
           </form>
-          
+          <button type="button" class="btn btn-outline-primary">
+            <router-link to="/PassCheck" class="nav-link scrollto">내정보 수정</router-link>
+          </button>
         </div>
       </div>
     </div>
@@ -85,12 +87,9 @@ export default {
       nickname: state.nickname,
     }
     axios.post("/api/mList", body, { headers }).then(function (res) {
-      state.name = res.data[0].name
-      state.nickname = res.data[0].nickname
-      state.phone = res.data[0].phone
-      state.city = res.data[0].city
-      state.street = res.data[0].street
-      state.zipcode = res.data[0].zipcode
+      state.name = res.data.name
+      state.nickname = res.data.nickname
+      state.phone = res.data.phone
       console.log(res.data)
       console.log(state.phone)
       console.log(state.city)

@@ -15,14 +15,12 @@ import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
 import overclock.overclock.model.subcard;
-import overclock.overclock.service.CommentService;
-import overclock.overclock.service.ItemService;
-import overclock.overclock.service.MemberService;
-import overclock.overclock.service.PostsService;
+import overclock.overclock.service.*;
 import overclock.overclock.vo.passCheck;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -32,10 +30,9 @@ import java.util.Optional;
 public class ApiController {
     private final PostsService postsService;
     private final MemberService memberService;
-
     private final ItemService itemService;
     private final CommentService commentService;
-
+    private final SendEmailService sendEmailService;
     /**
      * 멤버 회원가입
      */
@@ -216,18 +213,51 @@ public class ApiController {
 
 
     @RequestMapping(value = "/mList", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List> mList(@RequestBody MemberDTO dto) {
+    public ResponseEntity<Optional> mList(@RequestBody MemberDTO dto) {
         log.info("asasaas :" + dto);
-        List email = memberService.mList(dto);
+        Optional email = memberService.mList(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
 
-    //회원정보 수정 전 패스워드 검증
-//    @RequestMapping(value = "/profil", method = RequestMethod.POST,
+//    @RequestMapping(value = "/passFind", method = RequestMethod.POST,
 //            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> passCheck(@RequestBody passCheck vo) {
-//        log.info(vo);
-//        return new ResponseEntity<>(memberService.findPass(vo),HttpStatus.OK);
+//    public ResponseEntity<Optional> findEmail(@RequestBody MemberDTO email) {
+//        log.info(email);
+//        return new ResponseEntity<>(memberService.findByEmail(email),HttpStatus.OK);
 //    }
 
+    //회원정보 수정 전 패스워드 검증
+//    @RequestMapping(value = "/passcheck", method = RequestMethod.POST,
+//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> passCheck(@RequestBody MemberDTO pass) {
+//        log.info(pass);
+//        return new ResponseEntity<>(memberService.findPass(pass),HttpStatus.OK);
+//    }
+
+    @RequestMapping(value = "/passFind", method = RequestMethod.GET,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Map<String, Boolean> pw_find(String email){
+        email = "skaduf73@gmail.com";
+        log.info("pw_find-----------------" + email);
+        Map<String,Boolean> json = new HashMap<>();
+        boolean pwFindCheck = memberService.userEmailCheck(email);
+
+        System.out.println(pwFindCheck);
+        json.put("check", pwFindCheck);
+        return json;
+    }
+
+    //등록된 이메일로 임시비밀번호를 발송하고 발송된 임시비밀번호로 사용자의 pw를 변경하는 컨트롤러
+    @RequestMapping(value = "/passFind/send", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MemberDTO> sendEmail(@RequestBody MemberDTO memberDTO){
+
+        log.info("sendEmail------------------" + memberDTO.getEmail());
+//        email = "skaduf73@gmail.com";
+        log.info("sendEmail2------------------" + memberDTO);
+        MailDTO dto = sendEmailService.createMailAndChangePassword(memberDTO.getEmail());
+        log.info("MailDTO : "+ dto);
+        sendEmailService.mailSend(dto);
+        return new ResponseEntity<>(memberDTO, HttpStatus.OK);
+    }
 }
