@@ -30,6 +30,10 @@
                   <ul>
                     <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
                     
+                    <PcPay
+                      :price="state.price">
+                      </PcPay>
+
                   </ul>
                 </div>
               </div>
@@ -44,8 +48,13 @@
                     </p>
                 </div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
-                <router-link to="" class="btn btn-primary">구매</router-link>
-                <Comment/>
+                
+                <router-link to="" class="btn1 btn btn-primary ">구매</router-link>
+                <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
+
+                <Comment
+              :dtoList="state.dtoList"
+            />
           </div>
     </body>
   </section>
@@ -53,26 +62,37 @@
 
 <script>
 import { reactive } from '@vue/reactivity';
-import { useRoute } from 'vue-router';
+import { useStore } from 'vuex'
 import Comment from '../Comment/Comment.vue';
+import PcPay from '@/components/Pay/PcPay.vue';
 export default {
+  components: { Comment, PcPay },
     name: "UsedDetail",
     setup() {
+      const store = useStore();
         const state = reactive({
-            dtoList: [],
+          price: '',
+          dtoList: '',
+          memberId: null,
+          postsId: null,
         });
-        let route = useRoute();
-        // console.log(route.query.name);
-        let asd = JSON.parse(route.query.name.join("").split(","));
-        state.dtoList = asd;
-        console.log(asd);
+
+        let list = store.state.dtoList;
+        console.log(store.state.dtoList);
+        state.dtoList = store.state.dtoList;
+        state.price =store.state.price;
+        // state.postsId = state.dtoList.id
+        // console.log(state.postsId);
+
+        // state.memberId = state.dtoList.memberId;
+        // console.log(state.memberId);
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
-        img = `${url}?fileName=${asd.imageDTOList[0].imageURL}`;
-        return { route, img, state };
-    },
-    components: { Comment }
+        img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+        // // console.log(list.imageDTOList);
+        return {state,img};
+    }
 }
 </script>
 <style scoped>
@@ -108,6 +128,9 @@ p{
 }
 #hero{
     overflow: scroll;
+}
+.btn1{
+  margin-right: 10px;
 }
 
 

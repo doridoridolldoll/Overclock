@@ -45,8 +45,8 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
             "FROM Posts p " +
             "LEFT JOIN Member m ON p.member.id = m.id " +
             "left join ItemImg i ON i.ItemImg.id = p.id " +
-            "WHERE p.title LIKE CONCAT('%',:search,'%') ")
-    Optional<List<getEmbedCardsInformation>> getSearchList(String search);
+            "WHERE p.title LIKE CONCAT('%',:search,'%') AND p.partsType =:postsType " )
+    Optional<List<getEmbedCardsInformation>> getSearchList(String search, String postsType);
 
     @Query("SELECT p.id, p.title " +
             "FROM Posts p left join Member m on m.id = p.id " +

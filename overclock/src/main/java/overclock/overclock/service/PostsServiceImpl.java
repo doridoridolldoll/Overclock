@@ -165,7 +165,7 @@ public class PostsServiceImpl implements PostsService {
         Page<Posts> page = repository.getListAndAuthorByAuthorOrTitlePage(vo.getSearch(), pageable);
         log.info("=====page======");
         log.info(page);
-        List<EmbedCard> result = repository.getSearchList(vo.getSearch()).get().stream().map(v -> {
+        List<EmbedCard> result = repository.getSearchList(vo.getSearch(), vo.getPostsType()).get().stream().map(v -> {
             return new EmbedCard(v);
         }).collect(Collectors.toList());
         HashMap<String, Object> cardInfo = new HashMap<>();

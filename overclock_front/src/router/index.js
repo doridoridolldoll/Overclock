@@ -36,6 +36,7 @@ import PartsModify from "@/components/Posts/Parts/PartsModify.vue"
 
 //주변기기
 import Peri from "@/components/Posts/Peripherals/Peripherals.vue"
+import PeriDetail from "@/components/Posts/Peripherals/PeriDetail.vue"
 import PeriRegister from "@/components/Posts/Peripherals/PeriRegister.vue"
 
 //중고거래
@@ -68,6 +69,7 @@ const routes = [
     {path:"/peri",name:"Peri", component: Peri}, 
     {path:"/used",name:"Used", component: Used}, 
     {path:"/partsdetail",name:"PartsDetail", component: PartsDetail, props: { newsletterPopup: false }}, 
+    {path:"/peridetail",name:"PeriDetail", component: PeriDetail, props: { newsletterPopup: false }}, 
     {path:"/useddetail",name:"UsedDetail", component: UsedDetail}, 
     {path:"/freedetail",name:"FreeDetail", component: FreeDetail}, 
     {path:"/free",name:"Free", component: Free}, 

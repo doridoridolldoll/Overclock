@@ -61,14 +61,12 @@
             />
 
           </div>
-      <div></div>
     </body>
   </section>
 </template>
 
 <script>
 import { useStore } from 'vuex'
-// import {useRoute} from 'vue-router'
 import { reactive } from '@vue/reactivity';
 import Comment from '@/components/Posts/Comment/Comment.vue';
 import PcPay from '@/components/Pay/PcPay.vue';
@@ -176,7 +174,5 @@ p{
 .btn1{
   margin-right: 10px;
 }
-.btn2{
-  margin-right: 10px;
-}
+
 </style>
