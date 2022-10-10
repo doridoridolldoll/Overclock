@@ -31,6 +31,7 @@ import PcPay from '@/components/Pay/PcPay.vue'
 //부품
 import Parts from "@/components/Posts/Parts/Parts.vue"
 import PartsDetail from "@/components/Posts/Parts/PartsDetail.vue"
+import PartsDetail2 from "@/components/Posts/Parts/PartsDetail2.vue"
 import PartsRegister from "@/components/Posts/Parts/PartsRegister.vue"
 import PartsModify from "@/components/Posts/Parts/PartsModify.vue"
 
@@ -69,6 +70,7 @@ const routes = [
     {path:"/peri",name:"Peri", component: Peri}, 
     {path:"/used",name:"Used", component: Used}, 
     {path:"/partsdetail",name:"PartsDetail", component: PartsDetail, props: { newsletterPopup: false }}, 
+    {path:"/partsdetail2",name:"PartsDetail2", component: PartsDetail2}, 
     {path:"/peridetail",name:"PeriDetail", component: PeriDetail, props: { newsletterPopup: false }}, 
     {path:"/useddetail",name:"UsedDetail", component: UsedDetail}, 
     {path:"/freedetail",name:"FreeDetail", component: FreeDetail}, 

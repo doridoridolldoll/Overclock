@@ -40,7 +40,6 @@
 <script>
 import router from './router';
 import store from './store';
-import MobileNav from './components/MobileNav.vue';
 export default {
     name: "App",
     setup() {

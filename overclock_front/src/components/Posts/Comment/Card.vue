@@ -3,9 +3,10 @@
   <div class="comment" v-for="list in state.dtoList" :key="list"
           >
       <div class="commentId mt-3">
-        <span class="commentMember">{{list.id}}</span>
+        <!-- <span class="commentMember">{{state.name}}</span> -->
       </div>
       <div class="commentContent mt-3">
+
         <span class="commentText mt-1">{{list.content}}</span>
          <a :href="'./CommentModify?id=' + list.id">수정</a>
       </div>
@@ -18,22 +19,25 @@ import axios from 'axios';
 export default {
   
     name:'ToCard',
-    props: ["memberId","postsId"],
+    props: ["postsId"],
     setup(props){
 
       const state = reactive({
         id : null,
         content: null,
         dtoList: null,
+        name : "",
         postsId: props.postsId,
-        memberId: props.memberId,
+        memberId : [], 
       })
-  
+      console.log(state.postsId);
+      
+
       let body = {
           postsId: state.postsId,
-          memberId: state.memberId
+          // memberId : state.memberId,
       };
-          console.log(state.memberId);
+          // console.log(state.memberId);
           console.log(state.postsId);
       const url = "/api/comment/list";
       const headers = {
@@ -42,12 +46,26 @@ export default {
       
       axios.post(url, body, { headers }).then(function (res) {
         state.dtoList = res.data.dtoList;
+        console.log("======"); 
         console.log(state.dtoList); 
         for (let i = 0; i < res.data.dtoList.length; i++) {
           state.id = res.data.dtoList[i].id;
+          state.memberId[i] = res.data.dtoList[i].memberId
           state.content = res.data.dtoList[i].content;
         }
+        console.log(state.memberId)
       });
+
+      
+      // const body2 = {
+      //     postsId: state.postsId,
+      //     memberId : JSON.stringify(state.memberId),
+      // };
+      // axios.post("api/comment/name", body2, { headers }).then(function (res) {
+      //   // state.name = res.data;
+      //   console.log(res);
+      // });
+
       return {state}
     }
 

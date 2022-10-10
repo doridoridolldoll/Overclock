@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import overclock.overclock.dto.ItemDTO;
 import overclock.overclock.entity.Member;
+import overclock.overclock.entity.Posts;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -43,6 +44,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.phone=:phone ")
     Optional<Member> findByPhone(String phone);
+
+
     Member findUserByEmail(String email);
 //    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
 //    @Query("select m from Member m where m.email=:email")
@@ -58,4 +61,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.email=:email ")
     Optional<Member> findIdByEmail(String email);
+
+
+    @Query("select m.name from Member m where m.id=:id")
+    Optional<Member> findById2(Long id);
+
+    @Query("select p from Posts p where p.id=:id")
+    Optional<Posts> findByMemberId(Long id);
+
+    @Query("select m.crn from Member m where m.email=:email")
+    int findByCrn(String email);
+
+
+
 }

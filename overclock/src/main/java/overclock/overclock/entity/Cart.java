@@ -22,7 +22,7 @@ public class Cart extends BaseEntity{
     private String imgUrl;
     private int count;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Member member;
 
 }
