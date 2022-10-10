@@ -11,7 +11,7 @@
                 <textarea class ="form-control" v-model="state.content" rows="5" name="item_detail"></textarea>
             </div>
             
-            <button class="btn btn-primary btn7" @click="modify">등록</button>
+            <button class="btn btn-primary btn7" @click="modify">수정</button>
             <button class="btn btn-primary btn7" @click="deleted">삭제</button>
 
     </form>
@@ -22,6 +22,7 @@
     import axios from "axios";
     import { useStore } from 'vuex'
     import { reactive } from "vue";
+import router from '@/router';
 
     export default {
         name: "WritePage",
@@ -33,7 +34,11 @@
                 title: '',
                 content: '',
             })
+
+
             const modify = async() => {
+            store.state.dtoList.title = state.title;
+            store.state.dtoList.content = state.content;
                 const url = '/api/modify/send'
                 const headers = {
                 "Content-Type" : "application/json"
@@ -45,6 +50,9 @@
                 }
             
                 await axios.post(url, body, {headers} )
+                alert("해당 게시글이 수정되었습니다.")
+                await router.push(`/PartsDetail?id=${state.id}`)
+                //    await router.push(`/PartsDetail?id=${state.postsId}`)  
             }
             const deleted = async() => {
                 const url = '/api/delete'
@@ -55,9 +63,10 @@
                     id: state.id,
                     title: state.title,
                     content: state.content
-
                 }
                 await axios.post(url, body, {headers} )
+                alert("해당 게시글이 삭제 되었습니다.")
+                router.push("/parts")
             }
             return { state, modify, deleted }
         },

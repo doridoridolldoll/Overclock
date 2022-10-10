@@ -1,9 +1,9 @@
 <template>
 
-  <div class="comment" v-for="list in state.dtoList" :key="list"
+  <div class="comment" v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
       <div class="commentId mt-3">
-        <!-- <span class="commentMember">{{state.name}}</span> -->
+        <span class="commentMember">{{state.name[i]}}</span>
       </div>
       <div class="commentContent mt-3">
 
@@ -26,45 +26,38 @@ export default {
         id : null,
         content: null,
         dtoList: null,
-        name : "",
+        name : [],
         postsId: props.postsId,
         memberId : [], 
       })
-      console.log(state.postsId);
       
 
       let body = {
           postsId: state.postsId,
-          // memberId : state.memberId,
       };
-          // console.log(state.memberId);
-          console.log(state.postsId);
       const url = "/api/comment/list";
       const headers = {
         "Content-Type": "application/json; charset=utf-8"
       };
       
+
       axios.post(url, body, { headers }).then(function (res) {
         state.dtoList = res.data.dtoList;
-        console.log("======"); 
-        console.log(state.dtoList); 
+
+        //댓글 작성자 추출(과부화 위험 있음)
         for (let i = 0; i < res.data.dtoList.length; i++) {
           state.id = res.data.dtoList[i].id;
-          state.memberId[i] = res.data.dtoList[i].memberId
+          state.memberId = res.data.dtoList[i].memberId
           state.content = res.data.dtoList[i].content;
+            axios.post("api/comment/name", {memberId: state.memberId}, { headers }).then(function (res) {
+              state.name[i] = res.data;
+            });
         }
-        console.log(state.memberId)
       });
 
       
-      // const body2 = {
-      //     postsId: state.postsId,
-      //     memberId : JSON.stringify(state.memberId),
-      // };
-      // axios.post("api/comment/name", body2, { headers }).then(function (res) {
-      //   // state.name = res.data;
-      //   console.log(res);
-      // });
+      
+  
 
       return {state}
     }

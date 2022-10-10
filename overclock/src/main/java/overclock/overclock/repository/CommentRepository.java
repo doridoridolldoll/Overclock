@@ -19,8 +19,9 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             "WHERE c.posts.id =:postsId ")
     Page<Comment> commentList(Long postsId, Pageable pageable);
 
-    @Query(value = "SELECT c.member.id FROM Comment c " +
-            "WHERE c.posts.id =:postsId")
-    List<Comment> commentName(Long postsId);
+    @Query(value = "SELECT m.name FROM Member m " +
+            "WHERE m.id =:memberId")
+    String commentName(Long memberId);
+
     Comment getByid(Long id);
 }

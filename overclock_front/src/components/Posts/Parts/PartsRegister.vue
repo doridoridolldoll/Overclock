@@ -23,10 +23,10 @@
                 <input type="text" class="form-control" v-model="state.stock" name="stock" placeholder="stock">
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group" >
                 <label>회원ID</label>
-                <input type="text" class="form-control" v-model="state.memberId" name="memberId" placeholder="memberId"><br>
-            </div>
+                <input type="text" class="form-control hidden" v-model="state.memberId" name="memberId" placeholder="memberId"><br>
+            </div> -->
 
             <div class="box"></div>
 
@@ -62,7 +62,7 @@ export default {
         const state = reactive({
             title       : '',
             content: '',
-            memberId  : '',
+            memberId  : store.state.id,
             name        : '',
             itemDetail : '',
             stock: '',  
@@ -130,6 +130,7 @@ export default {
 </script>
 
 <style scoped>
+
   .input-form9 {
 
     text-align: center;

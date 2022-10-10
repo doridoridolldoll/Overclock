@@ -58,11 +58,10 @@ public class  CommentServiceImpl implements CommentService {
             public String commentName(MemberDTO dto) {
                 log.info("Comment Member DTO : {}",dto);
                 log.info("MemberId : {}", dto);
-//                Long postsId = dto.getPostsId();
-//                List<Comment> result = commentRepository.commentName(dto.getMemberId());
-//                log.info("memberId : {}", result);
+                String result = commentRepository.commentName(dto.getMemberId());
+                log.info("Member Name : {}", result);
 
-                return null;
+                return result;
             }
 
             @Transactional

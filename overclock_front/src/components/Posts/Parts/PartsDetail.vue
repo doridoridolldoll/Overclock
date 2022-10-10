@@ -15,21 +15,12 @@
                   <h3>상품정보</h3>
                   <PartsDetail2
                     :dtoList="state.dtoList"
-                    :id="state.partsDetailId"/>
+                    :partsDetailId="state.partsDetailId"/>
                     <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
-                <button class="btn1 btn btn-primary"  v-if="(state.role == '0')" @click="add">담기</button>
-                <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
+                <button class="btn1 btn btn-primary"  v-if="(state.role != '1')" @click="add">담기</button>
+                <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary">수정</router-link>
                 </div>
-                <!-- <div class="portfolio-info">
-                  <ul>
-                  
 
-                    <PcPay
-                      :price="state.price">
-                      </PcPay>
-                    
-                  </ul>
-                </div> -->
               </div>
             </div>
             <div class="portfolio-description">
@@ -73,6 +64,7 @@ import axios from 'axios';
           dtoList: '',
           postsId: null,
           memberId: store.state.id,
+          partsDetailMemberId : store.state.dtoList.memberId,
           role : '',
           partsDetailId : id
         });
@@ -103,10 +95,14 @@ import axios from 'axios';
           const body = {
             memberId : state.memberId,
             cartName: state.title,
-            price: state.price,
+            price: state.price*state.count,
             count: state.count,
             imgUrl: state.imgUrl,
 
+          }
+          if(state.memberId == 0){
+            alert("로그인 후 사용가능합니다");
+            return;
           }
           axios.post(url, body, { headers })
             .then(function(res){
