@@ -9,6 +9,8 @@ import Join from "@/components/MemberShip/Join.vue"
 import MbLogin from "@/components/MemberShip/MbLogin.vue"
 import MbJoin from "@/components/MemberShip/MbJoin.vue"
 
+import Social from "@/components/MemberShip/Social.vue"
+
 import CpLogin from "@/components/MemberShip/MbLogin.vue"
 import CpJoin from "@/components/MemberShip/MbJoin.vue"
 
@@ -79,6 +81,7 @@ const routes = [
     {path:"/mbjoin",name:"MbJoin", component: MbJoin},
     {path:"/cplogin",name:"CpLogin", component: CpLogin}, 
     {path:"/cpjoin",name:"CpJoin", component: CpJoin},
+    {path:"/social",name:"Social", component: Social},
     {path:"/login",name:"Login", component: Login}, 
     {path:"/logout",name:"Logout", component: Logout}, 
     {path:"/join",name:"Join", component: Join},

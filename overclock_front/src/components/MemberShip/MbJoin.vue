@@ -1,7 +1,7 @@
 <template>
 
   <div class="input-form2 col-md-12 mx-auto">
-    <h4 class="mb-3">일반 회원가입</h4>
+    <h4 class="mb-3">개인 회원가입</h4>
     <form class="validation-form" @submit.prevent>
       <div class="row">
         <div class="col-md-6 mb-3">
@@ -92,9 +92,7 @@
       </div>
       <div class="mb-4"></div>
       <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler">가입 완료</button>
-      <tr>
-        <td><a href="http://localhost:9090/oauth2/authorization/google" @click="asd">Google</a></td>
-      </tr>
+
     </form>
   </div>
 </template>
@@ -169,22 +167,7 @@ export default {
 
     }
 
-    const asd = async () => {
-      alert("asd");
-      const url = "./member/login"
-      const headers = { "Content-Type": "application/json; charset=utf-8;" }
-      const body = { id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
-      await axios.post(url, body, { headers }).then(function (res) {
-        store.commit("setToken", res.data.token);
-        store.commit("setId", state.form.id);
-        store.commit("setEmail", res.data.email);
-        store.commit("setRole", "2")
-        // store.commit("setrole)
-        console.log(res.data);
-        alert("로그인되었습니다.");
-        router.push(`/`)
-      })
-    }
+
 
     const emailVali = async () => {
       console.log(state.email)
@@ -234,7 +217,7 @@ export default {
     }
     }
 
-    return { joinHandler, state, asd, emailCheck, emailVali }
+    return { joinHandler, state, emailCheck, emailVali }
   },
   components: { EmailCheck  }
 };
@@ -249,7 +232,7 @@ export default {
   text-align: center;
   padding: 32px;
 
-  margin-top: 45px;
+  /* margin-top: 45px; */
 
   background: #fff;
   -webkit-border-radius: 10px;

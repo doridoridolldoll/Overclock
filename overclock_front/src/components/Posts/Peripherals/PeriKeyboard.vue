@@ -142,4 +142,11 @@ export default {
   .page{
     margin-top: 30px;
   }
+  a{
+    text-decoration-line: none;
+  }
+  .services .icon-box{
+	border: 1px solid rgb(102, 102, 102);
+	border-radius: 10px;
+}
 </style>

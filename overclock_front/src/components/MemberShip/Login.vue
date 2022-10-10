@@ -1,14 +1,15 @@
 <template>
   <section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container2" data-aos="fade-up">
+
       <div class="container">
         <div class="input-form2 col-md-12 mx-auto">
-          <div v-on:click="change('member')">
-            <h3 class="asd">Member</h3>
-          </div>
-          <div v-on:click="change('company')">
-            <h3 class="asd">Company</h3>
-          </div>
+            <span v-on:click="change('member')">
+            <h3 class="asd btn btn-primary mt-5">개인</h3>
+            </span>
+            <span v-on:click="change('company')">
+            <h3 class="asd btn btn-info mt-5">업체</h3>
+          </span>
 
           <div v-if="(state.form == 'member')">
             <MbLogin />
@@ -16,10 +17,11 @@
           <div v-if="(state.form == 'company')">
             <CpLogin />
           </div>
-          <button type="button" class="btn btn-outline-primary">
+          
+          <button type="button" class="btn btn-outline-primary asd">
             <router-link to="/EmailFind" class="nav-link scrollto">아이디 찾기</router-link>
           </button>
-          <button type="button" class="btn btn-outline-primary">
+          <button type="button" class="btn btn-outline-primary asd">
             <router-link to="/PassFind" class="nav-link scrollto">비밀번호 찾기</router-link>
           </button>
           
@@ -52,12 +54,12 @@ export default {
 .container2 {
   height: 100vh;
 }
-
+.container{
+  margin-top: 50px;
+}
 .input-form2 {
   text-align: center;
   padding: 32px;
-
-  margin-top: 45px;
 
   background: #fff;
   -webkit-border-radius: 10px;
@@ -66,7 +68,7 @@ export default {
 }
 
 #hero {
-  overflow: scroll;
+  overflow: hidden;
 
   max-height: 1100px;
 }
@@ -74,4 +76,9 @@ export default {
 #hero::before {
   height: 1100px;
 }
+
+.asd{
+  margin: 10px;
+}
+
 </style>

@@ -1,6 +1,6 @@
 <template>
 
-    <input type="number" placeholder="금액 입력" v-model="state.price" >
+    <input type="number" placeholder="금액 입력" v-model="state.price" style="width: 150px; border: 1px solid black; margin: 15px; text-align: center;" >
     <div @click="PaymentBtn">결제</div>
 
 </template>

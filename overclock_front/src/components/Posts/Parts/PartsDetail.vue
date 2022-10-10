@@ -37,17 +37,8 @@
             </div>
             <div class="portfolio-description">
                   <h2>제품상세</h2>
-                  <p>
-                    RTX 3060 Ti / 8nm / 
-                    베이스클럭: 1680MHz / 
-                    스트림 프로세서: 4864개 / 
-                    PCIe4.0x16 / GDDR6(DDR6) / 
-                    출력단자: HDMI2.1 , DP1.4 / 
-                    부가기능: 제로팬(0-dB기술) , 
-                    8K 해상도 지원 , 4K 해상도 지원 ,
-                     HDCP 지원 / 정격파워 600W 이상 /
-                      전원 포트: 8핀 x1개 / 2개 팬 / 
-                      가로(길이): 198mm / 백플레이트
+                  <p style="font-size: x-large;">
+              {{state.dtoList.content}}
                     </p>
                 </div>
                 <div>{{state.price}}</div>
@@ -84,6 +75,7 @@ import axios from 'axios';
           dtoList: '',
           postsId: null,
           memberId : store.state.id,
+          content:''
         });
         
 
@@ -174,5 +166,7 @@ p{
 .btn1{
   margin-right: 10px;
 }
-
+a{
+    text-decoration-line: none;
+  }
 </style>

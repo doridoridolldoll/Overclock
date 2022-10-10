@@ -91,5 +91,11 @@ console.log(props.imgUrl);
 </script>
 
 <style scoped>
-
+.services .icon-box{
+	border: 1px solid rgb(102, 102, 102);
+	border-radius: 10px;
+}
+ a{
+    text-decoration-line: none;
+  }
 </style>

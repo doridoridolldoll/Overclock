@@ -34,7 +34,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="text-center" v-for="(list, i) in state.dtoList" :key="(list, i)">
+                    <tr class="text-center" v-for="(list, i) in state.dtoList" :key="(list, i)" >
                         <td class="price">{{ list.id }} </td>
 
                         <td>
@@ -225,18 +225,20 @@ export default {
 	.table tbody tr td{
 		padding: 10px;
 	}
+  
   .text-center a{
     display:block;
     text-decoration-line: none;
     width: 100%;
     height: 100%;
+    padding: auto;
   }
   .text-center a:hover{
     background-color: #a0d4ff;
   }
-.product-name{
+.product-name h3{
   width:100%;
-    line-height: 2.5em;
+    line-height: 3em;
   }
   
 

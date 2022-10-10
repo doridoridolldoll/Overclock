@@ -6,7 +6,7 @@
       <h1 class="logo me-auto me-lg-0"><router-link to="/">OverClock<span>.</span></router-link></h1>
       
       <nav id="navbar" class="navbar order-last order-lg-0">
-        <h5 class="logo logo2 me-auto me-lg-0"><router-link to="/auction">OverClock<span>+</span></router-link></h5>
+        <h5 class="logo logo2 me-auto me-lg-0"><router-link to="/auction" style="text-decoration-line: none;">OverClock<span>+</span></router-link></h5>
         <ul>
           <li><router-link to="/parts" class="nav-link scrollto" >부품</router-link></li>
           <li><router-link to="/peri" class="nav-link scrollto" >주변기기</router-link></li>
@@ -40,7 +40,6 @@
 <script>
 import router from './router';
 import store from './store';
-import MobileNav from './components/MobileNav.vue';
 export default {
     name: "App",
     setup() {
@@ -51,7 +50,8 @@ export default {
       store.commit('setId',0);
       store.commit('setEmail',0);
       store.commit("setRole", "")
-      router.push({path:"/logout"})
+      alert("로그아웃되었습니다.");
+      router.push({path:"/"})
     }
       return{logout,memberId}
     },
@@ -63,5 +63,8 @@ export default {
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 #header{
   background: black;
+}
+li a{
+  text-decoration-line: none;
 }
 </style>

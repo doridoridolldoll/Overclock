@@ -6,9 +6,8 @@
           <label>내용</label>
           <textarea class ="form-control" v-model="state.content" rows="5" name="content"></textarea>
       </div>
-      <button class="btn btn-primary btn7" @click="modify">등록</button>
-      <button class="btn btn-primary btn7" @click="deleted">삭제</button>
-
+      <button class="btn btn-primary btn7" @click="modify" style="margin: 10px;">등록</button>
+      <button class="btn btn-primary btn7" @click="deleted" style="margin: 10px;">삭제</button>
 </form>
 </section>
 </template>
@@ -57,3 +56,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.input-form9 {
+  text-align: center;
+  padding: 32px;
+
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+
+</style>
