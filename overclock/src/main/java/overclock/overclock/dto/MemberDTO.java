@@ -4,6 +4,7 @@ package overclock.overclock.dto;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +27,8 @@ public class MemberDTO {
     private String zipcode;
 
     private int crn;
+
+    private Long memberId;
 
 
     @Builder.Default

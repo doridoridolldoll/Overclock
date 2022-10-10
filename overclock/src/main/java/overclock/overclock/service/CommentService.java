@@ -2,17 +2,17 @@ package overclock.overclock.service;
 
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Comment;
-import overclock.overclock.entity.ItemImg;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public interface CommentService {
     Long addComment(CommentDTO commentDTO);
     String CommentModify(CommentDTO dto);
     Long CommentDelete(CommentDTO dto);
+
+    String commentName(MemberDTO dto);
 
     PageResultDTO<CommentDTO, Comment> commentPageList (PageRequestDTO dto);
     default Comment dtoToEntity(CommentDTO dto) {

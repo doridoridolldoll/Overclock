@@ -1,5 +1,6 @@
 package overclock.overclock.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import overclock.overclock.exception.OutOfStockException;
 

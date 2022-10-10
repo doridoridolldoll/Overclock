@@ -190,10 +190,15 @@ export default {
       console.log(state.email)
       const url = "/api/emailVali"
       const headers = { "Content-Type": "application/json; charset=utf-8;" }
+      console.log(state.email)
+      console.log("===============")
       const body = { email: state.email };
       await axios.post(url, body, { headers }).then(function (res) {
         
+        if(res.data.validate === true){
+          alert("이미 존재하는 이메일입니다.")
 
+        }
         alert("가입가능한 이메일 입니다")
         console.log(res.data);
         state.ch = 1

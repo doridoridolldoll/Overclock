@@ -25,6 +25,7 @@ import java.util.Optional;
 public class ApiController {
     private final PostsService postsService;
     private final MemberService memberService;
+
     private final ItemService itemService;
     private final CommentService commentService;
     private final SendEmailService sendEmailService;
@@ -45,13 +46,23 @@ public class ApiController {
     /**
      * 업체 회원가입
      */
-//    @RequestMapping(value = "/companyRegister", method = RequestMethod.POST,
-//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> companyRegister(@RequestBody MemberDTO dto){
-//        log.info("api/companyRegister...:" + dto);
-//        String email = memberService.companyRegister(dto);
-//        return new ResponseEntity<>(email, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/companyRegister", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> companyRegister(@RequestBody MemberDTO dto){
+        log.info("api/companyRegister...:" + dto);
+        String email = memberService.companyRegister(dto);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/crn", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> crn(@RequestBody MemberDTO dto){
+        log.info("api/crn...:" + dto);
+        int crn = memberService.emailCrn(dto);
+        return new ResponseEntity<>(crn, HttpStatus.OK);
+    }
+
+
 
     /**
      * 일반 게시판 목록 처리
@@ -159,7 +170,16 @@ public class ApiController {
         log.info("Comment List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    
+
+    //댓글 작성자 찾기
+    @RequestMapping(value = "/comment/name", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> commentName(@RequestBody MemberDTO dto) {
+        log.info("MemberDTO : {}", dto);
+        String name = commentService.commentName(dto);
+        log.info("name MemberDTO :: {}", name);
+        return new ResponseEntity<>(name , HttpStatus.OK);
+    }
     /**
      * 글 수정
      */
@@ -279,9 +299,10 @@ public class ApiController {
     // 회원가입 이메일 중복 검증
     @RequestMapping(value = "/emailVali", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Map<String, Boolean> validateEmail(@RequestBody String email){
+    public @ResponseBody Map<String, Boolean> validateEmail(@RequestBody MemberDTO memberDTO){
+        log.info("Member DTO email : {} ", memberDTO.getEmail());
         Map<String,Boolean> json = new HashMap<>();
-        boolean valiEmail = memberService.userEmailCheck(email);
+        boolean valiEmail = memberService.userEmailCheck(memberDTO.getEmail());
         json.put("validate", valiEmail);
         log.info("json : " + json);
         return json;
@@ -310,6 +331,16 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
+    /**
+     * 작성자 조회
+     */
+    @RequestMapping(value = "/DetailName", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Optional> DetailName(@RequestBody MemberDTO dto) {
+        log.info("DetailName DTO :" + dto);
+        Optional findById = memberService.DetailName(dto);
+        return new ResponseEntity<>(findById, HttpStatus.OK);
+    }
 }
 
 

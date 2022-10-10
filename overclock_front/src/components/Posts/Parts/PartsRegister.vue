@@ -101,7 +101,7 @@ export default {
                 }
             const body = {
                 title : state.title, 
-                content: state.content,
+                content: state.itemDetail,
                 memberId : state.memberId, 
                 imageDTOList: state.imageDTOList,
                 partsType: state.type,
