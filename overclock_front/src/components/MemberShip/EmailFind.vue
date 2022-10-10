@@ -6,11 +6,17 @@
           <form class="d-flex flex-column" action="login" method="post">
             <span class="answer text-center" i-d-b-database="answerForRecovery1">휴대전화 번호</span>
             <div class="input-group idsection px-5 my-2">
-              <input class="form-control" type="text" name="id" id="id" required placeholder="휴대전화 번호"
+              <input class="form-control" type="text" name="phone" id="phone" required placeholder="휴대전화 번호"
                 v-model="state.phone" />
             </div>
             <div class="px-5 my-4">
-              <button type="button" class="btn btn-outline-primary w-100" @click="submit()">아이디 찾기</button>
+              <button type="button" class="btn btn-outline-primary w-100" @click="phoneCheck()">아이디 찾기</button>
+            </div>
+            <span class="answer text-center" i-d-b-database="answerForRecovery1">인증번호</span>
+            <input class="form-control" type="text" name="crn" id="crn" required placeholder="인증번호"
+              v-model="state.crnInput" />
+            <div class="px-5 my-4">
+              <button type="button" class="btn btn-outline-primary w-100" @click="submit()">인증번호 확인</button>
             </div>
           </form>
         </div>
@@ -20,6 +26,7 @@
 </template>
 <script>
 import { reactive } from "@vue/reactivity";
+import PhoneCheck from "./PhoneCheck.vue";
 import axios from "axios";
 // import store from "@/store";
 
@@ -27,32 +34,53 @@ export default {
   setup() {
     const state = reactive({
       phone: "",
+      crn: "",
+      crnInput: "",
+      change: 0,
+      email: ""
     })
 
-    const submit = () => {
+    const phoneCheck = () => {
       if (state.phone === '') {
-        alert('이메일을 입력해주세요');
+        alert('전화번호를 입력해주세요');
         state.phone.value.focus();
         return false;
       } 
-        
-      const url = '/api/findEmail'
+      const url = '/api/phoneCheck'
       const headers = {
         "Content-Type": "application/json",
       }
-      const body = { phone: state.phone };
+      const body = { 
+        phone: state.phone
+      };
+      console.log("==========================================");
+      console.log(state.phone);
       axios.post(url, body, { headers }).then(function (res) {
-        console.log(res)
-        if (res.data != '') {
-          console.log(typeof (res.data));
-          alert('회원님의 이메일 : ' + res.data.email);
-        } else {
-          alert('존재하지 않는 이메일입니다');
-        }
-      })
+        if (res.data.validate === false) {
+          alert("전화번호가 존재하지 않습니다.")
+          return false;
+        } else (res.data.validate === true)
+          alert("가입한 전화번호로 인증번호를 보냈습니다.")
+          axios.post("/api/sendSMS", body, { headers }).then(function (res) {
+            console.log("---------------------------");
+            console.log(res);
+            console.log(res.data);
+            state.crn = res.data.crn;
+            state.email = res.data.email;
+            
+          });
+        })
     }
-    return { state, submit }
-  }
+    
+    const submit = () => {
+      if (state.crnInput === "" || state.crnInput !== state.crn) {
+              alert("인증번호가 일치하지 않습니다");
+              return false;
+          }
+          alert(`회원님의 이메일은 ${state.email} 입니다`)
+      }
+    return { state, PhoneCheck, submit, phoneCheck }
+  },
 };
 </script>
 <style scoped>

@@ -4,7 +4,7 @@
   <h5 class="mt-4">주변기기 거래 등록</h5>
             <div class="form-group">
                 <label>상품명</label>
-                <input type="text" class="form-control">
+                <input type="text" v-model="state.title" class="form-control">
             </div>
             <div class="form-group">
                 <label>제품상세</label>
@@ -12,25 +12,18 @@
             </div>
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class ="form-control" v-model="state.itemDetail" rows="5" name="itemDetail">
+                <input type="text" class ="form-control" v-model="state.price" rows="5" name="itemDetail">
             </div>
             <div class="form-group">
                 <label>수량</label>
-                <input type="text" class="form-control" name="stock" placeholder="stock">
+                <input type="text" class="form-control" v-model="state.stock" name="stock" placeholder="stock">
             </div>
             <div class="form-group">
                 <label>회원ID</label>
                 <input type="text" class="form-control" v-model="state.memberId" name="memberId" placeholder="memberId"><br>
             </div>
-
-
             <div class="box"></div>
-
             <FileUpload />
-
-
-
-
             <div class="form-group">
                 <label>주변기기 카테고리</label><br>
                 <select v-model="state.type" name="type">
@@ -65,6 +58,7 @@ export default {
             name        : '',
             itemDetail : '',
             type : '',
+            stock: '',
             imageDTOList : new Array(),
         })
         const joinHandler = async() => {

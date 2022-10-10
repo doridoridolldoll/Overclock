@@ -19,9 +19,9 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder;
-    @Transactional //변경
+    @Transactional //회원가입
     public String memberRegister(MemberDTO memberDTO) {
-        memberDTO.setPassword(BCrypt.hashpw(memberDTO.getPassword(), BCrypt.gensalt()));
+        memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
         Member member = dtoToEntity(memberDTO);
         member.addMemberRole(MemberRole.USER);
         memberRepository.save(member);
@@ -68,13 +68,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Optional findByPhone(MemberDTO dto) {
-        Optional<Member> result = memberRepository.findByPhone(dto.getPhone());
-        log.info("result : " + result);
-        if (result.isEmpty()) {
-            return null;
+    public boolean findByPhone(String phone) {
+        Member member = memberRepository.findByPhone(phone);
+        log.info("phone : {}" ,phone);
+        log.info(member);
+        if(member!=null && member.getPhone().equals(phone)) {
+            return true;
         }
-        return result;
+        else {
+            return false;
+        }
     }
 
     @Override
@@ -92,6 +95,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public boolean userEmailCheck(String email) {
         Member member = memberRepository.findUserByEmail(email);
+        log.info("email : {}" ,email);
+        log.info(member);
         if(member!=null && member.getEmail().equals(email)) {
             return true;
         }
@@ -110,4 +115,15 @@ public class MemberServiceImpl implements MemberService {
         return passChange.getId().toString();
     }
 
+    @Override
+    public boolean checkPass(Long id ,String password) {
+        Optional<Member> member = memberRepository.findById(id);
+        log.info("member : {}", member);
+        String realPassword = member.get().getPassword();
+        log.info("realPassword : {}", realPassword);
+        log.info("Password : {}", password);
+
+        boolean matches = encoder.matches(password, realPassword);
+        return matches;
+    }
 }

@@ -6,12 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import overclock.overclock.dto.ItemDTO;
 import overclock.overclock.entity.Member;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -40,10 +36,14 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.email=:email ")
     Optional<Member> findByEmail12(String email);
 
-    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.phone=:phone ")
-    Optional<Member> findByPhone(String phone);
+    Optional<Member> findPhoneByEmail(String phone);
+    Member findByPhone(String phone);
     Member findUserByEmail(String email);
+    @Query("select m from Member m where m.id=:id ")
+    Optional<Member> findById(Long id);
+    @Query("select m from Member m where m.id=:id and m.password=:password ")
+    Member findUserByPassword(long id, String password);
 //    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
 //    @Query("select m from Member m where m.email=:email")
 //    Optional<Member> findUserById(String email);

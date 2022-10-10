@@ -1,5 +1,4 @@
 <template>
-
   <div class="input-form2 col-md-12 mx-auto">
     <h4 class="mb-3">일반 회원가입</h4>
     <form class="validation-form" @submit.prevent>
@@ -187,17 +186,19 @@ export default {
     }
 
     const emailVali = async () => {
-      console.log(state.email)
       const url = "/api/emailVali"
       const headers = { "Content-Type": "application/json; charset=utf-8;" }
       const body = { email: state.email };
+      console.log(state.email);
       await axios.post(url, body, { headers }).then(function (res) {
-        
-
-        alert("가입가능한 이메일 입니다")
-        console.log(res.data);
-        state.ch = 1
-      })
+        if (res.data.validate === true) {
+          alert("이미 존재하는 이메일입니다.")
+          return false;
+        } else (res.data.validate === false)
+          alert("가입 가능한 이메일입니다.")
+          state.ch = 1
+      }
+      )
     }
 
     const joinHandler = async () => {

@@ -12,7 +12,7 @@
     <div>
     <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
           <label for="searching"><i class="bi bi-search"></i></label>
-          <input id="searching" type="text" v-model="state.a" class="form-control border-0 bg-white" @submit="searchingAxios()">
+          <input id="searching" type="text" v-model="search.context" class="form-control border-0 bg-white" @submit="searchingAxios()">
         </form>
       </div>
     <!-- 검색카드 -->
@@ -20,11 +20,9 @@
       <h1>검색 결과가 없습니다</h1>
     </div>
     <hr>
-
-        <Cards 
-          :card="state.cards" :imgUrl="state.imgUrl">
+      <Cards 
+        :card="state.cards" :imgUrl="state.imgUrl">
       </Cards>
-
     <div class="page">
       <ul class="pagination">
         <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
@@ -51,6 +49,9 @@ export default {
     Cards,
   },
   setup() {
+    let search = reactive({
+      context:"",
+    }) 
     const state = reactive({
       imgName : [],
       imgPath: [],
@@ -68,7 +69,7 @@ export default {
       prev: null,
       size: null,
       start: null,
-      totalPage: null,
+      totalPage: null
     })
 
     const router = useRouter()
@@ -83,11 +84,11 @@ export default {
     // })
 
     function searchingAxios(){
-      if (state.a.trim().length == 0){
+      if (search.context.trim().length == 0){
         return
       }
       async function routing (){
-        await router.push(`/search?cards=${state.a}`)
+        await router.push(`/search?cards=${search.context}&postsType=${postsType}`)
         await router.go(0);
         console.log("이동(app)")
       }
@@ -176,7 +177,7 @@ export default {
 
       getCardsInformation()
 
-  return {state, view, latest, star, like, searchingAxios }
+  return {state, view, latest, star, like, searchingAxios ,search}
   },
 };
 </script>

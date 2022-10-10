@@ -20,6 +20,7 @@ public class MemberDTO {
     private String nickname;
     private String password;
     private boolean fromSocial;
+    private String numb;
 
     private String city;
     private String street;
