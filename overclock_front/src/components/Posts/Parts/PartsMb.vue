@@ -13,15 +13,14 @@
           >
           
             <!-- <a @click="Join(list,i)"> -->
-            <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
-            <div class="icon-box">
+            <!-- <a :href="'/PartsDetail?id=' + list.id" @click="Join(list,i)"> -->
+            <div class="icon-box" @click="Join(list,i)">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br>
               <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
               <span><h4>{{state.itemDetail}}</h4></span>
               <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
-            </a>
           </div>
           <div>
             <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
@@ -59,15 +58,13 @@ export default {
       context:"",
     })
     function searchingAxios(){
-      console.log("qweqweqweqwe");
       console.log(search.context.trim().length);
       if (search.context.trim().length == 0){
         return 
       }
-      console.log("qweqweqweqwe");
       async function routing (){
         await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
-        await router.go(0);
+        // await router.go(0);
         // console.log("이동(app)")
       }
     routing();
@@ -157,7 +154,7 @@ export default {
     }
   })
 
-  function Join(list,i){
+   async function Join(list,i) {
     
     store.commit('setdtoList', ...[list]);
     store.commit("setPrice", ...[state.price[i]]);
@@ -171,7 +168,8 @@ export default {
       
       axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(){
 
-      })
+        })
+        await router.push(`/partsdetail?id=${list.id}`)
     }
     return {search,state, store, getUserList,Join, meta, searchingAxios}
   }
