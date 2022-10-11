@@ -90,7 +90,7 @@ export default {
       }
       async function routing (){
         await router.push(`/search?cards=${search.context}&postsType=${postsType}`)
-        await router.go(0);
+        // await router.go(0);
         console.log("이동(app)")
       }
     routing();

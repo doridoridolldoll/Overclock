@@ -10,8 +10,8 @@
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
 
-          <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
-            <div class="icon-box">
+          <!-- <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)"> -->
+            <div class="icon-box" @click="Join(list,i)">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
               <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
@@ -19,7 +19,6 @@
               <span><h5>판매가 4,800,000원</h5></span>
               <span><h5>할인가 4,300,000원</h5></span>
             </div>
-            </a>
           </div>
           <div>
             <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
@@ -66,7 +65,7 @@ export default {
         console.log("qweqweqweqwe");
         async function routing (){
           await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
-          await router.go(0);
+          // await router.go(0);
           // console.log("이동(app)")
         }
       routing();
@@ -151,7 +150,7 @@ export default {
     store.state.price = res.data[0].price;
   })
 
-  function Join(list,i){
+  async function Join(list,i){
     store.commit('setdtoList', ...[list]);
     store.commit("setPrice", ...[state.price[i]]);
 
@@ -164,6 +163,7 @@ export default {
       axios.get(url2, {page: 1, category: "hdd" }, { headers2 }).then(function(){
 
       })
+      await router.push(`/partsdetail?id=${list.id}`)
     }
     return {state, store, getUserList,Join, search, searchingAxios, meta}
   }
