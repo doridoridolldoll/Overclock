@@ -208,6 +208,11 @@ public class ApiController {
         return new ResponseEntity<>(commentInfo, HttpStatus.OK);
     }
 
+    /**
+     * 댓글 삭제
+     * @param dto
+     * @return
+     */
     @RequestMapping(value = "/cDelete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> CommentDelete(@RequestBody CommentDTO dto) {
         Long commentInfo = commentService.CommentDelete(dto);
@@ -248,7 +253,11 @@ public class ApiController {
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
 
-    //회원정보 수정 전 패스워드 검증
+    /**
+     * 회원정보 수정 전 패스워드 검증
+     * @param dto
+     * @return
+     */
     @RequestMapping(value = "/passCheck", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody boolean checkPw(@RequestBody MemberDTO dto){
@@ -417,6 +426,11 @@ public class ApiController {
         return new ResponseEntity<>(findById, HttpStatus.OK);
     }
 
+    /**
+     * 내 정보 수정
+     * @param memberDTO
+     * @return
+     */
     @RequestMapping(value = "/profileChange", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> profileChange(@RequestBody MemberDTO memberDTO) {
@@ -425,6 +439,11 @@ public class ApiController {
         return new ResponseEntity<>(newProfile, HttpStatus.OK);
     }
 
+    /**
+     * 장바구니 선택한 항목 삭제
+     * @param a
+     * @return
+     */
     @RequestMapping(value = "/cart/delete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> cartDelete(@RequestBody int[] a) {
         log.info("===================================================");
@@ -435,7 +454,6 @@ public class ApiController {
                 id = cartService.delete(a[i]);
             }
         }
-//        String findById = memberService.DetailName(dto);
         return new ResponseEntity<>(id, HttpStatus.OK);
 
     }

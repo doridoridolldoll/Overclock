@@ -1,44 +1,50 @@
 <template>
-    <section id="services" class="services">
-      <div class="container" data-aos="fade-up">
-        <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '1')">글쓰기</router-link>
-        <!-- <div v-if="(state.form == 'gpu')"> -->
-        <div class="section-title">
-          <p>MB</p>
-        </div>
+  <section id="services" class="services">
+    <div class="container" data-aos="fade-up">
+      <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '1')">글쓰기</router-link>
+      <!-- <div v-if="(state.form == 'gpu')"> -->
+      <div class="section-title">
+        <p>MB</p>
+      </div>
 
-        <div class="row">
-          <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
-          v-for="(list,i) in state.dtoList" :key="(list,i)"
-          >
-          
-            <!-- <a @click="Join(list,i)"> -->
-            <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
+          v-for="(list,i) in state.dtoList" :key="(list,i)">
+          <!-- <a @click="Join(list,i)"> -->
+          <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br>
-              <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{state.itemDetail}}</h4></span>
-              <span><h5>판매가: {{state.price[i]}}</h5></span>
+              <h3><a href="" style="width:292px;">{{list.title}}</a></h3>
+              <span>
+                <h4>{{state.itemDetail}}</h4>
+              </span>
+              <span>
+                <h5>판매가: {{state.price[i]}}</h5>
+              </span>
             </div>
-            </a>
-          </div>
-          <div>
-            <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
-              <label for="searching"><i class="bi bi-search"></i></label>
-              <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
-            </form>
-          </div>
+          </a>
+        </div>
+        <div>
+          <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
+            <label for="searching"><i class="bi bi-search"></i></label>
+            <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white"
+              @submit="searchingAxios()">
+          </form>
+        </div>
 
-            <div class="page">
-              <ul class="pagination">
-                <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
-                <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
-                <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
-              </ul>
-            </div>  
+        <div class="page">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a>
+            </li>
+            <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a
+                class="page-link" @click="getUserList(page)">{{page}}</a></li>
+            <li class="page-item"><a class="page-link" @click="getUserList(state.page+1)"
+                v-if="state.page!=state.totalPage">Next</a></li>
+          </ul>
         </div>
       </div>
+    </div>
   </section><!-- End Services Section -->
 </template>
 
@@ -51,35 +57,35 @@ import { useMeta } from "vue-meta";
 
 export default {
   name: 'PartsMb',
-  setup(){
+  setup() {
     const store = useStore();
     const router = useRouter()
 
     let search = reactive({
-      context:"",
+      context: "",
     })
-    function searchingAxios(){
+    function searchingAxios() {
       console.log("qweqweqweqwe");
       console.log(search.context.trim().length);
-      if (search.context.trim().length == 0){
-        return 
+      if (search.context.trim().length == 0) {
+        return
       }
       console.log("qweqweqweqwe");
-      async function routing (){
+      async function routing() {
         await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
         await router.go(0);
         // console.log("이동(app)")
       }
-    routing();
+      routing();
     }
     const { meta } = useMeta({
-        title:  ':: OverClock',
+      title: ':: OverClock',
     })
     const state = reactive({
       id: "",
       upResult: "",
       img: [],
-	    dtoList: [],
+      dtoList: [],
       end: null,
       next: null,
       page: null,
@@ -93,104 +99,106 @@ export default {
       itemDetail: "",
     });
     const url = "/api/partsList";
-	  const headers = {
-	    "Content-Type": "application/json; charset=utf-8",
-	  };
-  function getUserList(page){
-    axios.post(url, { page:page, type:"", category:"mb" }, { headers })
-    .then(function(res){
-		  // console.log(res.data.dtoList[1].partsType == "used");
-      console.log(res.data)
-      state.id = res.data.dtoList.id,
-      state.dtoList = res.data.dtoList,
-      state.end =  res.data.end,
-      state.next =  res.data.next,
-      state.page =  res.data.page,
-      state.pageList =  res.data.pageList,
-      state.prev =  res.data.prev,
-      state.size =  res.data.size,
-      state.start =  res.data.start,
-      state.totalPage = res.data.totalPage
-      showResult(res.data)
-    })
-  }
-  axios.post(url, { page: 1, category: "mb" }, { headers })
-            .then(function (res) {
-            console.log(res);
+    const headers = {
+      "Content-Type": "application/json; charset=utf-8",
+    };
+    function getUserList(page) {
+      axios.post(url, { page: page, type: "", category: "mb" }, { headers })
+        .then(function (res) {
+          // console.log(res.data.dtoList[1].partsType == "used");
+          console.log(res.data)
+          state.id = res.data.dtoList.id,
             state.dtoList = res.data.dtoList,
-                state.end = res.data.end,
-                state.next = res.data.next,
-                state.page = res.data.page,
-                state.pageList = res.data.pageList,
-                state.prev = res.data.prev,
-                state.size = res.data.size,
-                state.start = res.data.start,
-                state.totalPage = res.data.totalPage;
-                for (let i = 0; i < state.dtoList.length; i++) {
-                console.log(search.context);
-                if(search.context == state.dtoList[i].title){
-                  store.state.img[i] = state.dtoList[i].imageDTOList[0]
-                  console.log(i + "번쨰");
-                  console.log(store.state.img[i]);
-                }
-              }
-            showResult(res.data);
+            state.end = res.data.end,
+            state.next = res.data.next,
+            state.page = res.data.page,
+            state.pageList = res.data.pageList,
+            state.prev = res.data.prev,
+            state.size = res.data.size,
+            state.start = res.data.start,
+            state.totalPage = res.data.totalPage
+          showResult(res.data)
+        })
+    }
+    axios.post(url, { page: 1, category: "mb" }, { headers })
+      .then(function (res) {
+        console.log(res);
+        state.dtoList = res.data.dtoList,
+          state.end = res.data.end,
+          state.next = res.data.next,
+          state.page = res.data.page,
+          state.pageList = res.data.pageList,
+          state.prev = res.data.prev,
+          state.size = res.data.size,
+          state.start = res.data.start,
+          state.totalPage = res.data.totalPage;
+        for (let i = 0; i < state.dtoList.length; i++) {
+          console.log(search.context);
+          if (search.context == state.dtoList[i].title) {
+            store.state.img[i] = state.dtoList[i].imageDTOList[0]
+            console.log(i + "번쨰");
+            console.log(store.state.img[i]);
+          }
+        }
+        showResult(res.data);
 
       });
-  const showResult = async (arr) => {
-    const displayUrl = "/display";
-    const url = `http://localhost:9090${displayUrl}`;
-    let str2 = "";
-    for (let i = 0; i < arr.dtoList.length; i++) {
-      str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
-      state.img[i] = str2;
+    const showResult = async (arr) => {
+      const displayUrl = "/display";
+      const url = `http://localhost:9090${displayUrl}`;
+      let str2 = "";
+      for (let i = 0; i < arr.dtoList.length; i++) {
+        str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
+        state.img[i] = str2;
+      }
+    };
+    const body = {
+      category: "mb"
     }
-  };
-  const body = {
-    category:"mb"
-  }
 
-  axios.post("/api/partsItemList", body, {headers}).then(function(res){
-    for (let i = 0; i < res.data.length; i++) {
-      state.price[i] = res.data[i].price;
-      state.itemDetail = res.data[i].itemDetail;
-    }
-  })
+    axios.post("/api/partsItemList", body, { headers }).then(function (res) {
+      for (let i = 0; i < res.data.length; i++) {
+        state.price[i] = res.data[i].price;
+        state.itemDetail = res.data[i].itemDetail;
+      }
+    })
 
-  function Join(list,i){
-    
-    store.commit('setdtoList', ...[list]);
-    store.commit("setPrice", ...[state.price[i]]);
-    console.log(state.price[i]);
+    function Join(list, i) {
+
+      store.commit('setdtoList', ...[list]);
+      store.commit("setPrice", ...[state.price[i]]);
+      console.log(state.price[i]);
 
       //조회수 처리
       const url2 = `/api/read/${list.id}`;
-	    const headers2 = {
-	      "Content-Type": "application/json; charset=utf-8"
-	    };
-      
-      axios.get(url2, {page: 1, category: "mb" }, { headers2 }).then(function(){
+      const headers2 = {
+        "Content-Type": "application/json; charset=utf-8"
+      };
+
+      axios.get(url2, { page: 1, category: "mb" }, { headers2 }).then(function () {
 
       })
     }
-    return {search,state, store, getUserList,Join, meta, searchingAxios}
+    return { search, state, store, getUserList, Join, meta, searchingAxios }
   }
 }
 </script>
 <style scoped>
-	.pagination{
-		width: 100px;
-		margin: auto;
-	}
-  .page{
-    margin-top: 30px;
-  }
+.pagination {
+  width: 100px;
+  margin: auto;
+}
 
-  a{
-    text-decoration-line: none;
-  }
-  .services .icon-box{
-	border: 1px solid rgb(102, 102, 102);
-	border-radius: 10px;
+.page {
+  margin-top: 30px;
+}
+
+a {
+  text-decoration-line: none;
+}
+
+.services .icon-box {
+  border: 1px solid rgb(102, 102, 102);
+  border-radius: 10px;
 }
 </style>

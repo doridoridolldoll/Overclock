@@ -20,6 +20,8 @@ export default {
       keys: props.keys,
       keyInput: ""
     })
+    console.log(state.keys);
+    console.log(state.keyInput);
 
     const certify = async () => {
 
@@ -30,8 +32,8 @@ export default {
         alert('인증번호가 일치하지 않습니다.')
         return false;
       } else {
-        store.commit("setEmail", props.email )
         alert('인증되었습니다.')
+        store.commit("setEmail", props.email )
       }
     }
     return { certify, state }

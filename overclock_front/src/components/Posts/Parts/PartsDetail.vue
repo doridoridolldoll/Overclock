@@ -20,7 +20,6 @@
               <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)"
                 class="btn2 btn btn-primary">수정</router-link>
             </div>
-
           </div>
         </div>
         <div class="portfolio-description">
@@ -40,7 +39,6 @@ import { useStore } from 'vuex'
 import { reactive } from '@vue/reactivity';
 import Comment from '@/components/Posts/Comment/Comment.vue';
 import PartsDetail2 from '@/components/Posts/Parts/PartsDetail2.vue'
-// import PcPay from '@/components/Pay/PcPay.vue';
 import axios from 'axios';
 export default {
   components: { Comment, PartsDetail2 },
@@ -67,8 +65,8 @@ export default {
     });
 
     let list = store.state.dtoList;
-    state.dtoList = store.state.dtoList;
     console.log(state.dtoList);
+    state.dtoList = store.state.dtoList;
     state.price = store.state.price;
     state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
     state.title = state.dtoList.title;

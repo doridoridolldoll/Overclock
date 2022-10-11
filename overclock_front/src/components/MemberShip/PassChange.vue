@@ -60,6 +60,7 @@ export default {
         alert('비밀번호가 일치하지 않습니다.')
         return false;
       }
+      alert('비밀번호가 성공적으로 변경되었습니다.')
       router.push({ name: "Login" })
     }
     return { change, state }
