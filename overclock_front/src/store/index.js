@@ -15,6 +15,7 @@ export default createStore({
     axiosLink:".",
     price: 0,
     role: "",
+    crn: null,
     img: [],
   },
   getters: {
@@ -40,6 +41,9 @@ export default createStore({
     },
     setPrice(state, payload){
       state.price = payload
+    },
+    setCrn(state, payload){
+      state.crn = payload
     },
   },
   actions: {

@@ -2,6 +2,8 @@ package overclock.overclock.dto;
 
 import lombok.*;
 
+import java.lang.reflect.Array;
+
 @Data
 @ToString
 @Builder

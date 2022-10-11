@@ -1,49 +1,53 @@
 <template>
 
 
-    //<input type="number" placeholder="금액 입력" v-model="state.price" style="width: 150px; border: 1px solid black; margin: 15px; text-align: center;" >
-    //<div @click="PaymentBtn">결제</div>
+    <!-- <input type="number" placeholder="금액 입력" v-model="state.price" style="width: 150px; border: 1px solid black; margin: 15px; text-align: center;" > -->
+    <!-- <div @click="PaymentBtn">결제</div> -->
 
     <!-- <input type="number" placeholder="금액 입력" v-model="state.price" >
     <div @click="PaymentBtn">결제</div> -->
-     <button class="btn btn-primary mt-3 me-2 mb-3" style="float: right;"  @click="PaymentBtn">구매</button>
+     <button class="btn btn-primary mt-3 me-2 mb-3" style="float: right;" @click="PaymentBtn">구매</button>
 
 
 </template>
 
 <script>
 import { reactive } from 'vue';
-
-
+import axios from 'axios';
 const { IMP } = window;
-
 export default {
   name: "ToTest",
-  props: ["price"],
+  props: ["price","cartId"],
   setup(props){
     const state = reactive({
-      price: props.price,
+      cartId : props.cartId,
     });
     document.cookie = "safeCookie1=foo; SameSite=Lax";
     document.cookie = "safeCookie2=foo";
     document.cookie = "crossCookie=bar; SameSite=None; Secure";
-
     function PaymentBtn(BuyerEmail,jQuery){
       IMP.init("imp04806421");
       IMP.request_pay({ // param
         pg: "html5_inicis",
         pay_method: "card",
-        merchant_uid: "ORD20180131-0000016",
-        name: "overclock",
-        amount: state.price,
-        buyer_email: "jinwoo@naver.com",
+        merchant_uid: "ORD_" + new Date().getTime(),
+        name: "overclock", // 상품명
+        amount:  props.price, // 가격
+        buyer_email: "",
         buyer_name: "테스터",
-        buyer_tel: "010-8832-4280",
-        buyer_addr: "서울특별시 영등포구 당산동",
-        buyer_postcode: "07222"
       }, rsp => { // callback
         console.log(rsp);
         if (rsp.success) {
+          console.log(state.cartId);
+          const url2 = "/api/cart/delete"
+          const headers = {
+            "Content-Type": "application/json; charset=utf-8",
+          };
+
+          axios.post(url2, state.cartId, { headers }).then(function (res) {
+            alert("qwe")
+            console.log(res);
+          })
           jQuery.ajax({
             url: "{}", // 예: https://www.myservice.com/payments/complete
             method: "POST",
@@ -61,7 +65,6 @@ export default {
           console.log("결제 실패");
         }
       });
-
     }
     return {state,PaymentBtn}
   }

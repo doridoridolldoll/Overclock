@@ -382,12 +382,13 @@ public class ApiController {
     @RequestMapping(value = "/sendSMS", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmailFindDTO> sendSMS(@RequestBody EmailFindDTO dto) {
-        Random rand  = new Random();
+        Random rand = new Random();
         System.out.println("PHONE : " + dto);
         EmailFindDTO emailFind2 = sendEmailService.certifiedPhoneNumber(dto.getPhone());
 
         log.info("crn : ", emailFind2);
         return new ResponseEntity<>(emailFind2, HttpStatus.OK);
+    }
 
     /**
      * 작성자 조회
@@ -397,6 +398,20 @@ public class ApiController {
         log.info("DetailName DTO :" + dto);
         Optional findById = memberService.DetailName(dto);
         return new ResponseEntity<>(findById, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/cart/delete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> cartDelete(@RequestBody int[] a) {
+        log.info("===================================================");
+        int id = 0;
+        for (int i = 0; i < a.length; i++) {
+            log.info(a[i]);
+            if(a[i] != 0) {
+                id = cartService.delete(a[i]);
+            }
+        }
+//        String findById = memberService.DetailName(dto);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }
 
