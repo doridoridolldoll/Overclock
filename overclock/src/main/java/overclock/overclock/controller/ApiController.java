@@ -423,6 +423,20 @@ public class ApiController {
         log.info("memberDTO {}", memberDTO);
         String newProfile = memberService.profileChange(memberDTO);
         return new ResponseEntity<>(newProfile,HttpStatus.OK);
+
+    @RequestMapping(value = "/cart/delete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> cartDelete(@RequestBody int[] a) {
+        log.info("===================================================");
+        int id = 0;
+        for (int i = 0; i < a.length; i++) {
+            log.info(a[i]);
+            if(a[i] != 0) {
+                id = cartService.delete(a[i]);
+            }
+        }
+//        String findById = memberService.DetailName(dto);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+
     }
 }
 

@@ -25,95 +25,69 @@ import { reactive } from "@vue/reactivity";
 import axios from "axios";
 import store from "@/store";
 import router from "@/router";
-
 export default {
-  name: "ToMbLogin",
-  setup() {
-    const state = reactive({
-      form: {
-        id: "",
-        email: "",
-        password: "",
-        crn: "",
-        role: "0",
-      },
-      crn: null,
-    });
-    const submit = async () => {
-      if (state.form.email === "") {
-        alert("아이디를 확인해주세요");
-        return false;
-      }
-      else if (state.form.password === "") {
-        alert("비밀번호를 확인해주세요");
-        return false;
-      }
-      const url = "./member/login";
-      const headers = { "Content-Type": "application/json; charset=utf-8;" };
-      const body = {
-        id: state.form.id,
-        email: state.form.email,
-        password: state.form.password,
-        role: state.form.role,
-      };
-      try {
-        await axios.post(url, body, { headers }).then(function (res) {
-          store.commit("setToken", res.data.token);
-          store.commit("setId", res.data.id);
-          state.form.id = res.data.id;
-          // console.log(res.data);
-          store.commit("setEmail", res.data.email);
-          store.commit("setRole", "2");
-          store.commit("setCrn", res.data.crn)
-          // store.commit("setrole) 
-          alert("로그인되었습니다.");
-          router.push(`/`);
+    name: "ToMbLogin",
+    setup() {
+        const state = reactive({
+            form: {
+                id: "",
+                email: "",
+                password: "",
+                role: "0",
+            },
+            crn: null,
         });
-      }
-      catch (err) {
-        alert("로그인에 실패하였습니다.");
-      }
-
-      const url2 = "/api/crn";
-      const body2 = {
-        email: state.form.email,
-      };
-      axios.post(url2, body2, { headers }).then(function (res) {
-        state.crn = res.data
-        console.log(state.crn);
-        if (state.crn == 0) { //사업자 등록번호가 없으면 로그인
-          const url = "./member/login";
-          const body = { id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
-          try {
-            axios.post(url, body, { headers }).then(function (res) {
-              store.commit("setToken", res.data.token);
-              store.commit("setId", res.data.id);
-              state.form.id = res.data.id;
-              store.commit("setEmail", res.data.email);
-              store.commit("setRole", state.form.role);
-              alert("로그인되었습니다.");
-              router.push(`/`);
-            });
-          }
-          catch (err) {
-            alert("로그인에 실패하였습니다.");
-          }
-        }
-        else {
-          alert("일반 유저로 로그인 해주세요")
-        }
-      })
-
-    };
-    return { state, submit };
-  },
+        const submit = async () => {
+            if (state.form.email === "") {
+                alert("아이디를 확인해주세요");
+                return false;
+            }
+            else if (state.form.password === "") {
+                alert("비밀번호를 확인해주세요");
+                return false;
+            }
+            const url2 = "/api/crn";
+            const headers = { 
+              "Content-Type": "application/json; charset=utf-8;" 
+            };
+            const body2 = { 
+              email: state.form.email,
+              };
+            axios.post(url2, body2, {headers}).then(function(res){
+              state.crn = res.data
+              console.log(state.crn);
+              if(state.crn == 0){ //사업자 등록번호가 없으면 로그인
+                const url = "./member/login";
+                const body = { id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
+                try {
+                    axios.post(url, body, { headers }).then(function (res) {
+                        store.commit("setToken", res.data.token);
+                        store.commit("setId", res.data.id);
+                        state.form.id = res.data.id;
+                        store.commit("setEmail", res.data.email);
+                        store.commit("setRole", state.form.role);
+                        alert("로그인되었습니다.");
+                        router.push(`/`);
+                    });
+                }
+                catch (err) {
+                    alert("로그인에 실패하였습니다.");
+                }
+              }
+              else{
+                alert("일반 유저로 로그인 해주세요")
+              }
+            })
+           
+        };
+        return { state, submit };
+    },
 };
 </script>
 <style scoped>
 #back {
   background: white;
   text-align: center;
-
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;

@@ -51,4 +51,11 @@ public class CartServiceImpl implements CartService{
         };
         return new PageResultDTO<>(result, fn);
     }
+
+    @Override
+    public int delete(int a) {
+
+        cartRepository.deleteById((long) a);
+        return a;
+    }
 }

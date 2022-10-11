@@ -1,6 +1,6 @@
 <template>
   <section id="hero" class="d-flex justify-content-center">
-    <div class="container portfolio-details input-form ">
+    <div class="container portfolio-details input-form">
       <div class="row gy-4">
         <table class="table">
           <thead class="thead-primary">
@@ -13,33 +13,57 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(list,i) in state.dtoList" :key="(list,i)">
-              <td><input type="checkbox" class="ch" />{{list.id}}</td>
+            <tr v-for="(list, i) in state.dtoList" :key="(list, i)">
               <td>
-                <img v-bind:src="state.imgUrl[i]"/>
+                <input type="checkbox" class="ch" id="ch" @click="checked(list,i)" />{{list.id}}
               </td>
-              <td><h3>{{list.cartName}}</h3></td>
-              <td>{{list.count}}</td>
-              <td>{{list.price}}</td>
+              <td>
+                <img v-bind:src="state.imgUrl[i]" />
+              </td>
+              <td>
+                <h3>{{ list.cartName }}</h3>
+              </td>
+              <td>{{ list.count }}</td>
+              <td>{{ list.price }}</td>
             </tr>
-          
           </tbody>
         </table>
       </div>
     </div>
-    <div style="text-align: center;">
-    <div class="fixed-bottom " style="margin: 0 auto; background-color:white; width:1000px; position : absolute; vertical-align: middle;">
-      <h2 class="mt-3" style=" float: left; width: 33%;  font-size: 30px;  font-weight: 600;">총 금액: {{state.totalPrice}} 원</h2>
-      <button class="btn btn-danger mt-3 me-3" style=" float: right;">삭제</button>
+    <div style="text-align: center">
+      <div
+        class="fixed-bottom"
+        style="
+          margin: 0 auto;
+          background-color: white;
+          width: 1000px;
+          position: absolute;
+          vertical-align: middle;
+        "
+      >
+        <h2 class="mt-3" style="float: left; width: 33%; font-size: 30px; font-weight: 600">
+          총 금액: {{ state.totalPrice }} 원
+        </h2>
+        <h2 class="mt-3" style="float: left; width: 33%; font-size: 30px; font-weight: 600">
+          선택한 금액: {{ state.checkPrice }} 원
+        </h2>
+        <button
+          class="btn btn-danger mt-3 me-3"
+          style="float: right"
+          @click="cartDelete"
+        >
+          삭제
+        </button>
         <div class="portfolio-info">
           <!-- 강제 딜레이 설정 -->
-          <PcPay v-if="state.totalPrice > 1 "
-            :price="state.totalPrice">
+          <PcPay
+            :price="state.checkPrice"
+            :cartId="state.cartId">
           </PcPay>
-         </div>
-      <!-- <button class="btn btn-primary mt-3 me-2 mb-3" style=" float: right; ">구매</button> -->
+        </div>
+        <!-- <button class="btn btn-primary mt-3 me-2 mb-3" style=" float: right; ">구매</button> -->
+      </div>
     </div>
-</div>
   </section>
 </template>
 
@@ -53,6 +77,7 @@ export default {
   name: "ToCart",
   components: { PcPay},
   setup() {
+    
   const id = new URLSearchParams(window.location.search).get("id")
    const state = reactive({
       id: "",
@@ -70,9 +95,12 @@ export default {
       memberId: id,
       imgUrl:[],
       totalPrice : 0,
+      cartId : [],
+      checkPrice: 0,
    })
 
 
+console.log(state.cartId);
   const url = "/api/cartList";
   const headers = {
     "Content-Type": "application/json; charset=utf-8",
@@ -90,7 +118,7 @@ export default {
     }
     console.log(state.totalPrice);
     state.dtoList = res.data.dtoList,
-    state.end = res.data  .end,
+    state.end = res.data.end,
     state.next = res.data.next,
     state.page = res.data.page,
     state.pageList = res.data.pageList,
@@ -98,24 +126,50 @@ export default {
     state.size = res.data.size,
     state.start = res.data.start,
     state.totalPage = res.data.totalPage;
-    
+
     const displayUrl = "/display";
     const url2 = `http://localhost:9090${displayUrl}`;
     for (let i = 0; i < res.data.dtoList.length; i++) {
       state.imgUrl[i] =`${url2}?fileName=${res.data.dtoList[i].imgUrl}`;
     }
+
+    for (let i = 0; i < state.dtoList.length; i++) {
+      state.cartId[i] = 0;
+    }
     // console.log(state.imgUrl);
 
-
   });
-   return {state}
-  }
+
+  function checked(list,i) {
+      
+    if(state.cartId[i] != list.id){
+      state.cartId[i] = list.id
+      state.checkPrice += list.price
+      
+    }
+    else{
+      state.cartId[i] = 0 
+      state.checkPrice -= list.price
+    }
   }
 
+  function cartDelete(){
+    const url = "/api/cart/delete"
+    // const body = {
+    //   cartId: state.cartId
+    // }
+    console.log(body);
+    axios.post(url, state.cartId, { headers }).then(function (res) {
+      alert("해당 제품이 장바구니에서 삭제 되었습니다.")
+      console.log(res);
+    })
+  }
+   return {state, checked,cartDelete}
+  }
+  }
 </script>
 
 <style scoped>
-
 .input-form {
   margin-top: 50px;
 
@@ -140,10 +194,10 @@ background: #fff;
 overflow: scroll;
 } */
 
-#hero:before{
+#hero:before {
   height: 2000px;
 }
-#hero{
+#hero {
   /* overflow: scroll; */
 }
 #hero h2 {
@@ -155,5 +209,4 @@ overflow: scroll;
 .btn-danger {
   margin-right: 10px;
 }
-
 </style>
