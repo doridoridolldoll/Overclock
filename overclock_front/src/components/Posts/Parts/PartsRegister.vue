@@ -1,7 +1,7 @@
 <template>
-  <section id="hero" class="d-flex align-items-center justify-content-center">
-    <form class="form-floating input-form9 " @submit.prevent>
-  <h5 class="mt-4">부품 거래 등록</h5>
+    <section id="hero" class="d-flex align-items-center justify-content-center">
+        <form class="form-floating input-form9 " @submit.prevent>
+            <h5 class="mt-4">부품 거래 등록</h5>
 
             <div class="form-group">
                 <label>상품명</label>
@@ -10,12 +10,12 @@
 
             <div class="form-group">
                 <label>제품상세</label>
-                <textarea class ="form-control" v-model="state.content" rows="5" name="content"></textarea>
+                <textarea class="form-control" v-model="state.content" rows="5" name="content"></textarea>
             </div>
 
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class ="form-control" v-model="state.price" rows="5" name="price">
+                <input type="text" class="form-control" v-model="state.price" rows="5" name="price">
             </div>
 
             <div class="form-group">
@@ -44,37 +44,37 @@
             </div>
             <button class="btn btn-primary btn7 mt-3" @click="joinHandler">등록</button>
 
-    </form>
+        </form>
     </section>
 </template>
 
 <script>
-import {reactive} from '@vue/reactivity'
+import { reactive } from '@vue/reactivity'
 import axios from 'axios'
-import {useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
 import FileUpload from '../../FileUpload.vue'
 import store from '@/store';
 export default {
-    name:'ToRegister',
+    name: 'ToRegister',
     components: { FileUpload },
     setup() {
         const router = useRouter();
         const state = reactive({
-            title       : '',
+            title: '',
             content: '',
-            memberId  : store.state.id,
-            name        : '',
-            itemDetail : '',
-            stock: '',  
+            memberId: store.state.id,
+            name: '',
+            itemDetail: '',
+            stock: '',
             price: '',
-            type : '',
-            postsId : '',
-            imageDTOList : new Array(),
+            type: '',
+            postsId: '',
+            imageDTOList: new Array(),
         })
-        const joinHandler = async() => {
+        const joinHandler = async () => {
             let str = "";
             const liArr = document.querySelectorAll(".uploadResult ul li")
-            for(let i=0;i<liArr.length;i++){
+            for (let i = 0; i < liArr.length; i++) {
                 const target = liArr[i];
                 str += `
                 <input type="hidden" name="imageDTOList[${i}].imgName" 
@@ -85,53 +85,69 @@ export default {
                 value="${target.dataset.uuid}">          
                 `
                 const obj = {
-                imgName : target.dataset.name,
-                path : target.dataset.path,
-                uuid : target.dataset.uuid,
+                    imgName: target.dataset.name,
+                    path: target.dataset.path,
+                    uuid: target.dataset.uuid,
                 }
                 state.imageDTOList.push(obj)
             }
             document.querySelector(".box").innerHTML = str
-            
+
             //글쓰기
             const url = '/register/posting'
             const headers = {
-                "Content-Type" : "application/json",
+                "Content-Type": "application/json",
                 "Authorization": store.state.token,
-                }
+            }
             const body = {
-                title : state.title, 
+                title: state.title,
                 content: state.itemDetail,
-                memberId : state.memberId, 
+                memberId: state.memberId,
                 imageDTOList: state.imageDTOList,
                 partsType: state.type,
                 token: store.state.token,
             }
-            await axios.post(url, body, {headers}).then((res)=>{
+            if (state.title === '') {
+                alert('상품명을 입력해주세요');
+                state.title.value.focus(); return false;
+            } else if (state.content === '') {
+                alert('내용을 입력해주세요');
+                state.content.value.focus(); return false;
+            } else if (state.price === '') {
+                alert('가격을 입력해주세요');
+                state.price.value.focus(); return false;
+            } else if (state.stock === '') {
+                alert('수량을 입력해주세요');
+                state.stock.value.focus(); return false;
+            } else if (liArr.length <= 0) {
+                alert('이미지를 선택하세요')
+                liArr.length.focus(); return false;
+            } else if (state.type === '') {
+                alert('카테고리를 선택하세요')
+                state.type.focus(); return false;
+            }
+            await axios.post(url, body, { headers }).then((res) => {
                 state.postsId = res.data;
                 console.log(res.data);
             })
-
-
             const url2 = '/register/itemPosting'
             const body2 = {
                 price: state.price,
                 stock: state.stock,
                 itemDetail: state.itemDetail,
-                postsId : state.postsId 
+                postsId: state.postsId
             }
-            await axios.post(url2,body2,{headers})
-            router.push({name: "Parts"})
+            await axios.post(url2, body2, { headers })
+            router.push({ name: "Parts" })
         }
-        return {state,joinHandler }
+        return { state, joinHandler }
     }
-    
+
 }
 </script>
 
 <style scoped>
-
-  .input-form9 {
+.input-form9 {
 
     text-align: center;
 
@@ -145,14 +161,17 @@ export default {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-  }
-  .btn7{
+}
+
+.btn7 {
     margin-top: 20px;
-  }
-#hero{
+}
+
+#hero {
     overflow: scroll;
 }
-#hero:before{
+
+#hero:before {
     height: 1200px;
 }
 </style>

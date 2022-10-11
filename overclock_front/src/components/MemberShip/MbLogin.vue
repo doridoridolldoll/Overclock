@@ -1,44 +1,24 @@
 <template>
 
-    <div
-      id="back"
-      class="d-flex flex-column form-floating"
-      action="login"
-      method="post"
-    >
+  <div id="back" class="d-flex flex-column form-floating" action="login" method="post">
     <h3>개인 로그인</h3>
     <div class="input-group idsection px-5 my-2">
-      <input
-      class="form-control"
-      type="text"
-      name="id"
-      id="id"
-      v-model="state.form.email"
-      required
-      placeholder="이메일"
-      />
+      <input class="form-control" type="text" name="id" id="id" v-model="state.form.email" required placeholder="이메일" />
     </div>
     <div class="input-group passwordsection px-5 my-2 w-100">
-      <input
-      class="form-control"
-      type="password"
-          name="password"
-          id="password"
-          v-model="state.form.password"
-          placeholder="비밀번호"
-          required
-          />
-        </div>
-        <div class="px-5 my-4">
-          <button @click="submit()" class="btn btn-outline-primary w-100">
-            로그인
-          </button>
-          <button class="btn btn-warning mt-4 w-100">
-            <router-link to="/social" class="nav-link scrollto">소셜 로그인</router-link>
-        </button>
-      </div>
-
+      <input class="form-control" type="password" name="password" id="password" v-model="state.form.password"
+        placeholder="비밀번호" required />
     </div>
+    <div class="px-5 my-4">
+      <button @click="submit()" class="btn btn-outline-primary w-100">
+        로그인
+      </button>
+      <button class="btn btn-warning mt-4 w-100">
+        <router-link to="/social" class="nav-link scrollto">소셜 로그인</router-link>
+      </button>
+    </div>
+
+  </div>
 </template>
 <script>
 import { reactive } from "@vue/reactivity";
@@ -109,10 +89,12 @@ export default {
   background: white;
   text-align: center;
   -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
 }
-#back h3{
+
+#back h3 {
   margin-top: 30px;
 }
 </style>

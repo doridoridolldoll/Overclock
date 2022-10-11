@@ -348,6 +348,23 @@ public class ApiController {
     }
 
     /**
+     * 회원가입 닉네임 중복 검증
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/nickVali", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Long>> validateNickname(@RequestBody Map<String, Object> mapObj){
+        String nickname = mapObj.get("nickname").toString();
+        MemberDTO dto = memberService.userNicknameCheck(nickname);
+
+        Map<String, Long> mapForResult = new HashMap<>();
+        mapForResult.put("result", (dto == null)?0L:1L);
+
+        return new ResponseEntity<Map<String, Long>>(mapForResult, HttpStatus.OK);
+    }
+
+    /**
      * 회원 이메일 찾기 전화번호 검증
      * @param dto
      * @return
@@ -400,6 +417,13 @@ public class ApiController {
         return new ResponseEntity<>(findById, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/profileChange", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> profileChange(@RequestBody MemberDTO memberDTO) {
+        log.info("memberDTO {}", memberDTO);
+        String newProfile = memberService.profileChange(memberDTO);
+        return new ResponseEntity<>(newProfile,HttpStatus.OK);
+
     @RequestMapping(value = "/cart/delete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> cartDelete(@RequestBody int[] a) {
         log.info("===================================================");
@@ -412,6 +436,7 @@ public class ApiController {
         }
 //        String findById = memberService.DetailName(dto);
         return new ResponseEntity<>(id, HttpStatus.OK);
+
     }
 }
 

@@ -19,6 +19,7 @@
   </section>
 </template>
 <script>
+import store from "@/store";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
 // import store from "@/store";
@@ -26,14 +27,15 @@ import axios from "axios";
 export default {
   setup() {
     const state = reactive({
-      password: "",
+      id: store.state.id,
+      nickname: ""
     })
-    const password = ref('')
+    const nickname = ref('')
 
     const submit = () => {
-      if (state.password === '') {
-        alert('이메일을 입력해주세요');
-        password.value.focus();
+      if (state.nickname === '') {
+        alert('닉네임을 입력해주세요');
+        nickname.value.focus();
         return false;
       } 
         
@@ -41,17 +43,15 @@ export default {
       const headers = {
         "Content-Type": "application/json",
       }
-      const body = { password: state.password };
+      const body = { nickname: state.nickname };
       axios.post(url, body, { headers }).then(function (res) {
         if (res.data != '') {
           console.log(typeof (res.data));
           alert('성공');
-        } else {
-          alert('비밀번호가 일치하지 않습니다');
-        }
+        } 
       })
     }
-    return { state, submit }
+    return { state, submit,  }
   }
 };
 </script>

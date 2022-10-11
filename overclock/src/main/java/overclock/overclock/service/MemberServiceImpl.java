@@ -113,6 +113,20 @@ public class MemberServiceImpl implements MemberService {
             return false;
         }
     }
+
+    @Override
+    public MemberDTO userNicknameCheck(String nickname) {
+        log.info("service nickname : {} ", nickname);
+        MemberDTO dto = null;
+        Optional<Member> result = memberRepository.findByNickname(nickname);
+        log.info("nickname : {}" ,nickname);
+        if(result.isPresent()){
+            Member member = result.get();
+            dto = EntityToDTO(member);
+        }
+        return dto;
+    }
+
     @Override
     public String passChange(MemberDTO dto) {
         Member entity = memberRepository.getReferenceById(dto.getId());
@@ -151,5 +165,16 @@ public class MemberServiceImpl implements MemberService {
             return null;
         }
         return result2;
+    }
+
+    @Override
+    public String profileChange(MemberDTO dto) {
+        Member entity = memberRepository.getReferenceById(dto.getId());
+        MemberDTO getById = EntityToDTO(entity);
+        getById.setNickname(dto.getNickname());
+        Member profileChange = dtoToEntity(getById);
+        memberRepository.save(profileChange);
+
+        return profileChange.getId().toString();
     }
 }

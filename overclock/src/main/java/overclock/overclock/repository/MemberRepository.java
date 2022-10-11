@@ -23,8 +23,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.email=:email and m.fromSocial=:social ")
     Optional<Member> findByEmail(@Param("email") String email,@Param("social") boolean social);
 
-
-
 //    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
 //    @Query("select m from Member m where m.id=:id")
 //    Optional<Member> findById(String id);
@@ -37,14 +35,15 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.email=:email ")
     Optional<Member> findByEmail12(String email);
 
-    @Query("select m from Member m where m.phone=:phone ")
+    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("select m from Member m where m.nickname=:nickname ")
+    Optional<Member> findByNickname(String nickname);
 
+    @Query("select m from Member m where m.phone=:phone ")
     Optional<Member> findPhoneByEmail(String phone);
     Member findByPhone(String phone);
 
     //Optional<Member> findByPhone(String phone);
-
-
 
     Member findUserByEmail(String email);
     @Query("select m from Member m where m.id=:id ")
