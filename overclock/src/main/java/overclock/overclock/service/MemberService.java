@@ -15,13 +15,13 @@ public interface MemberService {
     boolean findByPhone(String phone);
     Optional findByEmail(MemberDTO email);
     boolean userEmailCheck(String email);
+    MemberDTO userNicknameCheck(String nickname);
     String passChange(MemberDTO dto);
     boolean checkPass(Long id, String password);
     String companyRegister(MemberDTO memberDTO);
-
     int emailCrn(MemberDTO memberDTO);
-
     Optional DetailName(MemberDTO memberDTO);
+    String profileChange(MemberDTO dto);
 
 
     default Member dtoToEntity(MemberDTO dto) {

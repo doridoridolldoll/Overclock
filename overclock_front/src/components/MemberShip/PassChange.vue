@@ -16,6 +16,7 @@ import { reactive } from '@vue/reactivity'
 import axios from 'axios'
 import router from '@/router'
 import store from '@/store'
+
 export default {
   name: 'PassChange',
   props: ["email"],

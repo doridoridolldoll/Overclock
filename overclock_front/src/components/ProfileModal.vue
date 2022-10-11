@@ -30,7 +30,7 @@ import router from "@/router";
 
   
 export default {
-  name: "ConfirmationModal",
+  name: "ProfileModal",
   components: {
     MyModal,
   },
@@ -92,7 +92,7 @@ export default {
           return false;
         } else (res.data === true)
           alert("비밀번호가 일치합니다.")
-          router.push({ name: "PassChange2" })
+          router.push({ name: "ProfileChange" })
           });
         }
     return { baseModal, show, confirm, cancel, state, check };

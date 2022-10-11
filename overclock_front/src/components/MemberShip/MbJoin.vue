@@ -12,16 +12,17 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="nickname">닉네임</label>
-          <input type="text" class="form-control" v-model="state.nickname" id="nickname" placeholder="">
+          <input type="text" required autofocus class="form-control" v-model="state.nickname"  id="nickname" @keyup="nickCheckHandler">
           <div class="invalid-feedback">
             닉네임을 입력해주세요.
           </div>
         </div>
+        {{ state.nickCheck }}
       </div>
 
       <div class="mb-3">
         <label for="email">이메일</label>
-        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="you@example.com">
+        <input type="email" class="form-control" v-model="state.email" id="email">
           이메일을 입력해주세요.
       </div>
 
@@ -91,7 +92,6 @@
       </div>
       <div class="mb-4"></div>
       <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler">가입 완료</button>
-
       <tr>
         <td><a href="http://localhost:9090/oauth2/authorization/google" @click="joinHandler">Google</a></td>
       </tr>
@@ -152,6 +152,7 @@ export default {
         console.log(res);
         if (res.data.email === state.email) {
           alert("이미 존재하는 이메일입니다.")
+          state.change = 0;
         } else if (res.data != "" || res.data.email != state.email) {
           console.log(typeof (res.data));
           alert("입력하신 이메일로 인증번호가 발송되었습니다.");
@@ -167,9 +168,7 @@ export default {
           alert("존재하지 않는 이메일입니다");
         }
       });
-
     }
-
 
     const asd = async () => {
       alert("asd");
@@ -187,7 +186,17 @@ export default {
         // router.push(`/`)
       })
     }
-
+    const nickCheckHandler = async() => {
+      const url ='/api/nickVali'
+      const headers = {"Content-Type" : "application/json"}
+      const body ={nickname : state.nickname}
+      const response = await axios.post(url, body, {headers})
+      if(response.status === 200){
+        state.nickCheck=(response.data.result === 1)?"사용불가":"사용가능"
+      } else {
+        state.nickCheck="중복 확인"
+      }
+    }
 
     const emailVali = async () => {
       const url = "/api/emailVali"
@@ -200,6 +209,13 @@ export default {
         if (res.data.validate === true) {
           alert("이미 존재하는 이메일입니다.")
           return false;
+        } else if (state.email === '') {
+          alert('이메일을 입력해주세요'); 
+          state.email.value.focus();
+          return false;
+        } else if (!(state.email.includes("@") && state.email.includes("."))) {
+          alert('이메일 양식이 맞지 않습니다.'); 
+          state.email.value.focus(); return false;
         } else (res.data.validate === false)
           alert("가입 가능한 이메일입니다.")
           state.ch = 1
@@ -207,7 +223,6 @@ export default {
     }
 
     const joinHandler = async () => {
-
       const url = './api/memberRegister'
       const headers = {
         "Content-Type": "application/json",
@@ -224,6 +239,42 @@ export default {
         nickname: state.nickname,
       }
       console.log(body)
+      if (state.name === '') {
+      alert('이름을 입력해주세요'); 
+      state.name.value.focus(); return false;
+      } else if (state.nickname === '') {
+      alert('닉네임을 입력해주세요'); 
+      state.nickname.value.focus(); return false;
+      } else if (state.email === '') {
+      alert('이메일을 입력해주세요'); 
+      state.email.value.focus(); return false;
+      } else if (!(state.email.includes("@") && state.email.includes("."))) {
+      alert('이메일 양식이 맞지 않습니다.'); 
+      state.email.value.focus(); return false;
+      } else if (state.password === '') {
+      alert('비밀번호를 입력해주세요'); 
+      state.password.value.focus(); return false;
+      } else if (state.repassword === '') {
+      alert('비밀번호를 입력해주세요'); 
+      state.repassword.value.focus(); return false;
+      } else if (state.phone === '') {
+      alert('전화번호를 입력해주세요'); 
+      state.phone.value.focus(); return false;
+      } else if (state.city === '') {
+      alert('도시명을 입력해주세요'); 
+      state.city.value.focus(); return false;
+      } else if (state.street === '') {
+      alert('도로명주소를 입력해주세요'); 
+      state.street.value.focus(); return false;
+      } else if (state.zipcode === '') {
+      alert('우편번호를 입력해주세요'); 
+      state.zipcode.value.focus(); return false;
+      } else if (state.password != state.repassword) {
+      alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요');
+      state.password.value.value = ''; 
+      state.repassword.value.value = '';
+      state.password.value.focus(); return false;
+      }
   
       console.log(store.state.email);
       if(store.state.email === 0) {
@@ -240,7 +291,7 @@ export default {
     }
     }
 
-    return { joinHandler, state, emailCheck, emailVali }
+    return { joinHandler, state, emailCheck, emailVali, asd, nickCheckHandler }
   },
   components: { EmailCheck  }
 };
