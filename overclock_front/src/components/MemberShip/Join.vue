@@ -69,7 +69,7 @@ height: 100vh;
 }
 
 #hero::before{
-  height: 1300px;
+  height: 1600px;
 }
 .asd{
   margin: 10px;

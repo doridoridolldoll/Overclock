@@ -1,7 +1,7 @@
 <template>
 
   <form class="d-flex flex-column" action="login" method="post">
-    <span class="answer text-center" i-d-b-database="answerForRecovery1">인증번호</span>
+    <span class="answer text-center mt-3" i-d-b-database="answerForRecovery1">인증번호</span>
     <input class="form-control" type="text" placeholder="인증번호" v-model="state.keyInput" />
     <div class="px-5 my-4">
       <button type="button" class="btn btn-outline-primary w-100" @click="certify()">인증</button>

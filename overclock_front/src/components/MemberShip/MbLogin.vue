@@ -54,7 +54,7 @@ export default {
                 id: "",
                 email: "",
                 password: "",
-                crn: ""
+                crn: "",
                 role: "0",
             },
             crn: null,
@@ -95,9 +95,7 @@ export default {
             }
 
             const url2 = "/api/crn";
-            const headers = { 
-              "Content-Type": "application/json; charset=utf-8;" 
-            };
+
             const body2 = { 
               email: state.form.email,
               };
@@ -114,7 +112,6 @@ export default {
                         state.form.id = res.data.id;
                         store.commit("setEmail", res.data.email);
                         store.commit("setRole", state.form.role);
-                        alert("로그인되었습니다.");
                         router.push(`/`);
                     });
                 }

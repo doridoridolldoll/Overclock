@@ -7,7 +7,7 @@
               <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
                   <div class="swiper-wrapper align-items-center">
-                      <div class="icon"><img v-bind:src="img"/></div>
+                      <div class="icon imgsize"><img v-bind:src="img"/></div>
                   </div>
                 </div>
               </div>
@@ -46,7 +46,6 @@
                 </div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
                 
-                <router-link to="" class="btn1 btn btn-primary ">구매</router-link>
                 <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
 
                 <Comment
@@ -131,7 +130,10 @@ p{
 .btn1{
   margin-right: 10px;
 }
-
+.imgsize{
+  width: 300px;
+  height: 300px;
+}
 
 
 </style>

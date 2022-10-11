@@ -39,7 +39,7 @@
                 <!-- </div>
                 <button class="btn btn-primary btn-lg btn-block" @click="modify" >수정</button>
                 <div> -->
-                  <button @click="handleClick">회원정보 수정</button>
+                  <button class="btn btn-info mt-5" @click="handleClick">회원정보 수정</button>
                   <Modal ref="modal"/>
                 </div>
               </form>
@@ -190,5 +190,14 @@
         -moz-border-radius: 10px;
         border-radius: 10px;
       }
+#hero {
+  overflow: scroll;
+
+  max-height: 1100px;
+}
+
+#hero::before {
+  height: 1100px;
+}
   
   </style>

@@ -58,6 +58,7 @@ import {reactive} from '@vue/reactivity'
       max-width: 320px;
       width: 100%;
       padding: 1.5rem;
+      border-radius: 10px;
     }
   }
   </style>

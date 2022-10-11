@@ -28,8 +28,6 @@
 				<br><br><br><br><br>
 				<h3><a href="" style="width:292px;" >{{card[i].id}}</a></h3>
 				<h3><a href="" style="width:292px;" >{{card[i].title}}</a></h3>
-				
-				<span><h5>할인가 4,300,000원</h5></span>	
 			</div>
 		</div>
 	</div>

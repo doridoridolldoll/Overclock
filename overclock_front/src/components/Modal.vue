@@ -1,8 +1,8 @@
 <template>
-  <MyModal ref="baseModal">
+  <MyModal  ref="baseModal">
     <div class="content-container">
       <form class="validation-form" @submit.prevent>
-        <span class="answer text-center" id="answerForRecovery1">비밀번호 확인</span>
+        <h3 class="answer text-center" id="answerForRecovery1">비밀번호 확인</h3>
         <div class="mb-3">
           <label for="password">비밀번호</label>
           <input type="password" class="form-control" v-model="state.password" id="password" required>
@@ -13,8 +13,8 @@
       </form>
     </div>
     <div class="buttons-container">
-      <button class="btn btn-primary btn-lg btn-block" @click="check">수정</button>
-      <button class="btn cancel" @click="cancel">취소</button>
+      <button class="btn btn-primary mr-2" @click="check">수정</button>
+      <button class="btn btn-warning" @click="cancel">취소</button>
     </div>
   </MyModal>
 </template>
@@ -97,3 +97,18 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.buttons-container{
+  text-align: center;
+}
+.btn-primary{
+  margin-right: 10px;
+}
+.validation-form{
+  text-align: center;
+}
+.modal-container{
+  border-radius: 10px;
+}
+</style>

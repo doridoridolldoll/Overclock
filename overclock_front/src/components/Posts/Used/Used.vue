@@ -53,9 +53,9 @@
                     <!-- END TR-->
                   </tbody>
                 </table>
-                <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
-                  <label for="searching"><i class="bi bi-search"></i></label>
-                  <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
+                <form class="searching-area d-flex align-items-center gap-1 w-50 mt-3" @submit.prevent="searchingAxios()">
+                  <label for="searching"><i class="bi bi-search btn btn-primary"></i></label>
+                  <input id="searching" v-model="search.context" type="text" class="form-control bg-white" @submit="searchingAxios()">
                 </form>
                 </div>
                 <router-link to="/UsedRegister" class="btn btn-primary"> 글쓰기</router-link>
@@ -240,4 +240,7 @@ export default {
 	#hero{
 		height: inherit;
 	}
+  #searching{
+    border: 1px solid black;
+  }
 </style>

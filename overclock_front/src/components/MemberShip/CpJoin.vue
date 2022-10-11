@@ -79,7 +79,6 @@
       </div>
       <div class="mb-4"></div>
       <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler" >가입 완료</button>
-        <tr><td><a href="http://localhost:9090/oauth2/authorization/google">Google</a></td></tr> 
     </form>
   </div>
 

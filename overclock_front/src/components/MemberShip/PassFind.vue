@@ -4,13 +4,14 @@
       <div class="container">
         <div class="input-form2 col-md-12 mx-auto">
           <form class="d-flex flex-column" action="login" method="post">
+            <h3>비밀번호 찾기</h3><hr>
             <span class="answer text-center" i-d-b-database="answerForRecovery1">이메일</span>
             <div class="input-group idsection px-5 my-2">
               <input class="form-control" type="text" name="id" id="id" required placeholder="email"
                 v-model="state.email" />
             </div>
             <div class="px-5 my-4">
-              <button type="button" class="btn btn-outline-primary w-100" @click="submit()">비밀번호 찾기</button>
+              <button type="button" class="btn btn-outline-primary w-100" @click="submit()">인증번호 발송</button>
             </div>
 
             <span class="answer text-center" i-d-b-database="answerForRecovery1">임시 비밀번호</span>

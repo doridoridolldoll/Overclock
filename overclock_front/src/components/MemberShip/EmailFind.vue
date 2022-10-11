@@ -4,13 +4,14 @@
       <div class="container">
         <div class="input-form2 col-md-12 mx-auto">
           <form class="d-flex flex-column" action="login" method="post">
+            <h3>아이디 찾기</h3><hr>
             <span class="answer text-center" i-d-b-database="answerForRecovery1">휴대전화 번호</span>
             <div class="input-group idsection px-5 my-2">
               <input class="form-control" type="text" name="phone" id="phone" required placeholder="휴대전화 번호"
                 v-model="state.phone" />
             </div>
             <div class="px-5 my-4">
-              <button type="button" class="btn btn-outline-primary w-100" @click="phoneCheck()">아이디 찾기</button>
+              <button type="button" class="btn btn-outline-primary w-100" @click="phoneCheck()">인증번호 발송</button>
             </div>
             <span class="answer text-center" i-d-b-database="answerForRecovery1">인증번호</span>
             <input class="form-control" type="text" name="crn" id="crn" required placeholder="인증번호"
@@ -28,6 +29,7 @@
 import { reactive } from "@vue/reactivity";
 import PhoneCheck from "./PhoneCheck.vue";
 import axios from "axios";
+import router from '@/router';
 // import store from "@/store";
 
 export default {
@@ -78,6 +80,7 @@ export default {
               return false;
           }
           alert(`회원님의 이메일은 ${state.email} 입니다`)
+          router.push({path:"/login"})
       }
     return { state, PhoneCheck, submit, phoneCheck }
   },

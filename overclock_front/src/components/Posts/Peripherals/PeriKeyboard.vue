@@ -1,8 +1,14 @@
 <template>
     <section id="services2" class="services">
       <div class="container" data-aos="fade-up">
-        <router-link to="/periregister" class="btn btn-primary">글쓰기</router-link>
-        <div class="section-title">
+        <router-link to="/partsregister" class="btn btn-primary" style="float:right;" v-if="(store.state.role == '1')">글쓰기</router-link>
+        <div>
+            <form class="searching-area d-flex align-items-center gap-1 w-50 mt-3" @submit.prevent="searchingAxios()">
+              <label for="searching"><i class="bi bi-search btn btn-primary"></i></label>
+              <input id="searching" v-model="search.context" type="text" class="form-control bg-white" @submit="searchingAxios()">
+            </form>
+          </div>        
+          <div class="section-title">
           <p>KEYBOARD</p>
         </div>
         <div class="row">
@@ -21,12 +27,7 @@
             </div>
           </a>
           </div>
-          <div>
-            <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
-              <label for="searching"><i class="bi bi-search"></i></label>
-              <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
-            </form>
-          </div>
+
           <div class="page">
             <ul class="pagination">
               <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
@@ -186,4 +187,7 @@ function searchingAxios(){
 	border: 1px solid rgb(102, 102, 102);
 	border-radius: 10px;
 }
+#searching{
+    border: 1px solid black;
+  }
 </style>
