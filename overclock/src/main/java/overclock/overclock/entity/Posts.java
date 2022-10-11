@@ -29,7 +29,7 @@ public class Posts extends BaseEntity{ //게시물
     private Long id;
     @Enumerated
     private BoardType boardType;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Member member;
     private String title; //제목
     private String content;

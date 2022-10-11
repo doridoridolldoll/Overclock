@@ -23,6 +23,8 @@ import PassFind from "@/components/MemberShip/PassFind"
 import PassCheck from "@/components/MemberShip/PassCheck"
 import PassChange from "@/components/MemberShip/PassChange"
 import PassChange2 from "@/components/MemberShip/PassChange2"
+import ProfileChange from "@/components/MemberShip/ProfileChange"
+
 
 //고객센터
 import QnA from "@/components/QnA.vue"
@@ -71,8 +73,8 @@ import Auction from "@/components/Auction.vue"
 const routes = [
     {path:"/",name:"Main", component: Main}, 
     {path:"/parts",name:"Parts", component: Parts}, 
-    {path:"/peri",name:"Peri", component: Peri}, 
-    {path:"/used",name:"Used", component: Used}, 
+    {path:"/peri",name:"Peri", component: Peri},
+    {path:"/used",name:"Used", component: Used},
     {path:"/partsdetail",name:"PartsDetail", component: PartsDetail, props: { newsletterPopup: false }}, 
     {path:"/partsdetail2",name:"PartsDetail2", component: PartsDetail2}, 
     {path:"/peridetail",name:"PeriDetail", component: PeriDetail, props: { newsletterPopup: false }}, 
@@ -98,6 +100,7 @@ const routes = [
     {path:"/search", name: 'SearchList', component: SearchList},
     {path:"/passChange", name: "PassChange", component: PassChange},
     {path:"/passChange2", name: "PassChange2", component: PassChange2},
+    {path:"/profileChange", name: "ProfileChange", component: ProfileChange},
     {path:"/cart", name: 'Cart', component: Cart},
     {path:"/auction", name: 'Auction', component: Auction},
     {path:"/emailCheck", name: "EmailCheck", component: EmailCheck},
@@ -105,7 +108,6 @@ const routes = [
     {path:"/passFind", name: 'PassFind', component: PassFind},
     {path:"/passCheck", name: 'PassCheck', component: PassCheck},
     {path:"/phoneCheck", name: 'PhoneCheck', component: PhoneCheck},
-
     {path:"/partsModify", name: 'PartsModify', component: PartsModify},
     {path:"/commentModify", name: 'CommentModify', component: CommentModify},
     {path:'/PcPay', name: 'PcPay', component: PcPay},

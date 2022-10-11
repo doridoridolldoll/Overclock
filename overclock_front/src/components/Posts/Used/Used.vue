@@ -35,8 +35,6 @@
                   </thead>
                   <tbody>
                     <tr class="text-center" v-for="(list, i) in state.dtoList" :key="(list, i)" >
-                        <td class="price">{{ list.id }} </td>
-
                         <td>
                           <img v-bind:src="state.img[i]" />
                         </td>
@@ -181,8 +179,8 @@ export default {
     category:"used"
   }
 
-  axios.post("/api/partsItemList", body, {headers}).then(function(res){
-    store.state.price = res.data[0].price;
+  axios.post("/api/partsItemList", body, {headers}).then(function(){
+
   })
 
   function Join(list,i){

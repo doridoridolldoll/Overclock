@@ -11,33 +11,20 @@
                 <input type="text" class="form-control">
             </div>
             <div class="form-group">
-                <label>거래정보</label>
+                <label>상세내용</label>
                 <textarea class ="form-control" v-model="state.content" rows="5" name="content"></textarea>
             </div>
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class ="form-control" v-model="state.itemDetail" rows="5" name="itemDetail">
+                <input type="text" class ="form-control" v-model="state.price" rows="5" name="itemDetail">
             </div>
             <div class="form-group">
                 <label>수량</label>
-                <input type="text" class="form-control" name="stock" placeholder="stock">
+                <input type="text" class="form-control" v-model="state.stock" name="stock" placeholder="stock">
             </div>
-            <div class="form-group">
-                <label>회원ID</label>
-                <input type="text" class="form-control" v-model="state.memberId" name="memberId" placeholder="memberId"><br>
-            </div>
-<!-- 
-            <div class="form-group" style="margin-bottom: 10px;">
-                <label>Image Files</label>
-                <input type="file" class="form-control" id="fileInput" multiple>
-                <label class="custom-file-label" data-browse="Browse"></label>
-            </div> -->
-
             <div class="box"></div>
-
             <FileUpload />
 
-            <!--게시판 카테고리-->
             <input type="hidden" class="form-control" v-model="state.type" name="type" placeholder="type"><br>
             
 
@@ -60,10 +47,12 @@ export default {
         const state = reactive({
             title       : '',
             content    : '',
-            memberId  : '',
+            memberId  : store.state.id,
             name        : '',
             itemDetail : '',
             type : 'used',
+            stock: '',
+            price: '',
             imageDTOList : new Array(),
         })
         const joinHandler = async() => {
@@ -103,6 +92,22 @@ export default {
                 imageDTOList: state.imageDTOList,
                 itemDetail: state.itemDetail, 
                 partsType: state.type,
+            }
+            if (state.title === '') {
+                alert('상품명을 입력해주세요');
+                state.title.value.focus(); return false;
+            } else if (state.content === '') {
+                alert('내용을 입력해주세요');
+                state.content.value.focus(); return false;
+            } else if (state.price === '') {
+                alert('가격을 입력해주세요');
+                state.price.value.focus(); return false;
+            } else if (state.stock === '') {
+                alert('수량을 입력해주세요');
+                state.stock.value.focus(); return false;
+            } else if (liArr.length <= 0) {
+                alert('이미지를 선택하세요')
+                liArr.length.focus(); return false;
             }
             const response = await axios.post(url, body, {headers})
             

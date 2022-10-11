@@ -12,6 +12,7 @@ public interface CartService {
 
     PageResultDTO<CartDTO, Cart> cartList (PageRequestDTO dto); //부품,주변기기 게시판 리스트
 
+    int delete(int a);
     default Cart dtoToEntity(CartDTO dto) {
 
         Member member = Member.builder()

@@ -49,12 +49,9 @@ public class Member extends BaseEntity{
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Cart> carts = new ArrayList<>();
 
-
-//    @OneToMany(mappedBy = "member")
-//    private List<Order> order = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "member")
-//    private List<Posts> posts = new ArrayList<>();
+    @Builder.Default
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Posts> posts = new ArrayList<>();
 
     @Builder
     public Member(Long id, String email, String name, String password, String nickname,
