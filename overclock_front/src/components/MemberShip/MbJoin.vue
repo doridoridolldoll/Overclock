@@ -93,6 +93,10 @@
       <div class="mb-4"></div>
       <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler">가입 완료</button>
 
+      <tr>
+        <td><a href="http://localhost:9090/oauth2/authorization/google" @click="joinHandler">Google</a></td>
+      </tr>
+
     </form>
   </div>
 </template>
@@ -168,15 +172,37 @@ export default {
     }
 
 
+    const asd = async () => {
+      alert("asd");
+      const url = "./member/login"
+      const headers = { "Content-Type": "application/json; charset=utf-8;" }
+      const body = { id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
+      await axios.post(url, body, { headers }).then(function (res) {
+        store.commit("setToken", res.data.token);
+        store.commit("setId", state.form.id);
+        store.commit("setEmail", res.data.email);
+        store.commit("setRole", "2")
+        // store.commit("setrole)
+        console.log(res.data);
+        alert("로그인되었습니다.");
+        // router.push(`/`)
+      })
+    }
+
 
     const emailVali = async () => {
       console.log(state.email)
       const url = "/api/emailVali"
       const headers = { "Content-Type": "application/json; charset=utf-8;" }
+      console.log(state.email)
+      console.log("===============")
       const body = { email: state.email };
       await axios.post(url, body, { headers }).then(function (res) {
         
+        if(res.data.validate === true){
+          alert("이미 존재하는 이메일입니다.")
 
+        }
         alert("가입가능한 이메일 입니다")
         console.log(res.data);
         state.ch = 1

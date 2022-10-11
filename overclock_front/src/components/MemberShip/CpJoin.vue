@@ -10,7 +10,11 @@
             회사명을 입력해주세요.
           </div>
         </div>
-
+        <div class="mb-3">
+          <label for="email">이메일</label>
+          <input type="email" class="form-control" v-model="state.email" id="email" placeholder="you@example.com">
+            이메일을 입력해주세요.
+          </div>
       <div class="mb-3">
         <label for="copcode">사업자등록번호</label>
         <input type="copcode" class="form-control" v-model="state.cpCode" id="copcode" placeholder="" required>
@@ -89,6 +93,7 @@
     name:'ToJoin',
   setup(){
     const state = reactive({
+      email : '',
       id          : '',
       cpCode       : '',
       cpPw    : '',
@@ -106,6 +111,7 @@
         "Content-Type" : "application/json",
       }
       const body = {
+        email : state.email,
         id : state.id,
         crn : state.cpCode,
         password   : state.cpPw,

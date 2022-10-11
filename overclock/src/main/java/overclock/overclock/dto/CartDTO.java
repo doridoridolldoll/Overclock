@@ -13,7 +13,7 @@ public class CartDTO {
     private String cartName;
     private int price;
     private String imgUrl;
-    private Long MemberId;
+    private Long memberId;
 
 
 }

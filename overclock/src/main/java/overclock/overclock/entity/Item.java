@@ -1,5 +1,6 @@
 package overclock.overclock.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import overclock.overclock.exception.OutOfStockException;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "posts2")
 public class Item extends BaseEntity{
 
     @Id

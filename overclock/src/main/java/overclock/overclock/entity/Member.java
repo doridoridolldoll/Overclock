@@ -1,6 +1,7 @@
 package overclock.overclock.entity;
 
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 import overclock.overclock.dto.JoinFormDTO;
 import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.model.Address;
@@ -23,7 +24,6 @@ public class Member extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
     private Long id;
     private String email;
     private String name;
@@ -35,14 +35,20 @@ public class Member extends BaseEntity{
 
     private boolean fromSocial;
 //
-//    private int crn; //사업자등록번호
+    private int crn; //사업자등록번호
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 
+    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Cart> carts = new ArrayList<>();
+
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Order> order = new ArrayList<>();
@@ -52,7 +58,7 @@ public class Member extends BaseEntity{
 
     @Builder
     public Member(Long id, String email, String name, String password, String nickname,
-                  String phone, Address address) {
+                  String phone, Address address, int crn) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -60,6 +66,7 @@ public class Member extends BaseEntity{
         this.nickname = nickname;
         this.phone = phone;
         this.address = address;
+        this.crn = crn;
     }
 
     public static Member createMember(MemberDTO memberDTO) {

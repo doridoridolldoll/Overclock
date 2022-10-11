@@ -11,11 +11,11 @@
           <input
             class="form-control"
             type="text"
-            name="copid"
-            id="copid"
-            v-model="state.form.copcode"
+            name="id"
+            id="id"
+            v-model="state.form.email"
             required
-            placeholder="사업자등록번호"
+            placeholder="이메일"
           />
         </div>
   
@@ -44,44 +44,57 @@
   import router from "@/router";
   
   export default {
-    name: "ToLogin",
+    name: "ToCpLogin",
     setup() {
       const state = reactive({
         form: {
+          email : "",
           copcode: "",
           coppassword: "",
-          role: "2",
-  
+          role: "1",
+
         },
+        crn: null,
       });
       const submit = async () => {
-        if (state.form.copcode === "") {
-          alert("사업자등록번호를 확인해주세요");
-          return false;
-        } else if (state.form.coppassword === "") {
+        if (state.form.coppassword === "") {
           alert("비밀번호를 확인해주세요");
           return false;
         }
-  
-        const url = "./member/login"
-        const headers = { "Content-Type": "application/json; charset=utf-8;"}
-  
-        const body = { email: state.form.email, password: state.form.password, role: state.form.role };
-        try {
-          await axios.post(url, body, { headers }).then(function (res) {
-            store.commit("setToken", res.data.token);
-            store.commit("setId", res.data.id);
-            store.commit("setEmail", res.data.email);
-              store.commit("setRole", "2")
-            // store.commit("setrole)
-            console.log(res.data);
-            alert("로그인되었습니다.");
-            router.push(`/`);
-          });
-        } catch (err) {
-          alert("로그인에 실패하였습니다.");
-        }
-      };
+        const url2 = "/api/crn";
+        const headers = { 
+          "Content-Type": "application/json; charset=utf-8;" 
+        };
+        const body2 = { 
+          email: state.form.email,
+          };
+        axios.post(url2, body2, {headers}).then(function(res){
+          state.crn = res.data
+          console.log(state.crn)
+          if(state.crn != 0){ //사업자 등록번호가 있으면 로그인
+            const url = "./member/login"
+            const headers = { "Content-Type": "application/json; charset=utf-8;"}
+            const body = {email : state.form.email, cpcode : state.form.copcode, password: state.form.coppassword, role: state.form.role };
+            try {
+              axios.post(url, body, { headers }).then(function (res) {
+                store.commit("setToken", res.data.token);
+                store.commit("setId", res.data.id);
+                store.commit("setEmail", res.data.email);
+                  store.commit("setRole", state.form.role)
+                // store.commit("setrole)
+                console.log("==================")
+                console.log(res.data);
+                alert("로그인되었습니다.");
+                router.push(`/`);
+              });
+            } catch (err) {
+              alert("로그인에 실패하였습니다.");
+            }
+          }else{
+            alert("업체 유저로 로그인 해주세요");
+          }
+        })
+      }
       return { state, submit };
     },
   };

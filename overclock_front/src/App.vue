@@ -50,7 +50,9 @@ export default {
       store.commit('setId',0);
       store.commit('setEmail',0);
       store.commit("setRole", "")
-      alert("로그아웃되었습니다.");
+
+      alert("로그아웃 되었습니다")
+
       router.push({path:"/"})
     }
       return{logout,memberId}

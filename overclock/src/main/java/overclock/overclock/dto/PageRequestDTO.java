@@ -19,7 +19,7 @@ public class PageRequestDTO { //which page, 어떤 페이지를 요청
   private String category;
   private Long postsId;
   private Long memberId;
-  public PageRequestDTO(){ page = 1;size = 10; }
+  public PageRequestDTO(){ page = 1;size = 9; }
   public Pageable getPageable(Sort sort){
     return PageRequest.of(page-1, size, sort);
   }

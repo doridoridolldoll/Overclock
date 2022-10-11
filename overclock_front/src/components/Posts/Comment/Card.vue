@@ -1,14 +1,17 @@
 <template>
 
-  <div class="comment" v-for="list in state.dtoList" :key="list"
+  <div class="comment" v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
-          <div class="commentId mt-3">
-            <span class="commentMember">{{list.id}}</span>
-          </div>
-          <div class="commentContent mt-3">
-            <span class="commentText mt-1">{{list.content}}</span>
-          </div>
-          <a class="btn btn-info mt-2" :href="'./CommentModify?id=' + list.id">수정</a>
+
+      <div class="commentId mt-3">
+        <span class="commentMember">{{state.name[i]}}</span>
+      </div>
+      <div class="commentContent mt-3">
+
+        <span class="commentText mt-1">{{list.content}}</span>
+         <a :href="'./CommentModify?id=' + list.id">수정</a>
+      </div>
+
     </div>  
 </template>
 
@@ -18,36 +21,46 @@ import axios from 'axios';
 export default {
   
     name:'ToCard',
-    props: ["memberId","postsId"],
+    props: ["postsId"],
     setup(props){
 
       const state = reactive({
         id : null,
         content: null,
         dtoList: null,
+        name : [],
         postsId: props.postsId,
-        memberId: props.memberId,
+        memberId : [], 
       })
-  
+      
+
       let body = {
           postsId: state.postsId,
-          memberId: state.memberId
       };
-          console.log(state.memberId);
-          console.log(state.postsId);
       const url = "/api/comment/list";
       const headers = {
         "Content-Type": "application/json; charset=utf-8"
       };
       
+
       axios.post(url, body, { headers }).then(function (res) {
         state.dtoList = res.data.dtoList;
-        console.log(state.dtoList); 
+
+        //댓글 작성자 추출(과부화 위험 있음)
         for (let i = 0; i < res.data.dtoList.length; i++) {
           state.id = res.data.dtoList[i].id;
+          state.memberId = res.data.dtoList[i].memberId
           state.content = res.data.dtoList[i].content;
+            axios.post("api/comment/name", {memberId: state.memberId}, { headers }).then(function (res) {
+              state.name[i] = res.data;
+            });
         }
       });
+
+      
+      
+  
+
       return {state}
     }
 
