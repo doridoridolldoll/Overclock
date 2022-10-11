@@ -171,22 +171,22 @@ export default {
     }
 
 
-    const asd = async () => {
-      alert("asd");
-      const url = "./member/login"
-      const headers = { "Content-Type": "application/json; charset=utf-8;" }
-      const body = { id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
-      await axios.post(url, body, { headers }).then(function (res) {
-        store.commit("setToken", res.data.token);
-        store.commit("setId", state.form.id);
-        store.commit("setEmail", res.data.email);
-        store.commit("setRole", "2")
-        // store.commit("setrole)
-        console.log(res.data);
-        alert("로그인되었습니다.");
-        // router.push(`/`)
-      })
-    }
+    // const asd = async () => {
+    //   alert("asd");
+    //   const url = "./member/login"
+    //   const headers = { "Content-Type": "application/json; charset=utf-8;" }
+    //   const body = { id: state.form.id, email: state.form.email, password: state.form.password, role: state.form.role };
+    //   await axios.post(url, body, { headers }).then(function (res) {
+    //     store.commit("setToken", res.data.token);
+    //     store.commit("setId", state.form.id);
+    //     store.commit("setEmail", res.data.email);
+    //     store.commit("setRole", "2")
+    //     // store.commit("setrole)
+    //     console.log(res.data);
+    //     alert("로그인되었습니다.");
+    //     // router.push(`/`)
+    //   })
+    // }
 
 
     const emailVali = async () => {

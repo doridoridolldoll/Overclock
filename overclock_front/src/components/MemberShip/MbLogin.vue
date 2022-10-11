@@ -45,7 +45,6 @@ import { reactive } from "@vue/reactivity";
 import axios from "axios";
 import store from "@/store";
 import router from "@/router";
-
 export default {
     name: "ToMbLogin",
     setup() {
@@ -54,7 +53,6 @@ export default {
                 id: "",
                 email: "",
                 password: "",
-                crn: ""
                 role: "0",
             },
             crn: null,
@@ -68,32 +66,6 @@ export default {
                 alert("비밀번호를 확인해주세요");
                 return false;
             }
-            const url = "./member/login";
-            const headers = { "Content-Type": "application/json; charset=utf-8;" };
-            const body = {
-              id: state.form.id,
-              email: state.form.email,
-              password: state.form.password,
-              role: state.form.role,
-            };
-            try {
-                await axios.post(url, body, { headers }).then(function (res) {
-                    store.commit("setToken", res.data.token);
-                    store.commit("setId", res.data.id);
-                    state.form.id = res.data.id;
-                    // console.log(res.data);
-                    store.commit("setEmail", res.data.email);
-                    store.commit("setRole", "2");
-                    store.commit("setCrn", res.data.crn)
-                    // store.commit("setrole) 
-                    alert("로그인되었습니다.");
-                    router.push(`/`);
-                });
-            }
-            catch (err) {
-                alert("로그인에 실패하였습니다.");
-            }
-
             const url2 = "/api/crn";
             const headers = { 
               "Content-Type": "application/json; charset=utf-8;" 
@@ -126,7 +98,7 @@ export default {
                 alert("일반 유저로 로그인 해주세요")
               }
             })
-          
+           
         };
         return { state, submit };
     },
@@ -136,11 +108,9 @@ export default {
 #back {
   background: white;
   text-align: center;
-
   -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       border-radius: 10px;
-
 }
 #back h3{
   margin-top: 30px;
