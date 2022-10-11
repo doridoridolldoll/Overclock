@@ -1,7 +1,8 @@
 <template>
 
-    <input type="number" placeholder="금액 입력" v-model="state.price" >
-    <div @click="PaymentBtn">결제</div>
+    <!-- <input type="number" placeholder="금액 입력" v-model="state.price" >
+    <div @click="PaymentBtn">결제</div> -->
+     <button class="btn btn-primary mt-3 me-2 mb-3" style="float: right;"  @click="PaymentBtn">구매</button>
 
 </template>
 

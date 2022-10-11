@@ -18,21 +18,22 @@ import axios from 'axios';
 
   export default {
       name: 'PartsDetail2',
-      props: ["dtoList","id"],
+      props: ["dtoList","partsDetailId"],
       setup(props){
         const state = reactive({
             dtoList: props.dtoList,
             price : store.state.price,
-            id: props.id,
+            postsId : props.partsDetailId,
+            postsMemberId: "",
             companyName : "",
         });
         console.log(state.dtoList)
-        console.log(state.id)
+        console.log(state.postsId)
         
 
         // 작성자 가져오기
         const body2 = {
-            id: state.id,
+            id: state.postsId,
         }
         const headers = {
           "Content-Type": "application/json"

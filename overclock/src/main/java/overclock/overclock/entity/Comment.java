@@ -14,10 +14,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
-@ToString
+@ToString(exclude = {"posts","member"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment extends BaseEntity{
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

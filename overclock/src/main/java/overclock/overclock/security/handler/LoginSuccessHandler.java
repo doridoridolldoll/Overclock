@@ -8,6 +8,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import overclock.overclock.dto.MemberDTO;
+import overclock.overclock.repository.MemberRepository;
 import overclock.overclock.security.dto.AuthMemberDTO;
 
 import javax.servlet.ServletException;
@@ -35,13 +36,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     boolean fromSocial = dto.isFromSocial();
     log.info("---------------------------");
     log.info("isFromSocial : " + fromSocial);
-    log.info("qweqewqwe : {}", dto.getEmail());
-    String email = dto.getEmail();
+    log.info("qweqewqwe : {}", dto);
+
+    String name = dto.getName();
     boolean passResult = encoder.matches("1111", dto.getPassword());
     log.info("fromSocial && passResult: " + (fromSocial && passResult));
     if (fromSocial && passResult) {
 
-      redirectStrategy.sendRedirect(request, response, "http://localhost:8080/join");
+      redirectStrategy.sendRedirect(request, response, "http://localhost:8080/profil");
       return;
     } else {
       redirectStrategy.sendRedirect(request, response, "http://localhost:8080/");
