@@ -10,12 +10,12 @@
 
             <div class="form-group">
                 <label>제품상세</label>
-                <textarea class ="form-control" v-model="state.itemDetail" rows="5" name="content"></textarea>
+                <textarea class ="form-control" v-model="state.content" rows="5" name="content"></textarea>
             </div>
 
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class ="form-control" v-model="state.price" rows="5" name="itemDetail">
+                <input type="text" class ="form-control" v-model="state.price" rows="5" name="price">
             </div>
 
             <div class="form-group">

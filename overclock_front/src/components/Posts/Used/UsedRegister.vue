@@ -107,9 +107,9 @@ export default {
             const response = await axios.post(url, body, {headers})
             
             if(response.status === 200){
-                alert('회원가입에 성공하였습니다.')
+                alert('글 등록이 완료되었습니다')
             } else {
-                alert('회원가입에 실패하였습니다.')
+                alert('글 등록이 실패하였습니다.')
             }
             router.push({name: "Used"})
         }

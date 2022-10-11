@@ -89,6 +89,7 @@ export default {
 #comment{
   margin-left: 40px;
   margin-top: 20px;
+  border-radius: 10px;
 }
 .hh3{
   float: left;

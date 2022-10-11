@@ -116,4 +116,7 @@ export default {
   .asd{
     color: white;
   }
+  a{
+    text-decoration-line: none;
+  }
 </style>

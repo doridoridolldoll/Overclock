@@ -179,7 +179,7 @@
         text-align: center;
         padding: 32px;
   
-        margin-top: 45px;
+        /* margin-top: 45px; */
   
         background: #fff;
         -webkit-border-radius: 10px;

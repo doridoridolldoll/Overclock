@@ -14,10 +14,10 @@
 
               <div class="col-lg-4">
                 <div class="portfolio-info" >
-                  <h3>titleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</h3>
+                  <h3>{{state.dtoList.title}}</h3>
                   <ul>
                     <li><strong>상품명</strong>: Web design</li>
-                    <li><strong>판매자</strong>: ASU Company</li>
+                    <li><strong>판매자</strong>: {{state.dtoList.memberId}}</li>
                     <li><strong>등록일자</strong>: 01 March, 2020</li>
                     <li><strong>위치</strong>: 부산광역시 <br>사하구</li>
                     <li>
@@ -40,11 +40,8 @@
             </div>
             <div class="portfolio-description">
                   <h2>거래정보</h2>
-                  <p>
-                    군대간 친형 컴퓨터 뜯어서 팝니다/
-                    부산내 직거래 가능/
-                    준등기 +1800/
-                    편택,반택 +1600/
+                  <p style="font-size: x-large;">
+                    {{state.dtoList.content}}
                     </p>
                 </div>
                 <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
@@ -75,6 +72,8 @@ export default {
           dtoList: '',
           memberId: null,
           postsId: null,
+          title: '',
+          content: '',
         });
 
         let list = store.state.dtoList;

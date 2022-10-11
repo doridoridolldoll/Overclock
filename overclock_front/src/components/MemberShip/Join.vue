@@ -5,10 +5,10 @@
       <div class="container">
           <div class="input-form2 col-md-12 mx-auto">
             <span v-on:click="change('member')">
-                <h3 class="asd">Member</h3>
+                <h3 class="asd btn btn-primary mt-5">개인</h3>
             </span>
             <span v-on:click="change('company')">
-                <h3 class="asd">Company</h3>
+                <h3 class="asd btn btn-info mt-5">업체</h3>
             </span>
 
             <div v-if="(state.form == 'member')">
@@ -49,11 +49,12 @@ setup(){
 .container2{
 height: 100vh;
 }
+.container{
+  margin-top: 50px;
+}
 .input-form2 {
       text-align: center;
       padding: 32px;
-
-      margin-top: 45px;
 
       background: #fff;
       -webkit-border-radius: 10px;
@@ -68,7 +69,9 @@ height: 100vh;
 }
 
 #hero::before{
-  height: 1200px;
+  height: 1300px;
 }
-
+.asd{
+  margin: 10px;
+}
 </style>

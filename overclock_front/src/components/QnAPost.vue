@@ -3,10 +3,20 @@
     <div class="input-form11 col-md-12 mx-auto form-floating">
       <div class="top-margin">
         <div class="mb-4">
-          <span class="home-title">글 등록</span>
+          <span class="home-title">문의 등록</span>
         </div>
       </div>
       <div>
+        <div class="mb-3 op">
+          <label class="zz">문의 카테고리: &nbsp; </label>
+                <select>
+                    <option>계정</option>
+                    <option>부품</option>
+                    <option>배송</option>
+                    <option>재고</option>
+                    <option>기타</option>
+                </select>
+            </div>
         <input
           type="text"
           placeholder="제목"

@@ -6,34 +6,38 @@
       action="login"
       method="post"
     >
-    <h3>일반 로그인</h3>
-      <div class="input-group idsection px-5 my-2">
-        <input
-          class="form-control"
-          type="text"
-          name="id"
-          id="id"
-          v-model="state.form.email"
-          required
-          placeholder="이메일"
-        />
-      </div>
-      <div class="input-group passwordsection px-5 my-2 w-100">
-        <input
-          class="form-control"
-          type="password"
+    <h3>개인 로그인</h3>
+    <div class="input-group idsection px-5 my-2">
+      <input
+      class="form-control"
+      type="text"
+      name="id"
+      id="id"
+      v-model="state.form.email"
+      required
+      placeholder="이메일"
+      />
+    </div>
+    <div class="input-group passwordsection px-5 my-2 w-100">
+      <input
+      class="form-control"
+      type="password"
           name="password"
           id="password"
           v-model="state.form.password"
           placeholder="비밀번호"
           required
-        />
-      </div>
-      <div class="px-5 my-4">
-        <button @click="submit()" class="btn btn-outline-primary w-100">
-          로그인
+          />
+        </div>
+        <div class="px-5 my-4">
+          <button @click="submit()" class="btn btn-outline-primary w-100">
+            로그인
+          </button>
+          <button class="btn btn-warning mt-4 w-100">
+            <router-link to="/social" class="nav-link scrollto">소셜 로그인</router-link>
         </button>
       </div>
+
     </div>
 </template>
 <script>
@@ -99,7 +103,7 @@ export default {
            
         };
         return { state, submit };
-      },
+    },
 };
 </script>
 <style scoped>

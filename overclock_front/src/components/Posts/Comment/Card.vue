@@ -2,6 +2,7 @@
 
   <div class="comment" v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
+
       <div class="commentId mt-3">
         <span class="commentMember">{{state.name[i]}}</span>
       </div>
@@ -10,6 +11,7 @@
         <span class="commentText mt-1">{{list.content}}</span>
          <a :href="'./CommentModify?id=' + list.id">수정</a>
       </div>
+
     </div>  
 </template>
 
@@ -86,6 +88,9 @@ export default {
   height: 100px;
   float: left;
   line-height: 100px;
+  border: 1px solid rgb(226, 218, 218);
+  border-start-start-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .commentMember{
@@ -98,6 +103,8 @@ export default {
   height: 100px;
   float: left;
   border: 1px solid rgb(226, 218, 218);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .commentText{

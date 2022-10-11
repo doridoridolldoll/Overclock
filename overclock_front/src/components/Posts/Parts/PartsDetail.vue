@@ -25,7 +25,11 @@
             </div>
             <div class="portfolio-description">
                   <h2>제품상세</h2>
-                  <p>{{state.dtoList.content}}</p>
+
+                  <p style="font-size: x-large;">
+              {{state.dtoList.content}}
+                    </p>
+
                 </div>
 
 
@@ -63,10 +67,12 @@ import axios from 'axios';
           imgUrl: '',
           dtoList: '',
           postsId: null,
+
           memberId: store.state.id,
           partsDetailMemberId : store.state.dtoList.memberId,
           role : '',
           partsDetailId : id
+
         });
       
         let list = store.state.dtoList;
@@ -152,6 +158,11 @@ p{
 .btn1{
   margin-right: 10px;
 }
+
+a{
+    text-decoration-line: none;
+  }
+
 .imgsize{
   width: 300px;
   height: 300px;
