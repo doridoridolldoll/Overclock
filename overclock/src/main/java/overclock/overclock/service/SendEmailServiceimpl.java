@@ -50,7 +50,7 @@ public class SendEmailServiceimpl implements SendEmailService {
         dto.setTitle(email+"님의 OVERCLOCK 인증번호 안내 이메일 입니다.");
         dto.setMessage("안녕하세요. OVERCLOCK 인증번호 안내 관련 이메일 입니다." + "[" + email + "]" +"님의 인증번호는 "
                 + str + " 입니다.");
-        dto.setKey(str);
+        dto.setKeys(str);
         return dto;
     }
 

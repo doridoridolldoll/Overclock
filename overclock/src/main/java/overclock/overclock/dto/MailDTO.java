@@ -15,5 +15,5 @@ public class MailDTO {
     private String message;
     private String email;
     private String tempPass;
-    private String key;
+    private String keys;
 }

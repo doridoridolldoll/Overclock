@@ -4,84 +4,56 @@
     <form class="validation-form" @submit.prevent>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="name">이름</label>
-          <input type="text" required autofocus class="form-control" v-model="state.name" id="name" placeholder="">
-          <div class="invalid-feedback">
-            이름을 입력해주세요.
-          </div>
+          <label for="name"></label>
+          <input type="text" required autofocus class="form-control" v-model="state.name" id="name" placeholder="이름">
         </div>
         <div class="col-md-6 mb-3">
-          <label for="nickname">닉네임</label>
-          <input type="text" required autofocus class="form-control" v-model="state.nickname" id="nickname"
+          <label for="nickname"></label>
+          <input type="text" required autofocus class="form-control" v-model="state.nickname" id="nickname" placeholder="닉네임"
             @keyup="nickCheckHandler">
-          <div class="invalid-feedback">
-            닉네임을 입력해주세요.
-          </div>
         </div>
         {{ state.nickCheck }}
       </div>
       <div class="mb-3">
-        <label for="email">이메일</label>
-        <input type="email" class="form-control" v-model="state.email" id="email" required autofocus>
-        이메일을 입력해주세요.
+        <label for="email"></label>
+        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일" required autofocus>
       </div>
-      <button @click="emailVali()" class="btn btn-outline-primary w-100">
+      <button @click="emailVali()" class="btn btn-outline-primary w-100"
+      v-if="(state.ch2 == 0)">
         이메일 중복 확인
       </button>
       <button @click="emailCheck()" class="btn btn-outline-primary w-100" v-if="(state.ch == 1)">
         인증번호 전송
       </button>
-      <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email" />
+      <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email" :title="title" @titleFromChild="title = $event.target.value"/>
       <div class="mb-3">
-        <label for="password">비밀번호</label>
-        <input type="password" class="form-control" v-model="state.password" id="password" required autofocus>
-        <div class="invalid-feedback">
-          비밀번호를 입력해주세요.
-        </div>
+        <label for="password"></label>
+        <input type="password" class="form-control" v-model="state.password" id="password" placeholder="비밀번호" required autofocus>
       </div>
       <div class="mb-3">
-        <label for="repassword">비밀번호확인</label>
-        <input type="password" class="form-control" v-model="state.repassword" id="repassword" required autofocus>
-        <div class="invalid-feedback">
-          비밀번호를 입력해주세요.
-        </div>
+        <label for="repassword"></label>
+        <input type="password" class="form-control" v-model="state.repassword" id="repassword" placeholder="비밀번호 확인" required autofocus>
       </div>
-
       <div class="mb-3">
-        <label for="phone">전화번호</label>
-        <input type="text" class="form-control" v-model="state.phone" id="phone" placeholder="010-0000-0000" required
+        <label for="phone"></label>
+        <input type="text" class="form-control" v-model="state.phone" id="phone" placeholder="전화번호 예) 01080094125" required
           autofocus>
-        <div class="invalid-feedback">
-          전화번호를 입력해주세요.
-        </div>
       </div>
-
       <div class="mb-3">
-        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="부산광역시 사하구" required
+        <label for="city"></label>
+        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구" required
           autofocus>
-        <div class="invalid-feedback">
-          도시를 입력해주세요.
-        </div>
       </div>
-
       <div class="mb-3">
-        <label for="street">도로명</label>
-        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="낙동대로123번길" required
+        <label for="street"></label>
+        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길" required
           autofocus>
-        <div class="invalid-feedback">
-          도로명 주소를 입력해주세요.
-        </div>
       </div>
-
       <div class="mb-3">
-        <label for="zipcode">우편번호</label>
-        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="12345" required
+        <label for="zipcode"></label>
+        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345" required
           autofocus>
-        <div class="invalid-feedback">
-          우편번호를 입력해주세요.
-        </div>
       </div>
-
 
       <hr class="mb-4">
       <div class="custom-control custom-checkbox">
@@ -126,9 +98,10 @@ export default {
       street: '',
       zipcode: '',
       change: 0,
-      key: '',
+      keys: '',
       emailVal: '',
-      ch: 0
+      ch: 0,
+      ch2: 0
     })
 
     const emailCheck = () => {
@@ -152,15 +125,17 @@ export default {
           alert("이미 존재하는 이메일입니다.")
           state.change = 0;
         } else if (res.data != "" || res.data.email != state.email) {
+          state.ch2 = 1;
           console.log(typeof (res.data));
           alert("입력하신 이메일로 인증번호가 발송되었습니다.");
           axios.post("/api/join/emailCheck", body, { headers }).then(function (res) {
             console.log("---------------------------");
             console.log(res);
-            console.log(res.data.key);
-            state.key = res.data.key;
+            console.log(res.data.keys);
+            state.keys = res.data.keys;
             state.emailVal = res.data.email;
           });
+          state.ch = 0;
         }
         else {
           alert("존재하지 않는 이메일입니다");
@@ -178,10 +153,8 @@ export default {
         store.commit("setId", state.form.id);
         store.commit("setEmail", res.data.email);
         store.commit("setRole", "2")
-        // store.commit("setrole)
         console.log(res.data);
         alert("로그인되었습니다.");
-        // router.push(`/`)
       })
     }
     const nickCheckHandler = async () => {
@@ -236,18 +209,32 @@ export default {
         zipcode: state.zipcode,
         nickname: state.nickname,
       }
-      console.log(body)
+
+      var n_RegExp = /^[가-힣]{2,15}$/;
+      
       if (state.name === '') {
         alert('이름을 입력해주세요');
         state.name.value.focus(); return false;
+      } else if (state.name.length >= 8) {
+        alert('이름은 8자 이하로 입력해주세요')
+        state.name = null;
+        state.name.value.focus(); return false;
+      } else if(!n_RegExp.test(state.name)){
+        alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");state.name = null;
+        state.name.value.focus(); return false;
       } else if (state.nickname === '') {
         alert('닉네임을 입력해주세요');
+        state.nickname.value.focus(); return false;
+      } else if (state.nickname.length >= 8) {
+        alert('닉네임은 8자 이하로 입력해주세요')
+        state.nickname = null;
         state.nickname.value.focus(); return false;
       } else if (state.email === '') {
         alert('이메일을 입력해주세요');
         state.email.value.focus(); return false;
       } else if (!(state.email.includes("@") && state.email.includes("."))) {
         alert('이메일 양식이 맞지 않습니다.');
+        state.email = null;
         state.email.value.focus(); return false;
       } else if (state.password === '') {
         alert('비밀번호를 입력해주세요');
@@ -257,6 +244,10 @@ export default {
         state.repassword.value.focus(); return false;
       } else if (state.phone === '') {
         alert('전화번호를 입력해주세요');
+        state.phone.value.focus(); return false;
+      } else if (state.phone.length <= 10) {
+        alert('전화번호는 10자 이상으로 입력해주세요')
+        state.phone = null;
         state.phone.value.focus(); return false;
       } else if (state.city === '') {
         alert('도시명을 입력해주세요');
@@ -289,7 +280,7 @@ export default {
       }
     }
 
-    return { joinHandler, state, emailCheck, emailVali, asd, nickCheckHandler }
+    return { joinHandler, state, emailCheck, emailVali, asd, nickCheckHandler, title:"" }
   },
   components: { EmailCheck }
 };
