@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
+import { reactive , ref} from '@vue/reactivity'
 import axios from 'axios'
 import router from '@/router'
 import store from '@/store'
@@ -58,7 +58,7 @@ export default {
       }
       router.push({ name: "Main" })
     }
-    return { change, state }
+    return { change, state , nickname}
   }
 }
 
