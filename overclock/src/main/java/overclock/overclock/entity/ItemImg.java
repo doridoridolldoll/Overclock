@@ -1,5 +1,6 @@
 package overclock.overclock.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@ToString(exclude = "ItemImg")
 public class ItemImg {
 
     @Id

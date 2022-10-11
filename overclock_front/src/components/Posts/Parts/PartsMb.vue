@@ -1,7 +1,7 @@
 <template>
     <section id="services" class="services">
       <div class="container" data-aos="fade-up">
-        <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '2')">글쓰기</router-link>
+        <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '1')">글쓰기</router-link>
         <!-- <div v-if="(state.form == 'gpu')"> -->
         <div class="section-title">
           <p>MB</p>
@@ -16,12 +16,10 @@
             <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
-              <br><br><br><br><br>
+              <br><br>
               <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{list.content}}</h4></span>
-              <span><h5>{{state.price[i]}}</h5></span>
-              <span><h5>할인가 4,300,000원</h5></span>
-              <div></div>
+              <span><h4>{{state.itemDetail}}</h4></span>
+              <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
             </a>
           </div>
@@ -92,6 +90,7 @@ export default {
       totalPage: null,
       partsType: "mb",
       price: [],
+      itemDetail: "",
     });
     const url = "/api/partsList";
 	  const headers = {
@@ -154,11 +153,12 @@ export default {
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
     for (let i = 0; i < res.data.length; i++) {
       state.price[i] = res.data[i].price;
-      console.log(res);
+      state.itemDetail = res.data[i].itemDetail;
     }
   })
 
   function Join(list,i){
+    
     store.commit('setdtoList', ...[list]);
     store.commit("setPrice", ...[state.price[i]]);
     console.log(state.price[i]);

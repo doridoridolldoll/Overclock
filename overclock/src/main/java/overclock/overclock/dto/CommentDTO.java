@@ -13,6 +13,7 @@ public class CommentDTO {
     private String content;
     private Long memberId;
     private Long postsId;
+    private String nickname;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 

@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum MemberRole {
-    USER, MANAGER, ADMIN, COMPANY
+    USER, COMPANY, ADMIN
 }

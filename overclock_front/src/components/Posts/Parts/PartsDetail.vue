@@ -6,57 +6,32 @@
               <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
                   <div class="swiper-wrapper align-items-center">
-                      <div class="icon"><img v-bind:src="img"/></div>
+                      <div class="icon imgsize"><img v-bind:src="img"/></div>
                   </div>
                 </div>
               </div>
               <div class="col-lg-4">
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
-                  <ul>
-                    <li><strong>상품명 </strong>: {{state.dtoList.title}}</li>
-                    <li><strong>판매자</strong>: ASU Company</li>
-                    <li><strong>등록일자</strong>: 01 March, 2020</li>
-                    <li>
-                      <strong>가격</strong>:
-                      999,999,999
-                    </li>
-                  </ul>
+                  <PartsDetail2
+                    :dtoList="state.dtoList"
+                    :partsDetailId="state.partsDetailId"/>
+                    <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
+                <button class="btn1 btn btn-primary"  v-if="(state.role != '1')" @click="add">담기</button>
+                <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary">수정</router-link>
                 </div>
-                <div class="portfolio-info">
-                  <ul>
-                    <li><strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"></li>
 
-                    <PcPay
-                      :price="state.price">
-                      </PcPay>
-                    
-                  </ul>
-                </div>
               </div>
             </div>
             <div class="portfolio-description">
                   <h2>제품상세</h2>
-                  <p>
-                    RTX 3060 Ti / 8nm / 
-                    베이스클럭: 1680MHz / 
-                    스트림 프로세서: 4864개 / 
-                    PCIe4.0x16 / GDDR6(DDR6) / 
-                    출력단자: HDMI2.1 , DP1.4 / 
-                    부가기능: 제로팬(0-dB기술) , 
-                    8K 해상도 지원 , 4K 해상도 지원 ,
-                     HDCP 지원 / 정격파워 600W 이상 /
-                      전원 포트: 8핀 x1개 / 2개 팬 / 
-                      가로(길이): 198mm / 백플레이트
-                    </p>
+                  <p>{{state.dtoList.content}}</p>
                 </div>
-                <div>{{state.price}}</div>
-                <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
 
-                <button class="btn1 btn btn-primary" @click="add">구매</button>
-                <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
 
-                <Comment
+
+
+            <Comment
               :dtoList="state.dtoList"
             />
 
@@ -69,37 +44,39 @@
 import { useStore } from 'vuex'
 import { reactive } from '@vue/reactivity';
 import Comment from '@/components/Posts/Comment/Comment.vue';
-import PcPay from '@/components/Pay/PcPay.vue';
+import PartsDetail2 from '@/components/Posts/Parts/PartsDetail2.vue'
+// import PcPay from '@/components/Pay/PcPay.vue';
 import axios from 'axios';
   export default {
-  components: { Comment, PcPay },
+  components: { Comment, PartsDetail2},
       name: 'PartsDetail',
       setup(){
+       
+        const id = new URLSearchParams(window.location.search).get("id")
         const store = useStore();
         const state = reactive({
+          companyName : '',
+          regDate: '',
           title: '',
           price: '',
           count: '',
           imgUrl: '',
           dtoList: '',
           postsId: null,
-          memberId : store.state.id,
+          memberId: store.state.id,
+          partsDetailMemberId : store.state.dtoList.memberId,
+          role : '',
+          partsDetailId : id
         });
-        
-
+      
         let list = store.state.dtoList;
-        console.log(store.state.dtoList);
         state.dtoList = store.state.dtoList;
+        console.log(state.dtoList);
         state.price =store.state.price;
-        console.log(store.state.price);
         state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
-        console.log(state.imgUrl);
         state.title = state.dtoList.title;
-        // state.postsId = state.dtoList.id
-        // console.log(state.postsId);
+        state.role = store.state.role;
 
-        // state.memberId = state.dtoList.memberId;
-        // console.log(state.memberId);
         const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
@@ -118,25 +95,26 @@ import axios from 'axios';
           const body = {
             memberId : state.memberId,
             cartName: state.title,
-            price: state.price,
+            price: state.price*state.count,
             count: state.count,
             imgUrl: state.imgUrl,
 
           }
-          console.log("===============");
-          console.log(state.title);
+          if(state.memberId == 0){
+            alert("로그인 후 사용가능합니다");
+            return;
+          }
           axios.post(url, body, { headers })
-            .then(function(){
+            .then(function(res){
+              console.log("===========================")
+              console.log(res)
+              alert("장바구니에 담았습니다 ")
             })
         }
         return {state,img,add};
     }
 }
-// import { defineProps } from 'vue '
-// let props = defineProps(["partsList", "test"])
-// console.log(props.partsList);
-// console.log(props.test);
-// console.log(props);
+
 
 </script>
 <style scoped>
@@ -173,6 +151,10 @@ p{
 }
 .btn1{
   margin-right: 10px;
+}
+.imgsize{
+  width: 300px;
+  height: 300px;
 }
 
 </style>

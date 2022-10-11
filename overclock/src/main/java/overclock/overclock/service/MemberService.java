@@ -17,8 +17,11 @@ public interface MemberService {
     boolean userEmailCheck(String email);
     String passChange(MemberDTO dto);
     boolean checkPass(Long id, String password);
+    String companyRegister(MemberDTO memberDTO);
 
-//    String companyRegister(MemberDTO memberDTO);
+    int emailCrn(MemberDTO memberDTO);
+
+    Optional DetailName(MemberDTO memberDTO);
 
 
     default Member dtoToEntity(MemberDTO dto) {
@@ -31,6 +34,7 @@ public interface MemberService {
                 .nickname(dto.getNickname())
                 .password(dto.getPassword())
                 .address(address)
+                .crn(dto.getCrn())
                 .fromSocial(dto.isFromSocial())
 
                 .roleSet(dto.getRoleSet().stream().map(
@@ -53,8 +57,8 @@ public interface MemberService {
                 .name(member.getName())
                 .phone(member.getPhone())
                 .password(member.getPassword())
+                .crn(member.getCrn())
                 .fromSocial(member.isFromSocial())
-//                .crn(member.getCrn())
                 .build();
                 return memberDTO;
     }

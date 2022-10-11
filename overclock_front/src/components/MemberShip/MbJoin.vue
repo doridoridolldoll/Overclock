@@ -92,7 +92,7 @@
       <div class="mb-4"></div>
       <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler">가입 완료</button>
       <tr>
-        <td><a href="http://localhost:9090/oauth2/authorization/google" @click="asd">Google</a></td>
+        <td><a href="http://localhost:9090/oauth2/authorization/google" @click="joinHandler">Google</a></td>
       </tr>
     </form>
   </div>
@@ -181,13 +181,15 @@ export default {
         // store.commit("setrole)
         console.log(res.data);
         alert("로그인되었습니다.");
-        router.push(`/`)
+        // router.push(`/`)
       })
     }
 
     const emailVali = async () => {
       const url = "/api/emailVali"
       const headers = { "Content-Type": "application/json; charset=utf-8;" }
+      console.log(state.email)
+      console.log("===============")
       const body = { email: state.email };
       console.log(state.email);
       await axios.post(url, body, { headers }).then(function (res) {
@@ -197,8 +199,7 @@ export default {
         } else (res.data.validate === false)
           alert("가입 가능한 이메일입니다.")
           state.ch = 1
-      }
-      )
+      })
     }
 
     const joinHandler = async () => {

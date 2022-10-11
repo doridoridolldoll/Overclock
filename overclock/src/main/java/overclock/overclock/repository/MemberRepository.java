@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import overclock.overclock.entity.Member;
+import overclock.overclock.entity.Posts;
 
 import java.util.Optional;
 
@@ -37,8 +38,14 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail12(String email);
 
     @Query("select m from Member m where m.phone=:phone ")
+
     Optional<Member> findPhoneByEmail(String phone);
     Member findByPhone(String phone);
+
+    //Optional<Member> findByPhone(String phone);
+
+
+
     Member findUserByEmail(String email);
     @Query("select m from Member m where m.id=:id ")
     Optional<Member> findById(Long id);
@@ -58,4 +65,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.email=:email ")
     Optional<Member> findIdByEmail(String email);
+
+
+    @Query("select m.name from Member m where m.id=:id")
+    Optional<Member> findById2(Long id);
+
+    @Query("select p from Posts p where p.id=:id")
+    Optional<Posts> findByMemberId(Long id);
+
+    @Query("select m.crn from Member m where m.email=:email")
+    int findByCrn(String email);
+
+
+
 }

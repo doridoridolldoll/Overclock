@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.entity.Member;
+import overclock.overclock.entity.Posts;
 import overclock.overclock.model.MemberRole;
 import overclock.overclock.repository.MemberRepository;
 
@@ -28,15 +29,22 @@ public class MemberServiceImpl implements MemberService {
         return member.getEmail();
     }
 
-//    @Override
-//    public String companyRegister(MemberDTO memberDTO) {
-//        log.info("company MemberDTO : {}", memberDTO);
-//        memberDTO.setPassword(BCrypt.hashpw(memberDTO.getPassword(), BCrypt.gensalt()));
-//        Member member = dtoToEntity(memberDTO);
-//        member.addMemberRole(MemberRole.COMPANY);
-//        memberRepository.save(member);
-//        return member.getEmail();
-//    }
+    @Override
+    public String companyRegister(MemberDTO memberDTO) {
+        memberDTO.setPassword(BCrypt.hashpw(memberDTO.getPassword(), BCrypt.gensalt()));
+        Member member = dtoToEntity(memberDTO);
+        member.addMemberRole(MemberRole.COMPANY);
+        memberRepository.save(member);
+        return member.getEmail();
+    }
+
+    @Override
+    public int emailCrn(MemberDTO memberDTO) {
+        log.info("EmailCrn : {}", memberDTO);
+        int crn = memberRepository.findByCrn(memberDTO.getEmail());
+
+        return crn;
+    }
 
     @Override
     public String modify(MemberDTO dto) {
@@ -94,6 +102,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean userEmailCheck(String email) {
+        log.info("service email : {} ", email);
         Member member = memberRepository.findUserByEmail(email);
         log.info("email : {}" ,email);
         log.info(member);
@@ -125,5 +134,22 @@ public class MemberServiceImpl implements MemberService {
 
         boolean matches = encoder.matches(password, realPassword);
         return matches;
+    }
+
+    @Transactional
+    @Override
+    public Optional DetailName(MemberDTO memberDTO) {
+        log.info("MemberDTO : {}", memberDTO);
+        Long postsId = memberDTO.getId();
+        Optional<Posts> result = memberRepository.findByMemberId(postsId);
+        log.info("result : {}", result.get().getMember().getId());
+        Long memberId = result.get().getMember().getId();
+        log.info("member Id : {}", memberId);
+        Optional<Member> result2 = memberRepository.findById2(memberId);
+        log.info("findById2 result : {}", result);
+        if (result2.isEmpty()) {
+            return null;
+        }
+        return result2;
     }
 }

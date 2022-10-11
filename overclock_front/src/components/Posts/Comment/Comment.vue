@@ -7,7 +7,6 @@
   </div>
   <Card
     :postsId="state.postsId"
-    :memberId="state.memberId"
   />  
 
   <!-- <hr />
@@ -24,20 +23,25 @@
   // import { useRouter } from "vue-router"
   import axios from "axios"
 import router from '@/router';
+import store from '@/store';
   // import CommentCard from "@/comment/Posts/CommentCard.vue"
 export default {
     name: "ToComment",
-    props: ['dtoList'],
+    props: ['dtoList','memberId'],
      components: { Card },
     setup(props) {
       const state = reactive({
         // commentId: ,
         content: '',
         postsId: props.dtoList.id,
-        memberId: props.dtoList.memberId,
+        memberId: store.state.id,
       })
  
       const addNewcomment = async() => {
+        if(store.state.id == 0 ){
+          alert("로그인 후 이용 가능합니다.")
+          return;
+        }
         const url = "/api/comment/add";
         const headers = {
           "Content-Type": "application/json; charset=utf-8"
@@ -53,7 +57,6 @@ export default {
         axios.post(url, body, { headers }).then((res) => {
           console.log(res);
          })
-// router.push(`/search?cards=${search.context}&order=new`)
         async function routing(){
           await router.push(`/PartsDetail?id=${state.postsId}`)  
           await router.go(0)
