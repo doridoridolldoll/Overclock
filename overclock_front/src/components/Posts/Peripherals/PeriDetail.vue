@@ -26,11 +26,9 @@
                 <div class="portfolio-info">
                   <ul>
                     <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
-
                     <PcPay
                       :price="state.price">
                       </PcPay>
-                    
                   </ul>
                 </div>
               </div>

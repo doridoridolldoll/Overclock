@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Cart;
@@ -13,10 +14,7 @@ import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
 import overclock.overclock.service.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @Log4j2
@@ -29,9 +27,9 @@ public class ApiController {
     private final ItemService itemService;
     private final CommentService commentService;
     private final SendEmailService sendEmailService;
-
     private final CartService cartService;
-    
+
+    private final PasswordEncoder encoder;
     /**
      * 멤버 회원가입
      */
@@ -110,8 +108,6 @@ public class ApiController {
         log.info("List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-
 
     /**
      * 부품 상세 게시판
@@ -199,6 +195,12 @@ public class ApiController {
         Long articleInfo = postsService.PostsDelete(dto);
         return new ResponseEntity<>(articleInfo, HttpStatus.OK);
     }
+
+    /**
+     * 댓글 수정
+     * @param dto
+     * @return
+     */
     @RequestMapping(value = "/cModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> CommentModify(@RequestBody CommentDTO dto) {
         log.info("asasaas :" + dto);
@@ -212,7 +214,11 @@ public class ApiController {
         return new ResponseEntity<>(commentInfo, HttpStatus.OK);
     }
 
-
+    /**
+     * 회원 정보 수정
+     * @param dto
+     * @return
+     */
     @RequestMapping(value = "/mModify/send", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> MemberModify(@RequestBody MemberDTO dto) {
         log.info("asasaas :" + dto);
@@ -230,7 +236,11 @@ public class ApiController {
 //        return new ResponseEntity<>(email, HttpStatus.OK);
 //    }
 
-
+    /**
+     * 회원정보
+     * @param dto
+     * @return
+     */
     @RequestMapping(value = "/mList", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Optional> mList(@RequestBody MemberDTO dto) {
         log.info("asasaas :" + dto);
@@ -239,14 +249,22 @@ public class ApiController {
     }
 
     //회원정보 수정 전 패스워드 검증
-//    @RequestMapping(value = "/passcheck", method = RequestMethod.POST,
-//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> passCheck(@RequestBody MemberDTO pass) {
-//        log.info(pass);
-//        return new ResponseEntity<>(memberService.findPass(pass),HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/passCheck", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody boolean checkPw(@RequestBody MemberDTO dto){
+        log.info("dto : {} ", dto);
+        log.info("checkPw 진입");
+        Long id = dto.getId();
+
+        return memberService.checkPass(id, dto.getPassword());
+    }
 
 
+    /**
+     * 회원가입 이메일 검증
+     * @param email
+     * @return
+     */
     @RequestMapping(value = "/passFind", method = RequestMethod.GET,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Map<String, Boolean> passFind(String email){
@@ -259,7 +277,11 @@ public class ApiController {
         return json;
     }
 
-    //등록된 이메일로 임시비밀번호를 발송하고 발송된 임시비밀번호로 사용자의 pw를 변경하는 컨트롤러
+    /**
+     * 등록된 이메일로 임시비밀번호를 발송
+     * @param mailDTO
+     * @return
+     */
     @RequestMapping(value = "/passFind/send", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MailDTO> sendEmail(@RequestBody MailDTO mailDTO){
@@ -269,7 +291,11 @@ public class ApiController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    // 회원 비밀번호 찾기 후 변경
+    /**
+     * 회원 비밀번호 찾기 후 변경
+     * @param memberDTO
+     * @return
+     */
     @RequestMapping(value = "/passFind/passChange", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> passChange(@RequestBody MemberDTO memberDTO) {
@@ -277,16 +303,25 @@ public class ApiController {
         String newPass = memberService.passChange(memberDTO);
         return new ResponseEntity<>(newPass,HttpStatus.OK);
     }
-    // 회원 비밀번호 찾기 이메일 검증
+
+    /**
+     * 회원 비밀번호 찾기 이메일 검증
+     * @param memberDTO
+     * @return
+     */
     @RequestMapping(value = "/passFind/email", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Optional> passEmail(@RequestBody MemberDTO memberDTO) {
         log.info("memberDTO : {}", memberDTO);
-        Optional findEmail = memberService.findByEmail(memberDTO);
+            Optional findEmail = memberService.findByEmail(memberDTO);
         return new ResponseEntity<>(findEmail,HttpStatus.OK);
     }
 
-    // 회원가입 이메일 인증번호 발송
+    /**
+     * 회원가입 이메일 인증번호 발송
+     * @param mailDTO
+     * @return
+     */
     @RequestMapping(value = "/join/emailCheck", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MailDTO> sendEmailCheck(@RequestBody MailDTO mailDTO){
@@ -296,28 +331,36 @@ public class ApiController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    // 회원가입 이메일 중복 검증
+    /**
+     * 회원가입 이메일 중복 검증
+     * @param dto
+     * @return
+     */
     @RequestMapping(value = "/emailVali", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Map<String, Boolean> validateEmail(@RequestBody MemberDTO memberDTO){
-        log.info("Member DTO email : {} ", memberDTO.getEmail());
+    public @ResponseBody Map<String, Boolean> validateEmail(@RequestBody MemberDTO dto){
+        log.info("memberDTO : {}", dto);
         Map<String,Boolean> json = new HashMap<>();
-        boolean valiEmail = memberService.userEmailCheck(memberDTO.getEmail());
+        boolean valiEmail = memberService.userEmailCheck(dto.getEmail());
         json.put("validate", valiEmail);
         log.info("json : " + json);
         return json;
     }
 
-    //회원 이메일 찾기 전화번호 검증
-//    @RequestMapping(value = "/emailPass", method = RequestMethod.POST,
-//            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Optional> emailPass(@RequestBody String phone) {
-//        Map<String,Boolean> json = new HashMap<>();
-//        boolean valiEmail = memberService.userEmailCheck(phone);
-//        json.put("validate", valiEmail);
-//        log.info("json : " + json);
-//        return json;
-//    }
+    /**
+     * 회원 이메일 찾기 전화번호 검증
+     * @param dto
+     * @return
+     */
+    @RequestMapping(value = "/phoneCheck", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Map<String, Boolean> emailPass(@RequestBody MemberDTO dto) {
+        Map<String,Boolean> json = new HashMap<>();
+        boolean valiPhone = memberService.findByPhone(dto.getPhone());
+        json.put("validate", valiPhone);
+        log.info("json : " + json);
+        return json;
+    }
 
     /**
      * 장바구니 리스트 출력
@@ -331,6 +374,20 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    /**
+     * 휴대폰번호 인증
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/sendSMS", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EmailFindDTO> sendSMS(@RequestBody EmailFindDTO dto) {
+        Random rand  = new Random();
+        System.out.println("PHONE : " + dto);
+        EmailFindDTO emailFind2 = sendEmailService.certifiedPhoneNumber(dto.getPhone());
+
+        log.info("crn : ", emailFind2);
+        return new ResponseEntity<>(emailFind2, HttpStatus.OK);
 
     /**
      * 작성자 조회

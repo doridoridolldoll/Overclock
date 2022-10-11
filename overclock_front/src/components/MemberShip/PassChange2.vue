@@ -19,27 +19,12 @@ import store from '@/store'
 export default {
   name: 'PassChange',
   props: ["email"],
-  setup(props) {
+  setup() {
     const state = reactive({
-      id: "",
+      id: store.state.id,
       password: "",
       repassword: "",
-      email: props.email
     })
-    console.log(store.state.dtoList)
-    console.log(state.email);
-
-    const headers = {
-      "Content-Type": "application/json",
-    }
-    const body = {
-      email: state.email
-    }
-    axios.post("/api/passFind/email", body, { headers }).then(function(res){
-      console.log("========================");
-      state.id = res.data.id
-    })
-
     const change = async () => {
       const headers = {
         "Content-Type": "application/json",
@@ -58,8 +43,9 @@ export default {
       } else if (state.password !== state.repassword) {
         alert('비밀번호가 일치하지 않습니다.')
         return false;
-      }
-      router.push({ name: "Login" })
+      } else
+      alert("비밀번호가 변경되었습니다")      
+      router.push({ name: "Main" })
     }
     return { change, state }
   }

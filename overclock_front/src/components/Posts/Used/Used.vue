@@ -54,21 +54,20 @@
                   </tbody>
                 </table>
                 <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
-          <label for="searching"><i class="bi bi-search"></i></label>
-          <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
-        </form>
-	         </div>
-           <router-link to="/UsedRegister" class="btn btn-primary"> 글쓰기</router-link>
-            </div><br>
-            
-            <div class="page">
-              <ul class="pagination">
-                <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
-                <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
-                <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
-              </ul>
-            </div>
-          </div>
+                  <label for="searching"><i class="bi bi-search"></i></label>
+                  <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
+                </form>
+                </div>
+                <router-link to="/UsedRegister" class="btn btn-primary"> 글쓰기</router-link>
+                  </div><br>
+                  <div class="page">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a></li>
+                      <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
+                      <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
+                    </ul>
+                  </div>
+                </div>
         </div>
 	</section>
 </main>
@@ -78,11 +77,11 @@
 
 <script>
 import { reactive } from "@vue/reactivity";
-import axios from "axios";
-import Contact from "@/components/Contact.vue";
 import { useRouter } from "vue-router";
 import { useMeta } from "vue-meta";
 import { useStore } from 'vuex';
+import axios from "axios";
+import Contact from "@/components/Contact.vue";
 export default {
     name: "ToUsed",
     setup() {
@@ -98,10 +97,8 @@ export default {
       if (search.context.trim().length == 0){
         return
       }
-
       async function routing (){
         await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
-  
         await router.go(0);
         // console.log("이동(app)")
       }
@@ -112,27 +109,23 @@ export default {
             })
       const state = reactive({
         id: "",
-      upResult: "",
-      img: [],
-	    dtoList: [],
-      end: null,
-      next: null,
-      page: null,
-      pageList: null,
-      prev: null,
-      size: null,
-      start: null,
-      totalPage: null,
-      partsType: "used",
-          price: [],
-
+        upResult: "",
+        img: [],
+        dtoList: [],
+        end: null,
+        next: null,
+        page: null,
+        pageList: null,
+        prev: null,
+        size: null,
+        start: null,
+        totalPage: null,
+        partsType: "used",
+        price: [],
       });
-
       const url = "/api/getlist";
       const headers = {
         "Content-Type": "application/json; charset=utf-8",
-      "Authorization": store.state.token,
-      "id": store.state.id
       };
       function getUserList(page) {
           axios.post(url, { page: page, category: "used" }, { headers })
@@ -169,7 +162,6 @@ export default {
                   console.log(i + "번쨰");
                   console.log(store.state.img[i]);
                 }
-                // console.log(state.dtoList[i].title);
               }
 
       // console.log(store.state.img);

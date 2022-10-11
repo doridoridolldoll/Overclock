@@ -53,24 +53,26 @@ export default {
             //   email.value.focus();
             //   return false;
             // }
-            const url = "/api/passFind";
+            const url = "/api/passFind/email";
             const headers = {
                 "Content-Type": "application/json",
             };
             console.log("---------------------");
             console.log(state.email);
             const body = { email: state.email };
-            axios.get(url, body, { headers }).then(function (res) {
-                console.log(res);
+            axios.post(url, body, { headers }).then(function (res) {
+                console.log("==========================");
+                console.log(res.data);
                 if (res.data != "" || res.data != state.email) {
-                    console.log(typeof (res.data));
-                    alert("입력하신 이메일로 임시 비밀번호가 발송되었습니다.");
-                    axios.post("/api/passFind/send", body, { headers }).then(function (res) {
-                        console.log("---------------------------");
-                        console.log(res);
-                        console.log(res.data.tempPass);
-                        state.tempPass = res.data.tempPass;
-                    });
+                  console.log(state.email);
+                  console.log(res.data);
+                  alert("입력하신 이메일로 임시 비밀번호가 발송되었습니다.");
+                  axios.post("/api/passFind/send", body, { headers }).then(function (res) {
+                      console.log("---------------------------");
+                      console.log(res);
+                      console.log(res.data.tempPass);
+                      state.tempPass = res.data.tempPass;
+                  });
                 }
                 else {
                     alert("존재하지 않는 이메일입니다");
@@ -78,17 +80,11 @@ export default {
             });
         };
         const passCheck = () => {
-          
-            // if (state.tempPass === "" && state.tempPass !== state.tempPassInput) {
-            if (state.tempPassInput === "") {
-                alert("임시 비밀번호가 맞지 않습니다");
-                return false;
-            }
-            // else if (state.tempPass !== res.data.tempPass) {
-            //   alert('잘못된 임시 비밀번호 입니다.')
-            //   return false;
-            // }
-            state.change = 1;
+          if (state.tempPassInput === "" || state.tempPass !== state.tempPassInput) {
+              alert("임시 비밀번호가 일치하지 않습니다");
+              return false;
+          }
+          state.change = 1;
         };
         return { state, submit, passCheck };
     },

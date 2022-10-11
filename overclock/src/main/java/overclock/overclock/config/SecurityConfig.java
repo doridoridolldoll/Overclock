@@ -48,8 +48,9 @@ public class SecurityConfig {
     @Bean
     public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager) throws Exception {
         ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/member/login", jwtUtil());
+
         apiLoginFilter.setAuthenticationManager(authenticationManager);
-        apiLoginFilter.setAuthenticationSuccessHandler(successHandler());
+//        apiLoginFilter.setAuthenticationSuccessHandler(successHandler());
         apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
         return apiLoginFilter;
     }
@@ -64,7 +65,7 @@ public class SecurityConfig {
 
     @Bean
     public ApiCheckFilter apiCheckFilter(){
-        return new ApiCheckFilter("/asdasd/**/*", jwtUtil());
+        return new ApiCheckFilter("/asas/**/*", jwtUtil());
     }
 
     @Bean

@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 public interface MemberService {
     String modify(MemberDTO dto);
     Optional mList(MemberDTO memberDTO);
-
     String memberRegister(MemberDTO memberDTO);
-    Optional findByPhone(MemberDTO phone);
+    boolean findByPhone(String phone);
     Optional findByEmail(MemberDTO email);
     boolean userEmailCheck(String email);
     String passChange(MemberDTO dto);
+    boolean checkPass(Long id, String password);
     String companyRegister(MemberDTO memberDTO);
 
     int emailCrn(MemberDTO memberDTO);
@@ -36,7 +36,7 @@ public interface MemberService {
                 .address(address)
                 .crn(dto.getCrn())
                 .fromSocial(dto.isFromSocial())
-//                .crn(dto.getCrn())
+
                 .roleSet(dto.getRoleSet().stream().map(
                         t -> {
                             if (t.equals("ROLE_MEMBER"))

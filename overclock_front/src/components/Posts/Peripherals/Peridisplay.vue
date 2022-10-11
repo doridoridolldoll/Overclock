@@ -9,7 +9,6 @@
           <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
-
           <a :href="'./PeriDetail?id=' + list.id" @click="Join(list,i)">
             <div class="icon-box">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
@@ -20,7 +19,12 @@
               <span><h5>할인가 4,300,000원</h5></span>
             </div>
             </a>
-
+          </div>
+          <div>
+            <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
+              <label for="searching"><i class="bi bi-search"></i></label>
+              <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
+            </form>
           </div>
           <div class="page">
             <ul class="pagination">
@@ -29,7 +33,7 @@
               <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
             </ul>
           </div>
-
+          
         </div>
       </div>
     </section><!-- End Services Section -->
@@ -37,14 +41,36 @@
 
 <script>
 import { reactive } from '@vue/reactivity';
-import axios from "axios";
 import { useStore } from 'vuex';
+import { useRouter } from "vue-router";
+import { useMeta } from "vue-meta";
+import axios from "axios";
+
 export default {
   name: 'PeriDisplay',
   props: [  ],
   setup(){
     const store = useStore();
 
+    const router = useRouter()
+
+    let search = reactive({
+    context:"",
+  })
+  const { meta } = useMeta({
+      title:  ':: OverClock',
+  })
+  function searchingAxios(){
+      if (search.context.trim().length == 0){
+        return
+      }
+      async function routing (){
+        await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
+        await router.go(0);
+        // console.log("이동(app)")
+      }
+    routing();
+  }
     const state = reactive({
       id: "",
       upResult: "",
@@ -97,6 +123,14 @@ export default {
                 state.size = res.data.size,
                 state.start = res.data.start,
                 state.totalPage = res.data.totalPage;
+                for (let i = 0; i < state.dtoList.length; i++) {
+                console.log(search.context);
+                if(search.context == state.dtoList[i].title){
+                  store.state.img[i] = state.dtoList[i].imageDTOList[0]
+                  console.log(i + "번쨰");
+                  console.log(store.state.img[i]);
+                }
+              }
             showResult(res.data);
         });
     const showResult = async (arr) => {
@@ -109,7 +143,7 @@ export default {
       }
     };
     const body = {
-    category:"mouse"
+    category:"display"
   }
 
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
@@ -126,11 +160,11 @@ export default {
 	      "Content-Type": "application/json; charset=utf-8"
 	    };
       
-      axios.get(url2, {page: 1, category: "mouse" }, { headers2 }).then(function(){
+      axios.get(url2, {page: 1, category: "display" }, { headers2 }).then(function(){
 
       })
     }
-    return {state, store, getUserList,Join}
+    return {state, store, getUserList, Join, searchingAxios, meta, search}
   }
 }
 </script>

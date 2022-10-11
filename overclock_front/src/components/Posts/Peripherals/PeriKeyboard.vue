@@ -20,7 +20,12 @@
               <span><h5>할인가 4,300,000원</h5></span>
             </div>
           </a>
-          
+          </div>
+          <div>
+            <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
+              <label for="searching"><i class="bi bi-search"></i></label>
+              <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
+            </form>
           </div>
           <div class="page">
             <ul class="pagination">
@@ -39,11 +44,35 @@
 import { reactive } from '@vue/reactivity';
 import axios from "axios";
 import { useStore } from 'vuex';
+import { useRouter } from "vue-router";
+import { useMeta } from "vue-meta";
 export default {
   name: 'PeriKeyboard',
   props: [  ],
   setup(){
     const store = useStore();
+    const router = useRouter()
+
+let search = reactive({
+  context:"",
+})
+function searchingAxios(){
+      console.log("qweqweqweqwe");
+      console.log(search.context.trim().length);
+      if (search.context.trim().length == 0){
+        return 
+      }
+      console.log("qweqweqweqwe");
+      async function routing (){
+        await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
+        await router.go(0);
+        // console.log("이동(app)")
+      }
+    routing();
+    }
+  const { meta } = useMeta({
+      title:  ':: OverClock',
+  })
 
     const state = reactive({
       id: "",
@@ -96,6 +125,14 @@ export default {
                 state.size = res.data.size,
                 state.start = res.data.start,
                 state.totalPage = res.data.totalPage;
+                for (let i = 0; i < state.dtoList.length; i++) {
+                console.log(search.context);
+                if(search.context == state.dtoList[i].title){
+                  store.state.img[i] = state.dtoList[i].imageDTOList[0]
+                  console.log(i + "번쨰");
+                  console.log(store.state.img[i]);
+                  }
+                }
             showResult(res.data);
         });
     const showResult = async (arr) => {
@@ -129,7 +166,7 @@ export default {
 
       })
     }
-    return {state, store, getUserList,Join}
+    return {state, store, getUserList,Join, search, searchingAxios, meta}
   }
 }
 </script>

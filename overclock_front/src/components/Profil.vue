@@ -9,14 +9,14 @@
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label for="name">이름</label>
-                    <input type="text" class="form-control" v-model="state.name" id="name"  required>
+                    <input type="text" class="form-control" v-model="state.name" id="name"  readonly>
                     <div class="invalid-feedback">
                       이름을 입력해주세요.
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="nickname">닉네임</label>
-                    <input type="text" class="form-control" v-model="state.nickname" id="nickname" required>
+                    <input type="text" class="form-control" v-model="state.nickname" id="nickname" readonly>
                     <div class="invalid-feedback">
                       닉네임을 입력해주세요.
                     </div>
@@ -25,67 +25,25 @@
       
                 <div class="mb-3">
                   <label for="email">이메일</label>
-                  <input type="email" class="form-control" v-model="state.email" id="email"  required>
-                  {{state.email}}
+                  <input type="email" class="form-control" v-model="state.email" id="email"  readonly>
                   <div class="invalid-feedback">
                     이메일을 입력해주세요.
                   </div>
                 </div>
-  
-                <div class="mb-3">
-                  <label for="password">비밀번호</label>
-                  <input type="password" class="form-control" v-model="state.password" id="password" required>
-                  <div class="invalid-feedback">
-                    비밀번호를 입력해주세요.
-                  </div>
-                </div>
-  
-                <div class="mb-3">
-                  <label for="repassword">비밀번호확인</label>
-                  <input type="password" class="form-control" v-model="state.repassword" id="repassword" required>
-                  <div class="invalid-feedback">
-                    비밀번호를 입력해주세요.
-                  </div>
-                </div>
-  
                 <div class="mb-3">
                   <label for="phone">전화번호</label>
-                  <input type="text" class="form-control" v-model="state.phone" id="phone" required>
+                  <input type="text" class="form-control" v-model="state.phone" id="phone" readonly>
                   <div class="invalid-feedback">
                     전화번호를 입력해주세요.
                   </div>
-                </div>
-  
-                <div class="mb-3">
-                  <label for="city">도시</label>
-                  <input type="text" class="form-control" v-model="state.city" id="city" required>
-                  <div class="invalid-feedback">
-                    도시를 입력해주세요.
-                  </div>
-                </div>
-      
-                <div class="mb-3">
-                  <label for="street">도로명</label>
-                  <input type="text" class="form-control" v-model="state.street" id="street" required>
-                  <div class="invalid-feedback">
-                    도로명 주소를 입력해주세요.
-                  </div>
-                </div>
-      
-                <div class="mb-3">
-                  <label for="zipcode">우편번호</label>
-                  <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" required>
-                  <div class="invalid-feedback">
-                    우편번호를 입력해주세요.
-                  </div>
-                </div>
+                <!-- </div>
                 <button class="btn btn-primary btn-lg btn-block" @click="modify" >수정</button>
+                <div> -->
+                  <button @click="handleClick">회원정보 수정</button>
+                  <Modal ref="modal"/>
+                </div>
               </form>
             </div>
-
-          <button type="button" class="btn btn-outline-primary">
-            <router-link to="/PassCheck" class="nav-link scrollto">내정보 수정</router-link>
-          </button>
         </div>
       </div>
   </section>
@@ -96,8 +54,12 @@
   import axios from 'axios'
   import router from '@/router'
   import { useStore } from 'vuex'
+  import Modal from './Modal.vue'
+  import { ref } from "vue";
+
   export default {
     name:'ToProfil',
+    components: {Modal},
   setup(){
     const store = useStore();
     const state = reactive({
@@ -111,7 +73,24 @@
       city        : '',
       street      : '',
       zipcode     : '',
+      modal : false,
+      message: ""
     })
+
+    const modal = ref(null);
+
+    const result = ref("");
+
+    // async-await을 사용하여, Modal로부터 응답을 기다리게 된다.
+    const handleClick = async () => {
+      const ok = await modal.value.show();
+      if (ok) {
+        result.value = "확인을 눌렀군요!";
+      } else {
+        result.value = "취소를 눌렀네요?";
+      }
+    };
+
     const headers = {
         "Content-Type" : "application/json",
       }
@@ -187,8 +166,13 @@
       }
       router.push({name: "Login"});
     }
-    return {modify ,state}
+    return {modify,
+            state,
+            modal,
+            result,
+            handleClick,}
   }
+  
   }
   </script>
   

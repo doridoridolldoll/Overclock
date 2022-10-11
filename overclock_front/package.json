@@ -38,6 +38,8 @@
     "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.54.0",
     "sass-loader": "^12.6.0",
+    "stylus": "^0.59.0",
+    "stylus-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
