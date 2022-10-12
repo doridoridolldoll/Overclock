@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { reactive , ref} from '@vue/reactivity'
+import { reactive } from '@vue/reactivity'
 import axios from 'axios'
 import { useRouter } from 'vue-router';
 import FileUpload from '../../FileUpload.vue'
@@ -48,18 +48,16 @@ export default {
         const router = useRouter();
         const state = reactive({
             title: '',
-            item_detail: '',
+            content: '',
             memberId: store.state.id,
             name: '',
             itemDetail: '',
             type: '',
+            price: '',
             stock: '',
+            postsId: '',
             imageDTOList: [],
         })
-        const title = ref('')
-        const item_detail = ref('')
-        const price = ref('')
-        const stock = ref('')
         const joinHandler = async () => {
             let str = "";
             const liArr = document.querySelectorAll(".uploadResult ul li")
@@ -96,27 +94,26 @@ export default {
                 partsType: state.type,
                 token: store.state.token,
             }
-            if (state.title === '') {
-                alert('상품명을 입력해주세요');
-                title.value.focus(); return false;
-            } else if (state.content === '') {
-                alert('내용을 입력해주세요');
-                item_detail.value.focus(); return false;
-            } else if (state.price === '') {
-                alert('가격을 입력해주세요');
-                price.value.focus(); return false;
-            } else if (state.stock === '') {
-                alert('수량을 입력해주세요');
-                stock.value.focus(); return false;
-            } else if (liArr.length <= 0) {
-                alert('이미지를 선택하세요')
-                liArr.length.focus(); return false;
-            } else if (state.type === '') {
-                alert('카테고리를 선택하세요')
-                return false;
-            }
-            console.log(state.imageDTOList);
-            console.log(state.type);
+            // if (state.title === '') {
+            //     alert('상품명을 입력해주세요');
+            //     title.value.focus(); return false;
+            // } else if (state.content === '') {
+            //     alert('내용을 입력해주세요');
+            //     item_detail.value.focus(); return false;
+            // } else if (state.price === '') {
+            //     alert('가격을 입력해주세요');
+            //     price.value.focus(); return false;
+            // } else if (state.stock === '') {
+            //     alert('수량을 입력해주세요');
+            //     stock.value.focus(); return false;
+            // } else if (liArr.length <= 0) {
+            //     alert('이미지를 선택하세요')
+            //     liArr.length.focus(); return false;
+            // } else if (state.type === '') {
+            //     alert('카테고리를 선택하세요')
+            //     return false;
+            // }
+
             await axios.post(url, body, { headers }).then((res) => {
                 state.postsId = res.data;
                 console.log(res.data);
@@ -131,7 +128,7 @@ export default {
             await axios.post(url2, body2, { headers })
             router.push({ name: "Peri" })
         }
-        return { state, joinHandler, ref }
+        return { state, joinHandler }
     }
 
 }
