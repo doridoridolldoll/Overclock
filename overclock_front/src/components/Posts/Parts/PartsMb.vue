@@ -2,8 +2,13 @@
 
   <section id="services" class="services">
     <div class="container" data-aos="fade-up">
-      <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '1')">글쓰기</router-link>
-      <!-- <div v-if="(state.form == 'gpu')"> -->
+      <router-link to="/partsregister" class="btn btn-primary" style="float:right;" v-if="(store.state.role == '1')">글쓰기</router-link>
+      <div>
+            <form class="searching-area d-flex align-items-center gap-1 w-50 mt-3" @submit.prevent="searchingAxios()">
+              <label for="searching"><i class="bi bi-search btn btn-primary"></i></label>
+              <input id="searching" v-model="search.context" type="text" class="form-control bg-white" @submit="searchingAxios()">
+            </form>
+          </div>
       <div class="section-title">
         <p>MB</p>
       </div>
@@ -52,6 +57,7 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter()
+
 
     let search = reactive({
       context: "",
@@ -167,8 +173,8 @@ export default {
 
       axios.get(url2, { page: 1, category: "mb" }, { headers2 }).then(function () {
 
-        })
-        await router.push(`/partsdetail?id=${list.id}`)
+      })
+      await router.push(`/partsdetail?id=${list.id}`)
     }
     return { search, state, store, getUserList, Join, meta, searchingAxios }
   }
@@ -195,4 +201,5 @@ a {
 #searching{
     border: 1px solid black;
   }
+  
 </style>

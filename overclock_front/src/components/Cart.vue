@@ -166,6 +166,7 @@ console.log(state.cartId);
     return { state, checked, cartDelete }
   }
 }
+
 </script>
 
 <style scoped>

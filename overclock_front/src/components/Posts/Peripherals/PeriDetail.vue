@@ -110,8 +110,8 @@ import axios from 'axios';
 
 
         return {state,img,add};
+
   }
-}
 
 </script>
 <style scoped>
@@ -158,5 +158,9 @@ p {
 
 .btn2 {
   margin-right: 10px;
+}
+.imgsize {
+  width: 300px;
+  height: 300px;
 }
 </style>
