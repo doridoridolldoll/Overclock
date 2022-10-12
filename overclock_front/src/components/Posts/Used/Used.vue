@@ -35,17 +35,20 @@
                   </thead>
                   <tbody>
                     <tr class="text-center" v-for="(list, i) in state.dtoList" :key="(list, i)" >
-                        <td>
-                          <img v-bind:src="state.img[i]" />
-                        </td>
                       
-                        <td class="product-name">
-                          <h3>
-                            <a :href="'./usedDetail?id=' + list.id" @click="Join(list,i)"> {{ list.title }} </a>
-                          </h3>
-                        </td>
+                      <td class="product-name">
+                        <h3>
+                          <a :href="'./usedDetail?id=' + list.id" @click="Join(list,i)"> {{ list.id }} </a>
+                        </h3>
+                      </td>
+                     
+                      <td>
+                        <a :href="'./usedDetail?id=' + list.id" @click="Join(list,i)">
+                        <img v-bind:src="state.img[i]" />
+                      </a>
+                      </td>
 
-                        <td class="price">{{ list.regDate }}</td>
+                        <td class="price">{{ list.title }}</td>
                         <td class="price">{{ list.viewCount }}</td>
                       </tr>
                     <!-- END TR-->

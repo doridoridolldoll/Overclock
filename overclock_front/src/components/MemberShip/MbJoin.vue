@@ -11,8 +11,8 @@
           <label for="nickname"></label>
           <input type="text" required autofocus class="form-control" v-model="state.nickname" id="nickname" placeholder="닉네임"
             @keyup="nickCheckHandler">
+            {{ state.nickCheck }}
         </div>
-        {{ state.nickCheck }}
       </div>
       <div class="mb-3">
 
@@ -317,4 +317,5 @@ export default {
 #hero::before {
   height: 1100px;
 }
+
 </style>

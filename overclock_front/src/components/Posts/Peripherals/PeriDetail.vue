@@ -15,7 +15,7 @@
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
 
-                  <PartsDetail2
+                  <PeriDetail2
                     :dtoList="state.dtoList"
                     :partsDetailId="state.partsDetailId"/>
                     <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
@@ -112,14 +112,7 @@ import axios from 'axios';
         return {state,img,add};
     }
 
-    const displayUrl = "/display";
-    const url = `http://localhost:9090${displayUrl}`;
-    let img = "";
-    img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
-    // // console.log(list.imageDTOList);
-    return { state, img, add };
   }
-}
 
 </script>
 <style scoped>
@@ -166,5 +159,9 @@ p {
 
 .btn2 {
   margin-right: 10px;
+}
+.imgsize {
+  width: 300px;
+  height: 300px;
 }
 </style>

@@ -10,7 +10,8 @@
       <button type="button" class="btn btn-outline-primary w-100" @click="change()">비밀번호 변경</button>
 
     </div>
-  </section>
+  </form>
+  </div>
 </template>
 <script>
 import { reactive } from "@vue/reactivity";
