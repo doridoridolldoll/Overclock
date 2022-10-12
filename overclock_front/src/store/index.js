@@ -34,7 +34,6 @@ export default createStore({
     },
     setdtoList(state, payload){
       state.dtoList = payload
-      console.log(state.dtoList);
     },
     setRole(state, payload){
       state.role = payload

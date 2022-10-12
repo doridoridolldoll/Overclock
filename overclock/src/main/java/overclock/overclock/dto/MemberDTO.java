@@ -3,8 +3,6 @@ package overclock.overclock.dto;
 
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 

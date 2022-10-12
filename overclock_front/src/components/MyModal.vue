@@ -20,7 +20,6 @@ import {reactive} from '@vue/reactivity'
         const state = reactive({
             isVisible : 0
         })
-  
         // 부모 컴포넌트에서 접근하기 위한 함수를 선언합니다.
         const open = async() => {
             state.isVisible = 1;

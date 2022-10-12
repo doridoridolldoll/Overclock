@@ -16,15 +16,16 @@
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
 
-          <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
-            <div class="icon-box">
+          <!-- <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)"> -->
+             <div class="icon-box" @click="Join(list,i)">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
-              <br><br><br><br><br>
-              <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{state.itemDetail}}</h4></span>
+
+              <br><br>
+              <h3>{{list.title}}</h3>
+              <span>{{list.content}}</span>
+
               <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
-            </a>
           </div>
 
           <div class="page">
@@ -56,15 +57,12 @@ export default {
     context:"",
   })
   function searchingAxios(){
-        console.log("qweqweqweqwe");
-        console.log(search.context.trim().length);
         if (search.context.trim().length == 0){
           return 
         }
-        console.log("qweqweqweqwe");
         async function routing (){
           await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
-          await router.go(0);
+          // await router.go(0);
           // console.log("이동(app)")
         }
       routing();
@@ -88,6 +86,7 @@ export default {
       totalPage: null,
       partsType: "etc",
       price: [],
+      itemDetail: "",
     });
     const url = "/api/partsList";
 	  const headers = {
@@ -147,10 +146,13 @@ export default {
   }
 
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
-    store.state.price = res.data[0].price;
+    for (let i = 0; i < res.data.length; i++) {
+      state.price[i] = res.data[i].price;
+      state.itemDetail = res.data[i].itemDetail;
+    }
   })
 
-  function Join(list,i){
+  async function Join(list,i){
     store.commit('setdtoList', ...[list]);
     store.commit("setPrice", ...[state.price[i]]);
 
@@ -163,6 +165,7 @@ export default {
       axios.get(url2, {page: 1, category: "etc" }, { headers2 }).then(function(){
 
       })
+      await router.push(`/partsdetail?id=${list.id}`)
     }
     return {state, store, getUserList,Join, search, searchingAxios, meta}
   }

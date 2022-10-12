@@ -16,15 +16,16 @@
           v-for="(list,i) in state.dtoList" :key="(list,i)"
           >
           
-          <a :href="'./PeriDetail?id=' + list.id" @click="Join(list,i)">
-            <div class="icon-box">
+
+            <div class="icon-box" @click="Join(list,i)">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
-              <br><br><br><br><br>
-              <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{state.itemDetail}}</h4></span>
+
+              <br><br>
+              <h3>{{list.title}}</h3>
+              <span>{{list.content}}</span>
+
               <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
-          </a>
           </div>
 
           <div class="page">
@@ -55,16 +56,11 @@ let search = reactive({
   context:"",
 })
 function searchingAxios(){
-      console.log("qweqweqweqwe");
-      console.log(search.context.trim().length);
       if (search.context.trim().length == 0){
         return 
       }
-      console.log("qweqweqweqwe");
       async function routing (){
         await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
-        await router.go(0);
-        // console.log("이동(app)")
       }
     routing();
     }
@@ -86,13 +82,12 @@ function searchingAxios(){
       totalPage: null,
       partsType: "perietc",
       price: [],
+      itemDetail: "",
 
     });
     const url = "/api/periList";
 	  const headers = {
 	    "Content-Type": "application/json; charset=utf-8",
-      "Authorization": store.state.token,
-      "id": store.state.id
 	  };
     function getUserList(page){
     axios.post(url, { page:page, type:"", category:"perietc" }, { headers })
@@ -147,13 +142,15 @@ function searchingAxios(){
   }
 
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
-    for (let i = 0; i < res.data.length; i++) {
+
+      for (let i = 0; i < res.data.length; i++) {
       state.price[i] = res.data[i].price;
       state.itemDetail = res.data[i].itemDetail;
-    }  
+    }
+
   })
 
-  function Join(list,i){
+  async function Join(list,i){
     store.commit('setdtoList', ...[list]);
     store.commit("setPrice", ...[state.price[i]]);
 
@@ -166,6 +163,7 @@ function searchingAxios(){
       axios.get(url2, {page: 1, category: "perietc" }, { headers2 }).then(function(){
 
       })
+      await router.push(`/peridetail?id=${list.id}`)
     }
     return {state, store, getUserList,Join, search, searchingAxios, meta}
   }

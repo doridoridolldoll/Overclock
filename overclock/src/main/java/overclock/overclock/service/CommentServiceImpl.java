@@ -21,70 +21,67 @@ import java.util.function.Function;
 @ToString
 public class  CommentServiceImpl implements CommentService {
 
-            private final CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
+    //댓글추가
+    @Override
+    public Long addComment(CommentDTO commentDTO) {
+        log.info("CommentDTO : {}", commentDTO);
 
-            //댓글추가
-//    @Transactional
+        Comment comment = dtoToEntity(commentDTO);
+        commentRepository.save(comment);
+        return comment.getId();
+    }
+
+    //댓글 리스트
+    @Transactional
+    @Override
+    public PageResultDTO<CommentDTO, Comment> commentPageList(PageRequestDTO dto) {
+        log.info("PageRequestDTO: " + dto);
+        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+        Page<Comment> result = commentRepository.commentList(dto.getPostsId(), pageable);
+        log.info("Comment result : {}", result);
+        Function<Comment, CommentDTO> fn = new Function<Comment, CommentDTO>() {
             @Override
-            public Long addComment(CommentDTO commentDTO) {
-                log.info("CommentDTO : {}", commentDTO);
-
-                Comment comment = dtoToEntity(commentDTO);
-                commentRepository.save(comment);
-                return comment.getId();
+            public CommentDTO apply(Comment comment) {
+                log.info("commnet : {}", comment);
+                return entityToDTO(comment);
             }
+        };
+    return new PageResultDTO<>(result, fn);
+    }
+    @Transactional
+    @Override
+    public String commentName(MemberDTO dto) {
+        log.info("Comment Member DTO : {}",dto);
+        log.info("MemberId : {}", dto);
+        String result = commentRepository.commentName(dto.getMemberId());
+        log.info("Member Name : {}", result);
 
-            //댓글 리스트
-            @Transactional
-            @Override
-            public PageResultDTO<CommentDTO, Comment> commentPageList(PageRequestDTO dto) {
-                log.info("PageRequestDTO: " + dto);
-//        log.info("asd: {}", commentDTO);
-                Pageable pageable = dto.getPageable(Sort.by("id").descending());
-                Page<Comment> result = commentRepository.commentList(dto.getPostsId(), pageable);
-                log.info("Comment result : {}", result);
-                Function<Comment, CommentDTO> fn = new Function<Comment, CommentDTO>() {
-                    @Override
-                    public CommentDTO apply(Comment comment) {
-                        log.info("commnet : {}", comment);
-                        return entityToDTO(comment);
-            }
-                };
-            return new PageResultDTO<>(result, fn);
-            }
-            @Transactional
-            @Override
-            public String commentName(MemberDTO dto) {
-                log.info("Comment Member DTO : {}",dto);
-                log.info("MemberId : {}", dto);
-                String result = commentRepository.commentName(dto.getMemberId());
-                log.info("Member Name : {}", result);
+        return result;
+    }
 
-                return result;
-            }
+    @Transactional
+    @Override
+    public Long CommentDelete(CommentDTO dto) {
+        Long id = dto.getId();
+        commentRepository.deleteById(id);
+        return id;
 
-            @Transactional
-            @Override
-            public Long CommentDelete(CommentDTO dto) {
-                Long id = dto.getId();
-                commentRepository.deleteById(id);
-                return id;
+    }
 
-            }
+    @Override
+    public String CommentModify(CommentDTO dto) {
+        log.info("dto :" + dto);
+        Comment entity = commentRepository.getReferenceById(dto.getId());
+        log.info("entity : " + entity);
+        CommentDTO getById = entityToDTO(entity);
+        log.info("getById : " + getById);
 
-            @Override
-            public String CommentModify(CommentDTO dto) {
-                log.info("dto :" + dto);
-                Comment entity = commentRepository.getReferenceById(dto.getId());
-                log.info("entity : " + entity);
-                CommentDTO getById = entityToDTO(entity);
-                log.info("getById : " + getById);
+        getById.setContent(dto.getContent());
+        Comment modifiedComment = dtoToEntity(getById);
+        commentRepository.save(modifiedComment);
 
-                getById.setContent(dto.getContent());
-                Comment modifiedComment = dtoToEntity(getById);
-                commentRepository.save(modifiedComment);
-
-                return modifiedComment.getId().toString();
-            }
+        return modifiedComment.getId().toString();
+    }
 }

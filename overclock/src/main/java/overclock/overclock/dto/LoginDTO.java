@@ -13,9 +13,7 @@ import overclock.overclock.entity.Member;
 public class LoginDTO {
 
     private String email;
-
     private String password;
-
 
     public Member toEntity() {
 

@@ -14,8 +14,10 @@
     </div>
     <div class="buttons-container">
 
+
       <button class="btn btn-primary mr-2" @click="check">수정</button>
       <button class="btn btn-warning" @click="cancel">취소</button>
+
 
     </div>
   </MyModal>

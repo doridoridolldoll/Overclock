@@ -3,27 +3,25 @@
   <div class="input-form2 col-md-12 mx-auto">
     <h4 class="mb-3">업체 회원가입</h4>
     <form class="validation-form" @submit.prevent>
-        <div class="mb-3">
-          <label for="name">회사명</label>
-          <input type="text" class="form-control" v-model="state.cpName" id="copname" placeholder="" required>
-          <div class="invalid-feedback">
-            회사명을 입력해주세요.
-          </div>
+      <div class="mb-3">
+        <label for="name">회사명</label>
+        <input type="text" class="form-control" v-model="state.cpName" id="copname" placeholder="" required>
+        <div class="invalid-feedback">
+          회사명을 입력해주세요.
         </div>
-        <div class="mb-3">
-          <label for="email">이메일</label>
-          <input type="email" class="form-control" v-model="state.email" id="email" placeholder="you@example.com">
-            이메일을 입력해주세요.
-        </div>
-        <button @click="emailVali()" class="btn btn-outline-primary w-100">
+      </div>
+      <div class="mb-3">
+        <label for="email">이메일</label>
+        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="you@example.com">
+        이메일을 입력해주세요.
+      </div>
+      <button @click="emailVali()" class="btn btn-outline-primary w-100">
         이메일 중복 확인
-        </button>
-        <button @click="emailCheck()" class="btn btn-outline-primary w-100" v-if="(state.ch == 1)">
-          인증번호 전송
-        </button>
-        <EmailCheck v-if="(state.change == 1)"
-        :keys="state.keys"
-        :email="state.email" />
+      </button>
+      <button @click="emailCheck()" class="btn btn-outline-primary w-100" v-if="(state.ch == 1)">
+        인증번호 전송
+      </button>
+      <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email" />
       <div class="mb-3">
         <label for="copcode">사업자등록번호</label>
         <input type="copcode" class="form-control" v-model="state.cpCode" id="copcode" placeholder="" required>
@@ -50,7 +48,8 @@
 
       <div class="mb-3">
         <label for="phone">전화번호</label>
-        <input type="text" class="form-control" v-model="state.cpPhone" id="copphone" placeholder="010-0000-0000" required>
+        <input type="text" class="form-control" v-model="state.cpPhone" id="copphone" placeholder="010-0000-0000"
+          required>
         <div class="invalid-feedback">
           전화번호를 입력해주세요.
         </div>
@@ -80,77 +79,78 @@
         </div>
       </div>
 
-    
+
       <hr class="mb-4">
       <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" v-model="state.aggrement" id="aggrement" required>
         <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
       </div>
       <div class="mb-4"></div>
+
       <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler" >가입 완료</button>
+
     </form>
   </div>
 
-  </template>
+</template>
   
-  <script>
-  import {reactive} from '@vue/reactivity'
-  import axios from 'axios'
-  import router from '@/router'
-  import EmailCheck from './EmailCheck.vue'
-  export default {
-    name:'ToJoin',
-    components: { EmailCheck },
-  setup(){
+<script>
+import { reactive } from '@vue/reactivity'
+import axios from 'axios'
+import router from '@/router'
+import EmailCheck from './EmailCheck.vue'
+export default {
+  name: 'ToJoin',
+  components: { EmailCheck },
+  setup() {
     const state = reactive({
-      email : '',
-      id          : '',
-      cpCode       : '',
-      cpPw    : '',
-      reCpPw  : '', 
-      cpName        : '',
-      cpPhone       : '',
-      city        : '',
-      street      : '',
-      zipcode     : '',
+      email: '',
+      id: '',
+      cpCode: '',
+      cpPw: '',
+      reCpPw: '',
+      cpName: '',
+      cpPhone: '',
+      city: '',
+      street: '',
+      zipcode: '',
       change: 0,
     })
 
     const emailCheck = () => {
 
-    state.change = 1;
-    if (state.email === "") {
-      alert("이메일을 입력해주세요");
-      state.email.value.focus();
-      return false;
-    }
-    const url = "/api/passFind";
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    console.log("---------------------");
-    console.log(state.email);
-    const body = { email: state.email };
-    axios.get(url, body, { headers }).then(function (res) {
-      console.log(res);
-      if (res.data.email === state.email) {
-        alert("이미 존재하는 이메일입니다.")
-        state.change = 0;
-      } else if (res.data != "" || res.data.email != state.email) {
-        console.log(typeof (res.data));
-        alert("입력하신 이메일로 인증번호가 발송되었습니다.");
-        axios.post("/api/join/emailCheck", body, { headers }).then(function (res) {
-          console.log("---------------------------");
-          console.log(res);
-          console.log(res.data.key);
-          state.key = res.data.key;
-          state.emailVal = res.data.email;
-        });
-      }  else {
-        alert("존재하지 않는 이메일입니다");
+      state.change = 1;
+      if (state.email === "") {
+        alert("이메일을 입력해주세요");
+        state.email.value.focus();
+        return false;
       }
-    });
-
+      const url = "/api/passFind";
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      console.log("---------------------");
+      console.log(state.email);
+      const body = { email: state.email };
+      axios.get(url, body, { headers }).then(function (res) {
+        console.log(res);
+        if (res.data.email === state.email) {
+          alert("이미 존재하는 이메일입니다.")
+          state.change = 0;
+        } else if (res.data != "" || res.data.email != state.email) {
+          console.log(typeof (res.data));
+          alert("입력하신 이메일로 인증번호가 발송되었습니다.");
+          axios.post("/api/join/emailCheck", body, { headers }).then(function (res) {
+            console.log("---------------------------");
+            console.log(res);
+            console.log(res.data.key);
+            state.key = res.data.key;
+            state.emailVal = res.data.email;
+          });
+        } else {
+          alert("존재하지 않는 이메일입니다");
+        }
+      });
     }
 
     const emailVali = async () => {
@@ -169,112 +169,112 @@
           state.email.value.focus();
           return false;
         } else if (!(state.email.includes("@") && state.email.includes("."))) {
-          alert('이메일 양식이 맞지 않습니다.'); 
+          alert('이메일 양식이 맞지 않습니다.');
           state.email.value.focus(); return false;
         } else (res.data.validate === false)
-          alert("가입 가능한 이메일입니다.")
-          state.ch = 1
+        alert("가입 가능한 이메일입니다.")
+        state.ch = 1
       })
     }
 
-    const joinHandler = async() => {
+    const joinHandler = async () => {
       console.log("asas")
       const url = './api/companyRegister'
       const headers = {
-        "Content-Type" : "application/json",
+        "Content-Type": "application/json",
       }
       const body = {
-        email : state.email,
-        id : state.id,
-        crn : state.cpCode,
-        password   : state.cpPw,
-        name : state.cpName,
-        phone : state.cpPhone,
-        city : state. city,
-        street : state.street,
-        zipcode : state.zipcode,
+        email: state.email,
+        id: state.id,
+        crn: state.cpCode,
+        password: state.cpPw,
+        name: state.cpName,
+        phone: state.cpPhone,
+        city: state.city,
+        street: state.street,
+        zipcode: state.zipcode,
         nickname: state.cpName,
       }
       console.log(body)
       if (state.cpName === '') {
-      alert('회사명을 입력해주세요'); 
-      state.nickname.value.focus(); return false;
+        alert('회사명을 입력해주세요');
+        state.nickname.value.focus(); return false;
       } else if (state.email === '') {
-      alert('이메일을 입력해주세요'); 
-      state.email.value.focus(); return false;
+        alert('이메일을 입력해주세요');
+        state.email.value.focus(); return false;
       } else if (!(state.email.includes("@") && state.email.includes("."))) {
-      alert('이메일 양식이 맞지 않습니다.'); 
-      state.email.value.focus(); return false;
+        alert('이메일 양식이 맞지 않습니다.');
+        state.email.value.focus(); return false;
       } else if (state.copcode === '') {
-      alert('사업자등록번호를 입력해주세요'); 
-      state.copcode.value.focus(); return false;
+        alert('사업자등록번호를 입력해주세요');
+        state.copcode.value.focus(); return false;
       } else if (state.password === '') {
-      alert('비밀번호를 입력해주세요'); 
-      state.password.value.focus(); return false;
+        alert('비밀번호를 입력해주세요');
+        state.password.value.focus(); return false;
       } else if (state.repassword === '') {
-      alert('비밀번호를 입력해주세요'); 
-      state.repassword.value.focus(); return false;
+        alert('비밀번호를 입력해주세요');
+        state.repassword.value.focus(); return false;
       } else if (state.name === '') {
-      alert('이름을 입력해주세요'); 
-      state.nickname.value.focus(); return false;
+        alert('이름을 입력해주세요');
+        state.nickname.value.focus(); return false;
       } else if (state.nickname === '') {
-      alert('닉네임을 입력해주세요'); 
-      state.name.value.focus(); return false;
+        alert('닉네임을 입력해주세요');
+        state.name.value.focus(); return false;
       } else if (state.phone === '') {
-      alert('전화번호를 입력해주세요'); 
-      state.phone.value.focus(); return false;
+        alert('전화번호를 입력해주세요');
+        state.phone.value.focus(); return false;
       } else if (state.city === '') {
-      alert('도시명을 입력해주세요'); 
-      state.city.value.focus(); return false;
+        alert('도시명을 입력해주세요');
+        state.city.value.focus(); return false;
       } else if (state.street === '') {
-      alert('도로명주소를 입력해주세요'); 
-      state.street.value.focus(); return false;
+        alert('도로명주소를 입력해주세요');
+        state.street.value.focus(); return false;
       } else if (state.zipcode === '') {
-      alert('우편번호를 입력해주세요'); 
-      state.zipcode.value.focus(); return false;
+        alert('우편번호를 입력해주세요');
+        state.zipcode.value.focus(); return false;
       } else if (state.password != state.repassword) {
-      alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요');
-      state.password.value.value = ''; 
-      state.repassword.value.value = '';
-      state.password.value.focus(); return false;
+        alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요');
+        state.password.value.value = '';
+        state.repassword.value.value = '';
+        state.password.value.focus(); return false;
       }
-      const response = await axios.post(url, body, {headers})
-      if(response.status === 200){
+      const response = await axios.post(url, body, { headers })
+      if (response.status === 200) {
         alert('회원가입이 되었습니다.');
       } else {
         alert('회원가입에 실패하였습니다.')
       }
-      router.push({name: "Login"});
+      router.push({ name: "Login" });
     }
-    return {joinHandler,state,emailCheck,emailVali}
+    return { joinHandler, state, emailCheck, emailVali }
   }
-  }
-  </script>
+}
+</script>
   
-  <style scoped>
-  .container2{
+<style scoped>
+.container2 {
   height: 100vh;
-  }
-  .input-form2 {
-        text-align: center;
-        padding: 32px;
-  
-        /* margin-top: 45px; */
-  
-        background: #fff;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-      }
-  
-  #hero{
-    overflow: scroll;
-  
-    max-height: 1100px;
-  }
-  
-  #hero::before{
-    height: 1100px;
-  }
-  
-  </style>
+}
+
+.input-form2 {
+  text-align: center;
+  padding: 32px;
+
+  /* margin-top: 45px; */
+
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+#hero {
+  overflow: scroll;
+
+  max-height: 1100px;
+}
+
+#hero::before {
+  height: 1100px;
+}
+</style>

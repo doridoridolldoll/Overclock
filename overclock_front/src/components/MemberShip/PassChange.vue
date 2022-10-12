@@ -1,10 +1,10 @@
 <template>
   <div class="input-form2 col-md-12 mx-auto">
-  <form class="d-flex flex-column" action="login" method="post">
+  <form class="d-flex flex-column validation-form" action="login" method="post">
     <span class="answer text-center" i-d-b-database="answerForRecovery1">새로운 비밀번호</span>
-    <input class="form-control" type="password" placeholder="새로운 비밀번호" v-model="state.password" />
+    <input class="form-control" type="password" placeholder="새로운 비밀번호" v-model="state.password" required autofocus/>
     <input class="form-control" type="password" name="repassword" id="repassword" placeholder="비밀번호 확인"
-      v-model="state.repassword" />
+      v-model="state.repassword" required autofocus/>
     <div class="px-5 my-4">
       <button type="button" class="btn btn-outline-primary w-100" @click="change()">비밀번호 변경</button>
     </div>
@@ -60,6 +60,7 @@ export default {
         alert('비밀번호가 일치하지 않습니다.')
         return false;
       }
+      alert('비밀번호가 성공적으로 변경되었습니다.')
       router.push({ name: "Login" })
     }
     return { change, state }

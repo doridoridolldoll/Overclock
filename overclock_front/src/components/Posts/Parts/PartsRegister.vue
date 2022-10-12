@@ -1,26 +1,26 @@
 <template>
     <section id="hero" class="d-flex align-items-center justify-content-center">
-        <form class="form-floating input-form9 " @submit.prevent>
+        <form class="form-floating input-form9 validation-form" @submit.prevent>
             <h5 class="mt-4">부품 거래 등록</h5>
 
             <div class="form-group">
                 <label>상품명</label>
-                <input type="text" v-model="state.title" class="form-control">
+                <input type="text" v-model="state.title" class="form-control" required autofocus>
             </div>
 
             <div class="form-group">
                 <label>제품상세</label>
-                <textarea class="form-control" v-model="state.content" rows="5" name="content"></textarea>
+                <textarea class="form-control" v-model="state.content" rows="5" name="content" required autofocus></textarea>
             </div>
 
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class="form-control" v-model="state.price" rows="5" name="price">
+                <input type="text" class="form-control" v-model="state.price" rows="5" name="price" required autofocus>
             </div>
 
             <div class="form-group">
                 <label>수량</label>
-                <input type="text" class="form-control" v-model="state.stock" name="stock" placeholder="stock">
+                <input type="text" class="form-control" v-model="state.stock" name="stock" placeholder="stock" required autofocus>
             </div>
 
             <!-- <div class="form-group" >
@@ -101,7 +101,7 @@ export default {
             }
             const body = {
                 title: state.title,
-                content: state.itemDetail,
+                content: state.content,
                 memberId: state.memberId,
                 imageDTOList: state.imageDTOList,
                 partsType: state.type,

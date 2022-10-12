@@ -10,7 +10,6 @@
             <span v-on:click="change('company')">
                 <h3 class="asd btn btn-info mt-5">업체</h3>
             </span>
-
             <div v-if="(state.form == 'member')">
                 <MbJoin/>
             </div>

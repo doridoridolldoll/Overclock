@@ -11,7 +11,6 @@ public interface CommentService {
     Long addComment(CommentDTO commentDTO);
     String CommentModify(CommentDTO dto);
     Long CommentDelete(CommentDTO dto);
-
     String commentName(MemberDTO dto);
 
     PageResultDTO<CommentDTO, Comment> commentPageList (PageRequestDTO dto);
