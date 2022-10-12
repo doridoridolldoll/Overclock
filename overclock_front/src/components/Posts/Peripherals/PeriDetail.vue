@@ -15,7 +15,7 @@
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
 
-                  <PartsDetail2
+                  <PeriDetail2
                     :dtoList="state.dtoList"
                     :partsDetailId="state.partsDetailId"/>
                     <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
@@ -34,7 +34,7 @@
               <p style="font-size: x-large;">{{state.dtoList.content}}</p>
             </div>
 
-            <Comment
+            <PeriComment
               :dtoList="state.dtoList"
             />
           </div>
@@ -46,11 +46,11 @@
 import { useStore } from 'vuex'
 import { reactive } from '@vue/reactivity';
 import PeriDetail2 from '@/components/Posts/Peripherals/PeriDetail2.vue'
-import Comment from '@/components/Posts/Comment/Comment.vue';
+import PeriComment from '@/components/Posts/Comment/PeriComment.vue';
 
 import axios from 'axios';
   export default {
-  components: { Comment,PeriDetail2},
+  components: { PeriComment,PeriDetail2},
 
       name: 'PeriDetail',
       setup(){
@@ -110,14 +110,6 @@ import axios from 'axios';
 
 
         return {state,img,add};
-    }
-
-    const displayUrl = "/display";
-    const url = `http://localhost:9090${displayUrl}`;
-    let img = "";
-    img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
-    // // console.log(list.imageDTOList);
-    return { state, img, add };
   }
 }
 

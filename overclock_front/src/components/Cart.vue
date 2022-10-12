@@ -150,6 +150,7 @@ console.log(state.cartId);
       state.checkList[i] = ""
       console.log(state.checkList);
     }
+  }
 
     function cartDelete() {
       const url = "/api/cart/delete"
