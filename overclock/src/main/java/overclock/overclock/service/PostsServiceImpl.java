@@ -123,7 +123,7 @@ public class PostsServiceImpl implements PostsService {
         String type = requestDTO.getType();
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        QPosts qPosts = QPosts.posts;
+        QPosts   qPosts = QPosts.posts;
         String keyword = requestDTO.getKeyword();
         BooleanExpression expression = qPosts.id.gt(0L);
         booleanBuilder.and(expression);

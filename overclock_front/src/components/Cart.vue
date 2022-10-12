@@ -49,7 +49,10 @@
         </button>
         <div class="portfolio-info">
           <!-- 강제 딜레이 설정 -->
-          <PcPay :price="state.checkPrice" :cartId="state.cartId" :email="state.email" :cartName="state.cartName">
+          <PcPay
+            :price="state.checkPrice"
+            :cartId="state.cartId"
+            :checkList="state.checkList">
           </PcPay>
         </div>
         <!-- <button class="btn btn-primary mt-3 me-2 mb-3" style=" float: right; ">구매</button> -->
@@ -88,64 +91,64 @@ export default {
       totalPrice: 0,
       cartId: [],
       checkPrice: 0,
-    })
+      checkList : [],
+   })
 
-    console.log(state.email);
-    console.log(state.cartId);
-    const url = "/api/cartList";
-    const headers = {
-      "Content-Type": "application/json; charset=utf-8",
-      "Authorization": store.state.token,
-      "id": store.state.id
-    };
-    const body = {
-      memberId: state.memberId,
-      email: state.dtoList.email,
-      cartName: state.dtoList.cartName
+
+console.log(state.cartId);
+  const url = "/api/cartList";
+  const headers = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Authorization": store.state.token,
+    "id": store.state.id
+  };
+  const body = {
+    memberId: state.memberId
+  }
+  axios.post(url, body, { headers }).then(function (res) {
+    console.log("===========");
+    console.log(res.data);
+    for (let i = 0; i < res.data.dtoList.length; i++) {
+      state.totalPrice += res.data.dtoList[i].price;
     }
-    console.log(state.dtoList.email);
-    console.log(state.dtoList.cartName);
-    axios.post(url, body, { headers }).then(function (res) {
-      console.log("===========");
-      console.log(res.data);
-      for (let i = 0; i < res.data.dtoList.length; i++) {
-        state.totalPrice += res.data.dtoList[i].price;
-      }
-      console.log(state.totalPrice);
-      state.dtoList = res.data.dtoList,
-        state.end = res.data.end,
-        state.next = res.data.next,
-        state.page = res.data.page,
-        state.pageList = res.data.pageList,
-        state.prev = res.data.prev,
-        state.size = res.data.size,
-        state.start = res.data.start,
-        state.totalPage = res.data.totalPage;
+    state.dtoList = res.data.dtoList,
+    console.log(state.dtoList);
+    state.end = res.data.end,
+    state.next = res.data.next,
+    state.page = res.data.page,
+    state.pageList = res.data.pageList,
+    state.prev = res.data.prev,
+    state.size = res.data.size,
+    state.start = res.data.start,
+    state.totalPage = res.data.totalPage;
 
-      const displayUrl = "/display";
-      const url2 = `http://localhost:9090${displayUrl}`;
-      for (let i = 0; i < res.data.dtoList.length; i++) {
-        state.imgUrl[i] = `${url2}?fileName=${res.data.dtoList[i].imgUrl}`;
-      }
+    const displayUrl = "/display";
+    const url2 = `http://localhost:9090${displayUrl}`;
+    for (let i = 0; i < res.data.dtoList.length; i++) {
+      state.imgUrl[i] =`${url2}?fileName=${res.data.dtoList[i].imgUrl}`;
+    }
 
-      for (let i = 0; i < state.dtoList.length; i++) {
-        state.cartId[i] = 0;
-      }
-      // console.log(state.imgUrl);
+    for (let i = 0; i < state.dtoList.length; i++) {
+      state.cartId[i] = 0;
+      // state.checkList[i] = "";
+    }
+    // console.log(state.imgUrl);
 
-    });
+  });
 
-    function checked(list, i) {
-
-      if (state.cartId[i] != list.id) {
-        state.cartId[i] = list.id
-        state.checkPrice += list.price
-
-      }
-      else {
-        state.cartId[i] = 0
-        state.checkPrice -= list.price
-      }
+  function checked(list,i) {
+      
+    if(state.cartId[i] != list.id){
+      state.cartId[i] = list.id
+      state.checkPrice += list.price
+      state.checkList[i] = list;
+      console.log(state.checkList);
+    }
+    else{
+      state.cartId[i] = 0 
+      state.checkPrice -= list.price
+      state.checkList[i] = ""
+      console.log(state.checkList);
     }
 
     function cartDelete() {

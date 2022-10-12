@@ -6,32 +6,27 @@
       <div class="section-title">
         <p>MB</p>
       </div>
-
-      <div class="row">
-        <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
-          v-for="(list,i) in state.dtoList" :key="(list,i)">
-          <!-- <a @click="Join(list,i)"> -->
-          <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)">
-            <div class="icon-box">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
+          v-for="(list,i) in state.dtoList" :key="(list,i)"
+          >
+          
+            <!-- <a @click="Join(list,i)"> -->
+            <!-- <a :href="'/PartsDetail?id=' + list.id" @click="Join(list,i)"> -->
+            <div class="icon-box" @click="Join(list,i)">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br>
-              <h3><a href="" style="width:292px;">{{list.title}}</a></h3>
-              <span>
-                <h4>{{state.itemDetail}}</h4>
-              </span>
-              <span>
-                <h5>판매가: {{state.price[i]}}</h5>
-              </span>
+              <h3>{{list.title}}</h3>
+              <span>{{list.content}}</span>
+              <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
-          </a>
-        </div>
-        <div>
-          <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
-            <label for="searching"><i class="bi bi-search"></i></label>
-            <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white"
-              @submit="searchingAxios()">
-          </form>
-        </div>
+          </div>
+          <div>
+            <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
+              <label for="searching"><i class="bi bi-search"></i></label>
+              <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
+            </form>
+          </div>
 
         <div class="page">
           <ul class="pagination">
@@ -64,16 +59,14 @@ export default {
     let search = reactive({
       context: "",
     })
-    function searchingAxios() {
-      console.log("qweqweqweqwe");
+    function searchingAxios(){
       console.log(search.context.trim().length);
       if (search.context.trim().length == 0) {
         return
       }
-      console.log("qweqweqweqwe");
-      async function routing() {
+      async function routing (){
         await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
-        await router.go(0);
+        // await router.go(0);
         // console.log("이동(app)")
       }
       routing();
@@ -96,7 +89,7 @@ export default {
       totalPage: null,
       partsType: "mb",
       price: [],
-      itemDetail: "",
+      itemDetail: "", //제품상세
     });
     const url = "/api/partsList";
     const headers = {
@@ -108,15 +101,15 @@ export default {
           // console.log(res.data.dtoList[1].partsType == "used");
           console.log(res.data)
           state.id = res.data.dtoList.id,
-            state.dtoList = res.data.dtoList,
-            state.end = res.data.end,
-            state.next = res.data.next,
-            state.page = res.data.page,
-            state.pageList = res.data.pageList,
-            state.prev = res.data.prev,
-            state.size = res.data.size,
-            state.start = res.data.start,
-            state.totalPage = res.data.totalPage
+          state.dtoList = res.data.dtoList,
+          state.end = res.data.end,
+          state.next = res.data.next,
+          state.page = res.data.page,
+          state.pageList = res.data.pageList,
+          state.prev = res.data.prev,
+          state.size = res.data.size,
+          state.start = res.data.start,
+          state.totalPage = res.data.totalPage
           showResult(res.data)
         })
     }
@@ -177,7 +170,8 @@ export default {
 
       axios.get(url2, { page: 1, category: "mb" }, { headers2 }).then(function () {
 
-      })
+        })
+        await router.push(`/partsdetail?id=${list.id}`)
     }
     return { search, state, store, getUserList, Join, meta, searchingAxios }
   }
