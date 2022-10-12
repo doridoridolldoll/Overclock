@@ -150,7 +150,7 @@ console.log(state.cartId);
       state.checkList[i] = ""
       console.log(state.checkList);
     }
-
+  }
     function cartDelete() {
       const url = "/api/cart/delete"
       // const body = {
@@ -162,8 +162,10 @@ console.log(state.cartId);
         console.log(res);
       })
     }
-    return { state, checked, cartDelete }
-  }
+  
+  return { state, checked, cartDelete }
+}
+
 }
 </script>
 

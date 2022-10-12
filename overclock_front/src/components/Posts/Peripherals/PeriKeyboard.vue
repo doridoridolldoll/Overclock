@@ -1,7 +1,7 @@
 <template>
     <section id="services2" class="services">
       <div class="container" data-aos="fade-up">
-        <router-link to="/periregister" class="btn btn-primary">글쓰기</router-link>
+        <router-link to="/periregister" class="btn btn-primary" v-if="(store.state.role == '1')">글쓰기</router-link>
         <div class="section-title">
           <p>KEYBOARD</p>
         </div>

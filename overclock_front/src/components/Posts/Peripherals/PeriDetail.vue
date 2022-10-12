@@ -23,8 +23,6 @@
                 </div>
               </div>
             </div>
-
-
             <div class="portfolio-description">
               <h2>제품상세</h2>
               <p style="font-size: x-large;">{{state.dtoList.content}}</p>
@@ -100,18 +98,8 @@ import axios from 'axios';
         const url = `http://localhost:9090${displayUrl}`;
         let img = "";
         img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
-
-
         return {state,img,add};
     }
-
-    const displayUrl = "/display";
-    const url = `http://localhost:9090${displayUrl}`;
-    let img = "";
-    img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
-    // // console.log(list.imageDTOList);
-    return { state, img, add };
-  }
 }
 
 </script>

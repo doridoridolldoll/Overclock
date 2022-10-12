@@ -87,8 +87,8 @@ public class SendEmailServiceimpl implements SendEmailService {
         log.info("phone213 : {} ", phone);
         Member email = memberRepository.findByPhone(phone);
         log.info("email : " + email);
-        String api_key = "NCSQAR06FKVVJUEB";
-        String api_secret = "T2KMTAFJK7RWEPJDYD05VOMWJGZGSB5W";
+        String api_key = "NCSKV5L8PBKFC4CX";
+        String api_secret = "KS5X85PEUED7PA4OOPJQRMPI71Q5WSIC";
         Message coolsms = new Message(api_key, api_secret);
 
         String str = getTempPassword(); //임시번호생성
@@ -101,7 +101,7 @@ public class SendEmailServiceimpl implements SendEmailService {
         // 4 params(to, from, type, text) are mandatory. must be filled
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("to", phone);    // 수신전화번호
-        params.put("from", "01080094125");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+        params.put("from", "01025886083");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
         params.put("type", "SMS");
         params.put("text", "OVERCLOCK 휴대폰인증 테스트 메시지 : 인증번호는" + "["+str+"]" + "입니다.");
         params.put("app_version", "test app 1.2"); // application name and version

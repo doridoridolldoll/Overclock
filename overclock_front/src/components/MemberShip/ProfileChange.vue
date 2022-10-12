@@ -1,7 +1,6 @@
 <template>
   <section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container2" data-aos="fade-up">
-
       <div class="container">
         <div class="input-form2 col-md-12 mx-auto">
           <h4 class="mb-3">내정보</h4>
@@ -13,6 +12,7 @@
               <div>
                 <input type="text" class="form-control" v-model="state.nickname" ref="nickname" id="nickname">
               </div>
+              <br><br>
               <div>
                 <button class="btn btn-primary" @click="change">내 정보 수정</button>
               </div>
@@ -75,5 +75,8 @@ export default {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+}
+.form-control{
+  width: 50px;
 }
 </style>

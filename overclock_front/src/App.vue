@@ -20,7 +20,7 @@
             <ul>
               <!-- <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li> -->
               <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li>
-              <li><a :href="'./cart?id=' + memberId" v-if="$store.state.token">주문내역</a></li>
+              <li><a :href="'./cart?id=' + memberId" v-if="$store.state.token">장바구니</a></li>
               <li><router-link to="/login" v-if="!$store.state.token">로그인</router-link></li>
               <li><router-link to="/" @click="logout()" v-if="$store.state.token">
                 로그아웃</router-link></li>

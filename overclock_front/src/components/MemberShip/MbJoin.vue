@@ -11,15 +11,14 @@
           <label for="nickname"></label>
           <input type="text" required autofocus class="form-control" v-model="state.nickname" id="nickname" placeholder="닉네임"
             @keyup="nickCheckHandler">
-        </div>
-        {{ state.nickCheck }}
+            {{ state.nickCheck }}
+          </div>
       </div>
       <div class="mb-3">
         <label for="email"></label>
         <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일" required autofocus>
       </div>
-      <button @click="emailVali()" class="btn btn-outline-primary w-100"
-      v-if="(state.ch2 == 0)">
+      <button @click="emailVali()" class="btn btn-outline-primary w-100" v-if="(state.ch2 == 0)">
         이메일 중복 확인
       </button>
       <button @click="emailCheck()" class="btn btn-outline-primary w-100" v-if="(state.ch == 1)">
@@ -65,7 +64,6 @@
       <tr>
         <td><a href="http://localhost:9090/oauth2/authorization/google" @click="joinHandler">Google</a></td>
       </tr>
-
     </form>
   </div>
 </template>
@@ -128,6 +126,7 @@ export default {
           state.ch2 = 1;
           console.log(typeof (res.data));
           alert("입력하신 이메일로 인증번호가 발송되었습니다.");
+          document.getElementById('email').readOnly = true;
           axios.post("/api/join/emailCheck", body, { headers }).then(function (res) {
             console.log("---------------------------");
             console.log(res);
@@ -136,8 +135,7 @@ export default {
             state.emailVal = res.data.email;
           });
           state.ch = 0;
-        }
-        else {
+        } else {
           alert("존재하지 않는 이메일입니다");
         }
       });
@@ -220,7 +218,8 @@ export default {
         state.name = null;
         state.name.value.focus(); return false;
       } else if(!n_RegExp.test(state.name)){
-        alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");state.name = null;
+        alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
+        state.name = null;
         state.name.value.focus(); return false;
       } else if (state.nickname === '') {
         alert('닉네임을 입력해주세요');
@@ -280,7 +279,7 @@ export default {
       }
     }
 
-    return { joinHandler, state, emailCheck, emailVali, asd, nickCheckHandler, title:"" }
+    return { joinHandler, state, emailCheck, emailVali, asd, nickCheckHandler}
   },
   components: { EmailCheck }
 };
