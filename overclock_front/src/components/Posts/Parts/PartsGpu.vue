@@ -13,11 +13,10 @@
           <!-- <a :href="'./PartsDetail?id=' + list.id" @click="Join(list,i)"> -->
               <div class="icon-box" @click="Join(list,i)">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
-              <br><br><br><br><br>
-              <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{list.id}}</h4></span>
-              <span><h5>판매가 4,800,000원</h5></span>
-              <span><h5>할인가 4,300,000원</h5></span>
+              <br><br>
+              <h3>{{list.title}}</h3>
+              <span>{{list.content}}</span>
+              <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
           </div>
           <div>
@@ -65,8 +64,6 @@ export default {
         console.log("qweqweqweqwe");
         async function routing (){
           await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
-          // await router.go(0);
-          // console.log("이동(app)")
         }
       routing();
       }
@@ -89,6 +86,8 @@ export default {
       totalPage: null,
       partsType: "gpu",
       price: [],
+      
+      itemDetail: "",
 
     });
     const url = "/api/partsList";
@@ -149,7 +148,10 @@ export default {
   }
 
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
-    store.state.price = res.data[0].price;
+    for (let i = 0; i < res.data.length; i++) {
+      state.price[i] = res.data[i].price;
+      state.itemDetail = res.data[i].itemDetail;
+    }
   })
 
   async function Join(list,i){

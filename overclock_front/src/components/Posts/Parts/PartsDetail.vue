@@ -1,45 +1,37 @@
 <template>
   <section id="hero" class="d-flex justify-content-center">
     <body class="form-floating">
-          <div class="container portfolio-details input-form">
-            <div class="row gy-4">
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper">
-                  <div class="swiper-wrapper align-items-center">
-                      <div class="icon imgsize"><img v-bind:src="img"/></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="portfolio-info">
-                  <h3>상품정보</h3>
-                  <PartsDetail2
-                    :dtoList="state.dtoList"
-                    :partsDetailId="state.partsDetailId"/>
-                    <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
-                <button class="btn1 btn btn-primary"  v-if="(state.role != '1')" @click="add">담기</button>
-                <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary">수정</router-link>
-                </div>
-
+      <div class="container portfolio-details input-form">
+        <div class="row gy-4">
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+                  <div class="icon imgsize"><img v-bind:src="img"/></div>
               </div>
             </div>
-            <div class="portfolio-description">
-                  <h2>제품상세</h2>
-
-                  <p style="font-size: x-large;">
-              {{state.dtoList.content}}
-                    </p>
-
-                </div>
-
-
-
-
-            <Comment
-              :dtoList="state.dtoList"
-            />
+          </div>
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>상품정보</h3>
+              <PartsDetail2
+                :dtoList="state.dtoList"
+                :partsDetailId="state.partsDetailId"/>
+                <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
+            <button class="btn1 btn btn-primary"  v-if="(state.role != '1')" @click="add">담기</button>
+            <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary">수정</router-link>
+            </div>
 
           </div>
+        </div>
+
+        <div class="portfolio-description">
+          <h2>제품상세</h2>
+          <p style="font-size: x-large;">{{state.dtoList.content}}</p>
+        </div>
+        <Comment
+          :dtoList="state.dtoList"/>
+      </div>
+
     </body>
   </section>
 </template>
@@ -77,7 +69,6 @@ import axios from 'axios';
       
         let list = store.state.dtoList;
         state.dtoList = store.state.dtoList;
-        console.log(state.dtoList);
         state.price =store.state.price;
         state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
         state.title = state.dtoList.title;

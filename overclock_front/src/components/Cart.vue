@@ -58,7 +58,8 @@
           <!-- 강제 딜레이 설정 -->
           <PcPay
             :price="state.checkPrice"
-            :cartId="state.cartId">
+            :cartId="state.cartId"
+            :checkList="state.checkList">
           </PcPay>
         </div>
         <!-- <button class="btn btn-primary mt-3 me-2 mb-3" style=" float: right; ">구매</button> -->
@@ -97,6 +98,7 @@ export default {
       totalPrice : 0,
       cartId : [],
       checkPrice: 0,
+      checkList : [],
    })
 
 
@@ -116,8 +118,8 @@ console.log(state.cartId);
     for (let i = 0; i < res.data.dtoList.length; i++) {
       state.totalPrice += res.data.dtoList[i].price;
     }
-    console.log(state.totalPrice);
     state.dtoList = res.data.dtoList,
+    console.log(state.dtoList);
     state.end = res.data.end,
     state.next = res.data.next,
     state.page = res.data.page,
@@ -135,6 +137,7 @@ console.log(state.cartId);
 
     for (let i = 0; i < state.dtoList.length; i++) {
       state.cartId[i] = 0;
+      // state.checkList[i] = "";
     }
     // console.log(state.imgUrl);
 
@@ -145,11 +148,14 @@ console.log(state.cartId);
     if(state.cartId[i] != list.id){
       state.cartId[i] = list.id
       state.checkPrice += list.price
-      
+      state.checkList[i] = list;
+      console.log(state.checkList);
     }
     else{
       state.cartId[i] = 0 
       state.checkPrice -= list.price
+      state.checkList[i] = ""
+      console.log(state.checkList);
     }
   }
 

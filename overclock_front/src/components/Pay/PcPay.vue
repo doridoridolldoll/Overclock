@@ -17,28 +17,44 @@ import axios from 'axios';
 const { IMP } = window;
 export default {
   name: "ToTest",
-  props: ["price","cartId"],
+  props: ["price","cartId","checkList"],
   setup(props){
     const state = reactive({
       cartId : props.cartId,
+      cartName: [],
+      asd : "",
     });
+    console.log("=aspdlasd");
+ 
     document.cookie = "safeCookie1=foo; SameSite=Lax";
     document.cookie = "safeCookie2=foo";
     document.cookie = "crossCookie=bar; SameSite=None; Secure";
     function PaymentBtn(BuyerEmail,jQuery){
+      for (let i = 0; i < props.checkList.length; i++) {
+        if(props.checkList[i] == ""){
+          state.cartName[i] = props.checkList[i].cartName;
+        }
+        console.log(state.cartName);
+
+      }
+      // for (let i = 0; i < state.cartName.length; i++) {
+      //   if(state.cartName[i] != ""){
+      //     state.cartName2 = state.cartName;
+      //   }
+      // }
+      
       IMP.init("imp04806421");
       IMP.request_pay({ // param
         pg: "html5_inicis",
         pay_method: "card",
         merchant_uid: "ORD_" + new Date().getTime(),
-        name: "overclock", // 상품명
+        name: state.cartName[0], // 상품명
         amount:  props.price, // 가격
         buyer_email: "",
         buyer_name: "테스터",
       }, rsp => { // callback
         console.log(rsp);
         if (rsp.success) {
-          console.log(state.cartId);
           const url2 = "/api/cart/delete"
           const headers = {
             "Content-Type": "application/json; charset=utf-8",
