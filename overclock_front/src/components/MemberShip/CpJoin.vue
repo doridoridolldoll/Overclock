@@ -61,10 +61,9 @@
         <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
       </div>
       <div class="mb-4"></div>
-      <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler">가입 완료</button>
-      <tr>
-        <td><a href="http://localhost:9090/oauth2/authorization/google">Google</a></td>
-      </tr>
+
+      <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler" >가입 완료</button>
+
     </form>
   </div>
 

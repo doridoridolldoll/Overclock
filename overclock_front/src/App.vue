@@ -1,10 +1,7 @@
 <template>
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">  
-      
-
       <h1 class="logo me-auto me-lg-0"><router-link to="/">OverClock<span>.</span></router-link></h1>
-      
       <nav id="navbar" class="navbar order-last order-lg-0">
         <h5 class="logo logo2 me-auto me-lg-0"><router-link to="/auction" style="text-decoration-line: none;">OverClock<span>+</span></router-link></h5>
         <ul>
@@ -18,7 +15,6 @@
             <i class="bi bi-person-square" style="font-size:x-large"></i>
             <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <!-- <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li> -->
               <li><router-link to="/profil" v-if="$store.state.token">내정보</router-link></li>
               <li><a :href="'./cart?id=' + memberId" v-if="$store.state.token">장바구니</a></li>
               <li><router-link to="/login" v-if="!$store.state.token">로그인</router-link></li>
@@ -28,15 +24,13 @@
             </ul>
           </li> 
         </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
     </div>
-    
   </header>
-  <i class="bi bi-list mobile-nav-toggle">
-  </i>
   <router-view/>
 </template>
-
+  
 <script>
 import router from './router';
 import store from './store';
@@ -59,6 +53,7 @@ export default {
     },
 
 }
+
 </script>
 
 <style>

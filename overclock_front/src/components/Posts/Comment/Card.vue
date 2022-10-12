@@ -1,17 +1,16 @@
 <template>
 
-  <div class="comment" v-for="(list,i) in state.dtoList" :key="(list,i)"
-          >
+  <div class="comment" v-for="(list,i) in state.dtoList" :key="(list,i)">
 
-      <div class="commentId mt-3">
+      <div class="commentId">
         <span class="commentMember">{{state.name[i]}}</span>
       </div>
-      <div class="commentContent mt-3">
+      <div class="commentContent">
 
         <span class="commentText mt-1">{{list.content}}</span>
-         <a :href="'./CommentModify?id=' + list.id">수정</a>
+        <!-- <div>{{list}}</div> -->
       </div>
-
+      <a class="btn btn-info mt-2" v-if="list.memberId == $store.state.id" :href="'./CommentModify?id=' + list.id" >수정</a>
     </div>  
 </template>
 
@@ -30,7 +29,7 @@ export default {
         dtoList: null,
         name : [],
         postsId: props.postsId,
-        memberId : [], 
+        memberId : "", 
       })
       
 
@@ -44,6 +43,8 @@ export default {
       
 
       axios.post(url, body, { headers }).then(function (res) {
+        console.log("===============");
+        console.log(res);
         state.dtoList = res.data.dtoList;
 
         //댓글 작성자 추출(과부화 위험 있음)
@@ -56,10 +57,7 @@ export default {
             });
         }
       });
-
       
-      
-  
 
       return {state}
     }
@@ -84,22 +82,22 @@ export default {
 }
 
 .commentId{
-  width: 100px;
+  width: 140px;
   height: 100px;
   float: left;
   line-height: 100px;
   border: 1px solid rgb(226, 218, 218);
   border-start-start-radius: 10px;
   border-bottom-left-radius: 10px;
+  text-align: center;
 }
 
 .commentMember{
-  float: right;
   margin-right: 10px;
 }
 
 .commentContent{
-  width: 700px;
+  width: 650px;
   height: 100px;
   float: left;
   border: 1px solid rgb(226, 218, 218);
@@ -109,8 +107,10 @@ export default {
 
 .commentText{
   float: left;
+  margin-left: 15px;
 }
 
+.btn-info{}
 
 
 </style>

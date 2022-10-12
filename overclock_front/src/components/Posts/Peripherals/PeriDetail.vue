@@ -7,27 +7,31 @@
               <div class="col-lg-8">
                 <div class="portfolio-details-slider swiper">
                   <div class="swiper-wrapper align-items-center">
-                      <div class="icon"><img v-bind:src="img"/></div>
+                      <div class="icon imgsize"><img v-bind:src="img"/></div>
                   </div>
                 </div>
               </div>
               <div class="col-lg-4">
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
+
                   <PeriDetail2
                     :dtoList="state.dtoList"
-                    :periDetailId="state.periDetailId"/>
+                    :partsDetailId="state.partsDetailId"/>
                     <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
-                <button class="btn1 btn btn-primary"  v-if="(state.role != '1')" @click="add">담기</button>
-                <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary">수정</router-link>
+                <button class="btn1 btn btn-primary mt-3"  v-if="(state.role != '1')" @click="add">담기</button>
+                <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary mt-3">수정</router-link>
+
                 </div>
+
               </div>
             </div>
             <div class="portfolio-description">
               <h2>제품상세</h2>
               <p style="font-size: x-large;">{{state.dtoList.content}}</p>
             </div>
-            <Comment
+
+            <PeriComment
               :dtoList="state.dtoList"
             />
           </div>
@@ -39,10 +43,12 @@
 import { useStore } from 'vuex'
 import { reactive } from '@vue/reactivity';
 import PeriDetail2 from '@/components/Posts/Peripherals/PeriDetail2.vue'
-import Comment from '@/components/Posts/Comment/Comment.vue';
+import PeriComment from '@/components/Posts/Comment/PeriComment.vue';
+
 import axios from 'axios';
   export default {
-  components: { Comment,PeriDetail2},
+  components: { PeriComment,PeriDetail2},
+
       name: 'PeriDetail',
       setup(){
         const id = new URLSearchParams(window.location.search).get("id")
@@ -147,5 +153,9 @@ p {
 
 .btn2 {
   margin-right: 10px;
+}
+.imgsize {
+  width: 300px;
+  height: 300px;
 }
 </style>

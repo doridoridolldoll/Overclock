@@ -167,6 +167,7 @@ console.log(state.cartId);
 }
 
 }
+
 </script>
 
 <style scoped>

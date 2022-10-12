@@ -3,17 +3,10 @@
   <div class="searchlist">
 <!--  <div class="all">-->
     <!-- 검색필터 -->
-    <div class="btn-group mb-4 ms-4 ps-1" role="group" aria-label="Default button group">
-      <button class="btn btn-outline-dark" @click="view()">조회순</button>
-      <button type="button" class="btn btn-outline-dark" @click="like()">좋아요순</button>
-      <button type="button" class="btn btn-outline-dark" @click="star()">평점순</button>
-      <button type="button" class="btn btn-outline-dark" @click="latest()">최신순</button>
-      
-    </div>
     <div>
     <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
-          <label for="searching"><i class="bi bi-search"></i></label>
-          <input id="searching" type="text" v-model="search.context" class="form-control border-0 bg-white" @submit="searchingAxios()">
+          <label for="searching"><i class="bi bi-search btn btn-primary"></i></label>
+          <input id="searching" type="text" v-model="search.context" class="form-control bg-white" @submit="searchingAxios()">
         </form>
       </div>
     <!-- 검색카드 -->
@@ -184,7 +177,7 @@ export default {
 </script>
 
 <style scoped>
-.btn-group{
+.searching-area{
   margin-top: 100px;
 }
 .pagination{
@@ -193,5 +186,8 @@ export default {
 	}
   .page{
     margin-top: 30px;
+  }
+  #searching{
+    border: 1px solid black;
   }
 </style>

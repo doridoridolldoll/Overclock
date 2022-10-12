@@ -58,8 +58,8 @@ export default {
           console.log(res);
          })
         async function routing(){
-          await router.push(`/PartsDetail?id=${state.postsId}`)  
-          // await router.go(0)
+          await router.push(`/usedDetail?id=${state.postsId}`)  
+          await router.go(0)
         }
         routing();
       }

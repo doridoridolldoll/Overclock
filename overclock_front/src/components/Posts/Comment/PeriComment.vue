@@ -26,7 +26,7 @@ import router from '@/router';
 import store from '@/store';
   // import CommentCard from "@/comment/Posts/CommentCard.vue"
 export default {
-    name: "ToComment",
+    name: "ToPeriComment",
     props: ['dtoList','memberId'],
      components: { Card },
     setup(props) {
@@ -58,8 +58,8 @@ export default {
           console.log(res);
          })
         async function routing(){
-          await router.push(`/PartsDetail?id=${state.postsId}`)  
-          // await router.go(0)
+          await router.push(`/PeriDetail?id=${state.postsId}`)  
+          await router.go(0)
         }
         routing();
       }
