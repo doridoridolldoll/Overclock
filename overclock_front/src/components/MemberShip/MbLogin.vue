@@ -28,6 +28,7 @@ import axios from "axios";
 import store from "@/store";
 import router from "@/router";
 export default {
+
   name: "ToMbLogin",
   setup() {
     const state = reactive({
@@ -84,6 +85,7 @@ export default {
     };
     return { state, submit };
   },
+
 };
 </script>
 <style scoped>

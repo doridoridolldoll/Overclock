@@ -15,20 +15,24 @@
         {{ state.nickCheck }}
       </div>
       <div class="mb-3">
+
         <label for="email"></label>
         <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일" required autofocus>
       </div>
       <button @click="emailVali()" class="btn btn-outline-primary w-100"
       v-if="(state.ch2 == 0)">
+
         이메일 중복 확인
       </button>
-      <button @click="emailCheck()" class="btn btn-outline-primary w-100" v-if="(state.ch == 1)">
+      <button @click="emailCheck()" class="btn btn-outline-primary w-100 mt-3" v-if="(state.ch == 1)">
         인증번호 전송
       </button>
+
       <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email" :title="title" @titleFromChild="title = $event.target.value"/>
       <div class="mb-3">
         <label for="password"></label>
         <input type="password" class="form-control" v-model="state.password" id="password" placeholder="비밀번호" required autofocus>
+
       </div>
       <div class="mb-3">
         <label for="repassword"></label>
@@ -62,9 +66,8 @@
       </div>
       <div class="mb-4"></div>
       <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler">가입 완료</button>
-      <tr>
-        <td><a href="http://localhost:9090/oauth2/authorization/google" @click="joinHandler">Google</a></td>
-      </tr>
+
+
 
     </form>
   </div>
@@ -280,7 +283,9 @@ export default {
       }
     }
 
+
     return { joinHandler, state, emailCheck, emailVali, asd, nickCheckHandler, title:"" }
+
   },
   components: { EmailCheck }
 };

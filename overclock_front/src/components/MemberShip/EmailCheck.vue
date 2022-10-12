@@ -1,9 +1,11 @@
 <template>
 
   <form class="d-flex flex-column" action="login" method="post">
+
     <span class="answer text-center" i-d-b-database="answerForRecovery1">인증번호</span>
     {{state.ok}}
     <input class="form-control" type="text" placeholder="인증번호" ref="keyInput" v-model="state.keyInput" v-if="state.change==1"/>
+
     <div class="px-5 my-4">
       <button type="button" class="btn btn-outline-primary w-100" @click="certify()" v-if="state.change==1" value="title" @input="$emit('titleFromChild', $event)">인증</button>
     </div>

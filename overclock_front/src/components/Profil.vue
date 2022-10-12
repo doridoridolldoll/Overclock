@@ -31,11 +31,15 @@
               <input type="text" class="form-control" v-model="state.phone" id="phone" readonly>
               <div class="invalid-feedback">
               </div>
-              <br><br>
-              <button class="btn btn btn-primary" @click="handleClick2">내정보 수정</button><br><br>
-              <button class="btn btn btn-primary" @click="handleClick">비밀번호 수정</button>
+
+
+
+              <button class="btn btn-info mt-3" @click="handleClick2">내정보 수정</button><br><br>
+              <button class="btn btn-info" @click="handleClick">비밀번호 수정</button>
+
               <Modal ref="modal" />
               <ProfileModal ref="profileModal"/>
+
             </div>
           </form>
         </div>
@@ -176,16 +180,29 @@ export default {
 <style scoped>
 .container2 {
   height: 100vh;
+
+  }
+  .input-form2 {
+    margin-top: 50px;
+        text-align: center;
+        padding: 32px;
+  
+        background: #fff;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+      }
+#hero {
+  overflow: scroll;
+
+  max-height: 1100px;
 }
 
-.input-form2 {
-  margin-top: 50px;
-  text-align: center;
-  padding: 32px;
-
-  background: #fff;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+#hero::before {
+  height: 1100px;
 }
-</style>
+.btn-indo{
+  margin: 5px;
+}
+  </style>
+

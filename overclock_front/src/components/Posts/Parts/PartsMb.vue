@@ -1,4 +1,5 @@
 <template>
+
   <section id="services" class="services">
     <div class="container" data-aos="fade-up">
       <router-link to="/partsregister" class="btn btn-primary" v-if="(store.state.role == '1')">글쓰기</router-link>
@@ -6,6 +7,7 @@
       <div class="section-title">
         <p>MB</p>
       </div>
+
         <div class="row">
           <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)"
@@ -21,12 +23,7 @@
               <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
           </div>
-          <div>
-            <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
-              <label for="searching"><i class="bi bi-search"></i></label>
-              <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
-            </form>
-          </div>
+
 
         <div class="page">
           <ul class="pagination">
@@ -195,4 +192,7 @@ a {
   border: 1px solid rgb(102, 102, 102);
   border-radius: 10px;
 }
+#searching{
+    border: 1px solid black;
+  }
 </style>

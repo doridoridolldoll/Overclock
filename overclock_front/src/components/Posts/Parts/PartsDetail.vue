@@ -1,12 +1,14 @@
 <template>
   <section id="hero" class="d-flex justify-content-center">
     <body class="form-floating">
+
       <div class="container portfolio-details input-form">
         <div class="row gy-4">
           <div class="col-lg-8">
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
                 <div class="icon imgsize"><img v-bind:src="img" /></div>
+
               </div>
             </div>
           </div>

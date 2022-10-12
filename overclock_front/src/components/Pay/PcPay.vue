@@ -1,5 +1,7 @@
 <template>
      <button class="btn btn-primary mt-3 me-2 mb-3" style="float: right;" @click="PaymentBtn">구매</button>
+
+
 </template>
 
 <script>
