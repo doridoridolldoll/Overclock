@@ -14,25 +14,16 @@
 
               <div class="col-lg-4">
                 <div class="portfolio-info" >
-                  <h3>{{state.dtoList.title}}</h3>
-                  <ul>
-                    <li><strong>상품명</strong>: Web design</li>
-                    <li><strong>판매자</strong>: {{state.dtoList.memberId}}</li>
-                    <li><strong>등록일자</strong>: 01 March, 2020</li>
-                    <li><strong>위치</strong>: 부산광역시 <br>사하구</li>
-                    <li>
-                      <strong>가격</strong>:
-                      999,999,999
-                    </li>
-                  </ul>
+                  <h3>상품정보</h3>
+                  <UsedDetail2
+                    :dtoList="state.dtoList"
+                    :postsDetailId="state.postsDetailId"
+                  />
                 </div>
                 <div class="portfolio-info">
                   <ul>
                     <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
-                    
-                    <PcPay
-                      :price="state.price">
-                      </PcPay>
+
 
                   </ul>
                 </div>
@@ -44,11 +35,12 @@
                     {{state.dtoList.content}}
                     </p>
                 </div>
-                <div><h3>조회수 : {{state.dtoList.viewCount}}</h3></div>
-                
-                <router-link to="/partsModify" class="btn2 btn btn-primary">수정</router-link>
 
-                <Comment
+                
+                <router-link to="/partsModify" class="btn2 btn btn-primary"
+                  v-if="(state.usedDetailMemberId == state.memberId)">수정</router-link>
+
+                <UsedComment
               :dtoList="state.dtoList"
             />
           </div>
@@ -59,20 +51,24 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import { useStore } from 'vuex'
-import Comment from '../Comment/Comment.vue';
-import PcPay from '@/components/Pay/PcPay.vue';
+import UsedComment from '../Comment/UsedComment.vue';
+import UsedDetail2 from '@/components/Posts/Used/UsedDetail2.vue'
 export default {
-  components: { Comment, PcPay },
+  components: { UsedComment,UsedDetail2 },
     name: "UsedDetail",
     setup() {
+      const id = new URLSearchParams(window.location.search).get("id")
       const store = useStore();
         const state = reactive({
           price: '',
           dtoList: '',
-          memberId: null,
+          memberId: store.state.id,
           postsId: null,
           title: '',
           content: '',
+          postsDetailId: id,
+          usedDetailMemberId : store.state.dtoList.memberId,
+          
         });
 
         let list = store.state.dtoList;

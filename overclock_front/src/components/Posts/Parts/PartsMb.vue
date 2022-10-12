@@ -153,7 +153,7 @@ export default {
       }
     })
 
-    function Join(list, i) {
+    async function Join(list, i) {
 
       store.commit('setdtoList', ...[list]);
       store.commit("setPrice", ...[state.price[i]]);

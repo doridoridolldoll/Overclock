@@ -8,9 +8,9 @@
       v-model="state.repassword" required autofocus/>
     <div class="px-5 my-4">
       <button type="button" class="btn btn-outline-primary w-100" @click="change()">비밀번호 변경</button>
-
     </div>
-  </section>
+  </form>
+  </div>
 </template>
 <script>
 import { reactive } from "@vue/reactivity";
