@@ -122,6 +122,7 @@ export default {
         start: null,
         totalPage: null,
         partsType: "used",
+        itemDetail: "",
         price: [],
       });
       const url = "/api/getlist";
@@ -182,8 +183,11 @@ export default {
     category:"used"
   }
 
-  axios.post("/api/partsItemList", body, {headers}).then(function(){
-
+  axios.post("/api/partsItemList", body, {headers}).then(function(res){
+      for (let i = 0; i < res.data.length; i++) {
+        state.price[i] = res.data[i].price;
+        state.itemDetail = res.data[i].itemDetail;
+      }
   })
 
   function Join(list,i){

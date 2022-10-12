@@ -7,9 +7,8 @@
         </div>
       </div>
       <div>
-        <input type="text" placeholder="제목" class="form-control my-3 rounded-0 title form-floating" v-model="title"
-          id="title" required autofocus/>
-        <ckeditor @ready="onReady" :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+        <input type="text" placeholder="제목" class="form-control my-3 rounded-0 title form-floating" v-model="title"/>
+        <ckeditor @ready="onReady" :editor="editor" v-model="content" :config="editorConfig"></ckeditor>
         <div class="tagwarning" ref="warning"></div>
         <button class="btn btn-primary m-3" @click.prevent="submit">글 쓰기</button>
       </div>
@@ -55,36 +54,36 @@ export default {
     },
     submit: async function () {
       const page = {
-        atitle: this.title,
-        context: this.editorData,
-        userId: store.state.memberId,
-        token: store.state.token,
-        images: []
+        title: this.title,
+        content: this.content,
+        // userId: store.state.memberId,
+        // token: store.state.token,
+        // images: []
       }
         //find image name where in context
-        function findImageName(list) {
-          let bonary = list.split("/")
-          let filenames = new Array
+        // function findImageName(list) {
+        //   let bonary = list.split("/")
+        //   let filenames = new Array
 
-          for (let i in bonary) {
-            if (bonary[i].split("-").length == 5) {
-              let tmp = bonary[i].slice(0, bonary[i].indexOf('>\n<') - 1)
-              if (tmp.split('"')[2] != "YouTube video player") {
-                filenames.push({
-                  fileName: tmp
-                })
-              }
-            }
-          }
-          return filenames
-        }
-        page.images = findImageName(page.context)
+        //   for (let i in bonary) {
+        //     if (bonary[i].split("-").length == 5) {
+        //       let tmp = bonary[i].slice(0, bonary[i].indexOf('>\n<') - 1)
+        //       if (tmp.split('"')[2] != "YouTube video player") {
+        //         filenames.push({
+        //           fileName: tmp
+        //         })
+        //       }
+        //     }
+        //   }
+        //   return filenames
+        // }
+        // page.images = findImageName(page.context)
         let result = JSON.stringify(page)
-        const url = store.state.axiosLink + "/api/article/write"
+        const url = "/register/posting"
         const headers = {
           "Content-Type": "application/json; charset=utf-8",
           "Authorization": store.state.token,
-          "userid": store.state.memberId
+          "id": store.state.memberId
         }
         const body = result
         await axios.post(url, body, { headers }).then(function (res) {

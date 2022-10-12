@@ -34,7 +34,7 @@
               <p style="font-size: x-large;">{{state.dtoList.content}}</p>
             </div>
 
-            <Comment
+            <PeriComment
               :dtoList="state.dtoList"
             />
           </div>
@@ -46,11 +46,11 @@
 import { useStore } from 'vuex'
 import { reactive } from '@vue/reactivity';
 import PeriDetail2 from '@/components/Posts/Peripherals/PeriDetail2.vue'
-import Comment from '@/components/Posts/Comment/Comment.vue';
+import PeriComment from '@/components/Posts/Comment/PeriComment.vue';
 
 import axios from 'axios';
   export default {
-  components: { Comment,PeriDetail2},
+  components: { PeriComment,PeriDetail2},
 
       name: 'PeriDetail',
       setup(){
@@ -110,7 +110,6 @@ import axios from 'axios';
 
 
         return {state,img,add};
-    }
 
   }
 

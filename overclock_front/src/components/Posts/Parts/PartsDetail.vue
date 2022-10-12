@@ -95,7 +95,6 @@ import axios from 'axios';
             price: state.price*state.count,
             count: state.count,
             imgUrl: state.imgUrl,
-
           }
           if(state.memberId == 0){
             alert("로그인 후 사용가능합니다");
@@ -108,11 +107,11 @@ import axios from 'axios';
               alert("장바구니에 담았습니다 ")
             })
         }
-        return {state,img,add};
-    }
+
+      
+    return { state, img, add };
   }
-
-
+}
 
 </script>
 <style scoped>
