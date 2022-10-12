@@ -8,7 +8,7 @@
       </div>
       <div>
         <input type="text" placeholder="제목" class="form-control my-3 rounded-0 title form-floating" v-model="title"
-          id="title" />
+          id="title" required autofocus/>
         <ckeditor @ready="onReady" :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
         <div class="tagwarning" ref="warning"></div>
         <button class="btn btn-primary m-3" @click.prevent="submit">글 쓰기</button>

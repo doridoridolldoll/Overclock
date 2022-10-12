@@ -31,11 +31,9 @@
               <input type="text" class="form-control" v-model="state.phone" id="phone" readonly>
               <div class="invalid-feedback">
               </div>
-              <!-- </div>
-                <button class="btn btn-primary btn-lg btn-block" @click="modify" >수정</button>
-                <div> -->
-              <button @click="handleClick2">내정보 수정</button><br><br>
-              <button @click="handleClick">비밀번호 수정</button>
+              <br><br>
+              <button class="btn btn btn-primary" @click="handleClick2">내정보 수정</button><br><br>
+              <button class="btn btn btn-primary" @click="handleClick">비밀번호 수정</button>
               <Modal ref="modal" />
               <ProfileModal ref="profileModal"/>
             </div>

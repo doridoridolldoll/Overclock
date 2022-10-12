@@ -1,5 +1,6 @@
 <template>
   <section id="hero" class="d-flex justify-content-center">
+
     <body class="form-floating">
           <div class="container portfolio-details input-form">
             <div class="row gy-4">
@@ -38,7 +39,6 @@
 
 <script>
 import { useStore } from 'vuex'
-// import {useRoute} from 'vue-router'
 import { reactive } from '@vue/reactivity';
 import PeriDetail2 from '@/components/Posts/Peripherals/PeriDetail2.vue'
 import Comment from '@/components/Posts/Comment/Comment.vue';
@@ -104,6 +104,14 @@ import axios from 'axios';
 
         return {state,img,add};
     }
+
+    const displayUrl = "/display";
+    const url = `http://localhost:9090${displayUrl}`;
+    let img = "";
+    img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+    // // console.log(list.imageDTOList);
+    return { state, img, add };
+  }
 }
 
 </script>
@@ -124,25 +132,32 @@ import axios from 'axios';
 
   word-break: break-all;
 }
+
 #hero h2 {
   color: rgb(0, 0, 0);
 }
-.col-lg-8{
+
+.col-lg-8 {
   max-height: 40vh;
 }
-p{
+
+p {
   margin-bottom: 1rem;
 }
-#hero:before{
+
+#hero:before {
   height: 2000px;
 }
-#hero{
-    overflow: scroll;
+
+#hero {
+  overflow: scroll;
 }
-.btn1{
+
+.btn1 {
   margin-right: 10px;
 }
-.btn2{
+
+.btn2 {
   margin-right: 10px;
 }
 </style>

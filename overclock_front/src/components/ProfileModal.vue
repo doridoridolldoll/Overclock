@@ -14,9 +14,7 @@
     </div>
     <div class="buttons-container">
       <button class="btn btn-primary btn-lg btn-block" @click="check">수정</button>
-    </div>
-    <div>
-      <button class="btn cancel" @click="cancel">취소</button>
+      <button class="btn btn-primary btn-lg btn-block" @click="cancel">취소</button>
     </div>
   </MyModal>
 </template>

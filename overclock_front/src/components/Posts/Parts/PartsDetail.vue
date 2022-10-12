@@ -6,7 +6,7 @@
           <div class="col-lg-8">
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
-                  <div class="icon imgsize"><img v-bind:src="img"/></div>
+                <div class="icon imgsize"><img v-bind:src="img" /></div>
               </div>
             </div>
           </div>
@@ -20,10 +20,8 @@
             <button class="btn1 btn btn-primary"  v-if="(state.role != '1')" @click="add">담기</button>
             <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary">수정</router-link>
             </div>
-
           </div>
         </div>
-
         <div class="portfolio-description">
           <h2>제품상세</h2>
           <p style="font-size: x-large;">{{state.dtoList.content}}</p>
@@ -41,8 +39,8 @@ import { useStore } from 'vuex'
 import { reactive } from '@vue/reactivity';
 import Comment from '@/components/Posts/Comment/Comment.vue';
 import PartsDetail2 from '@/components/Posts/Parts/PartsDetail2.vue'
-// import PcPay from '@/components/Pay/PcPay.vue';
 import axios from 'axios';
+
   export default {
   components: { Comment, PartsDetail2},
       name: 'PartsDetail',
@@ -110,6 +108,8 @@ import axios from 'axios';
         }
         return {state,img,add};
     }
+    return { state, img, add };
+  }
 }
 
 
@@ -131,32 +131,37 @@ import axios from 'axios';
 
   word-break: break-all;
 }
+
 #hero h2 {
   color: rgb(0, 0, 0);
 }
-.col-lg-8{
+
+.col-lg-8 {
   max-height: 40vh;
 }
-p{
+
+p {
   margin-bottom: 1rem;
 }
-#hero:before{
+
+#hero:before {
   height: 2000px;
 }
-#hero{
-    overflow: scroll;
+
+#hero {
+  overflow: scroll;
 }
-.btn1{
+
+.btn1 {
   margin-right: 10px;
 }
 
-a{
-    text-decoration-line: none;
-  }
+a {
+  text-decoration-line: none;
+}
 
-.imgsize{
+.imgsize {
   width: 300px;
   height: 300px;
 }
-
 </style>

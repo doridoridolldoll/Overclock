@@ -31,27 +31,20 @@
       </div>
     </div>
     <div style="text-align: center">
-      <div
-        class="fixed-bottom"
-        style="
+      <div class="fixed-bottom" style="
           margin: 0 auto;
           background-color: white;
           width: 1000px;
           position: absolute;
           vertical-align: middle;
-        "
-      >
+        ">
         <h2 class="mt-3" style="float: left; width: 33%; font-size: 30px; font-weight: 600">
           총 금액: {{ state.totalPrice }} 원
         </h2>
         <h2 class="mt-3" style="float: left; width: 33%; font-size: 30px; font-weight: 600">
           선택한 금액: {{ state.checkPrice }} 원
         </h2>
-        <button
-          class="btn btn-danger mt-3 me-3"
-          style="float: right"
-          @click="cartDelete"
-        >
+        <button class="btn btn-danger mt-3 me-3" style="float: right" @click="cartDelete">
           삭제
         </button>
         <div class="portfolio-info">
@@ -76,14 +69,14 @@ import PcPay from '@/components/Pay/PcPay.vue';
 // import axios from 'axios';
 export default {
   name: "ToCart",
-  components: { PcPay},
+  components: { PcPay },
   setup() {
-    
-  const id = new URLSearchParams(window.location.search).get("id")
-   const state = reactive({
+
+    const id = new URLSearchParams(window.location.search).get("id")
+    const state = reactive({
       id: "",
       img: [],
-	    dtoList: [],
+      dtoList: [],
       end: null,
       next: null,
       page: null,
@@ -94,9 +87,9 @@ export default {
       totalPage: null,
       price: [],
       memberId: id,
-      imgUrl:[],
-      totalPrice : 0,
-      cartId : [],
+      imgUrl: [],
+      totalPrice: 0,
+      cartId: [],
       checkPrice: 0,
       checkList : [],
    })
@@ -157,22 +150,21 @@ console.log(state.cartId);
       state.checkList[i] = ""
       console.log(state.checkList);
     }
-  }
 
-  function cartDelete(){
-    const url = "/api/cart/delete"
-    // const body = {
-    //   cartId: state.cartId
-    // }
-    console.log(body);
-    axios.post(url, state.cartId, { headers }).then(function (res) {
-      alert("해당 제품이 장바구니에서 삭제 되었습니다.")
-      console.log(res);
-    })
+    function cartDelete() {
+      const url = "/api/cart/delete"
+      // const body = {
+      //   cartId: state.cartId
+      // }
+      console.log(body);
+      axios.post(url, state.cartId, { headers }).then(function (res) {
+        alert("해당 제품이 장바구니에서 삭제 되었습니다.")
+        console.log(res);
+      })
+    }
+    return { state, checked, cartDelete }
   }
-   return {state, checked,cartDelete}
-  }
-  }
+}
 </script>
 
 <style scoped>
@@ -203,15 +195,19 @@ overflow: scroll;
 #hero:before {
   height: 2000px;
 }
+
 #hero {
   /* overflow: scroll; */
 }
+
 #hero h2 {
   color: black;
 }
+
 .ch {
   float: left;
 }
+
 .btn-danger {
   margin-right: 10px;
 }

@@ -29,7 +29,6 @@ public class SendEmailServiceimpl implements SendEmailService {
     private final MemberRepository memberRepository;
 
     private final JavaMailSender mailSender;
-    private final PasswordEncoder encoder;
 
     public MailDTO createMailAndChangePassword(String email){
         String str = getTempPassword(); //임시번호생성
@@ -41,7 +40,6 @@ public class SendEmailServiceimpl implements SendEmailService {
         dto.setMessage("안녕하세요. OVERCLOCK 임시비밀번호 안내 관련 이메일 입니다." + "[" + email + "]" +"님의 임시 비밀번호는 "
                 + str + " 입니다.");
         dto.setTempPass(str);
-        updatePassword(str,email);
         return dto;
     }
     public MailDTO createMail(String email){
@@ -52,20 +50,8 @@ public class SendEmailServiceimpl implements SendEmailService {
         dto.setTitle(email+"님의 OVERCLOCK 인증번호 안내 이메일 입니다.");
         dto.setMessage("안녕하세요. OVERCLOCK 인증번호 안내 관련 이메일 입니다." + "[" + email + "]" +"님의 인증번호는 "
                 + str + " 입니다.");
-        dto.setKey(str);
+        dto.setKeys(str);
         return dto;
-    }
-
-    public String updatePassword(String str,String email){
-
-        log.info("str : " + str);
-        log.info("email : " + email);
-//        Long id = memberRepository.findUserById(email).get().getId();
-//        log.info("id : " + id);
-        log.info("password : " + str);
-//        memberRepository.updateUserPassword(em,str);
-
-        return str;
     }
 
     public String getTempPassword(){

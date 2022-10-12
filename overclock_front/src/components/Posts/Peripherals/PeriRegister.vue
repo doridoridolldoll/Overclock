@@ -1,22 +1,22 @@
 <template>
     <section id="hero" class="d-flex align-items-center justify-content-center">
-        <form class="form-floating input-form9 " @submit.prevent>
+        <form class="form-floating input-form9 validation-form" @submit.prevent>
             <h5 class="mt-4">주변기기 거래 등록</h5>
             <div class="form-group">
                 <label>상품명</label>
-                <input type="text" v-model="state.title" ref="title" class="form-control">
+                <input type="text" v-model="state.title" ref="title" class="form-control" required autofocus>
             </div>
             <div class="form-group">
                 <label>제품상세</label>
-                <textarea class="form-control" v-model="state.content" ref="item_detail" rows="5" name="item_detail"></textarea>
+                <textarea class="form-control" v-model="state.item_detail" ref="item_detail" rows="5" name="item_detail" required autofocus></textarea>
             </div>
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class="form-control" v-model="state.price" ref="price" rows="5" name="price">
+                <input type="text" class="form-control" v-model="state.price" ref="price" rows="5" name="price" required autofocus>
             </div>
             <div class="form-group">
                 <label>수량</label>
-                <input type="text" class="form-control" v-model="state.stock" ref="stock" name="stock" placeholder="stock">
+                <input type="text" class="form-control" v-model="state.stock" ref="stock" name="stock" placeholder="stock" required autofocus>
             </div>
             <div class="box"></div>
             <FileUpload />

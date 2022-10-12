@@ -7,13 +7,15 @@
           <h4 class="mb-3">내정보</h4>
           <form class="validation-form" @submit.prevent>
             <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="nickname">닉네임</label>
-                <input type="text" class="form-control" v-model="state.nickname" id="nickname">
-                <div class="invalid-feedback">
-                </div>
+              <div class="form-group">
+                <label for="nickname">닉네임</label><br><br>
               </div>
-              <button @click="change">내 정보 수정</button>
+              <div>
+                <input type="text" class="form-control" v-model="state.nickname" ref="nickname" id="nickname">
+              </div>
+              <div>
+                <button class="btn btn-primary" @click="change">내 정보 수정</button>
+              </div>
             </div>
           </form>
         </div>
@@ -23,7 +25,7 @@
 </template>
 
 <script>
-import { reactive , ref} from '@vue/reactivity'
+import { reactive, ref } from '@vue/reactivity'
 import axios from 'axios'
 import router from '@/router'
 import store from '@/store'
@@ -58,7 +60,7 @@ export default {
       }
       router.push({ name: "Main" })
     }
-    return { change, state , nickname}
+    return { change, state, nickname }
   }
 }
 
