@@ -35,8 +35,8 @@
                 <button class="btn btn-primary btn-lg btn-block" @click="modify" >수정</button>
                 <div> -->
 
-              <button @click="handleClick2">내정보 수정</button><br><br>
-              <button @click="handleClick">비밀번호 수정</button>
+              <button class="btn btn-info mt-3" @click="handleClick2">내정보 수정</button><br><br>
+              <button class="btn btn-info" @click="handleClick">비밀번호 수정</button>
               <Modal ref="modal" />
               <ProfileModal ref="profileModal"/>
 
@@ -201,6 +201,8 @@ export default {
 #hero::before {
   height: 1100px;
 }
-  
+.btn-indo{
+  margin: 5px;
+}
   </style>
 

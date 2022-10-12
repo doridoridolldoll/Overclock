@@ -422,7 +422,8 @@ public class ApiController {
     public ResponseEntity<String> profileChange(@RequestBody MemberDTO memberDTO) {
         log.info("memberDTO {}", memberDTO);
         String newProfile = memberService.profileChange(memberDTO);
-        return new ResponseEntity<>(newProfile,HttpStatus.OK);
+        return new ResponseEntity<>(newProfile, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/cart/delete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> cartDelete(@RequestBody int[] a) {

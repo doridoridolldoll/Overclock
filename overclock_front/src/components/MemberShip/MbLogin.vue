@@ -49,7 +49,7 @@ export default {
                 return false;
             }
             const url2 = "/api/crn";
-
+            const headers = { "Content-Type": "application/json; charset=utf-8;" };
             const body2 = { 
               email: state.form.email,
               };

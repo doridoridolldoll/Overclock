@@ -13,10 +13,8 @@
       </form>
     </div>
     <div class="buttons-container">
-      <button class="btn btn-primary btn-lg btn-block" @click="check">수정</button>
-    </div>
-    <div>
-      <button class="btn cancel" @click="cancel">취소</button>
+      <button class="btn btn-primary mr-2" @click="check">수정</button>
+      <button class="btn btn-warning" @click="cancel">취소</button>
     </div>
   </MyModal>
 </template>
@@ -99,3 +97,17 @@ export default {
   }
 };
 </script>
+<style scoped>
+.buttons-container{
+  text-align: center;
+}
+.btn-primary{
+  margin-right: 10px;
+}
+.validation-form{
+  text-align: center;
+}
+.modal-container{
+  border-radius: 10px;
+}
+</style>

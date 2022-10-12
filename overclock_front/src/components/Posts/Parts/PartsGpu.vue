@@ -21,9 +21,8 @@
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
               <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{list.id}}</h4></span>
-              <span><h5>판매가 4,800,000원</h5></span>
-              <span><h5>할인가 4,300,000원</h5></span>
+              <span><h4>{{state.itemDetail}}</h4></span>
+              <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
             </a>
           </div>

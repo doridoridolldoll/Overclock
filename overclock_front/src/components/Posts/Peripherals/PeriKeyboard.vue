@@ -1,7 +1,7 @@
 <template>
     <section id="services2" class="services">
       <div class="container" data-aos="fade-up">
-        <router-link to="/partsregister" class="btn btn-primary" style="float:right;" v-if="(store.state.role == '1')">글쓰기</router-link>
+        <router-link to="/periregister" class="btn btn-primary" style="float:right;" v-if="(store.state.role == '1')">글쓰기</router-link>
         <div>
             <form class="searching-area d-flex align-items-center gap-1 w-50 mt-3" @submit.prevent="searchingAxios()">
               <label for="searching"><i class="bi bi-search btn btn-primary"></i></label>
@@ -21,9 +21,8 @@
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
               <br><br><br><br><br>
               <h3><a href="" style="width:292px;" >{{list.title}}</a></h3>
-              <span><h4>{{list.memberId}}</h4></span>
-              <span><h5>판매가 4,800,000원</h5></span>
-              <span><h5>할인가 4,300,000원</h5></span>
+              <span><h4>{{state.itemDetail}}</h4></span>
+              <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
           </a>
           </div>
@@ -49,7 +48,6 @@ import { useRouter } from "vue-router";
 import { useMeta } from "vue-meta";
 export default {
   name: 'PeriKeyboard',
-  props: [  ],
   setup(){
     const store = useStore();
     const router = useRouter()
@@ -150,8 +148,11 @@ function searchingAxios(){
   }
 
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
-    store.state.price = res.data[0].price;
-  })
+    for (let i = 0; i < res.data.length; i++) {
+      state.price[i] = res.data[i].price;
+      state.itemDetail = res.data[i].itemDetail;
+    }
+    })
 
   function Join(list,i){
     store.commit('setdtoList', ...[list]);
