@@ -4,18 +4,15 @@
     <h4 class="mb-3">업체 회원가입</h4>
     <form class="validation-form" @submit.prevent>
       <div class="mb-3">
-        <label for="name">회사명</label>
-        <input type="text" class="form-control" v-model="state.cpName" id="copname" placeholder="" required>
-        <div class="invalid-feedback">
-          회사명을 입력해주세요.
-        </div>
+        <label for="name"></label>
+        <input type="text" class="form-control" v-model="state.cpName" id="copname" placeholder="회사이름" required autofocus>
       </div>
       <div class="mb-3">
-        <label for="email">이메일</label>
-        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="you@example.com">
-        이메일을 입력해주세요.
+        <label for="email"></label>
+        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일"
+        required autofocus >
       </div>
-      <button @click="emailVali()" class="btn btn-outline-primary w-100">
+      <button @click="emailVali()" class="btn btn-outline-primary w-100" v-if="(state.ch2 == 0)">
         이메일 중복 확인
       </button>
       <button @click="emailCheck()" class="btn btn-outline-primary w-100" v-if="(state.ch == 1)">
@@ -23,62 +20,40 @@
       </button>
       <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email" />
       <div class="mb-3">
-        <label for="copcode">사업자등록번호</label>
-        <input type="copcode" class="form-control" v-model="state.cpCode" id="copcode" placeholder="" required>
-        <div class="invalid-feedback">
-          사업자등록번호를 입력해주세요.
-        </div>
+        <label for="copcode"></label>
+        <input type="copcode" class="form-control" v-model="state.cpCode" id="copcode" placeholder="사업자등록번호" required autofocus>
       </div>
 
       <div class="mb-3">
-        <label for="password">비밀번호</label>
-        <input type="password" class="form-control" v-model="state.cpPw" id="coppassword">
-        <div class="invalid-feedback">
-          비밀번호를 입력해주세요.
-        </div>
+        <label for="password"></label>
+        <input type="password" class="form-control" v-model="state.cpPw" id="coppassword" placeholder="비밀번호" required autofocus>
       </div>
 
       <div class="mb-3">
-        <label for="repassword">비밀번호확인</label>
-        <input type="password" class="form-control" v-model="state.reCpPw" id="recoppassword">
-        <div class="invalid-feedback">
-          비밀번호를 입력해주세요.
-        </div>
+        <label for="repassword"></label>
+        <input type="password" class="form-control" v-model="state.reCpPw" id="recoppassword" placeholder="비밀번호 확인" required autofocus>
       </div>
 
       <div class="mb-3">
-        <label for="phone">전화번호</label>
-        <input type="text" class="form-control" v-model="state.cpPhone" id="copphone" placeholder="010-0000-0000"
-          required>
-        <div class="invalid-feedback">
-          전화번호를 입력해주세요.
-        </div>
+        <label for="phone"></label>
+        <input type="text" class="form-control" v-model="state.cpPhone" id="copphone" placeholder="전화번호 예) 010-8009-4125"
+        required autofocus>
       </div>
 
       <div class="mb-3">
-        <label for="city">도시</label>
-        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="부산광역시 사하구" required>
-        <div class="invalid-feedback">
-          도시를 입력해주세요.
-        </div>
+        <label for="city"></label>
+        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구" required autofocus>
       </div>
 
       <div class="mb-3">
-        <label for="street">도로명</label>
-        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="낙동대로123번길" required>
-        <div class="invalid-feedback">
-          도로명 주소를 입력해주세요.
-        </div>
+        <label for="street"></label>
+        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길" required autofocus>
       </div>
 
       <div class="mb-3">
-        <label for="zipcode">우편번호</label>
-        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="12345" required>
-        <div class="invalid-feedback">
-          우편번호를 입력해주세요.
-        </div>
+        <label for="zipcode"></label>
+        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345" required autofocus>
       </div>
-
 
       <hr class="mb-4">
       <div class="custom-control custom-checkbox">
@@ -114,7 +89,10 @@ export default {
       city: '',
       street: '',
       zipcode: '',
+      keys: '',
       change: 0,
+      ch: 0,
+      ch2: 0
     })
 
     const emailCheck = () => {
@@ -122,7 +100,6 @@ export default {
       state.change = 1;
       if (state.email === "") {
         alert("이메일을 입력해주세요");
-        state.email.value.focus();
         return false;
       }
       const url = "/api/passFind";
@@ -138,15 +115,18 @@ export default {
           alert("이미 존재하는 이메일입니다.")
           state.change = 0;
         } else if (res.data != "" || res.data.email != state.email) {
+          state.ch2 = 1;
           console.log(typeof (res.data));
           alert("입력하신 이메일로 인증번호가 발송되었습니다.");
+          document.getElementById('email').readOnly = true;
           axios.post("/api/join/emailCheck", body, { headers }).then(function (res) {
             console.log("---------------------------");
             console.log(res);
-            console.log(res.data.key);
-            state.key = res.data.key;
+            console.log(res.data.keys);
+            state.keys = res.data.keys;
             state.emailVal = res.data.email;
           });
+          state.ch = 0;
         } else {
           alert("존재하지 않는 이메일입니다");
         }
@@ -158,7 +138,7 @@ export default {
       const headers = { "Content-Type": "application/json; charset=utf-8;" }
       console.log(state.email)
       console.log("===============")
-      const body = { email: state.email };
+      const body = { email: state.email };  
       console.log(state.email);
       await axios.post(url, body, { headers }).then(function (res) {
         if (res.data.validate === true) {

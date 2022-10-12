@@ -3,12 +3,8 @@
         <form class="form-floating input-form9 validation-form" @submit.prevent>
             <h5 class="mt-4">중고 거래 등록</h5>
             <div class="form-group">
-                <label>Title</label>
+                <label>제목</label>
                 <input type="text" class="form-control" v-model="state.title" placeholder="Enter Title" required autofocus>
-            </div>
-            <div class="form-group">
-                <label>상품명</label>
-                <input type="text" class="form-control">
             </div>
             <div class="form-group">
                 <label>상세내용</label>
@@ -16,7 +12,7 @@
             </div>
             <div class="form-group">
                 <label>가격</label>
-                <input type="text" class="form-control" v-model="state.price" rows="5" name="itemDetail" required autofocus>
+                <input type="text" class="form-control" v-model="state.price" rows="5" name="price" required autofocus>
             </div>
             <div class="form-group">
                 <label>수량</label>
@@ -26,8 +22,6 @@
             <FileUpload />
 
             <input type="hidden" class="form-control" v-model="state.type" name="type" placeholder="type" required autofocus><br>
-
-
             <button class="btn btn-primary btn7" @click="joinHandler">등록</button>
         </form>
     </section>

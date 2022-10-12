@@ -28,10 +28,8 @@
           <h2>제품상세</h2>
           <p style="font-size: x-large;">{{state.dtoList.content}}</p>
         </div>
-        <Comment
-          :dtoList="state.dtoList"/>
+        <Comment :dtoList="state.dtoList" />
       </div>
-
     </body>
   </section>
 </template>
@@ -43,72 +41,70 @@ import Comment from '@/components/Posts/Comment/Comment.vue';
 import PartsDetail2 from '@/components/Posts/Parts/PartsDetail2.vue'
 import axios from 'axios';
 
-  export default {
-  components: { Comment, PartsDetail2},
-      name: 'PartsDetail',
-      setup(){
-       
-        const id = new URLSearchParams(window.location.search).get("id")
-        const store = useStore();
-        const state = reactive({
-          companyName : '',
-          regDate: '',
-          title: '',
-          price: '',
-          count: '',
-          imgUrl: '',
-          dtoList: '',
-          postsId: null,
+export default {
+components: { Comment, PartsDetail2},
+  name: 'PartsDetail',
+  setup(){
 
-          memberId: store.state.id,
-          partsDetailMemberId : store.state.dtoList.memberId,
-          role : '',
-          partsDetailId : id
+    const id = new URLSearchParams(window.location.search).get("id")
+    const store = useStore();
+    const state = reactive({
+      companyName : '',
+      regDate: '',
+      title: '',
+      price: '',
+      count: '',
+      imgUrl: '',
+      dtoList: '',
+      postsId: null,
 
-        });
-      
-        let list = store.state.dtoList;
-        state.dtoList = store.state.dtoList;
-        state.price =store.state.price;
-        state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
-        state.title = state.dtoList.title;
-        state.role = store.state.role;
+      memberId: store.state.id,
+      partsDetailMemberId : store.state.dtoList.memberId,
+      role : '',
+      partsDetailId : id
 
-        const displayUrl = "/display";
-        const url = `http://localhost:9090${displayUrl}`;
-        let img = "";
-        img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
-        // // console.log(list.imageDTOList);
+    });
+
+    let list = store.state.dtoList;
+    state.dtoList = store.state.dtoList;
+    state.price =store.state.price;
+    state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
+    state.title = state.dtoList.title;
+    state.role = store.state.role;
+
+    const displayUrl = "/display";
+    const url = `http://localhost:9090${displayUrl}`;
+    let img = "";
+    img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+    // // console.log(list.imageDTOList);
 
 
 
-        //장바구니 담기
+    //장바구니 담기
 
-        function add(){
-          const url = "/register/cartAdd";
-          const headers = {
-            "Content-Type": "application/json"
-          };
-          const body = {
-            memberId : state.memberId,
-            cartName: state.title,
-            price: state.price*state.count,
-            count: state.count,
-            imgUrl: state.imgUrl,
-          }
-          if(state.memberId == 0){
-            alert("로그인 후 사용가능합니다");
-            return;
-          }
-          axios.post(url, body, { headers })
-            .then(function(res){
-              console.log("===========================")
-              console.log(res)
-              alert("장바구니에 담았습니다 ")
-            })
-        }
-
-      
+    function add(){
+      const url = "/register/cartAdd";
+      const headers = {
+        "Content-Type": "application/json"
+      };
+      const body = {
+        memberId : state.memberId,
+        cartName: state.title,
+        price: state.price*state.count,
+        count: state.count,
+        imgUrl: state.imgUrl,
+      }
+      if(state.memberId == 0){
+        alert("로그인 후 사용가능합니다");
+        return;
+      }
+      axios.post(url, body, { headers })
+        .then(function(res){
+          console.log("===========================")
+          console.log(res)
+          alert("장바구니에 담았습니다 ")
+        })
+    }
     return { state, img, add };
   }
 }

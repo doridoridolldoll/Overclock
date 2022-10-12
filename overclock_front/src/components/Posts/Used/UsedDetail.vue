@@ -11,7 +11,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="col-lg-4">
                 <div class="portfolio-info" >
                   <h3>상품정보</h3>
@@ -23,8 +22,6 @@
                 <div class="portfolio-info">
                   <ul>
                     <li><strong>수량</strong>: <input type="number" value="1" min="1" max="999"></li>
-
-
                   </ul>
                 </div>
               </div>
@@ -35,11 +32,8 @@
                     {{state.dtoList.content}}
                     </p>
                 </div>
-
-                
                 <router-link to="/partsModify" class="btn2 btn btn-primary"
                   v-if="(state.usedDetailMemberId == state.memberId)">수정</router-link>
-
                 <UsedComment
               :dtoList="state.dtoList"
             />
