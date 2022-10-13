@@ -92,7 +92,7 @@ export default {
       size: null,
       start: null,
       totalPage: null,
-      partsType: "mb",
+      partsType: "MB",
       price: [],
       itemDetail: "", //제품상세
     });
@@ -151,9 +151,8 @@ export default {
       }
     };
     const body = {
-      category: "mb"
+      partsType: state.partsType
     }
-
     axios.post("/api/partsItemList", body, { headers }).then(function (res) {
       for (let i = 0; i < res.data.length; i++) {
         state.price[i] = res.data[i].price;

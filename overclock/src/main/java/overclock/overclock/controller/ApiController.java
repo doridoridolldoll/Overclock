@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Cart;
 import overclock.overclock.entity.Comment;
+import overclock.overclock.entity.Item;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
 import overclock.overclock.service.*;
@@ -91,7 +92,7 @@ public class ApiController {
      */
     @RequestMapping(value = "/partsItemList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ItemDTO>> partsItemList(@RequestBody ItemDTO dto) {
+    public ResponseEntity<List<ItemDTO>> partsItemList(@RequestBody PostsDTO dto) {
         List<ItemDTO> result = itemService.partsItemList(dto);
         log.info("csacacsacsac : {}", dto);
         return new ResponseEntity<>(result, HttpStatus.OK);

@@ -160,7 +160,7 @@ public class MemberServiceImpl implements MemberService {
         Long memberId = result.get().getMember().getId();
         log.info("member Id : {}", memberId);
         Optional<Member> result2 = memberRepository.findById2(memberId);
-        log.info("findById2 result : {}", result);
+        log.info("findById2 resultasdasdasdasd : {}", result2);
         if (result2.isEmpty()) {
             return null;
         }

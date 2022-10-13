@@ -2,20 +2,15 @@ package overclock.overclock.service;
 
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Item;
-import overclock.overclock.entity.ItemImg;
-import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public interface ItemService {
 
     Long itemPosting(ItemDTO itemDTO);
 
-    List<ItemDTO> partsItemList(ItemDTO itemDTO);
+    List<ItemDTO> partsItemList(PostsDTO postsDTO);
 
     default Item dtoToEntity(ItemDTO dto){
         Posts posts = Posts.builder()

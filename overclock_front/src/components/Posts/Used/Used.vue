@@ -138,20 +138,7 @@ export default {
                   state.totalPage = res.data.totalPage;
           });
       }
-      axios.post(url, { page: 1, category: "used" }, { headers })
-          .then(function (res) {
-          console.log(res);
-          state.dtoList = res.data.dtoList,
-            state.end = res.data.end,
-            state.next = res.data.next,
-            state.page = res.data.page,
-            state.pageList = res.data.pageList,
-            state.prev = res.data.prev,
-            state.size = res.data.size,
-            state.start = res.data.start,
-            state.totalPage = res.data.totalPage;
-        });
-    }
+
     axios.post(url, { page: 1, category: "used" }, { headers })
       .then(function (res) {
         console.log(res);

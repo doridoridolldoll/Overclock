@@ -136,7 +136,7 @@ function searchingAxios(){
       }
     };
     const body = {
-      category:"mouse"
+      partsType:"mouse"
     }
 
   axios.post("/api/partsItemList", body, {headers}).then(function(res){

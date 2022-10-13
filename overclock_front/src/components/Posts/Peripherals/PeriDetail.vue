@@ -17,7 +17,7 @@
 
                   <PeriDetail2
                     :dtoList="state.dtoList"
-                    :partsDetailId="state.partsDetailId"/>
+                    :periDetailId="state.periDetailId"/>
                     <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
                 <button class="btn1 btn btn-primary mt-3"  v-if="(state.role != '1')" @click="add">담기</button>
                 <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary mt-3">수정</router-link>
