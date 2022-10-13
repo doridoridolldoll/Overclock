@@ -21,8 +21,6 @@
 
               <br><br>
               <h3>{{list.title}}</h3>
-              <span>{{list.content}}</span>
-
               <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
           </div>

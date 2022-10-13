@@ -1,7 +1,6 @@
 <template>
   <section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container2" data-aos="fade-up">
-
       <div class="container">
         <div class="input-form2 col-md-12 mx-auto">
           <h4 class="mb-3">내정보</h4>
@@ -31,15 +30,10 @@
               <input type="text" class="form-control" v-model="state.phone" id="phone" readonly>
               <div class="invalid-feedback">
               </div>
-
-
-
               <button class="btn btn-info mt-3" @click="handleClick2">내정보 수정</button><br><br>
               <button class="btn btn-info" @click="handleClick">비밀번호 수정</button>
-
               <Modal ref="modal" />
-              <ProfileModal ref="profileModal"/>
-
+              <ProfileModal ref="profileModal" />
             </div>
           </form>
         </div>
@@ -115,47 +109,7 @@ export default {
     })
     const modify = async () => {
       const url = '/api/mModify/send'
-
-
-      console.log(body)
-      // if (state.email === '') {
-      // alert('이메일을 입력해주세요'); 
-      // state.email.value.focus(); return false;
-      // } else if (!(state.email.includes("@") && state.email.includes("."))) {
-      // alert('이메일 양식이 맞지 않습니다.'); 
-      // state.email.value.focus(); return false;
-      // } else if (state.password === '') {
-      // alert('비밀번호를 입력해주세요'); 
-      // state.password.value.focus(); return false;
-      // } else if (state.repassword === '') {
-      // alert('비밀번호를 입력해주세요'); 
-      // state.repassword.value.focus(); return false;
-      // } else if (state.name === '') {
-      // alert('이름을 입력해주세요'); 
-      // state.nickname.value.focus(); return false;
-      // } else if (state.nickname === '') {
-      // alert('닉네임을 입력해주세요'); 
-      // state.name.value.focus(); return false;
-      // } else if (state.phone === '') {
-      // alert('전화번호를 입력해주세요'); 
-      // state.phone.value.focus(); return false;
-      // } else if (state.city === '') {
-      // alert('도시명을 입력해주세요'); 
-      // state.city.value.focus(); return false;
-      // } else if (state.street === '') {
-      // alert('도로명주소를 입력해주세요'); 
-      // state.street.value.focus(); return false;
-      // } else if (state.zipcode === '') {
-      // alert('우편번호를 입력해주세요'); 
-      // state.zipcode.value.focus(); return false;
-      // } else if (state.password != state.repassword) {
-      // alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요');
-      // state.password.value.value = ''; 
-      // state.repassword.value.value = '';
-      // state.password.value.focus(); return false;
-      // }
       const response = await axios.post(url, body, { headers })
-      // console.log(response.data)
       if (response.status === 200) {
         alert('회원정보가 수정되었습니다.');
       } else {
@@ -181,17 +135,19 @@ export default {
 .container2 {
   height: 100vh;
 
-  }
-  .input-form2 {
-    margin-top: 50px;
-        text-align: center;
-        padding: 32px;
-  
-        background: #fff;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-      }
+}
+
+.input-form2 {
+  margin-top: 50px;
+  text-align: center;
+  padding: 32px;
+
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
 #hero {
   overflow: scroll;
 
@@ -201,8 +157,9 @@ export default {
 #hero::before {
   height: 1100px;
 }
-.btn-indo{
+
+.btn-indo {
   margin: 5px;
 }
-  </style>
+</style>
 

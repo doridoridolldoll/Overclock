@@ -54,7 +54,7 @@ export default {
           };
 
           axios.post(url2, state.cartId, { headers }).then(function (res) {
-            alert("qwe")
+            alert("결제완료")
             console.log(res);
           })
           jQuery.ajax({

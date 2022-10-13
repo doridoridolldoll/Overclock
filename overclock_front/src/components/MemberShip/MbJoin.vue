@@ -17,7 +17,7 @@
       <div class="mb-3">
 
         <label for="email"></label>
-        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일" required autofocus>
+        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일"  >
       </div>
       <button @click="emailVali()" class="btn btn-outline-primary w-100" v-if="(state.ch2 == 0)">
         이메일 중복 확인
@@ -26,35 +26,31 @@
         인증번호 전송
       </button>
 
-      <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email" :title="title" @titleFromChild="title = $event.target.value"/>
+      <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email"/>
       <div class="mb-3">
         <label for="password"></label>
-        <input type="password" class="form-control" v-model="state.password" id="password" placeholder="비밀번호" required autofocus>
+        <input type="password" class="form-control" v-model="state.password" id="password" placeholder="비밀번호"  >
 
       </div>
       <div class="mb-3">
         <label for="repassword"></label>
-        <input type="password" class="form-control" v-model="state.repassword" id="repassword" placeholder="비밀번호 확인" required autofocus>
+        <input type="password" class="form-control" v-model="state.repassword" id="repassword" placeholder="비밀번호 확인"  >
       </div>
       <div class="mb-3">
         <label for="phone"></label>
-        <input type="text" class="form-control" v-model="state.phone" id="phone" placeholder="전화번호 예) 01080094125" required
-          autofocus>
+        <input type="text" class="form-control" v-model="state.phone" id="phone" placeholder="전화번호 예) 01080094125" >
       </div>
       <div class="mb-3">
         <label for="city"></label>
-        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구" required
-          autofocus>
+        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구" >
       </div>
       <div class="mb-3">
         <label for="street"></label>
-        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길" required
-          autofocus>
+        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길" >
       </div>
       <div class="mb-3">
         <label for="zipcode"></label>
-        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345" required
-          autofocus>
+        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345" >
       </div>
 
       <hr class="mb-4">

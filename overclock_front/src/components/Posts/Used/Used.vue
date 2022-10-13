@@ -27,29 +27,31 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="text-center" v-for="(list, i) in state.dtoList" :key="(list, i)" >
-                      
+                    <tr class="text-center" v-for="(list, i) in state.dtoList" :key="(list, i)">
+
                       <td class="product-name">
                         <h3>
                           <a :href="'./usedDetail?id=' + list.id" @click="Join(list,i)"> {{ list.id }} </a>
                         </h3>
                       </td>
-                     
+
                       <td>
                         <a :href="'./usedDetail?id=' + list.id" @click="Join(list,i)">
-                        <img v-bind:src="state.img[i]" />
-                      </a>
+                          <img v-bind:src="state.img[i]" />
+                        </a>
                       </td>
 
-                        <td class="price">{{ list.title }}</td>
-                        <td class="price">{{ list.viewCount }}</td>
-                      </tr>
+                      <td class="price">{{ list.title }}</td>
+                      <td class="price">{{ list.viewCount }}</td>
+                    </tr>
                     <!-- END TR-->
                   </tbody>
                 </table>
-                <form class="searching-area d-flex align-items-center gap-1 w-50 mt-3" @submit.prevent="searchingAxios()">
+                <form class="searching-area d-flex align-items-center gap-1 w-50 mt-3"
+                  @submit.prevent="searchingAxios()">
                   <label for="searching"><i class="bi bi-search btn btn-primary"></i></label>
-                  <input id="searching" v-model="search.context" type="text" class="form-control bg-white" @submit="searchingAxios()">
+                  <input id="searching" v-model="search.context" type="text" class="form-control bg-white"
+                    @submit="searchingAxios()">
                 </form>
               </div>
               <router-link to="/UsedRegister" class="btn btn-primary"> 글쓰기</router-link>
@@ -81,6 +83,7 @@ import axios from "axios";
 import Contact from "@/components/Contact.vue";
 export default {
   name: "ToUsed",
+  components: { Contact },
   setup() {
     const store = useStore();
     const router = useRouter()
@@ -99,48 +102,34 @@ export default {
       routing();
     }
     const { meta } = useMeta({
-                title:  ':: OverClock',
-            })
-      const state = reactive({
-        id: "",
-        upResult: "",
-        img: [],
-        dtoList: [],
-        end: null,
-        next: null,
-        page: null,
-        pageList: null,
-        prev: null,
-        size: null,
-        start: null,
-        totalPage: null,
-        partsType: "used",
-        itemDetail: "",
-        price: [],
-      });
-      const url = "/api/getlist";
-      const headers = {
-        "Content-Type": "application/json; charset=utf-8",
-      };
-      function getUserList(page) {
-          axios.post(url, { page: page, category: "used" }, { headers })
-              .then(function (res) {
-              // console.log(page + "asdasdasd");
-              // console.log(res);
-              state.dtoList = res.data.dtoList,
-                  state.end = res.data.end,
-                  state.next = res.data.next,
-                  state.page = res.data.page,
-                  state.pageList = res.data.pageList,
-                  state.prev = res.data.prev,
-                  state.size = res.data.size,
-                  state.start = res.data.start,
-                  state.totalPage = res.data.totalPage;
-          });
-      }
-      axios.post(url, { page: 1, category: "used" }, { headers })
-          .then(function (res) {
-          console.log(res);
+      title: ':: OverClock',
+    })
+    const state = reactive({
+      id: "",
+      upResult: "",
+      img: [],
+      dtoList: [],
+      end: null,
+      next: null,
+      page: null,
+      pageList: null,
+      prev: null,
+      size: null,
+      start: null,
+      totalPage: null,
+      partsType: "used",
+      itemDetail: "",
+      price: [],
+    });
+    const url = "/api/getlist";
+    const headers = {
+      "Content-Type": "application/json; charset=utf-8",
+    };
+    function getUserList(page) {
+      axios.post(url, { page: page, category: "used" }, { headers })
+        .then(function (res) {
+          // console.log(page + "asdasdasd");
+          // console.log(res);
           state.dtoList = res.data.dtoList,
             state.end = res.data.end,
             state.next = res.data.next,
@@ -152,6 +141,8 @@ export default {
             state.totalPage = res.data.totalPage;
         });
     }
+
+
     axios.post(url, { page: 1, category: "used" }, { headers })
       .then(function (res) {
         console.log(res);
@@ -190,12 +181,12 @@ export default {
       category: "used"
     }
 
-  axios.post("/api/partsItemList", body, {headers}).then(function(res){
+    axios.post("/api/partsItemList", body, { headers }).then(function (res) {
       for (let i = 0; i < res.data.length; i++) {
         state.price[i] = res.data[i].price;
         state.itemDetail = res.data[i].itemDetail;
       }
-  })
+    })
 
     function Join(list, i) {
       store.commit('setdtoList', ...[list]);
@@ -213,47 +204,53 @@ export default {
     }
 
     return { searchingAxios, search, state, getUserList, meta, Join };
-  },
-  components: { Contact }
+
+  }
+
 };
 </script>
 
 <style scoped>
-
-.btn-primary{
+.btn-primary {
   float: right;
 }
-.pagination{
+
+.pagination {
   width: 100px;
   margin: auto;
 }
-.table tbody tr td{
+
+.table tbody tr td {
   padding: 10px;
 }
 
-.text-center a{
-  display:block;
+.text-center a {
+  display: block;
   text-decoration-line: none;
   width: 100%;
   height: 100%;
   padding: auto;
 }
-.text-center a:hover{
+
+.text-center a:hover {
   background-color: #a0d4ff;
 }
-.product-name h3{
-width:100%;
+
+.product-name h3 {
+  width: 100%;
   line-height: 3em;
 }
 
 
-#hero:before{
+#hero:before {
   height: 500px;
 }
-#hero{
+
+#hero {
   height: inherit;
 }
-#searching{
+
+#searching {
   border: 1px solid black;
 }
 </style>
