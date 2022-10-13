@@ -13,10 +13,8 @@
       </form>
     </div>
     <div class="buttons-container">
-
       <button class="btn btn-primary mr-2" @click="check">수정</button>
       <button class="btn btn-warning" @click="cancel">취소</button>
-
     </div>
   </MyModal>
 </template>
@@ -28,20 +26,19 @@ import axios from "axios";
 import store from "@/store";
 import router from "@/router";
 
-  
+
 export default {
   name: "ProfileModal",
   components: {
     MyModal,
   },
-  // 렌더링할 텍스트를 가져옵니다.
   props: {
   },
   setup() {
 
     const state = reactive({
-      id : store.state.id,
-      password : "",
+      id: store.state.id,
+      password: "",
     })
     // 자식 컴포넌트를 핸들링하기 위한 ref
     const baseModal = ref(null);
@@ -68,19 +65,19 @@ export default {
       baseModal.value.close();
       resolvePromise.value(false);
     };
-    
-    const check = async() => {
+
+    const check = async () => {
       if (state.password === '') {
-      alert('비밀번호를 입력해주세요');
-      state.password.value.focus();
-      return false;
-      } 
+        alert('비밀번호를 입력해주세요');
+        state.password.value.focus();
+        return false;
+      }
       const url = '/api/passCheck'
       const headers = {
         "Content-Type": "application/json",
       }
-      const body = { 
-        id : state.id,
+      const body = {
+        id: state.id,
         password: state.password
       };
       console.log("==========================================");
@@ -91,25 +88,28 @@ export default {
           alert("비밀번호가 일치하지 않습니다.")
           return false;
         } else (res.data === true)
-          alert("비밀번호가 일치합니다.")
-          router.push({ name: "ProfileChange" })
-          });
-        }
+        alert("비밀번호가 일치합니다.")
+        router.push({ name: "ProfileChange" })
+      });
+    }
     return { baseModal, show, confirm, cancel, state, check };
   }
 };
 </script>
 <style scoped>
-.buttons-container{
+.buttons-container {
   text-align: center;
 }
-.btn-primary{
+
+.btn-primary {
   margin-right: 10px;
 }
-.validation-form{
+
+.validation-form {
   text-align: center;
 }
-.modal-container{
+
+.modal-container {
   border-radius: 10px;
 }
 </style>

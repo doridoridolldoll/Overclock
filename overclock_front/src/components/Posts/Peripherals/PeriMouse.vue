@@ -17,22 +17,22 @@
           >
             <div class="icon-box" @click="Join(list,i)">
               <div class="icon"><img v-bind:src="state.img[i]" /></div>
-
               <br><br>
               <h3>{{list.title}}</h3>
-              <span>{{list.content}}</span>
-
               <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
           </div>
 
           <div class="page">
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=state.totalPage">Prev</a></li>
-              <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a class="page-link" @click="getUserList(page)">{{page}}</a></li>
-              <li class="page-item" ><a class="page-link" @click="getUserList(state.page+1)" v-if="state.page!=state.totalPage">Next</a></li>
-            </ul>
-          </div>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" @click="getUserList(state.page-1)" v-if="state.page!=1">Prev</a>
+            </li>
+            <li :class="state.page == page?'page-item active':'page-item'" v-for="page in state.pageList" :key="page"><a
+                class="page-link" @click="getUserList(page)">{{page}}</a></li>
+            <li class="page-item"><a class="page-link" @click="getUserList(state.page+1)"
+                v-if="state.page!=state.totalPage">Next</a></li>
+          </ul>
+        </div>
 
           
         </div>
