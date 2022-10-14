@@ -118,6 +118,19 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     };
 
+    @Override
+    public PageResultDTO<PostsDTO, Posts> periDetail(PageRequestDTO dto) {
+        log.info("peri dto : {}", dto);
+        Pageable pageable = dto.getPageable(Sort.by("id").descending());
+        Page<Posts> result = repository.getPeriByIdPageList(pageable, dto.getPostsId());
+        Function<Posts, PostsDTO> fn = new Function<Posts, PostsDTO>() {
+            @Override
+            public PostsDTO apply(Posts t) {
+                return entityToDTO(t);
+            }
+        };
+        return new PageResultDTO<>(result, fn);
+    }
 
     private BooleanBuilder getSearch(PageRequestDTO requestDTO) {
         String type = requestDTO.getType();

@@ -59,8 +59,6 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter()
-
-
     let search = reactive({
       context: "",
     })

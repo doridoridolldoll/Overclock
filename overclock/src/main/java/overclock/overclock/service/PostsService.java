@@ -29,6 +29,7 @@ public interface PostsService {
 
     String PostsModify(PostsDTO dto);
     Long PostsDelete(PostsDTO dto);
+    PageResultDTO<PostsDTO, Posts> periDetail(PageRequestDTO dto);
 
 
     default Posts dtoToEntity(PostsDTO dto) {

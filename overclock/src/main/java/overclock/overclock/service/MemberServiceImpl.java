@@ -177,4 +177,20 @@ public class MemberServiceImpl implements MemberService {
 
         return profileChange.getId().toString();
     }
+
+    @Override
+    public boolean PhoneCheck(String phone) {
+        log.info("service email : {} ", phone);
+        Member member = memberRepository.findByPhone(phone);
+        log.info("email : {}" ,phone);
+        log.info(member);
+        if(member==null && member.getPhone().equals(phone)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
 }

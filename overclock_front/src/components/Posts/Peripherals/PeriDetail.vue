@@ -14,23 +14,19 @@
               <div class="col-lg-4">
                 <div class="portfolio-info">
                   <h3>상품정보</h3>
-
-                  <PeriDetail2
+                  <PeriDetail2 v-if="state.dtoList.length != ''"
                     :dtoList="state.dtoList"
-                    :partsDetailId="state.partsDetailId"/>
+                    :periDetailId="state.periDetailId"/>
                     <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
                 <button class="btn1 btn btn-primary mt-3"  v-if="(state.role != '1')" @click="add">담기</button>
                 <router-link to="/partsModify" v-if="(state.partsDetailMemberId == state.memberId)" class="btn2 btn btn-primary mt-3">수정</router-link>
-
                 </div>
-
               </div>
             </div>
             <div class="portfolio-description">
               <h2>제품상세</h2>
               <p style="font-size: x-large;">{{state.dtoList.content}}</p>
             </div>
-
             <PeriComment
               :dtoList="state.dtoList"
             />
@@ -55,7 +51,6 @@ import axios from 'axios';
         const store = useStore();
         const state = reactive({
 
-          companyName : '',
           regDate: '',
           title: '',
           price: '',
@@ -70,11 +65,28 @@ import axios from 'axios';
         
 
         let list = store.state.dtoList;
-        state.dtoList = store.state.dtoList;
-        state.price =store.state.price;
+        // state.dtoList = store.state.dtoList;
+        state.price = store.state.price;
         state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
         state.title = state.dtoList.title;
         state.role = store.state.role;
+
+        const body2 = {
+          postsId: state.periDetailId
+        }
+        const headers = {
+            "Content-Type": "application/json"
+          };
+        
+        axios.post("/api/periDetail", body2, { headers })
+            .then(function(res){
+              console.log("==================62929525925259259259=========")
+              console.log(res)
+              state.dtoList = res.data.dtoList[0]
+              console.log(state.dtoList);
+              
+            })
+
 
         function add(){
           const url = "/register/cartAdd";

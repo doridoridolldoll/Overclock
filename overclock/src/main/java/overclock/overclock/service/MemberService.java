@@ -15,6 +15,7 @@ public interface MemberService {
     boolean findByPhone(String phone);
     Optional findByEmail(MemberDTO email);
     boolean userEmailCheck(String email);
+    boolean PhoneCheck(String phone);
     MemberDTO userNicknameCheck(String nickname);
     String passChange(MemberDTO dto);
     boolean checkPass(Long id, String password);

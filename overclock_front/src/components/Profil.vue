@@ -4,30 +4,31 @@
       <div class="container">
         <div class="input-form2 col-md-12 mx-auto">
           <h4 class="mb-3">내정보</h4>
+          <div class="portfolio-details-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+              <div class="icon imgsize"><img v-bind:src="img" /></div>
+            </div>
+          </div>
           <form class="validation-form" @submit.prevent>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="name">이름</label>
-                <input type="text" class="form-control" v-model="state.name" id="name" readonly>
-                <div class="invalid-feedback">
-                </div>
+                <input type="text" class="form-control" :value="state.name" :input="state.name" id="name">
               </div>
               <div class="col-md-6 mb-3">
                 <label for="nickname">닉네임</label>
-                <input type="text" class="form-control" v-model="state.nickname" id="nickname" readonly>
-                <div class="invalid-feedback">
-                </div>
+                <input type="text" class="form-control" :value="state.nickname" id="nickname" readonly>
               </div>
             </div>
             <div class="mb-3">
               <label for="email">이메일</label>
-              <input type="email" class="form-control" v-model="state.email" id="email" readonly>
+              <input type="email" class="form-control" :value="state.email" id="email" readonly>
               <div class="invalid-feedback">
               </div>
             </div>
             <div class="mb-3">
               <label for="phone">전화번호</label>
-              <input type="text" class="form-control" v-model="state.phone" id="phone" readonly>
+              <input type="text" class="form-control" :value="state.phone" id="phone" readonly>
               <div class="invalid-feedback">
               </div>
               <button class="btn btn-info mt-3" @click="handleClick2">내정보 수정</button><br><br>
@@ -71,10 +72,16 @@ export default {
       message: ""
     })
 
+    console.log(state.name);
+
     const modal = ref(null);
     const profileModal = ref(null);
-
     const result = ref("");
+    // const displayUrl = "/display";
+    // const url = `http://localhost:9090${displayUrl}`;
+    // let list = store.state.dtoList;
+    // let img = "";
+    // img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
 
     // async-await을 사용하여, Modal로부터 응답을 기다리게 된다.
     const handleClick = async () => {
@@ -124,7 +131,8 @@ export default {
       result,
       handleClick,
       handleClick2,
-      profileModal
+      profileModal,
+
     }
   }
 

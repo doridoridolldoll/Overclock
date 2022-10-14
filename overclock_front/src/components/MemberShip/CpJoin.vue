@@ -5,12 +5,11 @@
     <form class="validation-form" @submit.prevent>
       <div class="mb-3">
         <label for="name"></label>
-        <input type="text" class="form-control" v-model="state.cpName" id="copname" placeholder="회사이름"  >
+        <input type="text" class="form-control" v-model="state.cpName" id="copname" placeholder="회사이름">
       </div>
       <div class="mb-3">
         <label for="email"></label>
-        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일"
-        required autofocus >
+        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일" required autofocus>
       </div>
       <button @click="emailVali()" class="btn btn-outline-primary w-100" v-if="(state.ch2 == 0)">
         이메일 중복 확인
@@ -26,33 +25,34 @@
 
       <div class="mb-3">
         <label for="password"></label>
-        <input type="password" class="form-control" v-model="state.cpPw" id="coppassword" placeholder="비밀번호"  >
+        <input type="password" class="form-control" v-model="state.cpPw" id="coppassword" placeholder="비밀번호">
       </div>
 
       <div class="mb-3">
         <label for="repassword"></label>
-        <input type="password" class="form-control" v-model="state.reCpPw" id="recoppassword" placeholder="비밀번호 확인"  >
+        <input type="password" class="form-control" v-model="state.reCpPw" id="recoppassword" placeholder="비밀번호 확인">
       </div>
 
       <div class="mb-3">
         <label for="phone"></label>
         <input type="text" class="form-control" v-model="state.cpPhone" id="copphone" placeholder="전화번호 예) 01080094125"
-         >
+        @blur="phoneCheck">
+        {{ state.phoneCheck }}
       </div>
 
       <div class="mb-3">
         <label for="city"></label>
-        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구"  >
+        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구">
       </div>
 
       <div class="mb-3">
         <label for="street"></label>
-        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길"  >
+        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길">
       </div>
 
       <div class="mb-3">
         <label for="zipcode"></label>
-        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345"  >
+        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345">
       </div>
 
       <hr class="mb-4">
@@ -62,7 +62,7 @@
       </div>
       <div class="mb-4"></div>
 
-      <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler" >가입 완료</button>
+      <button class="btn btn-primary btn-lg btn-block" type="submit" @click="joinHandler">가입 완료</button>
 
     </form>
   </div>
@@ -138,7 +138,7 @@ export default {
       const headers = { "Content-Type": "application/json; charset=utf-8;" }
       console.log(state.email)
       console.log("===============")
-      const body = { email: state.email };  
+      const body = { email: state.email };
       console.log(state.email);
       await axios.post(url, body, { headers }).then(function (res) {
         if (res.data.validate === true) {
@@ -154,6 +154,20 @@ export default {
         } else (res.data.validate === false)
         alert("가입 가능한 이메일입니다.")
         state.ch = 1
+      })
+    }
+
+    const phoneCheck = async () => {
+
+      const url = '/api/phoneVali'
+      const headers = { "Content-Type": "application/json" }
+      const body = { phone: state.cpPhone }
+      await axios.post(url, body, { headers }).then(function (res) {
+        if (res.data.validate === true) {
+          state.phoneCheck = "사용불가"
+        } else if (res.data.validate === false && state.cpPhone.length >= 10) {
+          state.phoneCheck = "사용가능"
+        }
       })
     }
 
@@ -226,7 +240,7 @@ export default {
       }
       router.push({ name: "Login" });
     }
-    return { joinHandler, state, emailCheck, emailVali }
+    return { joinHandler, state, emailCheck, emailVali, phoneCheck }
   }
 }
 </script>

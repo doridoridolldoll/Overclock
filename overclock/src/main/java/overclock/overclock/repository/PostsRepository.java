@@ -33,6 +33,11 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
     @Query(value = "SELECT p FROM Posts p WHERE p.partsType =:category")
     Page<Posts> getPartsByCategoryPageList(Pageable pageable, String category);
 
+    @Query(value = "SELECT p FROM Posts p WHERE p.id =:id")
+    Page<Posts> getPeriByIdPageList(Pageable pageable, Long id);
+
+
+
 
     @Modifying
     @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")

@@ -9,15 +9,14 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="nickname"></label>
-          <input type="text" required autofocus class="form-control" v-model="state.nickname" id="nickname" placeholder="닉네임"
-            @keyup="nickCheckHandler">
-            {{ state.nickCheck }}
+          <input type="text" required autofocus class="form-control" v-model="state.nickname" id="nickname"
+            placeholder="닉네임" @keyup="nickCheckHandler">
+          {{ state.nickCheck }}
         </div>
       </div>
       <div class="mb-3">
-
         <label for="email"></label>
-        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일"  >
+        <input type="email" class="form-control" v-model="state.email" id="email" placeholder="이메일">
       </div>
       <button @click="emailVali()" class="btn btn-outline-primary w-100" v-if="(state.ch2 == 0)">
         이메일 중복 확인
@@ -25,32 +24,33 @@
       <button @click="emailCheck()" class="btn btn-outline-primary w-100 mt-3" v-if="(state.ch == 1)">
         인증번호 전송
       </button>
-
-      <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email"/>
+      <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email" />
       <div class="mb-3">
         <label for="password"></label>
-        <input type="password" class="form-control" v-model="state.password" id="password" placeholder="비밀번호"  >
+        <input type="password" class="form-control" v-model="state.password" id="password" placeholder="비밀번호">
 
       </div>
       <div class="mb-3">
         <label for="repassword"></label>
-        <input type="password" class="form-control" v-model="state.repassword" id="repassword" placeholder="비밀번호 확인"  >
+        <input type="password" class="form-control" v-model="state.repassword" id="repassword" placeholder="비밀번호 확인">
       </div>
       <div class="mb-3">
         <label for="phone"></label>
-        <input type="text" class="form-control" v-model="state.phone" id="phone" placeholder="전화번호 예) 01080094125" >
+        <input type="text" class="form-control" v-model="state.phone" id="phone" placeholder="전화번호 예) 01080094125"
+          @blur="phoneCheck">
+        {{ state.phoneCheck }}
       </div>
       <div class="mb-3">
         <label for="city"></label>
-        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구" >
+        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구">
       </div>
       <div class="mb-3">
         <label for="street"></label>
-        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길" >
+        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길">
       </div>
       <div class="mb-3">
         <label for="zipcode"></label>
-        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345" >
+        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345">
       </div>
 
       <hr class="mb-4">
@@ -187,6 +187,20 @@ export default {
       })
     }
 
+    const phoneCheck = async () => {
+
+      const url = '/api/phoneVali'
+      const headers = { "Content-Type": "application/json" }
+      const body = { phone: state.phone }
+      await axios.post(url, body, { headers }).then(function (res) {
+        if (res.data.validate === true) {
+          state.phoneCheck = "사용불가"
+        } else if (res.data.validate === false && state.phone.length >= 10) {
+          state.phoneCheck = "사용가능"
+        }
+      })
+    }
+
     const joinHandler = async () => {
       const url = './api/memberRegister'
       const headers = {
@@ -205,7 +219,7 @@ export default {
       }
 
       var n_RegExp = /^[가-힣]{2,15}$/;
-      
+
       if (state.name === '') {
         alert('이름을 입력해주세요');
         state.name.value.focus(); return false;
@@ -213,7 +227,7 @@ export default {
         alert('이름은 8자 이하로 입력해주세요')
         state.name = null;
         state.name.value.focus(); return false;
-      } else if(!n_RegExp.test(state.name)){
+      } else if (!n_RegExp.test(state.name)) {
         alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
         state.name = null;
         state.name.value.focus(); return false;
@@ -274,7 +288,7 @@ export default {
         router.push({ name: "Login" });
       }
     }
-    return { joinHandler, state, emailCheck, emailVali, asd, nickCheckHandler}
+    return { joinHandler, state, emailCheck, emailVali, asd, nickCheckHandler, phoneCheck }
   },
   components: { EmailCheck }
 };
@@ -306,5 +320,4 @@ export default {
 #hero::before {
   height: 1100px;
 }
-
 </style>

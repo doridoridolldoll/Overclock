@@ -8,7 +8,7 @@
             </div>
             <div class="form-group">
                 <label>제품상세</label>
-                <textarea class="form-control" v-model="state.item_detail" ref="item_detail" rows="5" name="item_detail" required autofocus></textarea>
+                <textarea class="form-control" v-model="state.content" ref="item_detail" rows="5" name="item_detail" required autofocus></textarea>
             </div>
             <div class="form-group">
                 <label>가격</label>
