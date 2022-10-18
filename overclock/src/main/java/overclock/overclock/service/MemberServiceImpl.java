@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.dto.MemberDTO;
+import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.MemberRole;
@@ -152,13 +153,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public Optional DetailName(MemberDTO memberDTO) {
-        log.info("MemberDTO : {}", memberDTO);
-        Long postsId = memberDTO.getId();
+    public Optional DetailName(PostsDTO postsDTO) {
+        log.info("MemberDTO : {}", postsDTO);
+        Long postsId = postsDTO.getId();
         Optional<Posts> result = memberRepository.findByMemberId(postsId);
         log.info("result : {}", result.get().getMember().getId());
         Long memberId = result.get().getMember().getId();
-        log.info("member Id : {}", memberId);
         Optional<Member> result2 = memberRepository.findById2(memberId);
         log.info("findById2 resultasdasdasdasd : {}", result2);
         if (result2.isEmpty()) {

@@ -20,7 +20,6 @@
 
               <br><br>
               <h3>{{list.title}}</h3>
-              <span>{{list.content}}</span>
 
               <span><h5>판매가: {{state.price[i]}}</h5></span>
             </div>
@@ -143,10 +142,12 @@ function searchingAxios(){
       }
     };
     const body = {
-    category:"cpu"
+      partsType:"CPU"
   }
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
         for (let i = 0; i < res.data.length; i++) {
+          console.log("--------------------------------")
+          console.log(res.data[i].price)
       state.price[i] = res.data[i].price;
       state.itemDetail = res.data[i].itemDetail;
     }

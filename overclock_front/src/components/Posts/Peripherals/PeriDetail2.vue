@@ -40,7 +40,8 @@ import axios from 'axios';
         };
 
         axios.post("/api/DetailName", body2, { headers }).then(function(res){
-          
+          console.log("================");
+          console.log(res.data);
           state.companyName = res.data;
         })
         return {state}

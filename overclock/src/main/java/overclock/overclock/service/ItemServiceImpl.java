@@ -32,19 +32,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDTO> partsItemList(PostsDTO postsDTO) {
-//        List<Item> result = itemRepository.findAll();
+    public List<Integer> partsItemList(PostsDTO postsDTO) {
         log.info("PostsDTO result : {}", postsDTO);
         String type = postsDTO.getPartsType();
         log.info("type : {}", type);
-        List<Item> result = itemRepository.getPriceByPartstype(type);
+
+        List<Integer> result = itemRepository.getPriceByPartstype(type);
         log.info("result : {}", result);
-        return result.stream().map(new Function<Item, ItemDTO>() {
-            @Override
-            public ItemDTO apply(Item item) {
-                return entityToDTO(item);
-            }
-        }).collect(Collectors.toList());
+        return result;
     }
     //    @Override
 //    public List<PostsDTO> getList(PostsDTO postsDTO) {

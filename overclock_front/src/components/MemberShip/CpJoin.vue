@@ -5,7 +5,7 @@
     <form class="validation-form" @submit.prevent>
       <div class="mb-3">
         <label for="name"></label>
-        <input type="text" class="form-control" v-model="state.cpName" id="copname" placeholder="회사이름" required autofocus>
+        <input type="text" class="form-control" v-model="state.cpName" id="copname" placeholder="회사이름"  >
       </div>
       <div class="mb-3">
         <label for="email"></label>
@@ -21,43 +21,43 @@
       <EmailCheck v-if="(state.change == 1)" :keys="state.keys" :email="state.email" />
       <div class="mb-3">
         <label for="copcode"></label>
-        <input type="copcode" class="form-control" v-model="state.cpCode" id="copcode" placeholder="사업자등록번호" required autofocus>
+        <input type="copcode" class="form-control" v-model="state.cpCode" id="copcode" placeholder="사업자등록번호">
       </div>
 
       <div class="mb-3">
         <label for="password"></label>
-        <input type="password" class="form-control" v-model="state.cpPw" id="coppassword" placeholder="비밀번호" required autofocus>
+        <input type="password" class="form-control" v-model="state.cpPw" id="coppassword" placeholder="비밀번호"  >
       </div>
 
       <div class="mb-3">
         <label for="repassword"></label>
-        <input type="password" class="form-control" v-model="state.reCpPw" id="recoppassword" placeholder="비밀번호 확인" required autofocus>
+        <input type="password" class="form-control" v-model="state.reCpPw" id="recoppassword" placeholder="비밀번호 확인"  >
       </div>
 
       <div class="mb-3">
         <label for="phone"></label>
-        <input type="text" class="form-control" v-model="state.cpPhone" id="copphone" placeholder="전화번호 예) 010-8009-4125"
-        required autofocus>
+        <input type="text" class="form-control" v-model="state.cpPhone" id="copphone" placeholder="전화번호 예) 01080094125"
+         >
       </div>
 
       <div class="mb-3">
         <label for="city"></label>
-        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구" required autofocus>
+        <input type="text" class="form-control" v-model="state.city" id="city" placeholder="도시 예) 부산광역시 사하구"  >
       </div>
 
       <div class="mb-3">
         <label for="street"></label>
-        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길" required autofocus>
+        <input type="text" class="form-control" v-model="state.street" id="street" placeholder="도로명 예) 낙동대로123번길"  >
       </div>
 
       <div class="mb-3">
         <label for="zipcode"></label>
-        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345" required autofocus>
+        <input type="text" class="form-control" v-model="state.zipcode" id="zipcode" placeholder="우편번호 예) 12345"  >
       </div>
 
       <hr class="mb-4">
       <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" v-model="state.aggrement" id="aggrement" required>
+        <input type="checkbox" class="custom-control-input" v-model="state.aggrement" id="aggrement">
         <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
       </div>
       <div class="mb-4"></div>

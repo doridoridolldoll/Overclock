@@ -10,7 +10,8 @@ public interface ItemService {
 
     Long itemPosting(ItemDTO itemDTO);
 
-    List<ItemDTO> partsItemList(PostsDTO postsDTO);
+    List<Integer> partsItemList(PostsDTO postsDTO);
+
 
     default Item dtoToEntity(ItemDTO dto){
         Posts posts = Posts.builder()
