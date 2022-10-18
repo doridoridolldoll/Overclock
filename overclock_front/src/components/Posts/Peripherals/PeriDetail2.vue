@@ -4,9 +4,9 @@
         <li><strong>판매자</strong>: {{state.companyName}} </li>
         <!-- <li><strong>등록일자</strong>: {{state.regDate}}</li> -->
         <li>
-            <strong>가격</strong>: {{state.price}}
+            <strong>가격</strong>: {{state.dtoList.price}}
         </li>
-        <li><strong>조회수</strong> : {{state.dtoList.viewCount}}</li>
+        <li><strong>조회수</strong> : {{state.dtoList.view}}</li>
       
     </ul>
 </template>

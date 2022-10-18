@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Cart;
 import overclock.overclock.entity.Comment;
+import overclock.overclock.entity.EmbedCard;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
+import overclock.overclock.repository.PostsRepository;
 import overclock.overclock.service.*;
 
 import java.util.*;
@@ -112,11 +114,11 @@ public class ApiController {
 
     @RequestMapping(value = "/periDetail", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PageResultDTO<PostsDTO, Posts>> periDetail(@RequestBody PageRequestDTO dto) {
-        log.info("dto : {}", dto);
-        PageResultDTO<PostsDTO, Posts> result = postsService.periDetail(dto);
+    public ResponseEntity<HashMap<String, Object>> periDetail(@RequestBody PostsDTO id) {
+        log.info("api id : {}", id);
+        HashMap<String, Object> result = postsService.periDetail(id);
         log.info("peri result : {}", result);
-        return  new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**
