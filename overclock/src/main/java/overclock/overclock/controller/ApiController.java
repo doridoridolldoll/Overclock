@@ -12,6 +12,7 @@ import overclock.overclock.dto.*;
 import overclock.overclock.entity.Cart;
 import overclock.overclock.entity.Comment;
 import overclock.overclock.entity.EmbedCard;
+import overclock.overclock.entity.Item;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
 import overclock.overclock.repository.PostsRepository;
@@ -94,8 +95,10 @@ public class ApiController {
      */
     @RequestMapping(value = "/partsItemList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ItemDTO>> partsItemList(@RequestBody ItemDTO dto) {
-        List<ItemDTO> result = itemService.partsItemList(dto);
+
+    public ResponseEntity<List<Integer>> partsItemList(@RequestBody PostsDTO dto) {
+        List<Integer> result = itemService.partsItemList(dto);
+
         log.info("csacacsacsac : {}", dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -129,6 +132,14 @@ public class ApiController {
     public ResponseEntity<PageResultDTO<PostsDTO, Posts>> mbDetail(@RequestBody PageRequestDTO dto) {
         PageResultDTO<PostsDTO,Posts> result = postsService.getPageList(dto);
         log.info("postsDTO : {}", dto);
+        log.info("List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/postsDetail", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> postsDetail(@RequestBody PostsDTO dto) {
+        log.info("postsDetail : {}", dto.getId());
+        List<String> result = postsService.postsDetail(dto);
         log.info("List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -432,7 +443,7 @@ public class ApiController {
      * 작성자 조회
      */
     @RequestMapping(value = "/DetailName", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional> DetailName(@RequestBody MemberDTO dto) {
+    public ResponseEntity<Optional> DetailName(@RequestBody PostsDTO dto) {
         log.info("DetailName DTO :" + dto);
         Optional findById = memberService.DetailName(dto);
         return new ResponseEntity<>(findById, HttpStatus.OK);

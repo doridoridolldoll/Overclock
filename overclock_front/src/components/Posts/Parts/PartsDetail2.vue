@@ -1,12 +1,12 @@
 <template>
     <ul>
-        <li><strong>상품명 </strong>: {{state.dtoList.title}}</li>
+        <li><strong>상품명 </strong>: {{state.dtoList[1]}}</li>
         <li><strong>판매자</strong>: {{state.companyName}} </li>
         <!-- <li><strong>등록일자</strong>: {{state.regDate}}</li> -->
         <li>
-            <strong>가격</strong>: {{state.price}}
+            <strong>가격</strong>: {{state.dtoList[0]}}
         </li>
-        <li><strong>조회수</strong> : {{state.dtoList.viewCount}}</li>
+        <li><strong>조회수</strong> : {{state.dtoList[3]}}</li>
       
     </ul>
 </template>
@@ -27,8 +27,6 @@ import axios from 'axios';
             postsMemberId: "",
             companyName : "",
         });
-        console.log(state.dtoList)
-        console.log(state.postsId)
         
 
         // 작성자 가져오기
@@ -44,8 +42,6 @@ import axios from 'axios';
           console.log(res);
           console.log("============");
           state.companyName = res.data;
-        //   var str = res.data.regDate;
-        //   state.regDate = str.substring(0,str.indexOf('T'));
         })
         return {state}
       }

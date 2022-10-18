@@ -1,6 +1,7 @@
 package overclock.overclock.service;
 
 import overclock.overclock.dto.MemberDTO;
+import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Member;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
@@ -21,7 +22,7 @@ public interface MemberService {
     boolean checkPass(Long id, String password);
     String companyRegister(MemberDTO memberDTO);
     int emailCrn(MemberDTO memberDTO);
-    Optional DetailName(MemberDTO memberDTO);
+    Optional DetailName(PostsDTO postsDTO);
     String profileChange(MemberDTO dto);
 
 

@@ -229,6 +229,17 @@ public class PostsServiceImpl implements PostsService {
         repository.deleteById(id);
         return id;
     }
+
+    @Transactional
+    @Override
+    public List<String> postsDetail(PostsDTO dto) {
+        log.info("PostsDetail DTO : {}", dto.getId());
+        Long id = dto.getId();
+        List<String> result = repository.getPostsDetail(id);
+        log.info("Posts Detail : {}", result);
+
+        return result;
+    }
 }
 
 

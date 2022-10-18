@@ -64,10 +64,16 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
             "group by p.id")
     Page<Posts> getListAndAuthorByAuthorOrTitlePage(String search, Pageable pageable);
 
-    @Query("SELECT p FROM Posts p WHERE p_id =:userid and id=:id ")
-    Optional<Posts> getArticleByAidAndUserId(Long id, Long userid);
+//    @Query("SELECT p FROM Posts p WHERE p_id =:userid and id=:id ")
+//    Optional<Posts> getArticleByAidAndUserId(Long id, Long userid);
 
     void deleteById(Long id);
+
+    @Query(value = "SELECT i.price, s.title, s.content, s.viewCount " +
+            "FROM Item i LEFT JOIN (SELECT p.id as id, p.title AS title, p.content AS content, p.parts_type as partsType, p.view as viewCount FROM Posts p) s " +
+            "ON s.id = i.posts2_id " +
+            "WHERE s.id =:id ", nativeQuery = true)
+    List<String> getPostsDetail(Long id);
 
 
     public interface getEmbedCardsInformation {

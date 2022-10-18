@@ -30,6 +30,8 @@ public interface PostsService {
     Long PostsDelete(PostsDTO dto);
     HashMap<String, Object> periDetail(PostsDTO id);
 
+    List<String> postsDetail(PostsDTO dto);
+
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()
