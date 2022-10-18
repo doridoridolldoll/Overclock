@@ -15,6 +15,7 @@
               <div class="col-md-6 mb-3">
                 <label for="nickname">닉네임</label>
                 <input type="text" class="form-control" v-model="state.nickname" id="nickname" readonly>
+                  
                 <div class="invalid-feedback">
                 </div>
               </div>

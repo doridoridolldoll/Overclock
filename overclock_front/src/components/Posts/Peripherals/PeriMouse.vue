@@ -136,14 +136,15 @@ function searchingAxios(){
       }
     };
     const body = {
-      category:"mouse"
+      partsType:"mouse"
     }
 
   axios.post("/api/partsItemList", body, {headers}).then(function(res){
-
+      console.log(res.data);
+      console.log("==================");
       for (let i = 0; i < res.data.length; i++) {
-      state.price[i] = res.data[i].price;
-      state.itemDetail = res.data[i].itemDetail;
+      state.price[i] = res.data[i];
+      // state.itemDetail = res.data[i].itemDetail;
     }
 
   })

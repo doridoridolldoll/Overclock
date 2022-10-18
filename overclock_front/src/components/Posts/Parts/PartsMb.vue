@@ -59,20 +59,15 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter()
-
-
     let search = reactive({
       context: "",
     })
     function searchingAxios() {
-      console.log(search.context.trim().length);
       if (search.context.trim().length == 0) {
         return
       }
       async function routing() {
         await router.push(`/search?cards=${search.context}&postsType=${state.partsType}`);
-        // await router.go(0);
-        // console.log("이동(app)")
       }
       routing();
     }
@@ -81,7 +76,6 @@ export default {
     })
     const state = reactive({
       id: "",
-      upResult: "",
       img: [],
       dtoList: [],
       end: null,
@@ -92,10 +86,10 @@ export default {
       size: null,
       start: null,
       totalPage: null,
-      partsType: "mb",
+      partsType: "MB",
       price: [],
-      itemDetail: "", //제품상세
     });
+
     const url = "/api/partsList";
     const headers = {
       "Content-Type": "application/json; charset=utf-8",
@@ -103,25 +97,23 @@ export default {
     function getUserList(page) {
       axios.post(url, { page: page, type: "", category: "mb" }, { headers })
         .then(function (res) {
-          // console.log(res.data.dtoList[1].partsType == "used");
-          console.log(res.data)
           state.id = res.data.dtoList.id,
-            state.dtoList = res.data.dtoList,
-            state.end = res.data.end,
-            state.next = res.data.next,
-            state.page = res.data.page,
-            state.pageList = res.data.pageList,
-            state.prev = res.data.prev,
-            state.size = res.data.size,
-            state.start = res.data.start,
-            state.totalPage = res.data.totalPage
+          state.dtoList = res.data.dtoList,
+          state.end = res.data.end,
+          state.next = res.data.next,
+          state.page = res.data.page,
+          state.pageList = res.data.pageList,
+          state.prev = res.data.prev,
+          state.size = res.data.size,
+          state.start = res.data.start,
+          state.totalPage = res.data.totalPage
           showResult(res.data)
         })
     }
     axios.post(url, { page: 1, category: "mb" }, { headers })
       .then(function (res) {
-        console.log(res);
         state.dtoList = res.data.dtoList,
+        console.log(state.dtoList);
           state.end = res.data.end,
           state.next = res.data.next,
           state.page = res.data.page,
@@ -131,11 +123,8 @@ export default {
           state.start = res.data.start,
           state.totalPage = res.data.totalPage;
         for (let i = 0; i < state.dtoList.length; i++) {
-          console.log(search.context);
           if (search.context == state.dtoList[i].title) {
             store.state.img[i] = state.dtoList[i].imageDTOList[0]
-            console.log(i + "번쨰");
-            console.log(store.state.img[i]);
           }
         }
         showResult(res.data);
@@ -150,22 +139,22 @@ export default {
         state.img[i] = str2;
       }
     };
+
     const body = {
-      category: "mb"
+      partsType: "MB"
     }
 
+    // 가격(price) 찾기
     axios.post("/api/partsItemList", body, { headers }).then(function (res) {
       for (let i = 0; i < res.data.length; i++) {
-        state.price[i] = res.data[i].price;
-        state.itemDetail = res.data[i].itemDetail;
+        state.price[i] = res.data[i]
       }
     })
 
+    //상세페이지 이동
     async function Join(list, i) {
-
       store.commit('setdtoList', ...[list]);
       store.commit("setPrice", ...[state.price[i]]);
-      console.log(state.price[i]);
 
       //조회수 처리
       const url2 = `/api/read/${list.id}`;

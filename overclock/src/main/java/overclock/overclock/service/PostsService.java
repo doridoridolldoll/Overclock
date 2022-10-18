@@ -30,6 +30,8 @@ public interface PostsService {
     String PostsModify(PostsDTO dto);
     Long PostsDelete(PostsDTO dto);
 
+    List<String> postsDetail(PostsDTO dto);
+
 
     default Posts dtoToEntity(PostsDTO dto) {
         Member member = Member.builder()

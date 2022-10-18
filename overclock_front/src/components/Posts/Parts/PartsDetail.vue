@@ -15,7 +15,7 @@
           <div class="col-lg-4">
             <div class="portfolio-info">
               <h3>상품정보</h3>
-              <PartsDetail2
+              <PartsDetail2 v-if="state.dtoList.length != ''"
                 :dtoList="state.dtoList"
                 :partsDetailId="state.partsDetailId"/>
                 <strong>수량</strong>: <input type="number" min="1" max="999" v-model="state.count"><br>
@@ -26,7 +26,7 @@
         </div>
         <div class="portfolio-description">
           <h2>제품상세</h2>
-          <p style="font-size: x-large;">{{state.dtoList.content}}</p>
+          <p style="font-size: x-large;">{{state.dtoList[2]}}</p>
         </div>
         <Comment :dtoList="state.dtoList" />
       </div>
@@ -57,25 +57,40 @@ components: { Comment, PartsDetail2},
       imgUrl: '',
       dtoList: '',
       postsId: null,
-
       memberId: store.state.id,
       partsDetailMemberId : store.state.dtoList.memberId,
       role : '',
+      arr : '',
       partsDetailId : id
 
     });
 
     let list = store.state.dtoList;
-    state.dtoList = store.state.dtoList;
     state.price =store.state.price;
     state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
     state.title = state.dtoList.title;
     state.role = store.state.role;
+    console.log(state.dtoList);
+
+    const url = "/api/postsDetail";
+    const headers = {
+      "Content-Type": "application/json; charset=utf-8",
+    };
+    const body = {
+      id: state.partsDetailId,
+    }
+    console.log("body : " + body.id)
+    axios.post(url, body, { headers })
+      .then(function (res) {
+        state.dtoList = res.data[0].split(",");
+      });
+
+
 
     const displayUrl = "/display";
-    const url = `http://localhost:9090${displayUrl}`;
+    const url2 = `http://localhost:9090${displayUrl}`;
     let img = "";
-    img = `${url}?fileName=${list.imageDTOList[0].imageURL}`;
+    img = `${url2}?fileName=${list.imageDTOList[0].imageURL}`;
     // // console.log(list.imageDTOList);
 
 
