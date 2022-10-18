@@ -36,8 +36,6 @@ public class Posts extends BaseEntity{ //게시물
     @ColumnDefault("1")
     private Long view; //조회수
 
-//    @Enumerated
-//    private PartsType partsType;
     private String partsType; //게시판 카테고리
     @Embedded
     private Address address; //주소

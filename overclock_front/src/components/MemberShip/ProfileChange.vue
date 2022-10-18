@@ -37,6 +37,7 @@ export default {
       id: store.state.id,
       nickname: "",
     })
+    console.log(state.nickname);
     const nickname = ref('');
     const change = async () => {
       const headers = {

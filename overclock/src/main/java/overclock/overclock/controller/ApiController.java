@@ -2,6 +2,7 @@ package overclock.overclock.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.Cart;
 import overclock.overclock.entity.Comment;
+import overclock.overclock.entity.EmbedCard;
 import overclock.overclock.entity.Item;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.search;
+import overclock.overclock.repository.PostsRepository;
 import overclock.overclock.service.*;
 
 import java.util.*;
@@ -109,6 +112,15 @@ public class ApiController {
         PageResultDTO<PostsDTO,Posts> result = postsService.partsCategoryPageList(dto);
         log.info("postsDTO : {}", dto);
         log.info("List result : {}", result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/periDetail", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Object>> periDetail(@RequestBody PostsDTO id) {
+        log.info("api id : {}", id);
+        HashMap<String, Object> result = postsService.periDetail(id);
+        log.info("peri result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -467,6 +479,19 @@ public class ApiController {
         }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/phoneVali", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Map<String, Boolean> phoneCheck(@RequestBody MemberDTO dto){
+        log.info("memberDTO : {}", dto);
+        Map<String,Boolean> json = new HashMap<>();
+        boolean phoneCheck = memberService.findByPhone(dto.getPhone());
+        json.put("validate", phoneCheck);
+        log.info("json : " + json);
+        return json;
+    }
+
+
 }
 
 

@@ -46,6 +46,7 @@ import overclock.overclock.repository.CommentRepository;
 import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
@@ -118,12 +119,24 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     };
 
+    @Override
+    public HashMap<String, Object> periDetail(PostsDTO dto) {
+        log.info("peri id : {}", dto);
+        Long id = dto.getId();
+        List<EmbedCard> result = repository.getPeriByIdPageList(id).get().stream().map(v->{
+            return new EmbedCard(v);
+        }).collect(Collectors.toList());
+        HashMap<String, Object> cardInfo = new HashMap<>();
+        cardInfo.put("articles", result);
+        log.info("peri result : {}", result);
+        return cardInfo;
+    }
 
     private BooleanBuilder getSearch(PageRequestDTO requestDTO) {
         String type = requestDTO.getType();
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        QPosts   qPosts = QPosts.posts;
+        QPosts qPosts = QPosts.posts;
         String keyword = requestDTO.getKeyword();
         BooleanExpression expression = qPosts.id.gt(0L);
         booleanBuilder.and(expression);

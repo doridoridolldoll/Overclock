@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import overclock.overclock.dto.ItemImgDTO;
 import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Posts;
 
@@ -34,6 +35,7 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
     Page<Posts> getPartsByCategoryPageList(Pageable pageable, String category);
 
 
+
     @Modifying
     @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")
     void updateView(Long id);
@@ -47,6 +49,14 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
             "left join ItemImg i ON i.ItemImg.id = p.id " +
             "WHERE p.title LIKE CONCAT('%',:search,'%') AND p.partsType =:postsType " )
     Optional<List<getEmbedCardsInformation>> getSearchList(String search, String postsType);
+
+    @Query("SELECT p.content as content, p.title as title, p.view as view, i.price as price, m.uuid as imgUuid, " +
+            "m.imgName as imgName, m.path as imgPath " +
+            "FROM Posts p " +
+            "LEFT JOIN Item i ON i.posts2.id = p.id " +
+            "left join ItemImg m ON m.ItemImg.id = p.id " +
+            "WHERE p.id =:id")
+    Optional<List<getEmbedCardsInformation>> getPeriByIdPageList(Long id);
 
     @Query("SELECT p.id, p.title " +
             "FROM Posts p left join Member m on m.id = p.id " +
@@ -75,11 +85,18 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
 
         String getNickname();
 
+        String getPrice();
+
+        String getItemImgList();
+
         String getImgUuid();
         String getImgName();
         String getImgPath();
+        String getView();
 
     }
+
+
 
 }
 

@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 
 import overclock.overclock.dto.*;
 
-import overclock.overclock.entity.Item;
-import overclock.overclock.entity.ItemImg;
-import overclock.overclock.entity.Member;
-import overclock.overclock.entity.Posts;
+import overclock.overclock.entity.*;
 import overclock.overclock.model.search;
+import overclock.overclock.repository.PostsRepository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -29,6 +28,7 @@ public interface PostsService {
 
     String PostsModify(PostsDTO dto);
     Long PostsDelete(PostsDTO dto);
+    HashMap<String, Object> periDetail(PostsDTO id);
 
     List<String> postsDetail(PostsDTO dto);
 

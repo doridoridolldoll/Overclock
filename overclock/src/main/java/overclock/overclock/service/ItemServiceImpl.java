@@ -41,17 +41,4 @@ public class ItemServiceImpl implements ItemService {
         log.info("result : {}", result);
         return result;
     }
-    //    @Override
-//    public List<PostsDTO> getList(PostsDTO postsDTO) {
-//        List<Posts> result = repository.findAll();
-//        log.info("result : {}", result);
-//        return result.stream().map(new Function<Posts, PostsDTO>() {
-//            @Override
-//            public PostsDTO apply(Posts t) {
-//                log.info("asd : {}", entityToDTO(t));
-//                return entityToDTO(t);
-//            }
-//        }).collect(Collectors.toList());
-//
-//    }
 }
