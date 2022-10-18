@@ -171,6 +171,7 @@ export default {
                 // console.log(state.dtoList[i].title);
               }
 
+
       // console.log(store.state.img);
       // console.log("asd");
           showResult(res.data);

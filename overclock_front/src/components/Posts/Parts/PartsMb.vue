@@ -143,7 +143,6 @@ export default {
     const body = {
       partsType: "MB"
     }
-
     // 가격(price) 찾기
     axios.post("/api/partsItemList", body, { headers }).then(function (res) {
       for (let i = 0; i < res.data.length; i++) {

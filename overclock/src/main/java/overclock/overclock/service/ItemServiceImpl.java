@@ -33,10 +33,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Integer> partsItemList(PostsDTO postsDTO) {
-//        List<Item> result = itemRepository.findAll();
         log.info("PostsDTO result : {}", postsDTO);
         String type = postsDTO.getPartsType();
         log.info("type : {}", type);
+
         List<Integer> result = itemRepository.getPriceByPartstype(type);
         log.info("result : {}", result);
         return result;

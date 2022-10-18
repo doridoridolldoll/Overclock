@@ -92,8 +92,10 @@ public class ApiController {
      */
     @RequestMapping(value = "/partsItemList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
     public ResponseEntity<List<Integer>> partsItemList(@RequestBody PostsDTO dto) {
         List<Integer> result = itemService.partsItemList(dto);
+
         log.info("csacacsacsac : {}", dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

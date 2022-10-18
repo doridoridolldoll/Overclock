@@ -12,6 +12,7 @@ public interface ItemService {
 
     List<Integer> partsItemList(PostsDTO postsDTO);
 
+
     default Item dtoToEntity(ItemDTO dto){
         Posts posts = Posts.builder()
                 .id(dto.getPostsId())

@@ -26,4 +26,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "LEFT JOIN (SELECT p.id as id, p.parts_type as parts_type FROM Posts p) s ON s.id = i.posts2_id " +
             "WHERE s.parts_type =:type ", nativeQuery = true )
     List<Integer> getPriceByPartstype(String type);
+
 }
