@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public interface MemberService {
     String modify(MemberDTO dto);
     Optional mList(MemberDTO memberDTO);
-    String memberRegister(MemberDTO memberDTO);
+    Long memberRegister(MemberDTO memberDTO);
     boolean findByPhone(String phone);
     Optional findByEmail(MemberDTO email);
     boolean userEmailCheck(String email);

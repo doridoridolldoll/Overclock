@@ -22,12 +22,12 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder;
     @Transactional //회원가입
-    public String memberRegister(MemberDTO memberDTO) {
+    public Long memberRegister(MemberDTO memberDTO) {
         memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
         Member member = dtoToEntity(memberDTO);
         member.addMemberRole(MemberRole.USER);
         memberRepository.save(member);
-        return member.getEmail();
+        return member.getId();
     }
 
     @Override
