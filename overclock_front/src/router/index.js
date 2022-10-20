@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import Main from "@/components/Main.vue"
+import Main from "../components/Main.vue"
 
-import Logout from "@/components/MemberShip/Logout.vue"
-import Login from "@/components/MemberShip/Login.vue"
+import Logout from "../components/MemberShip/Logout.vue"
+import Login from "../components/MemberShip/Login.vue"
 import Join from "@/components/MemberShip/Join.vue"
 
 import MbLogin from "@/components/MemberShip/MbLogin.vue"
@@ -35,7 +35,7 @@ import PcPay from '@/components/Pay/PcPay.vue'
 // import PayComplete from '@/components/Pay/PayComplete.vue'
 
 //부품
-import Parts from "@/components/Posts/Parts/Parts.vue"
+import Parts from "../components/Posts/Parts/Parts.vue"
 import PartsDetail from "@/components/Posts/Parts/PartsDetail.vue"
 import PartsDetail2 from "@/components/Posts/Parts/PartsDetail2.vue"
 import PartsRegister from "@/components/Posts/Parts/PartsRegister.vue"
@@ -113,12 +113,14 @@ const routes = [
     {path:'/PcPay', name: 'PcPay', component: PcPay},
     ]
   
+  // const router = createRouter({
+  //   scrollBehavior() {
+  //     // always scroll to top
+  //     return { top: 0 }
+  //   },
+  //   history: createWebHistory(), routes
+  // })
   const router = createRouter({
-    scrollBehavior() {
-      // always scroll to top
-      return { top: 0 }
-    },
-    history: createWebHistory(), routes
+    history: createWebHistory(process.env.BASE_URL), routes
   })
-  
   export default router
