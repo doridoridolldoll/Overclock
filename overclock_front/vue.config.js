@@ -16,7 +16,7 @@ module.exports = {
         },
         outputDir:
           // 'D:/Overclock/overclock/src/main/resources/static'
-          'C:/ProJect/Overclock/overclock/src/main/resources/static'
+          'C:/Users/sjy73/Desktop/TeamProject/project/Overclock/overclock/src/main/resources/static'
       }
     
 

@@ -39,11 +39,11 @@ public class ApiController {
      */
     @RequestMapping(value = "/memberRegister", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody MemberDTO dto){
+    public ResponseEntity<Long> register(@RequestBody MemberDTO dto){
         log.info("asd");
         log.info("api/memberRegister...:" + dto);
-        String email = memberService.memberRegister(dto);
-        return new ResponseEntity<>(email, HttpStatus.OK);
+        Long id = memberService.memberRegister(dto);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
     /**
      * 업체 회원가입
@@ -95,7 +95,6 @@ public class ApiController {
      */
     @RequestMapping(value = "/partsItemList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<List<Integer>> partsItemList(@RequestBody PostsDTO dto) {
         List<Integer> result = itemService.partsItemList(dto);
 

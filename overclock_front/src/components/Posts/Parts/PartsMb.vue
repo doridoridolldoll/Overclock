@@ -112,6 +112,8 @@ export default {
     }
     axios.post(url, { page: 1, category: "mb" }, { headers })
       .then(function (res) {
+        console.log("res-------------");
+          console.log(res);
         state.dtoList = res.data.dtoList,
         console.log(state.dtoList);
           state.end = res.data.end,
@@ -146,6 +148,8 @@ export default {
     // 가격(price) 찾기
     axios.post("/api/partsItemList", body, { headers }).then(function (res) {
       for (let i = 0; i < res.data.length; i++) {
+        console.log("---------==========");
+        console.log(res);
         state.price[i] = res.data[i]
       }
     })

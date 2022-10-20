@@ -24,7 +24,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(value = "SELECT i.price as price " +
             "FROM Item i " +
             "LEFT JOIN (SELECT p.id as id, p.parts_type as parts_type FROM Posts p) s ON s.id = i.posts2_id " +
-            "WHERE s.parts_type =:type ", nativeQuery = true )
+            "WHERE s.parts_type =:type " +
+            "ORDER BY price desc", nativeQuery = true )
     List<Integer> getPriceByPartstype(String type);
 
 }
