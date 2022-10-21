@@ -14,7 +14,7 @@
       </div>
       <div class="row">
         <div class="col-lg-4 col-md-6 align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
-          v-for="(list,i) in state.dtoList" :key="(list,i)">
+          v-for="(list,i) in state.dtoList" :key="(list)">
           <div class="icon-box" @click="Join(list,i)">
             <div class="icon"><img v-bind:src="state.img[i]" /></div>
             <br><br>
@@ -82,10 +82,10 @@ export default {
       page: null,
       pageList: null,
       prev: null,
+      partsType: "MB",
       size: null,
       start: null,
       totalPage: null,
-      partsType: "MB",
       price: [],
     });
 
@@ -123,14 +123,10 @@ export default {
           state.size = res.data.size,
           state.start = res.data.start,
           state.totalPage = res.data.totalPage;
-        for (let i = 0; i < state.dtoList.length; i++) {
-          if (search.context == state.dtoList[i].title) {
-            store.state.img[i] = state.dtoList[i].imageDTOList[0]
-          }
-        }
         showResult(res.data);
 
       });
+      //이미지 찾기
     const showResult = async (arr) => {
       const displayUrl = "/overclock/display";
       const url = `http://localhost:9090${displayUrl}`;
@@ -154,18 +150,13 @@ export default {
     })
 
     //상세페이지 이동
-    async function Join(list, i) {
-      store.commit('setdtoList', ...[list]);
-      store.commit("setPrice", ...[state.price[i]]);
-
+    async function Join(list) {
       //조회수 처리
       const url2 = `/api/read/${list.id}`;
       const headers2 = {
         "Content-Type": "application/json; charset=utf-8"
       };
-
       axios.get(url2, { page: 1, category: "mb" }, { headers2 }).then(function () {
-
       })
       await router.push(`/partsdetail?id=${list.id}`)
     }
