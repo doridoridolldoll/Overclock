@@ -3,6 +3,7 @@ package overclock.overclock.service;
 import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Member;
+import overclock.overclock.entity.Posts;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
 
@@ -24,7 +25,6 @@ public interface MemberService {
     int emailCrn(MemberDTO memberDTO);
     Optional DetailName(PostsDTO postsDTO);
     String profileChange(MemberDTO dto);
-
 
     default Member dtoToEntity(MemberDTO dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());

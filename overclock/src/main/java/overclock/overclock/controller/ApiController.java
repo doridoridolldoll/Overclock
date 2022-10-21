@@ -95,7 +95,6 @@ public class ApiController {
      */
     @RequestMapping(value = "/partsItemList", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<List<Integer>> partsItemList(@RequestBody PostsDTO dto) {
         List<Integer> result = itemService.partsItemList(dto);
 
@@ -467,7 +466,8 @@ public class ApiController {
      * @param a
      * @return
      */
-    @RequestMapping(value = "/cart/delete", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/cart/delete", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> cartDelete(@RequestBody int[] a) {
         log.info("===================================================");
         int id = 0;
@@ -490,7 +490,6 @@ public class ApiController {
         log.info("json : " + json);
         return json;
     }
-
 
 }
 
