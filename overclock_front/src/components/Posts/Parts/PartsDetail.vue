@@ -67,12 +67,12 @@ components: { Comment, PartsDetail2},
 
     let list = store.state.dtoList;
     state.price =store.state.price;
-    state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
+    // state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
     state.title = state.dtoList.title;
     state.role = store.state.role;
     console.log(state.dtoList);
 
-    const url = "/api/postsDetail";
+    const url = "./api/postsDetail";
     const headers = {
       "Content-Type": "application/json; charset=utf-8",
     };
@@ -87,7 +87,7 @@ components: { Comment, PartsDetail2},
 
 
 
-    const displayUrl = "/display";
+    const displayUrl = "/overclock/display";
     const url2 = `http://localhost:9090${displayUrl}`;
     let img = "";
     img = `${url2}?fileName=${list.imageDTOList[0].imageURL}`;
@@ -98,7 +98,7 @@ components: { Comment, PartsDetail2},
     //장바구니 담기
 
     function add(){
-      const url = "/register/cartAdd";
+      const url = "./register/cartAdd";
       const headers = {
         "Content-Type": "application/json"
       };

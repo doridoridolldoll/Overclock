@@ -36,7 +36,7 @@ export default {
       let body = {
           postsId: state.postsId,
       };
-      const url = "/api/comment/list";
+      const url = "./api/comment/list";
       const headers = {
         "Content-Type": "application/json; charset=utf-8"
       };

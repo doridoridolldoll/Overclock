@@ -37,7 +37,7 @@ import axios from 'axios';
           "Content-Type": "application/json"
         };
 
-        axios.post("/api/DetailName", body2, { headers }).then(function(res){
+        axios.post("./api/DetailName", body2, { headers }).then(function(res){
           
           console.log(res);
           console.log("============");
