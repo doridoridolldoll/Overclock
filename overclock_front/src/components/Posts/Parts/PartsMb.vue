@@ -19,7 +19,6 @@
             <div class="icon"><img v-bind:src="state.img[i]" /></div>
             <br><br>
             <h3>{{list.title}}</h3>
-            
             <span>
               <h5>판매가: {{state.price[i]}}</h5>
             </span>
@@ -90,7 +89,7 @@ export default {
       price: [],
     });
 
-    const url = "/api/partsList";
+    const url = "./api/partsList";
     const headers = {
       "Content-Type": "application/json; charset=utf-8",
     };
@@ -133,7 +132,7 @@ export default {
 
       });
     const showResult = async (arr) => {
-      const displayUrl = "/display";
+      const displayUrl = "/overclock/display";
       const url = `http://localhost:9090${displayUrl}`;
       let str2 = "";
       for (let i = 0; i < arr.dtoList.length; i++) {
@@ -146,7 +145,7 @@ export default {
       partsType: "MB"
     }
     // 가격(price) 찾기
-    axios.post("/api/partsItemList", body, { headers }).then(function (res) {
+    axios.post("./api/partsItemList", body, { headers }).then(function (res) {
       for (let i = 0; i < res.data.length; i++) {
         console.log("---------==========");
         console.log(res);
