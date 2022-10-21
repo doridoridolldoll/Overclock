@@ -8,6 +8,4 @@
 
 ## 추가 및 수정
 https://www.notion.so/74de19b9dc024acfb60a992e4b37591c
-10월 25일 : AWS 배포
 
-10월 26일 ~ ? : 코드 정리 및 vuex -> Rest API 방식으로 전환 
