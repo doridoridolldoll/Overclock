@@ -21,8 +21,6 @@ import java.util.Optional;
 @Repository
 public interface PostsRepository extends JpaRepository<Posts, String > {
 
-
-
     @EntityGraph(attributePaths = { "member" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query(
             value = "select c from Posts c ",
@@ -30,11 +28,8 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
     )
     Page<Posts> getPageList(Pageable pageable);
 
-
     @Query(value = "SELECT p FROM Posts p WHERE p.partsType =:category")
     Page<Posts> getPartsByCategoryPageList(Pageable pageable, String category);
-
-
 
     @Modifying
     @Query("update Posts p set p.view = p.view + 1 where p.id = :id ")
@@ -63,9 +58,6 @@ public interface PostsRepository extends JpaRepository<Posts, String > {
             "where p.title LIKE CONCAT('%',:search,'%') " +
             "group by p.id")
     Page<Posts> getListAndAuthorByAuthorOrTitlePage(String search, Pageable pageable);
-
-//    @Query("SELECT p FROM Posts p WHERE p_id =:userid and id=:id ")
-//    Optional<Posts> getArticleByAidAndUserId(Long id, Long userid);
 
     void deleteById(Long id);
 

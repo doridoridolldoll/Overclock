@@ -40,13 +40,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import overclock.overclock.dto.*;
 import overclock.overclock.entity.*;
-import overclock.overclock.model.BoardType;
 import overclock.overclock.model.search;
 import overclock.overclock.repository.CommentRepository;
 import overclock.overclock.repository.ItemImgRepository;
 import overclock.overclock.repository.PostsRepository;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
@@ -240,6 +238,7 @@ public class PostsServiceImpl implements PostsService {
 
         return result;
     }
+
 }
 
 

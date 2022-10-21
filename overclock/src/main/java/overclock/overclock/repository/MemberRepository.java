@@ -50,21 +50,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findById(Long id);
     @Query("select m from Member m where m.id=:id and m.password=:password ")
     Member findUserByPassword(long id, String password);
-//    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
-//    @Query("select m from Member m where m.email=:email")
-//    Optional<Member> findUserById(String email);
-
-//    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
-//    @Query("select m from Member m where m.id=:id and m.password=:password")
-//    Optional<Member> updateUserPassword(Long id, String password);
-
-//    @EntityGraph(attributePaths = { "roleSet" }, type = EntityGraph.EntityGraphType.LOAD)
-//    @Query("select m from Member m where m.id=:id ")
-//    Optional<Member> findById(Long id, String password);
 
     @Query("select m from Member m where m.email=:email ")
     Optional<Member> findIdByEmail(String email);
-
 
     @Query("select m.nickname from Member m where m.id=:id")
     Optional<Member> findById2(Long id);
