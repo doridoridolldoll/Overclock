@@ -113,7 +113,9 @@ public class ApiController {
         log.info("List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+    /**
+     * 주변기기 상세 게시판
+     */
     @RequestMapping(value = "/periDetail", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HashMap<String, Object>> periDetail(@RequestBody PostsDTO id) {
@@ -128,12 +130,13 @@ public class ApiController {
      */
     @RequestMapping(value = "/partsDetail", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PageResultDTO<PostsDTO, Posts>> mbDetail(@RequestBody PageRequestDTO dto) {
-        PageResultDTO<PostsDTO,Posts> result = postsService.getPageList(dto);
-        log.info("postsDTO : {}", dto);
+    public ResponseEntity<HashMap<String, Object>> mbDetail(@RequestBody PostsDTO dto) {
+        log.info("postsDTO Id: {}", dto);
+        HashMap<String,Object> result = postsService.periDetail(dto);
         log.info("List result : {}", result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/postsDetail", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<String>> postsDetail(@RequestBody PostsDTO dto) {

@@ -1,12 +1,11 @@
 <template>
     <ul>
-        <li><strong>상품명 </strong>: {{state.dtoList[1]}}</li>
+        <li><strong>상품명 </strong>: {{state.dtoList.title}}</li>
         <li><strong>판매자</strong>: {{state.companyName}} </li>
-        <!-- <li><strong>등록일자</strong>: {{state.regDate}}</li> -->
         <li>
-            <strong>가격</strong>: {{state.dtoList[0]}}
+            <strong>가격</strong>: {{state.dtoList.price}}
         </li>
-        <li><strong>조회수</strong> : {{state.dtoList[3]}}</li>
+        <li><strong>조회수</strong> : {{state.dtoList.view}}</li>
       
     </ul>
 </template>

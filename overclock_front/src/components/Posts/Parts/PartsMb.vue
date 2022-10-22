@@ -111,10 +111,7 @@ export default {
     }
     axios.post(url, { page: 1, category: "mb" }, { headers })
       .then(function (res) {
-        console.log("res-------------");
-          console.log(res);
         state.dtoList = res.data.dtoList,
-        console.log(state.dtoList);
           state.end = res.data.end,
           state.next = res.data.next,
           state.page = res.data.page,
@@ -143,8 +140,6 @@ export default {
     // 가격(price) 찾기
     axios.post("./api/partsItemList", body, { headers }).then(function (res) {
       for (let i = 0; i < res.data.length; i++) {
-        console.log("---------==========");
-        console.log(res);
         state.price[i] = res.data[i]
       }
     })
@@ -152,7 +147,7 @@ export default {
     //상세페이지 이동
     async function Join(list) {
       //조회수 처리
-      const url2 = `/api/read/${list.id}`;
+      const url2 = `./api/read/${list.id}`;
       const headers2 = {
         "Content-Type": "application/json; charset=utf-8"
       };

@@ -49,7 +49,7 @@ export default {
         alert("비밀번호를 확인해주세요");
         return false;
       }
-      const url2 = "/api/crn";
+      const url2 = "./api/crn";
       const headers = {
         "Content-Type": "application/json; charset=utf-8;"
       };
