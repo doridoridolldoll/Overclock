@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
           v-for="(list,i) in state.dtoList" :key="(list,i)">
-          <div class="icon-box" @click="Join(list,i)">
+          <div class="icon-box" @click="Join(list)">
             <div class="icon"><img v-bind:src="state.img[i]" /></div>
             <br><br>
             <h3>{{list.title}}</h3>
@@ -87,7 +87,7 @@ export default {
       price: [],
       itemDetail: "",
     });
-    const url = "/api/periList";
+    const url = "./api/periList";
     const headers = {
       "Content-Type": "application/json; charset=utf-8",
     };
@@ -118,16 +118,11 @@ export default {
           state.size = res.data.size,
           state.start = res.data.start,
           state.totalPage = res.data.totalPage;
-        for (let i = 0; i < state.dtoList.length; i++) {
-          if (search.context == state.dtoList[i].title) {
-            store.state.img[i] = state.dtoList[i].imageDTOList[0]
-          }
-        }
         showResult(res.data);
       });
 
     const showResult = async (arr) => {
-      const displayUrl = "overclock/display";
+      const displayUrl = "/overclock/display";
       const url = `http://localhost:9090${displayUrl}`;
       let str2 = "";
       for (let i = 0; i < arr.dtoList.length; i++) {
@@ -139,22 +134,16 @@ export default {
       partsType: "mouse"
     }
 
-    axios.post("/api/partsItemList", body, { headers }).then(function (res) {
+    axios.post("./api/partsItemList", body, { headers }).then(function (res) {
       for (let i = 0; i < res.data.length; i++) {
-        console.log("---------==========");
-        console.log(res);
         state.price[i] = res.data[i];
         // state.itemDetail = res.data[i].itemDetail;
       }
     })
     console.log(state.id);
-    async function Join(list, i) {
-      // store.commit('setdtoList', ...[list]);
-      store.commit("setPrice", ...[state.price[i]]);
-      console.log("-------------------");
-      console.log(state.dtoList);
+    async function Join(list) {
       //조회수 처리
-      const url2 = `/api/read/${list.id}`;
+      const url2 = `./api/read/${list.id}`;
       const headers2 = {
         "Content-Type": "application/json; charset=utf-8"
       };

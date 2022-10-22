@@ -99,7 +99,6 @@ export default {
     });
     function change(which){
       state.form = which;
-      console.log(state.form);
     }
     return {state,change}
   }

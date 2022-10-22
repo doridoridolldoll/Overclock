@@ -43,8 +43,6 @@ export default {
       
 
       axios.post(url, body, { headers }).then(function (res) {
-        console.log("===============");
-        console.log(res);
         state.dtoList = res.data.dtoList;
 
         //댓글 작성자 추출(과부화 위험 있음)
