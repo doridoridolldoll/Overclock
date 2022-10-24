@@ -1,19 +1,29 @@
 package overclock.overclock.service;
 
+import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import overclock.overclock.dto.MemberDTO;
+import overclock.overclock.dto.PageRequestDTO;
+import overclock.overclock.dto.PageResultDTO;
 import overclock.overclock.dto.PostsDTO;
+import overclock.overclock.entity.EmbedCard;
+import overclock.overclock.entity.EmbedCard2;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.MemberRole;
 import overclock.overclock.repository.MemberRepository;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +31,7 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder;
+    private static Map<Long, Member> store = new HashMap<>();
     @Transactional //회원가입
     public Long memberRegister(MemberDTO memberDTO) {
         memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
@@ -191,4 +202,16 @@ public class MemberServiceImpl implements MemberService {
             return true;
         }
     }
+
+    @Override
+    public HashMap<String, Object> getAllUser() {
+        List<EmbedCard2> result = memberRepository.getAllUser().get().stream().map(v->{
+            return new EmbedCard2(v);
+        }).collect(Collectors.toList());
+        HashMap<String, Object> cardInfo = new HashMap<>();
+        cardInfo.put("members", result);
+        log.info("allUser result : {}", result);
+        return cardInfo;
+    }
+
 }

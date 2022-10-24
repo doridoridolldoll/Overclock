@@ -1,12 +1,17 @@
 package overclock.overclock.service;
 
 import overclock.overclock.dto.MemberDTO;
+import overclock.overclock.dto.PageRequestDTO;
+import overclock.overclock.dto.PageResultDTO;
 import overclock.overclock.dto.PostsDTO;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 import overclock.overclock.model.Address;
 import overclock.overclock.model.MemberRole;
+import overclock.overclock.repository.MemberRepository;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,6 +30,7 @@ public interface MemberService {
     int emailCrn(MemberDTO memberDTO);
     Optional DetailName(PostsDTO postsDTO);
     String profileChange(MemberDTO dto);
+    HashMap<String, Object> getAllUser();
 
     default Member dtoToEntity(MemberDTO dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());

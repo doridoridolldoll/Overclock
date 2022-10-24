@@ -1,5 +1,7 @@
 package overclock.overclock.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
@@ -24,7 +26,8 @@ public class ItemImg {
     private String uuid;
     @Column
     private String path;
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     private Posts ItemImg;
     public void updateItemImg(Posts id){
         this.ItemImg = id;

@@ -168,12 +168,7 @@ export default {
                   console.log(i + "번쨰");
                   console.log(store.state.img[i]);
                 }
-                // console.log(state.dtoList[i].title);
               }
-
-
-      // console.log(store.state.img);
-      // console.log("asd");
           showResult(res.data);
       });
       const showResult = async (arr) => {

@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import Main from "../components/Main.vue"
 
+import AdminMain from "@/components/Admin/AdminMain.vue"
+import AdminMem from "@/components/Admin/AdminMem.vue"
+
 import Logout from "../components/MemberShip/Logout.vue"
 import Login from "../components/MemberShip/Login.vue"
 import Join from "@/components/MemberShip/Join.vue"
@@ -111,6 +114,8 @@ const routes = [
     {path:"/partsModify", name: 'PartsModify', component: PartsModify},
     {path:"/commentModify", name: 'CommentModify', component: CommentModify},
     {path:'/PcPay', name: 'PcPay', component: PcPay},
+    {path:"/adminMain", name: 'AdminMain', component: AdminMain},
+    {path:"/adminMem", name: 'AdminMem', component: AdminMem},
     ]
   
   // const router = createRouter({

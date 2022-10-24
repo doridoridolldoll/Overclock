@@ -1,5 +1,7 @@
 package overclock.overclock.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import overclock.overclock.entity.Member;
 import overclock.overclock.entity.Posts;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -63,6 +66,15 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m.crn from Member m where m.email=:email")
     int findByCrn(String email);
 
+    @Query(value = "SELECT m.id as id, m.name as name, m.email as email, m.nickname as nickname " +
+            "FROM Member m ")
+    Optional<List<getEmbedCardsInformation>> getAllUser();
+    public interface getEmbedCardsInformation {
+        Long getId();
+        String getEmail();
+        String getName();
+        String getNickname();
 
+    }
 
 }
