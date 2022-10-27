@@ -14,7 +14,6 @@ public class EmbedCard {
     private Long id;
     private String title;
     private String content;
-
     private String price;
     private String nickname;
     private String imgUuid;

@@ -26,7 +26,6 @@ public class ItemImg {
     private String uuid;
     @Column
     private String path;
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private Posts ItemImg;
     public void updateItemImg(Posts id){

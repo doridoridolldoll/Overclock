@@ -205,6 +205,8 @@ public class PostsServiceImpl implements PostsService {
         return cardInfo;
     }
 
+
+
     @Override
     public String PostsModify(PostsDTO dto) {
         log.info("dto--------------------- :" + dto);

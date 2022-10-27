@@ -17,7 +17,9 @@
               <button>결제 내역</button>
             </div>
             <div class="col-md-6 mb-3">
-              <button>회원 정보</button>
+              <button>
+                <router-link to="/AdminMem" class="nav-link scrollto">회원 정보 조회</router-link>
+              </button>
             </div>
             <div class="col-md-6 mb-3">
               <button>신고 처리</button>

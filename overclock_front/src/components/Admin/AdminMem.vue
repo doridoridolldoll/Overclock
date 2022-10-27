@@ -58,6 +58,10 @@
         </div>
       </div>
     </div>
+    <form class="searching-area d-flex align-items-center gap-1 w-50" @submit.prevent="searchingAxios()">
+          <label for="searching"><i class="bi bi-search"></i></label>
+          <input id="searching" v-model="search.context" type="text" class="form-control border-0 bg-white" @submit="searchingAxios()">
+        </form>
   </section>
 </template>
 
@@ -65,10 +69,12 @@
 import { reactive } from "@vue/reactivity";
 import axios from "axios";
 import { useMeta } from "vue-meta";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 export default {
   name: "ToUsed",
   setup() {
+    const router = useRouter();
     const store = useStore();
     const { meta } = useMeta({
       title: ":: OverClock",
@@ -92,7 +98,7 @@ export default {
       nickname: ""
     });
 
-    const url = "api/getlist";
+    const url = "./api/getlist";
     const headers = {
       "Content-Type": "application/json; charset=utf-8",
       Authorization: store.state.token,
@@ -100,9 +106,6 @@ export default {
     };
     function getUserList(page) {
       axios.post(url, { page: page }, { headers }).then(function (res) {
-        // console.log(page + "asdasdasd");
-        // console.log(res);
-        // (state.dtoList = res.data.dtoList),
           (state.end = res.data.end),
           (state.next = res.data.next),
           (state.page = res.data.page),
@@ -113,7 +116,7 @@ export default {
           (state.totalPage = res.data.totalPage);
       });
     }
-    const url2 = "api/adminMem";
+    const url2 = "./api/adminMem";
     const headers2 = {
       "Content-Type": "application/json; charset=utf-8",
     };
@@ -122,55 +125,26 @@ export default {
       state.dtoList = res.data.members
     });
 
-    // axios
-    //   .post(url, { page: 1, category: "used" }, { headers })
-    //   .then(function (res) {
-    //     console.log(res);
-    //     (state.dtoList = res.data.dtoList),
-    //       (state.end = res.data.end),
-    //       (state.next = res.data.next),
-    //       (state.page = res.data.page),
-    //       (state.pageList = res.data.pageList),
-    //       (state.prev = res.data.prev),
-    //       (state.size = res.data.size),
-    //       (state.start = res.data.start),
-    //       (state.totalPage = res.data.totalPage);
-    //     showResult(res.data);
-    //   });
+    let search = reactive({
+      context:"",
+    })
 
-    // const showResult = async (arr) => {
-    //   const displayUrl = "/display";
-    //   const url = `http://localhost:9090${displayUrl}`;
-    //   let str2 = "";
-    //   for (let i = 0; i < arr.dtoList.length; i++) {
-    //     str2 = `${url}?fileName=${arr.dtoList[i].imageDTOList[0].thumbnailURL}`;
-    //     state.img[i] = str2;
-    //   }
-    // };
-    // const body = {
-    //   category: "used",
-    // };
+    function searchingAxios(){
+      if (search.context.trim().length == 0){
+        return
+      }
 
-    // axios.post("/api/partsItemList", body, { headers }).then(function (res) {
-    //   store.state.price = res.data[0].price;
-    // });
+      async function routing (){
+        await router.push(`/searchMember?cards=${search.context}`);
+        await router.go(0);
+        // console.log("이동(app)")
+      }
+    routing();
+    }
+    
 
-    // function Join(list, i) {
-    //   store.commit("setdtoList", ...[list]);
-    //   store.commit("setPrice", ...[state.price[i]]);
 
-    //   //조회수 처리
-    //   const url2 = `/api/read/${list.id}`;
-    //   const headers2 = {
-    //     "Content-Type": "application/json; charset=utf-8",
-    //   };
-
-    //   axios
-    //     .get(url2, { page: 1, category: "used" }, { headers2 })
-    //     .then(function () {});
-    // }
-
-    return { state, getUserList, meta };
+    return { state, getUserList, meta, searchingAxios, search };
   },
 };
 </script>

@@ -487,6 +487,10 @@ public class ApiController {
         return json;
     }
 
+    /**
+     * 관리자 전체 회원 조회
+     * @return
+     */
     @RequestMapping(value = "/adminMem", method = RequestMethod.POST,
             consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HashMap<String, Object>> getAllUser(){
@@ -495,6 +499,16 @@ public class ApiController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    /**
+     * 관리자 회원 검색
+     */
+    @RequestMapping(value = "/searchMember", method = RequestMethod.POST,
+            consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Object>> MemberSearch(@RequestBody search vo) {
+        log.info("------------------------------------memberSearch--------------------");
+        log.info(vo);
+        return new ResponseEntity<>(memberService.getMemberSearch(vo), HttpStatus.OK);
+    }
 }
 
 

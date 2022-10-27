@@ -31,7 +31,7 @@ public class Posts extends BaseEntity{ //게시물
     private Long id;
     @Enumerated
     private BoardType boardType;
-    @JsonBackReference
+
     @ManyToOne
     private Member member;
     private String title; //제목
@@ -43,7 +43,6 @@ public class Posts extends BaseEntity{ //게시물
     @Embedded
     private Address address; //주소
 
-    @JsonManagedReference
     @Builder.Default
     @OneToMany(mappedBy = "ItemImg", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ItemImg> itemImgList = new ArrayList<>();
@@ -53,7 +52,6 @@ public class Posts extends BaseEntity{ //게시물
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "posts2", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();

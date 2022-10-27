@@ -65,7 +65,7 @@ import CommentModify from "@/components/Posts/Comment/CommentModify.vue"
 
 //검색
 import SearchList from "@/components/SearchList.vue"
-
+import MemSearchList from "@/components/MemSearchList.vue"
 
 import Cart from "@/components/Cart.vue"
 import Auction from "@/components/Auction.vue"
@@ -101,6 +101,7 @@ const routes = [
     {path:"/periregister", name:"PeriRegister", component: PeriRegister},
     {path:"/partsregister", name:"PartsRegister", component: PartsRegister},
     {path:"/search", name: 'SearchList', component: SearchList},
+    {path:"/searchMember", name: 'MemSearchList', component: MemSearchList},
     {path:"/passChange", name: "PassChange", component: PassChange},
     {path:"/passChange2", name: "PassChange2", component: PassChange2},
     {path:"/profileChange", name: "ProfileChange", component: ProfileChange},

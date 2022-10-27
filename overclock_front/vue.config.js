@@ -14,7 +14,7 @@ module.exports = defineConfig({
   devServer: {
     port: 8080,
     proxy: {
-      "/api": { target, changeOrigin: true },
+      "/overclock/api": { target, changeOrigin: true },
       "/overclock/register": { target, changeOrigin: true },
       "/overclock/member": { target, changeOrigin: true },
     },

@@ -35,7 +35,7 @@ public class Member extends BaseEntity{
     private Address address;
 
     private boolean fromSocial;
-//
+
     private int crn; //사업자등록번호
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
@@ -46,12 +46,10 @@ public class Member extends BaseEntity{
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Cart> carts = new ArrayList<>();
 
-    @JsonManagedReference
     @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Posts> posts = new ArrayList<>();
