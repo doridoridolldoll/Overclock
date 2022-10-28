@@ -27,8 +27,6 @@ import axios from 'axios';
             postsMemberId: "",
             companyName : "",
         });
-        console.log(state.dtoList)
-        console.log(state.postsId)
         
 
         // 작성자 가져오기
@@ -39,9 +37,7 @@ import axios from 'axios';
           "Content-Type": "application/json"
         };
 
-        axios.post("/api/DetailName", body2, { headers }).then(function(res){
-          console.log("================");
-          console.log(res.data);
+        axios.post("./api/DetailName", body2, { headers }).then(function(res){
           state.companyName = res.data;
         })
         return {state}

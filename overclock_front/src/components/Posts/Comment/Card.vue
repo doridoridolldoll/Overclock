@@ -36,15 +36,13 @@ export default {
       let body = {
           postsId: state.postsId,
       };
-      const url = "/api/comment/list";
+      const url = "./api/comment/list";
       const headers = {
         "Content-Type": "application/json; charset=utf-8"
       };
       
 
       axios.post(url, body, { headers }).then(function (res) {
-        console.log("===============");
-        console.log(res);
         state.dtoList = res.data.dtoList;
 
         //댓글 작성자 추출(과부화 위험 있음)

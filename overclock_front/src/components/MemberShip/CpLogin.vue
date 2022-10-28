@@ -61,7 +61,7 @@
           alert("비밀번호를 확인해주세요");
           return false;
         }
-        const url2 = "api/crn";
+        const url2 = "./api/crn";
         const headers = { 
           "Content-Type": "application/json; charset=utf-8;" 
         };
@@ -70,7 +70,6 @@
           };
         axios.post(url2, body2, {headers}).then(function(res){
           state.crn = res.data
-          console.log(state.crn)
           if(state.crn != 0){ //사업자 등록번호가 있으면 로그인
             const url = "./member/login"
             const headers = { "Content-Type": "application/json; charset=utf-8;"}
@@ -80,10 +79,7 @@
                 store.commit("setToken", res.data.token);
                 store.commit("setId", res.data.id);
                 store.commit("setEmail", res.data.email);
-                  store.commit("setRole", state.form.role)
-                // store.commit("setrole)
-                console.log("==================")
-                console.log(res.data);
+                store.commit("setRole", state.form.role)
                 alert("로그인되었습니다.");
                 router.push(`/`);
               });

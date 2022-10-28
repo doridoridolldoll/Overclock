@@ -7,7 +7,7 @@
           <div class="col-lg-8">
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
-                <div class="icon imgsize"><img v-bind:src="img" /></div>
+                <div class="icon imgsize"><img :src="state.img" /></div>
 
               </div>
             </div>
@@ -49,30 +49,30 @@ components: { Comment, PartsDetail2},
     const id = new URLSearchParams(window.location.search).get("id")
     const store = useStore();
     const state = reactive({
-      companyName : '',
       regDate: '',
       title: '',
       price: '',
       count: '',
-      imgUrl: '',
+      img: '',
       dtoList: '',
       postsId: null,
       memberId: store.state.id,
       partsDetailMemberId : store.state.dtoList.memberId,
-      role : '',
-      arr : '',
+      imgName: "",
+      imgPath: "",
+      imgUuid: "",
       partsDetailId : id
 
     });
 
-    let list = store.state.dtoList;
-    state.price =store.state.price;
-    state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
-    state.title = state.dtoList.title;
-    state.role = store.state.role;
-    console.log(state.dtoList);
+    // let list = store.state.dtoList;
+    // state.price =store.state.price;
+    // state.imgUrl = store.state.dtoList.imageDTOList[0].thumbnailURL;
+    // state.title = state.dtoList.title;
+    // state.role = store.state.role;
+    // console.log(state.dtoList);
 
-    const url = "/api/postsDetail";
+    const url = "./api/partsDetail";
     const headers = {
       "Content-Type": "application/json; charset=utf-8",
     };
@@ -82,23 +82,24 @@ components: { Comment, PartsDetail2},
     console.log("body : " + body.id)
     axios.post(url, body, { headers })
       .then(function (res) {
-        state.dtoList = res.data[0].split(",");
-      });
+        state.dtoList = res.data.articles[0];
+        const displayUrl = "/overclock/display";
+        const url = `http://localhost:9090${displayUrl}`;
+        state.imgName = res.data.articles[0].imgName;
+        state.imgPath = res.data.articles[0].imgPath;
+        state.imgUuid = res.data.articles[0].imgUuid;
+        let str = state.imgPath + "/" +state.imgUuid + "_" + state.imgName;
+        state.img = `${url}?fileName=${str}`;
+    });
 
 
-
-    const displayUrl = "/display";
-    const url2 = `http://localhost:9090${displayUrl}`;
-    let img = "";
-    img = `${url2}?fileName=${list.imageDTOList[0].imageURL}`;
-    // // console.log(list.imageDTOList);
 
 
 
     //장바구니 담기
 
     function add(){
-      const url = "/register/cartAdd";
+      const url = "./register/cartAdd";
       const headers = {
         "Content-Type": "application/json"
       };
@@ -120,7 +121,7 @@ components: { Comment, PartsDetail2},
           alert("장바구니에 담았습니다 ")
         })
     }
-    return { state, img, add };
+    return { state, add };
   }
 }
 

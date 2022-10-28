@@ -95,12 +95,9 @@ export default {
       "Content-Type": "application/json",
     };
 
-    axios.post("/api/periDetail", body2, { headers }).then(function (res) {
-      console.log("==================62929525925259259259=========");
-      console.log(res);
+    axios.post("./api/periDetail", body2, { headers }).then(function (res) {
       state.dtoList = res.data.articles[0];
-      console.log(state.dtoList);
-      const displayUrl = "/display";
+      const displayUrl = "/overclock/display";
       const url = `http://localhost:9090${displayUrl}`;
       state.imgName = res.data.articles[0].imgName;
       state.imgPath = res.data.articles[0].imgPath;
@@ -108,11 +105,9 @@ export default {
       let str = state.imgPath + "/" +state.imgUuid + "_" + state.imgName;
       state.img = `${url}?fileName=${str}`;
     });
-    console.log("==================333333333333=========");
-    console.log(state.dtoList);
 
     function add() {
-      const url = "/register/cartAdd";
+      const url = "./register/cartAdd";
       const headers = {
         "Content-Type": "application/json",
       };
@@ -127,9 +122,7 @@ export default {
         alert("로그인 후 사용가능합니다");
         return;
       }
-      axios.post(url, body, { headers }).then(function (res) {
-        console.log("===========================");
-        console.log(res);
+      axios.post(url, body, { headers }).then(function () {
         alert("장바구니에 담았습니다 ");
       });
     }
