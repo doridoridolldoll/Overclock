@@ -18,7 +18,7 @@ import java.util.*;
 
 @RestController
 @Log4j2
-@RequestMapping("api/")
+@RequestMapping("/api/")
 @RequiredArgsConstructor
 public class ApiController {
     private final PostsService postsService;
