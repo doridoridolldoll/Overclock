@@ -13,15 +13,12 @@ module.exports = defineConfig({
 
   devServer: {
     port: 8080,
+    historyApiFallback: true,
     proxy: {
-      "/overclock/api": { target, changeOrigin: true },
+      "/api/": { target, changeOrigin: true },
       "/overclock/register": { target, changeOrigin: true },
       "/overclock/member": { target, changeOrigin: true },
     },
   },
-
-  publicPath: "/overclock/",
   transpileDependencies: ["vue-meta"],
-
-  outputDir: "C:/project/Overclock/overclock/src/main/resources/static",
 });
