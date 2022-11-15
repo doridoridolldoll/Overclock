@@ -16,8 +16,8 @@ module.exports = defineConfig({
     historyApiFallback: true,
     proxy: {
       "/api/": { target, changeOrigin: true },
-      "/overclock/register": { target, changeOrigin: true },
-      "/overclock/member": { target, changeOrigin: true },
+      "/register/": { target, changeOrigin: true },
+      "/member/": { target, changeOrigin: true },
     },
   },
   transpileDependencies: ["vue-meta"],
