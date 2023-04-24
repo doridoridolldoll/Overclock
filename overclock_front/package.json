@@ -43,10 +43,24 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
+<<<<<<< Updated upstream
       "no-mixed-spaces-and-tabs": 0,
       "vue/multi-word-component-names": ["error", {
         "ignores": ["Contact"]
       }]
+=======
+      "no-mixed-spaces-and-tabs": 0, 
+      "vue/multi-word-component-names": [
+        "error",
+        {
+          "ignores": [
+            "Contact",
+            "Comment",
+            "Logout"
+          ]
+        }
+      ]
+>>>>>>> Stashed changes
     }
   },
   "browserslist": [

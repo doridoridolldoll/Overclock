@@ -76,11 +76,59 @@ import {useRoute} from 'vue-router'
           return {route,asd,img}
         }
     }
+<<<<<<< Updated upstream
 // import { defineProps } from 'vue '
 // let props = defineProps(["partsList", "test"])
 // console.log(props.partsList);
 // console.log(props.test);
 // console.log(props);
+=======
+    console.log("body : " + body.id)
+    axios.post(url, body, { headers })
+      .then(function (res) {
+        state.dtoList = res.data.articles[0];
+        const displayUrl = "/display";
+        const url = `http://localhost:9090${displayUrl}`;
+        state.imgName = res.data.articles[0].imgName;
+        state.imgPath = res.data.articles[0].imgPath;
+        state.imgUuid = res.data.articles[0].imgUuid;
+        let str = state.imgPath + "/" +state.imgUuid + "_" + state.imgName;
+        state.img = `${url}?fileName=${str}`;
+    });
+
+
+
+
+
+    //장바구니 담기
+
+    function add(){
+      const url = "./register/cartAdd";
+      const headers = {
+        "Content-Type": "application/json"
+      };
+      const body = {
+        memberId : state.memberId,
+        cartName: state.title,
+        price: state.price*state.count,
+        count: state.count,
+        imgUrl: state.imgUrl,
+      }
+      if(state.memberId == 0){
+        alert("로그인 후 사용가능합니다");
+        return;
+      }
+      axios.post(url, body, { headers })
+        .then(function(res){
+          console.log("===========================")
+          console.log(res)
+          alert("장바구니에 담았습니다 ")
+        })
+    }
+    return { state, add };
+  }
+}
+>>>>>>> Stashed changes
 
 </script>
 <style scoped>

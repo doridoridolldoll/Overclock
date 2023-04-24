@@ -43,10 +43,42 @@ public class Posts extends BaseEntity{ //게시물
     @Embedded
     private Address address; //주소
 
+    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "ItemImg", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ItemImg> itemImgList = new ArrayList<>();
 
+<<<<<<< Updated upstream
+=======
+    @JsonIgnore
+    @Builder.Default
+    @OneToMany(mappedBy = "posts", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    @JsonIgnore
+    @Builder.Default
+    @OneToMany(mappedBy = "posts2", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Item> items = new ArrayList<>();
+
+
+
+
+        @Builder
+        public Posts(Member member, String title, String content,
+                    Long view, BoardType boardType, Address address) {
+            this.member = member;
+            this.title = title;
+            this.content = content;
+            this.view = view;
+            this.address = address;
+            this.boardType = boardType;
+        }
+
+    public Posts(PostsRepository.getEmbedCardsInformation em){
+        this.id = em.getId();
+        this.title = em.getTitle();
+        this.content = em.getContent();
+>>>>>>> Stashed changes
 
     @Builder
     public Posts(Member member, String title, String content,

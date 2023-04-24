@@ -169,6 +169,22 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     };
 
+<<<<<<< Updated upstream
+=======
+    @Transactional
+    @Override
+    public HashMap<String, Object> periDetail(PostsDTO dto) {
+        log.info("peri id : {}", dto);
+        Long id = dto.getId();
+        List<EmbedCard> result = repository.getPeriByIdPageList(id).get().stream().map(v->{
+            return new EmbedCard(v);
+        }).collect(Collectors.toList());
+        HashMap<String, Object> cardInfo = new HashMap<>();
+        cardInfo.put("articles", result);
+        log.info("peri result : {}", result);
+        return cardInfo;
+    }
+>>>>>>> Stashed changes
 
 
 }
