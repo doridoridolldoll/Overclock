@@ -7,9 +7,9 @@
 
 ### 기술스택
 
-| Frontend | Vue.js | Bootstrap |
-| --- | --- | --- |
 | Backend | SpringBoot | MariaDB |
+| --- | --- | --- |
+| Frontend | Vue.js | Bootstrap |
 | 배포 | AWS lightsail | Ngnix |
 | 협업 | Discord | GitHub |
 
