@@ -35,9 +35,9 @@ public class UserDetailsService implements org.springframework.security.core.use
         log.info("Overclock 유저정보: " + member);
 
         AuthMemberDTO dto = new AuthMemberDTO(
-                member.getEmail(), member.getPassword(),
+                member.getEmail(),
+                member.getPassword(),
                 member.isFromSocial(),
-
                 member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
                         .collect(Collectors.toList()));
 

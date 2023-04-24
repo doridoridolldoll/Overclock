@@ -83,7 +83,7 @@ components: { Comment, PartsDetail2},
     axios.post(url, body, { headers })
       .then(function (res) {
         state.dtoList = res.data.articles[0];
-        const displayUrl = "/overclock/display";
+        const displayUrl = "/display";
         const url = `http://localhost:9090${displayUrl}`;
         state.imgName = res.data.articles[0].imgName;
         state.imgPath = res.data.articles[0].imgPath;

@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.util.StreamUtils;
-import overclock.overclock.dto.MemberDTO;
 import overclock.overclock.security.dto.AuthMemberDTO;
 import overclock.overclock.security.dto.TokenDTO;
 import overclock.overclock.security.util.JWTUtil;

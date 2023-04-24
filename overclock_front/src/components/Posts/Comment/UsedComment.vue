@@ -22,7 +22,7 @@
   import Card from '@/components/Posts/Comment/Card.vue';
   // import { useRouter } from "vue-router"
   import axios from "axios"
-import router from '@/router';
+// import router from '@/router';
 import store from '@/store';
   // import CommentCard from "@/comment/Posts/CommentCard.vue"
 export default {
@@ -57,11 +57,11 @@ export default {
         axios.post(url, body, { headers }).then((res) => {
           console.log(res);
          })
-        async function routing(){
-          await router.push(`/usedDetail?id=${state.postsId}`)  
-          await router.go(0)
-        }
-        routing();
+        // async function routing(){
+        //   await router.push(`/usedDetail?id=${state.postsId}`)
+        //   await router.go(0)
+        // }
+        // routing();
       }
 
 

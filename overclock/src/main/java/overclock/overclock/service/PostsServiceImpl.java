@@ -132,6 +132,7 @@ public class PostsServiceImpl implements PostsService {
         return new PageResultDTO<>(result, fn);
     };
 
+    @Transactional
     @Override
     public HashMap<String, Object> periDetail(PostsDTO dto) {
         log.info("peri id : {}", dto);

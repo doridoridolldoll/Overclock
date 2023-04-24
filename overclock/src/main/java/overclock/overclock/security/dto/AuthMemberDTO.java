@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.User;
 
 import lombok.*;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import overclock.overclock.model.Address;
 
 @Getter
 @Setter

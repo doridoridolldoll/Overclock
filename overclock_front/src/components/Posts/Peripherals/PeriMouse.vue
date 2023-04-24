@@ -122,7 +122,7 @@ export default {
       });
 
     const showResult = async (arr) => {
-      const displayUrl = "/overclock/display";
+      const displayUrl = "/display";
       const url = `http://localhost:9090${displayUrl}`;
       let str2 = "";
       for (let i = 0; i < arr.dtoList.length; i++) {

@@ -70,6 +70,7 @@ import axios from 'axios'
 import router from '@/router'
 import store from '@/store'
 import EmailCheck from './EmailCheck.vue'
+
 export default {
   name: 'ToJoin',
   setup() {
@@ -152,7 +153,7 @@ export default {
       })
     }
     const nickCheckHandler = async () => {
-      const url = '../api/nickVali'
+      const url = './api/nickVali'
       const headers = { "Content-Type": "application/json" }
       const body = { nickname: state.nickname }
       const response = await axios.post(url, body, { headers })
@@ -164,7 +165,7 @@ export default {
     }
 
     const emailVali = async () => {
-      const url = "../api/emailVali"
+      const url = "./api/emailVali"
       const headers = { "Content-Type": "application/json; charset=utf-8;" }
       console.log(state.email)
       console.log("===============")
@@ -189,7 +190,7 @@ export default {
 
     const phoneCheck = async () => {
 
-      const url = '../api/phoneVali'
+      const url = '/api/phoneVali'
       const headers = { "Content-Type": "application/json" }
       const body = { phone: state.phone }
       await axios.post(url, body, { headers }).then(function (res) {
@@ -202,7 +203,7 @@ export default {
     }
 
     const joinHandler = async () => {
-      const url = '../api/memberRegister'
+      const url = '/api/memberRegister'
       const headers = {
         "Content-Type": "application/json",
       }
@@ -218,17 +219,12 @@ export default {
         nickname: state.nickname,
       }
 
-      var n_RegExp = /^[가-힣]{2,15}$/;
 
       if (state.name === '') {
         alert('이름을 입력해주세요');
         state.name.value.focus(); return false;
       } else if (state.name.length >= 8) {
         alert('이름은 8자 이하로 입력해주세요')
-        state.name = null;
-        state.name.value.focus(); return false;
-      } else if (!n_RegExp.test(state.name)) {
-        alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
         state.name = null;
         state.name.value.focus(); return false;
       } else if (state.nickname === '') {

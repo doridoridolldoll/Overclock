@@ -12,7 +12,6 @@ module.exports = defineConfig({
   },
 
   devServer: {
-    port: 8080,
     historyApiFallback: true,
     proxy: {
       "/api/": { target, changeOrigin: true },

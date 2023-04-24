@@ -50,7 +50,7 @@ export default {
           state.id = res.data.dtoList[i].id;
           state.memberId = res.data.dtoList[i].memberId
           state.content = res.data.dtoList[i].content;
-            axios.post("api/comment/name", {memberId: state.memberId}, { headers }).then(function (res) {
+            axios.post("./api/comment/name", {memberId: state.memberId}, { headers }).then(function (res) {
               state.name[i] = res.data;
             });
         }

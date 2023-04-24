@@ -84,7 +84,7 @@ export default {
       const uploadUL = upResult.value;
       console.log("arr");
       console.log(arr);
-      const displayUrl = '/overclock/display'
+      const displayUrl = '/display'
       const url = `http://localhost:9090${displayUrl}`
       let str = ""
       for(let i=0;i<arr.length;i++){
